@@ -1,4 +1,6 @@
 package de.bwoester.coldfrontier.user;
 
-public record UserMsg(String id, UserSettingsMsg userSettings, UserProfileMsg userProfile) {
+import java.util.Collection;
+
+public record UserMsg(String id, Collection<String> linkedIdentities, UserSettingsMsg userSettings, UserProfileMsg userProfile) {
 }

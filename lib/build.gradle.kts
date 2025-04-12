@@ -8,6 +8,7 @@
 plugins {
     // Apply the java-library plugin for API and implementation separation.
     `java-library`
+    alias(libs.plugins.lombok)
 }
 
 repositories {
@@ -18,6 +19,8 @@ repositories {
 dependencies {
     // Use JUnit Jupiter for testing.
     testImplementation(libs.junit.jupiter)
+    testImplementation(libs.mockito.core)
+    testImplementation(libs.mockito.junit.jupiter)
 
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 
@@ -26,6 +29,8 @@ dependencies {
 
     // This dependency is used internally, and not exposed to consumers on their own compile classpath.
     implementation(libs.guava)
+    implementation(libs.slf4j.api)
+    runtimeOnly(libs.logback.classic)
 }
 
 // Apply a specific Java toolchain to ease working on different environments.

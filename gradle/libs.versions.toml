@@ -5,8 +5,20 @@
 commons-math3 = "3.6.1"
 guava = "33.3.1-jre"
 junit-jupiter = "5.11.3"
+mockito-core = "5.17.0"
+mockito-junit-jupiter = "5.17.0"
+lombok-plugin = "8.13.1"
+slf4j-api = "2.0.17"
+logback-classic = "1.5.18"
 
 [libraries]
 commons-math3 = { module = "org.apache.commons:commons-math3", version.ref = "commons-math3" }
 guava = { module = "com.google.guava:guava", version.ref = "guava" }
 junit-jupiter = { module = "org.junit.jupiter:junit-jupiter", version.ref = "junit-jupiter" }
+mockito-core = { module = "org.mockito:mockito-core", version.ref = "mockito-core" }
+mockito-junit-jupiter = { module = "org.mockito:mockito-junit-jupiter", version.ref = "mockito-junit-jupiter" }
+slf4j-api = { module = "org.slf4j:slf4j-api", version.ref = "slf4j-api" }
+logback-classic = { module = "ch.qos.logback:logback-classic", version.ref = "logback-classic" }
+
+[plugins]
+lombok = { id = "io.freefair.lombok", version.ref = "lombok-plugin" }

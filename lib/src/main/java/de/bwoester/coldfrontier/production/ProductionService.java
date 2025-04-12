@@ -12,32 +12,19 @@ import java.util.function.Supplier;
 
 public class ProductionService {
 
-    private final NavigableMap<Long, ResourceSetMsg> history = new TreeMap<>();
-
-    private final Supplier<Long> tickSupplier;
-
-    public ProductionService(Supplier<Long> tickSupplier) {
-        this.tickSupplier = tickSupplier;
-    }
-
-    public void tick(BuildingCountersMsg buildingCounters) {
+    public ResourceSetMsg calculateProduction(BuildingCountersMsg buildingCounters) {
         ResourceSetMsg production = new ResourceSetMsg(new PlanetResourceSetMsg(0, 0, 0), 0);
         for (Map.Entry<Building, Long> counter : buildingCounters.counters().entrySet()) {
             Building building = counter.getKey();
+            // TODO take planet modifiers into account
+            // TODO take player profile modifiers into account
+            // TODO take energy loss into account
+            // TODO take source material shortage into account
             ResourceSetMsg oneBuildingProd = building.getData().production();
             ResourceSetMsg allBuildingsProd = oneBuildingProd.multiply(counter.getValue());
-            // TODO take resource depletion into account
             production = production.add(allBuildingsProd);
         }
-        history.put(tickSupplier.get(), production);
-    }
-
-    public ResourceSetMsg getProduction() {
-        Map.Entry<Long, ResourceSetMsg> entry = history.lastEntry();
-        if (!entry.getKey().equals(tickSupplier.get())) {
-            throw new IllegalStateException("Last production entry does not correspond to current tick!");
-        }
-        return entry.getValue();
+        return production;
     }
 
 }

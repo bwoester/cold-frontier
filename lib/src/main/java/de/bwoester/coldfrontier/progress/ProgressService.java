@@ -61,4 +61,8 @@ public class ProgressService {
         CreateBuildingProgressMsg progressMsg = new CreateBuildingProgressMsg(building, timeToBuildMultiplier, 0f);
         history.put(tickSupplier.get(), progressMsg);
     }
+
+    public boolean hasBuildingInProgress() {
+        return false;
+    }
 }

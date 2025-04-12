@@ -1,16 +1,17 @@
 package de.bwoester.coldfrontier.accounting;
 
-import java.util.NavigableMap;
-import java.util.TreeMap;
+import de.bwoester.coldfrontier.messaging.GameEventLog;
 
 public class PlanetAccount {
 
-    private final NavigableMap<Long, TransactionMsg> history = new TreeMap<>();
+    private final GameEventLog<PlanetResourceSetMsg> balance;
 
-    private PlanetResourceSetMsg resourcesBalance;
+    public PlanetAccount(GameEventLog<PlanetResourceSetMsg> balance) {
+        this.balance = balance;
+    }
 
-    public PlanetAccount(PlanetResourceSetMsg resourcesBalance) {
-        this.resourcesBalance = resourcesBalance;
+    public PlanetResourceSetMsg getBalance() {
+        return balance.getLatest();
     }
 
     public boolean validateTransaction(TransactionMsg transactionMsg) {
@@ -18,18 +19,16 @@ public class PlanetAccount {
     }
 
     public void executeTransaction(TransactionMsg transactionMsg) {
-        resourcesBalance = calculateNewBalance(transactionMsg);
-    }
-
-    public void recordTransaction(long tick, TransactionMsg transactionMsg) {
-        history.put(tick, transactionMsg);
+        PlanetResourceSetMsg newBalance = calculateNewBalance(transactionMsg);
+        balance.add(newBalance);
     }
 
     private PlanetResourceSetMsg calculateNewBalance(TransactionMsg transactionMsg) {
-        PlanetResourceSetMsg resources = transactionMsg.amount().planetResources();
+        PlanetResourceSetMsg currentBalance = balance.getLatest();
+        PlanetResourceSetMsg diff = transactionMsg.amount().planetResources();
         return switch (transactionMsg.type()) {
-            case INCOME, TRANSFER -> resourcesBalance.add(resources);
-            case EXPENSE -> resourcesBalance.subtract(resources);
+            case INCOME, TRANSFER -> currentBalance.add(diff);
+            case EXPENSE -> currentBalance.subtract(diff);
         };
     }
 

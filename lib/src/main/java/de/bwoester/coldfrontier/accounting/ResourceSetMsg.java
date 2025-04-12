@@ -2,6 +2,10 @@ package de.bwoester.coldfrontier.accounting;
 
 public record ResourceSetMsg(PlanetResourceSetMsg planetResources, long credits) {
 
+    public static ResourceSetMsg createDefault() {
+        return new ResourceSetMsg(PlanetResourceSetMsg.createDefault(), 0);
+    }
+
     public ResourceSetMsg multiply(long factor) {
         return new ResourceSetMsg(planetResources.multiply(factor), credits * factor);
     }

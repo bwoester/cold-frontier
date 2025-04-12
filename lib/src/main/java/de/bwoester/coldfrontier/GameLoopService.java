@@ -1,14 +1,16 @@
 package de.bwoester.coldfrontier;
 
-import de.bwoester.coldfrontier.accounting.AccountingService;
-import de.bwoester.coldfrontier.accounting.ResourceSetMsg;
-import de.bwoester.coldfrontier.accounting.TransactionMsg;
+import de.bwoester.coldfrontier.accounting.*;
 import de.bwoester.coldfrontier.buildings.Building;
 import de.bwoester.coldfrontier.buildings.BuildingCountersMsg;
 import de.bwoester.coldfrontier.buildings.BuildingService;
 import de.bwoester.coldfrontier.input.CreateBuildingInputMsg;
 import de.bwoester.coldfrontier.input.InputMsg;
 import de.bwoester.coldfrontier.input.InputService;
+import de.bwoester.coldfrontier.messaging.GameEvent;
+import de.bwoester.coldfrontier.messaging.GameEventFactory;
+import de.bwoester.coldfrontier.messaging.GameEventLog;
+import de.bwoester.coldfrontier.messaging.InMemoryGameEventLog;
 import de.bwoester.coldfrontier.production.ProductionService;
 import de.bwoester.coldfrontier.progress.ProgressService;
 import de.bwoester.coldfrontier.user.UserMsg;
@@ -16,9 +18,7 @@ import de.bwoester.coldfrontier.user.UserProfileMsg;
 import de.bwoester.coldfrontier.user.UserSettingsMsg;
 
 import java.text.NumberFormat;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Locale;
+import java.util.*;
 
 public class GameLoopService {
 
@@ -32,13 +32,26 @@ public class GameLoopService {
 
     private long currentTick;
 
+    private final GameEventFactory gameEventFactory;
+    private final InMemoryGameEventLog eventLog;
+
     public GameLoopService(long currentTick) {
         this.currentTick = currentTick;
-        UserMsg userMsg = new UserMsg("user-1", new UserSettingsMsg("de"), new UserProfileMsg());
+        gameEventFactory = new GameEventFactory(() -> currentTick);
+        eventLog = new InMemoryGameEventLog(gameEventFactory);
+        UserMsg userMsg = new UserMsg(
+                "user-1",
+                Set.of("external-1"),
+                new UserSettingsMsg("de"),
+                new UserProfileMsg(Set.of("planet-1"))
+        );
         inputService = new InputService(() -> currentTick);
         buildingService = new BuildingService(() -> currentTick, new BuildingCountersMsg(Collections.emptyMap()));
-        productionService = new ProductionService(() -> currentTick);
-        accountingService = new AccountingService(() -> currentTick, userMsg);
+        productionService = new ProductionService();
+
+        PlayerLedgerRepo playerLedgerRepo = new PlayerLedgerRepo(eventLog);
+        PlayerLedgerMsg playerLedgerMsg = playerLedgerRepo.get(userMsg);
+        accountingService = new AccountingService(playerLedgerMsg);
         progressService = new ProgressService(() -> currentTick);
     }
 
@@ -77,8 +90,8 @@ public class GameLoopService {
         buildingService.tick();
         BuildingCountersMsg planetBuildings = buildingService.getBuildings();
 
-        productionService.tick(planetBuildings);
-        ResourceSetMsg planetProduction = productionService.getProduction();
+        //productionService.tick(planetBuildings);
+        ResourceSetMsg planetProduction = productionService.calculateProduction(planetBuildings);
 
         accountingService.executeTransaction("planet-1",
                 new TransactionMsg(

@@ -2,6 +2,10 @@ package de.bwoester.coldfrontier.accounting;
 
 public record PlanetResourceSetMsg(long iron, long energy, long population) {
 
+    static PlanetResourceSetMsg createDefault() {
+        return new PlanetResourceSetMsg(0, 0, 0);
+    }
+
     public boolean allGreaterOrEqual(int value) {
         return iron >= value
                 && energy >= value
