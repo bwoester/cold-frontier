@@ -7,10 +7,7 @@ import de.bwoester.coldfrontier.buildings.BuildingService;
 import de.bwoester.coldfrontier.input.CreateBuildingInputMsg;
 import de.bwoester.coldfrontier.input.InputMsg;
 import de.bwoester.coldfrontier.input.InputService;
-import de.bwoester.coldfrontier.messaging.GameEvent;
-import de.bwoester.coldfrontier.messaging.GameEventFactory;
-import de.bwoester.coldfrontier.messaging.GameEventLog;
-import de.bwoester.coldfrontier.messaging.InMemoryGameEventLog;
+import de.bwoester.coldfrontier.messaging.*;
 import de.bwoester.coldfrontier.production.ProductionService;
 import de.bwoester.coldfrontier.progress.ProgressService;
 import de.bwoester.coldfrontier.user.UserMsg;
@@ -51,7 +48,9 @@ public class GameLoopService {
 
         PlayerLedgerRepo playerLedgerRepo = new PlayerLedgerRepo(eventLog);
         PlayerLedgerMsg playerLedgerMsg = playerLedgerRepo.get(userMsg);
-        accountingService = new AccountingService(playerLedgerMsg);
+        GameEventLog<TransactionMsg> playerTransactions = eventLog.viewOfType(TransactionMsg.class,
+                GameEventSubject.Accounting.playerTransactions(userMsg.id()));
+        accountingService = new AccountingService(playerLedgerMsg, playerTransactions);
         progressService = new ProgressService(() -> currentTick);
     }
 

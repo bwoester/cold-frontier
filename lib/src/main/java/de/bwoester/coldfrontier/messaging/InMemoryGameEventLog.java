@@ -1,6 +1,8 @@
 package de.bwoester.coldfrontier.messaging;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class InMemoryGameEventLog implements GameEventLog<GameEvent<?>> {
 
@@ -35,4 +37,7 @@ public class InMemoryGameEventLog implements GameEventLog<GameEvent<?>> {
         return Collections.unmodifiableList(events);
     }
 
+    public String prettyPrint() {
+        return GameEventPrinter.prettyPrint(events);
+    }
 }

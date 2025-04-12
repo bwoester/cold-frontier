@@ -14,17 +14,22 @@ import org.junit.jupiter.params.provider.MethodSource;
 import java.util.stream.Stream;
 
 @Slf4j
-class GlobalAccountTest {
+class PlanetAccountTest {
 
-    private static final String PLAYER_ID = "player-1";
+    private static final String PLANET_ID = "planet-1";
+    private static final PlanetResourceSetMsg ONE = new PlanetResourceSetMsg(1, 1, 1);
+    private static final PlanetResourceSetMsg TWO = ONE.multiply(2);
 
     EventLogStub eventLogStub;
-    GameEventLog<Long> balance;
+    GameEventLog<PlanetResourceSetMsg> balance;
 
     @BeforeEach
     void setUp() {
         eventLogStub = new EventLogStub();
-        balance = eventLogStub.inMemoryGameEventLog.viewOfType(Long.class, GameEventSubject.Accounting.playerAccount(PLAYER_ID));
+        balance = eventLogStub.inMemoryGameEventLog.viewOfType(
+                PlanetResourceSetMsg.class,
+                GameEventSubject.Accounting.planetAccount(PLANET_ID)
+        );
     }
 
     @AfterEach
@@ -34,36 +39,36 @@ class GlobalAccountTest {
 
     @ParameterizedTest
     @MethodSource
-    void validateTransaction(long available, long tryingToSpend, boolean expectedResult) {
+    void validateTransaction(PlanetResourceSetMsg available, PlanetResourceSetMsg tryingToSpend, boolean expectedResult) {
         balance.add(available);
-        GlobalAccount globalAccount = new GlobalAccount(balance);
-        ResourceSetMsg amount = new ResourceSetMsg(PlanetResourceSetMsg.createDefault(), tryingToSpend);
+        PlanetAccount account = new PlanetAccount(balance);
+        ResourceSetMsg amount = new ResourceSetMsg(tryingToSpend, 0);
         TransactionMsg transactionMsg = new TransactionMsg("", TransactionMsg.TransactionType.EXPENSE, amount);
-        Assertions.assertEquals(expectedResult, globalAccount.validateTransaction(transactionMsg));
+        Assertions.assertEquals(expectedResult, account.validateTransaction(transactionMsg));
     }
 
     private static Stream<Arguments> validateTransaction() {
         return Stream.of(
-                Arguments.of(2L, 1L, true),
-                Arguments.of(2L, 2L, true),
-                Arguments.of(2L, 3L, false)
+                Arguments.of(TWO, ONE, true),
+                Arguments.of(TWO, TWO, true),
+                Arguments.of(ONE, TWO, false)
         );
     }
 
     @ParameterizedTest
     @MethodSource
-    void executeTransaction(long available, long tryingToSpend, long expectedBalance) {
+    void executeTransaction(PlanetResourceSetMsg available, PlanetResourceSetMsg tryingToSpend, PlanetResourceSetMsg expectedBalance) {
         balance.add(available);
-        GlobalAccount globalAccount = new GlobalAccount(balance);
-        ResourceSetMsg amount = new ResourceSetMsg(PlanetResourceSetMsg.createDefault(), tryingToSpend);
+        PlanetAccount account = new PlanetAccount(balance);
+        ResourceSetMsg amount = new ResourceSetMsg(tryingToSpend, 0);
         TransactionMsg transactionMsg = new TransactionMsg("", TransactionMsg.TransactionType.EXPENSE, amount);
-        globalAccount.executeTransaction(transactionMsg);
-        Assertions.assertEquals(expectedBalance, globalAccount.getBalance());
+        account.executeTransaction(transactionMsg);
+        Assertions.assertEquals(expectedBalance, account.getBalance());
     }
 
     private static Stream<Arguments> executeTransaction() {
         return Stream.of(
-                Arguments.of(2L, 1L, 1L)
+                Arguments.of(TWO, ONE, ONE)
         );
     }
 
