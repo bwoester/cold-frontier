@@ -7,17 +7,17 @@ import de.bwoester.coldfrontier.messaging.GameEventLog;
  */
 public class AccountingService {
 
-    private final PlayerLedgerMsg playerLedger;
+    private final PlayerLedger playerLedger;
     private final GameEventLog<TransactionMsg> transactions;
 
-    public AccountingService(PlayerLedgerMsg playerLedger, GameEventLog<TransactionMsg> transactions) {
+    public AccountingService(PlayerLedger playerLedger, GameEventLog<TransactionMsg> transactions) {
         this.playerLedger = playerLedger;
         this.transactions = transactions;
     }
 
     public boolean executeTransaction(String planetId, TransactionMsg transactionMsg) {
-        GlobalAccount globalAccount = playerLedger.globalAccount();
-        PlanetAccount planetAccount = playerLedger.planetAccounts().get(planetId);
+        GlobalAccount globalAccount = playerLedger.getGlobalAccount();
+        PlanetAccount planetAccount = playerLedger.getPlanetAccount(planetId);
         if (globalAccount.validateTransaction(transactionMsg)
                 && planetAccount.validateTransaction(transactionMsg)) {
             transactions.add(transactionMsg);

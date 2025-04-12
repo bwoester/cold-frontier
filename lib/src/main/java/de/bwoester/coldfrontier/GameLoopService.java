@@ -47,10 +47,10 @@ public class GameLoopService {
         productionService = new ProductionService();
 
         PlayerLedgerRepo playerLedgerRepo = new PlayerLedgerRepo(eventLog);
-        PlayerLedgerMsg playerLedgerMsg = playerLedgerRepo.get(userMsg);
+        PlayerLedger playerLedger = playerLedgerRepo.get(userMsg);
         GameEventLog<TransactionMsg> playerTransactions = eventLog.viewOfType(TransactionMsg.class,
                 GameEventSubject.Accounting.playerTransactions(userMsg.id()));
-        accountingService = new AccountingService(playerLedgerMsg, playerTransactions);
+        accountingService = new AccountingService(playerLedger, playerTransactions);
         progressService = new ProgressService(() -> currentTick);
     }
 

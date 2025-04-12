@@ -5,6 +5,9 @@ public record PlanetResourceSetMsg(long iron, long energy, long population) {
     static PlanetResourceSetMsg createDefault() {
         return new PlanetResourceSetMsg(0, 0, 0);
     }
+    static PlanetResourceSetMsg createOne() {
+        return new PlanetResourceSetMsg(1, 1, 1);
+    }
 
     public boolean allGreaterOrEqual(int value) {
         return iron >= value

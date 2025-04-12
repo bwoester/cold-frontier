@@ -1,6 +1,5 @@
 package de.bwoester.coldfrontier.accounting;
 
-import de.bwoester.coldfrontier.messaging.EventView;
 import de.bwoester.coldfrontier.messaging.GameEventLog;
 import de.bwoester.coldfrontier.messaging.GameEventSubject;
 import de.bwoester.coldfrontier.messaging.InMemoryGameEventLog;
@@ -29,14 +28,14 @@ public class PlayerLedgerRepo {
         );
     }
 
-    public PlayerLedgerMsg get(UserMsg user) {
+    public PlayerLedger get(UserMsg user) {
         Map<String, PlanetAccount> planetAccounts = new HashMap<>();
         for (String planetId : user.userProfile().planetIds()) {
             PlanetAccount planetAccount = new PlanetAccount(createPlanetAccountEventLog(planetId));
             planetAccounts.put(planetId, planetAccount);
         }
         GlobalAccount userAccount = new GlobalAccount(createPlayerAccountEventLog(user.id()));
-        return new PlayerLedgerMsg(userAccount, planetAccounts);
+        return new PlayerLedger(userAccount, planetAccounts);
     }
 
     GameEventLog<Long> createPlayerAccountEventLog(String playerId) {

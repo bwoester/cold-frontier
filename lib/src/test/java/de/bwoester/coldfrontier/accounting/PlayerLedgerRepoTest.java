@@ -12,7 +12,6 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
 @Slf4j
 class PlayerLedgerRepoTest {
@@ -40,19 +39,14 @@ class PlayerLedgerRepoTest {
     void get() {
         PlayerLedgerRepo playerLedgerRepo = new PlayerLedgerRepo(eventLogStub.inMemoryGameEventLog);
 
-        PlayerLedgerMsg playerLedgerMsg = playerLedgerRepo.get(user);
-        Assertions.assertNotNull(playerLedgerMsg);
+        PlayerLedger playerLedger = playerLedgerRepo.get(user);
+        Assertions.assertNotNull(playerLedger);
 
-        GlobalAccount globalAccount = playerLedgerMsg.globalAccount();
+        GlobalAccount globalAccount = playerLedger.getGlobalAccount();
         Assertions.assertNotNull(globalAccount);
         Assertions.assertEquals(0L, globalAccount.getBalance());
 
-        Map<String, PlanetAccount> planetAccountMap = playerLedgerMsg.planetAccounts();
-        Assertions.assertNotNull(planetAccountMap);
-        Assertions.assertEquals(1, planetAccountMap.size());
-        Assertions.assertTrue(planetAccountMap.containsKey("planet-1"));
-
-        PlanetAccount planetAccount = planetAccountMap.get("planet-1");
+        PlanetAccount planetAccount = playerLedger.getPlanetAccount("planet-1");
         Assertions.assertNotNull(planetAccount);
         Assertions.assertEquals(PlanetResourceSetMsg.createDefault(), planetAccount.getBalance());
     }
