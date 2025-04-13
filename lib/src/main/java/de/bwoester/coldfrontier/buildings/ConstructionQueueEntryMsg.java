@@ -1,4 +1,4 @@
 package de.bwoester.coldfrontier.buildings;
 
-public record ConstructionQueueEntryMsg(Building building, float timeToBuildFactor) {
+public record ConstructionQueueEntryMsg(Building building, double timeToBuildFactor) {
 }

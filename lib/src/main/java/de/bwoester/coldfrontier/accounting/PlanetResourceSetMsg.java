@@ -39,7 +39,7 @@ public record PlanetResourceSetMsg(long iron, long energy, long population) {
         );
     }
 
-    public PlanetResourceSetMsg multiply(float factor) {
+    public PlanetResourceSetMsg multiply(double factor) {
         return new PlanetResourceSetMsg(
                 (long) (iron * factor),
                 (long) (energy * factor),

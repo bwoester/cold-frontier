@@ -29,4 +29,23 @@ public class GameEventSubject {
         }
     }
 
+    public static class Building {
+
+        /**
+         * @param planetId the planet id
+         * @return "buildings/planets/${playerId}/counters"
+         */
+        public static String counters(String planetId) {
+            return String.format("buildings/planets/%s/counters", planetId);
+        }
+
+        /**
+         * @param planetId the planet id
+         * @return "buildings/planets/${playerId}/queue"
+         */
+        public static String queue(String planetId) {
+            return String.format("buildings/planets/%s/queue", planetId);
+        }
+
+    }
 }

@@ -4,6 +4,7 @@ import de.bwoester.coldfrontier.accounting.*;
 import de.bwoester.coldfrontier.buildings.Building;
 import de.bwoester.coldfrontier.buildings.BuildingCountersMsg;
 import de.bwoester.coldfrontier.buildings.BuildingService;
+import de.bwoester.coldfrontier.buildings.ConstructionQueueMsg;
 import de.bwoester.coldfrontier.input.CreateBuildingInputMsg;
 import de.bwoester.coldfrontier.input.InputMsg;
 import de.bwoester.coldfrontier.input.InputService;
@@ -43,7 +44,12 @@ public class GameLoopService {
                 new UserProfileMsg(Set.of("planet-1"))
         );
         inputService = new InputService(() -> currentTick);
-        buildingService = new BuildingService(() -> currentTick, new BuildingCountersMsg(Collections.emptyMap()));
+
+        GameEventLog<BuildingCountersMsg> buildingCountersLog = eventLog.viewOfType(BuildingCountersMsg.class,
+                GameEventSubject.Building.counters("planet-1"));
+        GameEventLog<ConstructionQueueMsg> constructionQueueLog = eventLog.viewOfType(ConstructionQueueMsg.class,
+                GameEventSubject.Building.queue("planet-1"));
+        buildingService = new BuildingService(buildingCountersLog, constructionQueueLog);
         productionService = new ProductionService();
 
         PlayerLedgerRepo playerLedgerRepo = new PlayerLedgerRepo(eventLog);
@@ -68,7 +74,7 @@ public class GameLoopService {
                     // TODO should we tick() building and accounting service?
                     //  should we get rid of explicit tick()?
                     long constructionQueueSize = buildingService.getConstructionQueueSize();
-                    ResourceSetMsg costs = buildingService.calculateCosts(msg);
+                    ResourceSetMsg costs = buildingService.calculateCosts(msg.building());
                     TransactionMsg t = new TransactionMsg(
                             String.format("Create building %s (construction queue position %d).", building, constructionQueueSize),
                             TransactionMsg.TransactionType.EXPENSE,
@@ -86,7 +92,6 @@ public class GameLoopService {
         }
 
         // 2. Resource Updates
-        buildingService.tick();
         BuildingCountersMsg planetBuildings = buildingService.getBuildings();
 
         //productionService.tick(planetBuildings);

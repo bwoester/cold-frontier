@@ -10,7 +10,7 @@ public record ResourceSetMsg(PlanetResourceSetMsg planetResources, long credits)
         return new ResourceSetMsg(planetResources.multiply(factor), credits * factor);
     }
 
-    public ResourceSetMsg multiply(float factor) {
+    public ResourceSetMsg multiply(double factor) {
         return new ResourceSetMsg(planetResources.multiply(factor), (long) (credits * factor));
     }
 

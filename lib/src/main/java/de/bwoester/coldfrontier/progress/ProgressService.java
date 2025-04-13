@@ -55,7 +55,7 @@ public class ProgressService {
         return completedBuildings;
     }
 
-    public void startBuilding(Building building, float timeToBuildMultiplier) {
+    public void startBuilding(Building building, double timeToBuildMultiplier) {
         // TODO once we might create more than one progress per tick (e.g. building & ship, or multiple planets)
         //  all of them must be put in history in one go?
         CreateBuildingProgressMsg progressMsg = new CreateBuildingProgressMsg(building, timeToBuildMultiplier, 0f);

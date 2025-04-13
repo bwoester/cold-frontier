@@ -45,7 +45,7 @@ public class Planet implements TickComponent {
         for (CreateBuildingInputMsg i : input) {
             Building building = i.building();
             long constructionQueueSize = buildingService.getConstructionQueueSize();
-            ResourceSetMsg costs = buildingService.calculateCosts(i);
+            ResourceSetMsg costs = buildingService.calculateCosts(building);
             TransactionMsg t = new TransactionMsg(
                     String.format("Create building %s (construction queue position %d).", building, constructionQueueSize),
                     TransactionMsg.TransactionType.EXPENSE,

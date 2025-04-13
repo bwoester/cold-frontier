@@ -2,59 +2,64 @@ package de.bwoester.coldfrontier.buildings;
 
 import de.bwoester.coldfrontier.accounting.ResourceSetMsg;
 import de.bwoester.coldfrontier.input.CreateBuildingInputMsg;
+import de.bwoester.coldfrontier.messaging.GameEventLog;
 
-import java.util.*;
-import java.util.function.Supplier;
+import java.util.Optional;
+import java.util.concurrent.atomic.AtomicReference;
 
+/**
+ * Represents buildings of one planet.
+ */
 public class BuildingService {
 
-    private final NavigableMap<Long, BuildingCountersMsg> history = new TreeMap<>();
-    private final Queue<ConstructionQueueEntryMsg> constructionQueue = new LinkedList<>();
+    private final GameEventLog<BuildingCountersMsg> buildings;
+    private final GameEventLog<ConstructionQueueMsg> constructionQueue;
 
-    private final Supplier<Long> tickSupplier;
-    private BuildingCountersMsg buildings;
-
-    public BuildingService(Supplier<Long> tickSupplier, BuildingCountersMsg buildings) {
-        this.tickSupplier = tickSupplier;
+    public BuildingService(GameEventLog<BuildingCountersMsg> buildings, GameEventLog<ConstructionQueueMsg> constructionQueue) {
         this.buildings = buildings;
-        history.put(tickSupplier.get(), buildings);
-    }
-
-    public void tick() {
-        long tick = tickSupplier.get();
-        Map.Entry<Long, BuildingCountersMsg> lastKnown = history.floorEntry(tick);
-        buildings = lastKnown.getValue();
+        this.constructionQueue = constructionQueue;
     }
 
     public BuildingCountersMsg getBuildings() {
-        return buildings;
+        return buildings.getLatest();
     }
 
     public void addAll(BuildingCountersMsg buildings) {
-        this.buildings = this.buildings.add(buildings);
-        history.put(tickSupplier.get(), this.buildings);
+        BuildingCountersMsg oldBuildingCounters = this.buildings.getLatest();
+        BuildingCountersMsg newBuildingCounters = oldBuildingCounters.add(buildings);
+        this.buildings.add(newBuildingCounters);
     }
 
     public long getConstructionQueueSize() {
-        return constructionQueue.size();
+        return constructionQueue.getLatest().queuedBuildings().size();
     }
 
     public void addToConstructionQueue(Building building) {
-        constructionQueue.add(new ConstructionQueueEntryMsg(building, calculateConstructionQueueFactor()));
+        ConstructionQueueMsg oldConstructionQueue = constructionQueue.getLatest();
+        ConstructionQueueEntryMsg newEntry = new ConstructionQueueEntryMsg(building, calculateConstructionQueueFactor());
+        ConstructionQueueMsg newConstructionQueue = oldConstructionQueue.add(newEntry);
+        constructionQueue.add(newConstructionQueue);
     }
 
     public Optional<ConstructionQueueEntryMsg> pollConstructionQueue() {
-        return Optional.ofNullable(constructionQueue.poll());
+        ConstructionQueueMsg oldConstructionQueue = constructionQueue.getLatest();
+        AtomicReference<ConstructionQueueEntryMsg> polledEntry = new AtomicReference<>();
+        ConstructionQueueMsg newConstructionQueue = oldConstructionQueue.poll(polledEntry::set);
+        Optional<ConstructionQueueEntryMsg> result = Optional.ofNullable(polledEntry.get());
+        result.ifPresent(r -> {
+            constructionQueue.add(newConstructionQueue);
+        });
+        return result;
     }
 
-    public ResourceSetMsg calculateCosts(CreateBuildingInputMsg msg) {
-        return msg.building().getData().cost().multiply(calculateConstructionQueueFactor());
+    public ResourceSetMsg calculateCosts(Building building) {
+        return building.getData().cost().multiply(calculateConstructionQueueFactor());
     }
 
-    private float calculateConstructionQueueFactor() {
+    private double calculateConstructionQueueFactor() {
         // TODO take other factors into account:
         //  - planet type
         //  - player genetics
-        return 1 + (0.2f * constructionQueue.size());
+        return Math.pow(1.2, getConstructionQueueSize());
     }
 }
