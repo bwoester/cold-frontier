@@ -1,7 +1,6 @@
 package de.bwoester.coldfrontier.buildings;
 
 import de.bwoester.coldfrontier.accounting.ResourceSetMsg;
-import de.bwoester.coldfrontier.input.CreateBuildingInputMsg;
 import de.bwoester.coldfrontier.messaging.GameEventLog;
 
 import java.util.Optional;
@@ -14,10 +13,12 @@ public class BuildingService {
 
     private final GameEventLog<BuildingCountersMsg> buildings;
     private final GameEventLog<ConstructionQueueMsg> constructionQueue;
+    private final BuildingDataProvider buildingDataProvider;
 
-    public BuildingService(GameEventLog<BuildingCountersMsg> buildings, GameEventLog<ConstructionQueueMsg> constructionQueue) {
+    public BuildingService(GameEventLog<BuildingCountersMsg> buildings, GameEventLog<ConstructionQueueMsg> constructionQueue, BuildingDataProvider buildingDataProvider) {
         this.buildings = buildings;
         this.constructionQueue = constructionQueue;
+        this.buildingDataProvider = buildingDataProvider;
     }
 
     public BuildingCountersMsg getBuildings() {
@@ -53,7 +54,8 @@ public class BuildingService {
     }
 
     public ResourceSetMsg calculateCosts(Building building) {
-        return building.getData().cost().multiply(calculateConstructionQueueFactor());
+        BuildingMsg data = buildingDataProvider.getData(building);
+        return data.costs().multiply(calculateConstructionQueueFactor());
     }
 
     private double calculateConstructionQueueFactor() {

@@ -1,10 +1,7 @@
 package de.bwoester.coldfrontier;
 
 import de.bwoester.coldfrontier.accounting.*;
-import de.bwoester.coldfrontier.buildings.Building;
-import de.bwoester.coldfrontier.buildings.BuildingCountersMsg;
-import de.bwoester.coldfrontier.buildings.BuildingService;
-import de.bwoester.coldfrontier.buildings.ConstructionQueueMsg;
+import de.bwoester.coldfrontier.buildings.*;
 import de.bwoester.coldfrontier.input.CreateBuildingInputMsg;
 import de.bwoester.coldfrontier.input.InputMsg;
 import de.bwoester.coldfrontier.input.InputService;
@@ -49,15 +46,16 @@ public class GameLoopService {
                 GameEventSubject.Building.counters("planet-1"));
         GameEventLog<ConstructionQueueMsg> constructionQueueLog = eventLog.viewOfType(ConstructionQueueMsg.class,
                 GameEventSubject.Building.queue("planet-1"));
-        buildingService = new BuildingService(buildingCountersLog, constructionQueueLog);
-        productionService = new ProductionService();
+        BuildingDataProvider buildingDataProvider = new StaticBuildingDataProvider();
+        buildingService = new BuildingService(buildingCountersLog, constructionQueueLog, buildingDataProvider);
+        productionService = new ProductionService(buildingDataProvider);
 
         PlayerLedgerRepo playerLedgerRepo = new PlayerLedgerRepo(eventLog);
         PlayerLedger playerLedger = playerLedgerRepo.get(userMsg);
         GameEventLog<TransactionMsg> playerTransactions = eventLog.viewOfType(TransactionMsg.class,
                 GameEventSubject.Accounting.playerTransactions(userMsg.id()));
         accountingService = new AccountingService(playerLedger, playerTransactions);
-        progressService = new ProgressService(() -> currentTick);
+        progressService = new ProgressService(() -> currentTick, buildingDataProvider);
     }
 
     public void tick() {

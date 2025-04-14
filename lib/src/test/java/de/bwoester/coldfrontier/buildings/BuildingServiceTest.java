@@ -14,6 +14,10 @@ import java.util.LinkedList;
 import java.util.Map;
 import java.util.Queue;
 
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
 @Slf4j
 class BuildingServiceTest {
 
@@ -21,7 +25,9 @@ class BuildingServiceTest {
     GameEventLog<BuildingCountersMsg> buildingCountersLog;
     GameEventLog<ConstructionQueueMsg> constructionQueueLog;
 
+    BuildingDataProvider buildingDataProvider;
     BuildingService buildingService;
+    private static final ResourceSetMsg IRON_MINE_COSTS = ResourceSetMsg.createOne().multiply(10);
 
     @BeforeEach
     void setUp() {
@@ -30,13 +36,21 @@ class BuildingServiceTest {
                 GameEventSubject.Building.counters("planet-1"));
         constructionQueueLog = eventLogStub.inMemoryGameEventLog.viewOfType(ConstructionQueueMsg.class,
                 GameEventSubject.Building.queue("planet-1"));
-        buildingService = new BuildingService(buildingCountersLog, constructionQueueLog);
+        buildingDataProvider = mock(BuildingDataProvider.class);
+        buildingService = new BuildingService(buildingCountersLog, constructionQueueLog, buildingDataProvider);
 
         buildingCountersLog.add(new BuildingCountersMsg(Map.of(
                 Building.IRON_MINE, 1L
         )));
         Queue<ConstructionQueueEntryMsg> constructionQueue = new LinkedList<>();
         constructionQueueLog.add(new ConstructionQueueMsg(constructionQueue));
+
+        when(buildingDataProvider.getData(eq(Building.IRON_MINE))).thenReturn(new BuildingMsg(
+                Building.IRON_MINE.toString(),
+                1,
+                IRON_MINE_COSTS,
+                ResourceSetMsg.createOne().multiply(10)
+        ));
     }
 
     @AfterEach
@@ -98,22 +112,15 @@ class BuildingServiceTest {
     void calculateCosts() {
         // empty construction queue means regular costs
         Assertions.assertEquals(0, buildingService.getConstructionQueueSize());
-        ResourceSetMsg regularCosts = Building.IRON_MINE.getData().cost();
-        Assertions.assertEquals(regularCosts, buildingService.calculateCosts(Building.IRON_MINE));
+        Assertions.assertEquals(IRON_MINE_COSTS, buildingService.calculateCosts(Building.IRON_MINE));
 
         // filled construction queue means increased costs
-        // TODO effect only visible with greater queue or  greater building costs
-        //  maybe mock?
         buildingService.addToConstructionQueue(Building.IRON_MINE);
-        buildingService.addToConstructionQueue(Building.IRON_MINE);
-        buildingService.addToConstructionQueue(Building.IRON_MINE);
-        buildingService.addToConstructionQueue(Building.IRON_MINE);
-        buildingService.addToConstructionQueue(Building.IRON_MINE);
-        Assertions.assertEquals(5, buildingService.getConstructionQueueSize());
-        ResourceSetMsg actualCosts = buildingService.calculateCosts(Building.IRON_MINE);
-        Assertions.assertTrue(actualCosts.credits() > regularCosts.credits());
-        Assertions.assertTrue(actualCosts.planetResources().energy() > regularCosts.planetResources().energy());
-        Assertions.assertTrue(actualCosts.planetResources().iron() > regularCosts.planetResources().iron());
-        Assertions.assertTrue(actualCosts.planetResources().population() > regularCosts.planetResources().population());
+        Assertions.assertEquals(1, buildingService.getConstructionQueueSize());
+        ResourceSetMsg increasedCosts = buildingService.calculateCosts(Building.IRON_MINE);
+        Assertions.assertTrue(increasedCosts.credits() > IRON_MINE_COSTS.credits());
+        Assertions.assertTrue(increasedCosts.planetResources().energy() > IRON_MINE_COSTS.planetResources().energy());
+        Assertions.assertTrue(increasedCosts.planetResources().iron() > IRON_MINE_COSTS.planetResources().iron());
+        Assertions.assertTrue(increasedCosts.planetResources().population() > IRON_MINE_COSTS.planetResources().population());
     }
 }

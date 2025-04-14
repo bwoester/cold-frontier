@@ -6,6 +6,10 @@ public record ResourceSetMsg(PlanetResourceSetMsg planetResources, long credits)
         return new ResourceSetMsg(PlanetResourceSetMsg.createDefault(), 0);
     }
 
+    public static ResourceSetMsg createOne() {
+        return new ResourceSetMsg(PlanetResourceSetMsg.createOne(), 1);
+    }
+
     public ResourceSetMsg multiply(long factor) {
         return new ResourceSetMsg(planetResources.multiply(factor), credits * factor);
     }

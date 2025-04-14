@@ -2,6 +2,7 @@ package de.bwoester.coldfrontier.progress;
 
 import de.bwoester.coldfrontier.buildings.Building;
 import de.bwoester.coldfrontier.buildings.BuildingCountersMsg;
+import de.bwoester.coldfrontier.buildings.BuildingDataProvider;
 
 import java.util.Collections;
 import java.util.Map;
@@ -16,8 +17,11 @@ public class ProgressService {
     private final Supplier<Long> tickSupplier;
     private BuildingCountersMsg completedBuildings;
 
-    public ProgressService(Supplier<Long> tickSupplier) {
+    private final BuildingDataProvider buildingDataProvider;
+
+    public ProgressService(Supplier<Long> tickSupplier, BuildingDataProvider buildingDataProvider) {
         this.tickSupplier = tickSupplier;
+        this.buildingDataProvider = buildingDataProvider;
         this.completedBuildings = null;
     }
 
@@ -35,7 +39,7 @@ public class ProgressService {
             float lastKnownProgress = lastKnownMsg.progress();
             if (lastKnownTick == tick - 1 && 0 <= lastKnownProgress && lastKnownProgress < 1) {
                 float tickProgress = 1.0f / switch (lastKnownMsg) {
-                    case CreateBuildingProgressMsg i -> i.building().getData().ticksToBuild();
+                    case CreateBuildingProgressMsg i -> buildingDataProvider.getData(i.building()).ticksToBuild();
                 };
                 float newProgress = lastKnownProgress * tickProgress;
                 ProgressMsg newMsg = switch (lastKnownMsg) {
