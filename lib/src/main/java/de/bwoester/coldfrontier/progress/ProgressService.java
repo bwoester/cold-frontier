@@ -1,72 +1,94 @@
 package de.bwoester.coldfrontier.progress;
 
 import de.bwoester.coldfrontier.buildings.Building;
-import de.bwoester.coldfrontier.buildings.BuildingCountersMsg;
 import de.bwoester.coldfrontier.buildings.BuildingDataProvider;
+import de.bwoester.coldfrontier.buildings.BuildingMsg;
+import de.bwoester.coldfrontier.messaging.GameEventLog;
 
-import java.util.Collections;
-import java.util.Map;
-import java.util.NavigableMap;
-import java.util.TreeMap;
-import java.util.function.Supplier;
+import java.util.Optional;
 
+/**
+ * Tracks the progress of buildings on a planet.
+ */
 public class ProgressService {
 
-    private final NavigableMap<Long, ProgressMsg> history = new TreeMap<>();
-
-    private final Supplier<Long> tickSupplier;
-    private BuildingCountersMsg completedBuildings;
-
+    private final GameEventLog<ProgressMsg> progressLog;
     private final BuildingDataProvider buildingDataProvider;
 
-    public ProgressService(Supplier<Long> tickSupplier, BuildingDataProvider buildingDataProvider) {
-        this.tickSupplier = tickSupplier;
+    public ProgressService(GameEventLog<ProgressMsg> progressLog, BuildingDataProvider buildingDataProvider) {
+        this.progressLog = progressLog;
         this.buildingDataProvider = buildingDataProvider;
-        this.completedBuildings = null;
-    }
-
-    public void tick() {
-        long tick = tickSupplier.get();
-        Map.Entry<Long, ProgressMsg> lastKnownEntry = history.lowerEntry(tick);
-
-        // default: no buildings completed this tick
-        completedBuildings = new BuildingCountersMsg(Collections.emptyMap());
-
-        // we only need to handle ProgressMsg from the last tick, which have progress in range [0, 1[
-        if (lastKnownEntry != null) {
-            long lastKnownTick = lastKnownEntry.getKey();
-            ProgressMsg lastKnownMsg = lastKnownEntry.getValue();
-            float lastKnownProgress = lastKnownMsg.progress();
-            if (lastKnownTick == tick - 1 && 0 <= lastKnownProgress && lastKnownProgress < 1) {
-                float tickProgress = 1.0f / switch (lastKnownMsg) {
-                    case CreateBuildingProgressMsg i -> buildingDataProvider.getData(i.building()).ticksToBuild();
-                };
-                float newProgress = lastKnownProgress * tickProgress;
-                ProgressMsg newMsg = switch (lastKnownMsg) {
-                    case CreateBuildingProgressMsg i -> new CreateBuildingProgressMsg(i.building(), i.timeToBuildMultiplier(), newProgress);
-                };
-                history.put(tick, newMsg);
-                if (newProgress >= 1) {
-                    completedBuildings = switch (lastKnownMsg) {
-                        case CreateBuildingProgressMsg i -> new BuildingCountersMsg(Map.of(i.building(), 1L));
-                    };
-                }
-            }
-        }
-    }
-
-    public BuildingCountersMsg getCompletedBuildings() {
-        return completedBuildings;
     }
 
     public void startBuilding(Building building, double timeToBuildMultiplier) {
-        // TODO once we might create more than one progress per tick (e.g. building & ship, or multiple planets)
-        //  all of them must be put in history in one go?
-        CreateBuildingProgressMsg progressMsg = new CreateBuildingProgressMsg(building, timeToBuildMultiplier, 0f);
-        history.put(tickSupplier.get(), progressMsg);
+        // Create a new progress entry with 0% progress
+        CreateBuildingProgressMsg progressMsg = new CreateBuildingProgressMsg(building, timeToBuildMultiplier, 0.0);
+        progressLog.add(progressMsg);
     }
 
     public boolean hasBuildingInProgress() {
-        return false;
+        ProgressMsg latest = progressLog.getLatest();
+        // Check if there's a latest progress message that is not completed
+        return latest != null && latest.progress() < 1.0;
+    }
+
+    public void increaseProgress() {
+        ProgressMsg latest = progressLog.getLatest();
+        
+        // If there's no progress or it's already completed and consumed, do nothing
+        if (latest == null || (latest.progress() >= 1.0 && latest.consumed())) {
+            return;
+        }
+
+        if (latest instanceof CreateBuildingProgressMsg buildingProgress) {
+            // If progress is complete but not consumed, don't update further
+            if (buildingProgress.progress() >= 1.0) {
+                return;
+            }
+            
+            Building building = buildingProgress.building();
+            double timeToBuildMultiplier = buildingProgress.timeToBuildMultiplier();
+            double currentProgress = buildingProgress.progress();
+            
+            // Get the building data to determine how long it takes to build
+            BuildingMsg buildingData = buildingDataProvider.getData(building);
+            
+            // Calculate progress increment for this tick
+            double progressIncrement = 1.0 / (buildingData.ticksToBuild() * timeToBuildMultiplier);
+            
+            // Calculate new progress value, capping at 1.0 (100%)
+            double newProgress = Math.min(1.0, currentProgress + progressIncrement);
+            
+            // Create and add new progress message (still not consumed)
+            CreateBuildingProgressMsg newProgressMsg = new CreateBuildingProgressMsg(
+                    building, timeToBuildMultiplier, newProgress, false);
+            progressLog.add(newProgressMsg);
+        }
+    }
+
+    public Optional<Building> pollCompletedBuilding() {
+        ProgressMsg latest = progressLog.getLatest();
+        
+        // If there's no latest message, return empty
+        if (latest == null) {
+            return Optional.empty();
+        }
+        
+        // If the latest message represents a completed building that hasn't been consumed yet
+        if (latest.progress() >= 1.0 && !latest.consumed() && latest instanceof CreateBuildingProgressMsg buildingProgress) {
+            // Mark the building as consumed in the event log
+            CreateBuildingProgressMsg consumedMsg = new CreateBuildingProgressMsg(
+                    buildingProgress.building(),
+                    buildingProgress.timeToBuildMultiplier(),
+                    buildingProgress.progress(),
+                    true // Mark as consumed
+            );
+            progressLog.add(consumedMsg);
+            
+            // Return the completed building
+            return Optional.of(buildingProgress.building());
+        }
+        
+        return Optional.empty();
     }
 }

@@ -10,16 +10,14 @@ import de.bwoester.coldfrontier.messaging.GameEventLog;
 import de.bwoester.coldfrontier.messaging.GameEventSubject;
 import de.bwoester.coldfrontier.messaging.InMemoryGameEventLog;
 import de.bwoester.coldfrontier.production.ProductionService;
+import de.bwoester.coldfrontier.progress.ProgressMsg;
 import de.bwoester.coldfrontier.progress.ProgressService;
 import de.bwoester.coldfrontier.user.UserMsg;
 import de.bwoester.coldfrontier.user.UserProfileMsg;
 import de.bwoester.coldfrontier.user.UserSettingsMsg;
 
 import java.text.NumberFormat;
-import java.util.Iterator;
-import java.util.Locale;
-import java.util.Queue;
-import java.util.Set;
+import java.util.*;
 
 public class GameLoopService {
 
@@ -70,7 +68,10 @@ public class GameLoopService {
         GameEventLog<TransactionMsg> playerTransactions = eventLog.viewOfType(TransactionMsg.class,
                 GameEventSubject.Accounting.playerTransactions(userMsg.id()));
         accountingService = new AccountingService(playerLedger, playerTransactions);
-        progressService = new ProgressService(() -> currentTick, buildingDataProvider);
+
+        GameEventLog<ProgressMsg> progressLog = eventLog.viewOfType(ProgressMsg.class,
+                GameEventSubject.Progress.building("planet-1"));
+        progressService = new ProgressService(progressLog, buildingDataProvider);
     }
 
     public void tick() {
@@ -128,12 +129,13 @@ public class GameLoopService {
         // 3. Building and Unit Production
 
         // 3.1 Check for completed buildings, units, and tech
-        progressService.tick();
-        BuildingCountersMsg completedBuildings = progressService.getCompletedBuildings();
-        buildingService.addAll(completedBuildings);
+        progressService.increaseProgress();
+        progressService.pollCompletedBuilding().ifPresent(building -> {
+            buildingService.addAll(new BuildingCountersMsg(Map.of(building, 1L)));
+        });
 
         // 3.2 Start any queued constructions that should begin this tick
-        if (!completedBuildings.counters().isEmpty()) {
+        if (!progressService.hasBuildingInProgress()) {
             buildingService.pollConstructionQueue().ifPresent(entry -> {
                 progressService.startBuilding(entry.building(), entry.timeToBuildFactor());
             });

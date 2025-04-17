@@ -13,6 +13,7 @@ import de.bwoester.coldfrontier.production.ProductionService;
 import de.bwoester.coldfrontier.progress.ProgressService;
 
 import java.util.Collection;
+import java.util.Map;
 
 /**
  * Handles a single planet.
@@ -80,8 +81,9 @@ public class Planet implements TickComponent {
 
     @Override
     public void handleFinishedUnits() {
-        BuildingCountersMsg completedBuildings = progressService.getCompletedBuildings();
-        buildingService.addAll(completedBuildings);
+        progressService.pollCompletedBuilding().ifPresent(building -> {
+            buildingService.addAll(new BuildingCountersMsg(Map.of(building, 1L)));
+        });
     }
 
     @Override

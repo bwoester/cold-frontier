@@ -35,7 +35,7 @@ public class GameEventSubject {
     public static class Building {
         /**
          * @param planetId the planet id
-         * @return "buildings.planets.${playerId}.counters"
+         * @return "buildings.planets.${planetId}.counters"
          */
         public static String counters(String planetId) {
             return String.format("buildings.planets.%s.counters", planetId);
@@ -43,10 +43,22 @@ public class GameEventSubject {
 
         /**
          * @param planetId the planet id
-         * @return "buildings.planets.${playerId}.queue"
+         * @return "buildings.planets.${planetId}.queue"
          */
         public static String queue(String planetId) {
             return String.format("buildings.planets.%s.queue", planetId);
+        }
+    }
+
+    // ------------------------------------------------------------------------
+
+    public static class Progress {
+        /**
+         * @param planetId the planet id
+         * @return "progress.planets.${planetId}.building"
+         */
+        public static String building(String planetId) {
+            return String.format("progress.planets.%s.building", planetId);
         }
     }
 
