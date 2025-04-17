@@ -58,7 +58,7 @@ public class Planet implements TickComponent {
             );
             // input processing *could* be done later, after resource updates
             // but input is from previous ticks, so it makes sense to process it first
-            if (accountingService.executeTransaction("planet-1", t)) {
+            if (accountingService.executeTransaction(input.planetId(), t)) {
                 buildingService.addToConstructionQueue(building);
             } else {
                 // TODO CreateBuildingInputMsg failed, provide feedback to user
@@ -81,17 +81,15 @@ public class Planet implements TickComponent {
 
     @Override
     public void handleFinishedUnits() {
-        progressService.pollCompletedBuilding().ifPresent(building -> {
-            buildingService.addAll(new BuildingCountersMsg(Map.of(building, 1L)));
-        });
+        progressService.pollCompletedBuilding()
+                .ifPresent(i -> buildingService.addAll(new BuildingCountersMsg(Map.of(i, 1L))));
     }
 
     @Override
     public void handleQueuedUnits() {
         if (!progressService.hasBuildingInProgress()) {
-            buildingService.pollConstructionQueue().ifPresent(entry -> {
-                progressService.startBuilding(entry.building(), entry.timeToBuildFactor());
-            });
+            buildingService.pollConstructionQueue()
+                    .ifPresent(i -> progressService.startBuilding(i.building(), i.timeToBuildFactor()));
         }
     }
 

@@ -1,6 +1,6 @@
 package de.bwoester.coldfrontier.planet;
 
-public record MiningResourceMsg(
+public record MiningResourcesMsg(
         long iron,
         long deepIron,
         long chemicals,
