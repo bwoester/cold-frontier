@@ -38,12 +38,16 @@ public class Planet implements TickComponent {
 
     @Override
     public void handleInput() {
-        Collection<CreateBuildingInputMsg> input = inputService.getInput(
+        Collection<CreateBuildingInputMsg> input = inputService.startInputHandling(
                 CreateBuildingInputMsg.class,
                 i -> i.planetId().equals(planetData.id())
         );
-        for (CreateBuildingInputMsg i : input) {
-            Building building = i.building();
+        input.forEach(this::handleCreateBuilding);
+    }
+
+    private void handleCreateBuilding(CreateBuildingInputMsg input) {
+        try {
+            Building building = input.building();
             long constructionQueueSize = buildingService.getConstructionQueueSize();
             ResourceSetMsg costs = buildingService.calculateCosts(building);
             TransactionMsg t = new TransactionMsg(
@@ -58,6 +62,9 @@ public class Planet implements TickComponent {
             } else {
                 // TODO CreateBuildingInputMsg failed, provide feedback to user
             }
+            inputService.finishInputHandling(input);
+        } catch (Exception e) {
+            inputService.failedInputHandling(input, e);
         }
     }
 
