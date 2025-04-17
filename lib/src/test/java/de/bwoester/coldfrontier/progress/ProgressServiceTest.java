@@ -6,6 +6,8 @@ import de.bwoester.coldfrontier.buildings.BuildingDataProvider;
 import de.bwoester.coldfrontier.buildings.BuildingMsg;
 import de.bwoester.coldfrontier.messaging.GameEventLog;
 import de.bwoester.coldfrontier.messaging.GameEventSubject;
+import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -17,6 +19,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
+@Slf4j
 @ExtendWith(MockitoExtension.class)
 class ProgressServiceTest {
 
@@ -29,15 +32,21 @@ class ProgressServiceTest {
     @Mock
     private BuildingMsg buildingMsg;
 
+    EventLogStub eventLogStub;
     private GameEventLog<ProgressMsg> progressLog;
     private ProgressService progressService;
     
     @BeforeEach
     void setUp() {
-        EventLogStub eventLogStub = new EventLogStub();
+        eventLogStub = new EventLogStub();
         progressLog = eventLogStub.inMemoryGameEventLog
                 .viewOfType(ProgressMsg.class, GameEventSubject.Progress.building("planet-1"));
         progressService = new ProgressService(progressLog, buildingDataProvider);
+    }
+
+    @AfterEach
+    void tearDown() {
+        log.info("event log:\n{}", eventLogStub.inMemoryGameEventLog.prettyPrint());
     }
     
     @Test
