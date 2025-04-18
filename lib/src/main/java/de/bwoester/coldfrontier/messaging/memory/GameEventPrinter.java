@@ -25,8 +25,7 @@ public class GameEventPrinter {
 
     private static String prettyPrintEvent(Event<?> event, int subjectWidth) {
         return String.format(
-                "Seq: %d | Tick: %d | Subject: %-" + subjectWidth + "s | Payload: %s",
-                event.seq(),
+                "Tick: %d | Subject: %-" + subjectWidth + "s | Payload: %s",
                 event.tick(),
                 event.subject(),
                 payloadToString(event.payload())
