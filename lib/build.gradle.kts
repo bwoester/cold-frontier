@@ -30,6 +30,15 @@ dependencies {
     // This dependency is used internally, and not exposed to consumers on their own compile classpath.
     implementation(libs.guava)
     implementation(libs.slf4j.api)
+    
+    // Jackson for JSON serialization
+    implementation(libs.jackson.core)
+    implementation(libs.jackson.databind)
+    implementation(libs.jackson.annotations)
+    implementation(libs.jackson.datatype.jsr310)
+    
+    // NATS JetStream client
+    implementation(libs.nats.client)
     runtimeOnly(libs.logback.classic)
 }
 

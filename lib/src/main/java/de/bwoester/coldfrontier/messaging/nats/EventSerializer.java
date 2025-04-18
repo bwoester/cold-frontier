@@ -1,4 +1,4 @@
-package de.bwoester.coldfrontier.messaging;
+package de.bwoester.coldfrontier.messaging.nats;
 
 import java.io.IOException;
 
