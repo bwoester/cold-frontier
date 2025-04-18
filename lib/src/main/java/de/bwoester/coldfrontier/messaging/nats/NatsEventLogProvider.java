@@ -3,10 +3,7 @@ package de.bwoester.coldfrontier.messaging.nats;
 import de.bwoester.coldfrontier.messaging.Event;
 import de.bwoester.coldfrontier.messaging.EventLog;
 import de.bwoester.coldfrontier.messaging.EventLogProvider;
-import io.nats.client.Connection;
-import io.nats.client.JetStream;
-import io.nats.client.JetStreamApiException;
-import io.nats.client.JetStreamManagement;
+import io.nats.client.*;
 import io.nats.client.api.StorageType;
 import io.nats.client.api.StreamConfiguration;
 import lombok.RequiredArgsConstructor;
@@ -39,7 +36,7 @@ public class NatsEventLogProvider implements EventLogProvider {
      */
     public void initialize() throws IOException, JetStreamApiException {
         JetStreamManagement jsm = natsConnection.jetStreamManagement();
-        
+
         // Create global stream if it doesn't exist
         try {
             jsm.getStreamInfo(GLOBAL_STREAM_NAME);

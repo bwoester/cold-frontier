@@ -1,8 +1,8 @@
-package de.bwoester.coldfrontier.messaging.nats;
+package de.bwoester.coldfrontier.data.nats;
 
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import de.bwoester.coldfrontier.messaging.Event;
+import de.bwoester.coldfrontier.data.Event;
 import lombok.RequiredArgsConstructor;
 
 import java.io.IOException;
@@ -13,10 +13,9 @@ import java.io.IOException;
  * @param <T> The type of payload within the Event
  */
 @RequiredArgsConstructor
-public class JsonEventSerializer<T> implements EventSerializer<Event<T>> {
+public class JsonEventSerializer<T> implements EventSerializer<T> {
 
     private final ObjectMapper objectMapper;
-    private final Class<?> eventClass;
     private final Class<T> payloadClass;
 
     @Override
@@ -26,7 +25,7 @@ public class JsonEventSerializer<T> implements EventSerializer<Event<T>> {
 
     @Override
     public Event<T> deserialize(byte[] data) throws IOException {
-        JavaType type = objectMapper.getTypeFactory().constructParametricType(eventClass, payloadClass);
+        JavaType type = objectMapper.getTypeFactory().constructParametricType(Event.class, payloadClass);
         return objectMapper.readValue(data, type);
     }
 }
