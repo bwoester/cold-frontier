@@ -1,8 +1,8 @@
 package de.bwoester.coldfrontier.accounting;
 
-import de.bwoester.coldfrontier.messaging.GameEventLog;
-import de.bwoester.coldfrontier.messaging.GameEventSubject;
-import de.bwoester.coldfrontier.messaging.InMemoryGameEventLog;
+import de.bwoester.coldfrontier.messaging.EventLog;
+import de.bwoester.coldfrontier.messaging.EventSubject;
+import de.bwoester.coldfrontier.messaging.memory.InMemoryEventLog;
 import de.bwoester.coldfrontier.user.UserMsg;
 import lombok.extern.slf4j.Slf4j;
 
@@ -15,9 +15,9 @@ public class PlayerLedgerRepo {
     private static final long INITIAL_PLAYER_ACCOUNT_BALANCE = 0L;
     private static final PlanetResourceSetMsg INITIAL_PLANET_ACCOUNT_BALANCE = PlanetResourceSetMsg.createDefault();
 
-    private final InMemoryGameEventLog gameEventLog;
+    private final InMemoryEventLog gameEventLog;
 
-    public PlayerLedgerRepo(InMemoryGameEventLog gameEventLog) {
+    public PlayerLedgerRepo(InMemoryEventLog gameEventLog) {
         this.gameEventLog = gameEventLog;
     }
 
@@ -38,9 +38,9 @@ public class PlayerLedgerRepo {
         return new PlayerLedger(userAccount, planetAccounts);
     }
 
-    GameEventLog<Long> createPlayerAccountEventLog(String playerId) {
-        String subject = GameEventSubject.Accounting.playerAccount(playerId);
-        GameEventLog<Long> eventLog = gameEventLog.viewOfType(Long.class, subject);
+    EventLog<Long> createPlayerAccountEventLog(String playerId) {
+        String subject = EventSubject.Accounting.playerAccount(playerId);
+        EventLog<Long> eventLog = gameEventLog.viewOfType(Long.class, subject);
         if (eventLog.isEmpty()) {
             // TODO for now, it simplifies unit tests
             //  for later, player ledgers should be initialized when a user registers
@@ -52,9 +52,9 @@ public class PlayerLedgerRepo {
         return eventLog;
     }
 
-    GameEventLog<PlanetResourceSetMsg> createPlanetAccountEventLog(String planetId) {
-        String subject = GameEventSubject.Accounting.planetAccount(planetId);
-        GameEventLog<PlanetResourceSetMsg> eventLog = gameEventLog.viewOfType(PlanetResourceSetMsg.class, subject);
+    EventLog<PlanetResourceSetMsg> createPlanetAccountEventLog(String planetId) {
+        String subject = EventSubject.Accounting.planetAccount(planetId);
+        EventLog<PlanetResourceSetMsg> eventLog = gameEventLog.viewOfType(PlanetResourceSetMsg.class, subject);
         if (eventLog.isEmpty()) {
             log.warn("No data for {}, initializing with {}.", subject, INITIAL_PLANET_ACCOUNT_BALANCE);
             eventLog.add(INITIAL_PLANET_ACCOUNT_BALANCE);

@@ -1,14 +1,13 @@
 package de.bwoester.coldfrontier.input;
 
 import de.bwoester.coldfrontier.TestInputMsg;
-import de.bwoester.coldfrontier.messaging.GameEventLog;
+import de.bwoester.coldfrontier.messaging.EventLog;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.LinkedList;
@@ -21,16 +20,16 @@ import static org.mockito.Mockito.*;
 class InputServiceTest {
 
     @Mock
-    private GameEventLog<InputQueueMsg> newInputsLog;
+    private EventLog<InputQueueMsg> newInputsLog;
 
     @Mock
-    private GameEventLog<InputQueueMsg> startedInputsLog;
+    private EventLog<InputQueueMsg> startedInputsLog;
 
     @Mock
-    private GameEventLog<InputQueueMsg> finishedInputsLog;
+    private EventLog<InputQueueMsg> finishedInputsLog;
 
     @Mock
-    private GameEventLog<InputQueueMsg> failedInputsLog;
+    private EventLog<InputQueueMsg> failedInputsLog;
 
     @Captor
     private ArgumentCaptor<InputQueueMsg> inputQueueMsgCaptor;

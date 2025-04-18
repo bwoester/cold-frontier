@@ -1,8 +1,8 @@
 package de.bwoester.coldfrontier.accounting;
 
 import de.bwoester.coldfrontier.EventLogStub;
-import de.bwoester.coldfrontier.messaging.GameEventLog;
-import de.bwoester.coldfrontier.messaging.GameEventSubject;
+import de.bwoester.coldfrontier.messaging.EventLog;
+import de.bwoester.coldfrontier.messaging.EventSubject;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
@@ -19,12 +19,12 @@ class GlobalAccountTest {
     private static final String PLAYER_ID = "player-1";
 
     EventLogStub eventLogStub;
-    GameEventLog<Long> balance;
+    EventLog<Long> balance;
 
     @BeforeEach
     void setUp() {
         eventLogStub = new EventLogStub();
-        balance = eventLogStub.inMemoryGameEventLog.viewOfType(Long.class, GameEventSubject.Accounting.playerAccount(PLAYER_ID));
+        balance = eventLogStub.inMemoryGameEventLog.viewOfType(Long.class, EventSubject.Accounting.playerAccount(PLAYER_ID));
     }
 
     @AfterEach

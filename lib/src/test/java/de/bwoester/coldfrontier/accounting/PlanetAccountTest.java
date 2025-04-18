@@ -1,8 +1,8 @@
 package de.bwoester.coldfrontier.accounting;
 
 import de.bwoester.coldfrontier.EventLogStub;
-import de.bwoester.coldfrontier.messaging.GameEventLog;
-import de.bwoester.coldfrontier.messaging.GameEventSubject;
+import de.bwoester.coldfrontier.messaging.EventLog;
+import de.bwoester.coldfrontier.messaging.EventSubject;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
@@ -21,14 +21,14 @@ class PlanetAccountTest {
     private static final PlanetResourceSetMsg TWO = ONE.multiply(2);
 
     EventLogStub eventLogStub;
-    GameEventLog<PlanetResourceSetMsg> balance;
+    EventLog<PlanetResourceSetMsg> balance;
 
     @BeforeEach
     void setUp() {
         eventLogStub = new EventLogStub();
         balance = eventLogStub.inMemoryGameEventLog.viewOfType(
                 PlanetResourceSetMsg.class,
-                GameEventSubject.Accounting.planetAccount(PLANET_ID)
+                EventSubject.Accounting.planetAccount(PLANET_ID)
         );
     }
 

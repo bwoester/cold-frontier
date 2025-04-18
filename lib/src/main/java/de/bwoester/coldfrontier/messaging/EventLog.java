@@ -2,7 +2,7 @@ package de.bwoester.coldfrontier.messaging;
 
 import java.util.List;
 
-public interface GameEventLog<T> {
+public interface EventLog<T> {
 
     boolean isEmpty();
 

@@ -1,12 +1,12 @@
 package de.bwoester.coldfrontier.accounting;
 
-import de.bwoester.coldfrontier.messaging.GameEventLog;
+import de.bwoester.coldfrontier.messaging.EventLog;
 
 public class PlanetAccount {
 
-    private final GameEventLog<PlanetResourceSetMsg> balance;
+    private final EventLog<PlanetResourceSetMsg> balance;
 
-    public PlanetAccount(GameEventLog<PlanetResourceSetMsg> balance) {
+    public PlanetAccount(EventLog<PlanetResourceSetMsg> balance) {
         this.balance = balance;
     }
 

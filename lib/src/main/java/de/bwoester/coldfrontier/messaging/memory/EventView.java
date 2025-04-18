@@ -1,10 +1,14 @@
-package de.bwoester.coldfrontier.messaging;
+package de.bwoester.coldfrontier.messaging.memory;
+
+import de.bwoester.coldfrontier.messaging.Event;
+import de.bwoester.coldfrontier.messaging.EventFactory;
+import de.bwoester.coldfrontier.messaging.EventLog;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * A filtered view of a {@link InMemoryGameEventLog} that only returns events with
+ * A filtered view of a {@link InMemoryEventLog} that only returns events with
  * a specific payload type and subject. This class acts as a type-safe and subject-scoped
  * view over the underlying event log.
  * <p>
@@ -15,22 +19,22 @@ import java.util.List;
  * </ul>
  * <p>
  * When retrieving events, this class performs runtime type checking and casting.
- * When adding events, it automatically wraps the payload in a {@link GameEvent} with
- * the appropriate subject using the provided {@link GameEventFactory}.
+ * When adding events, it automatically wraps the payload in a {@link Event} with
+ * the appropriate subject using the provided {@link EventFactory}.
  *
  * @param <T> the type of payload contained in the events this view handles
  */
-public class EventView<T> implements GameEventLog<T> {
+public class EventView<T> implements EventLog<T> {
 
     /**
      * The underlying event log containing all events
      */
-    private final InMemoryGameEventLog log;
+    private final InMemoryEventLog log;
     
     /**
      * Factory for creating new game events
      */
-    private final GameEventFactory gameEventFactory;
+    private final EventFactory eventFactory;
     
     /**
      * The class object representing the type of payload this view handles
@@ -46,16 +50,16 @@ public class EventView<T> implements GameEventLog<T> {
      * Creates a new event view over the specified event log.
      *
      * @param log the underlying event log containing all events
-     * @param gameEventFactory factory for creating new game events
+     * @param eventFactory factory for creating new game events
      * @param clazz the class representing the payload type this view handles
      * @param subject the subject string used to filter events
      */
-    public EventView(InMemoryGameEventLog log,
-                     GameEventFactory gameEventFactory,
+    public EventView(InMemoryEventLog log,
+                     EventFactory eventFactory,
                      Class<T> clazz,
                      String subject) {
         this.log = log;
-        this.gameEventFactory = gameEventFactory;
+        this.eventFactory = eventFactory;
         this.clazz = clazz;
         this.subject = subject;
     }
@@ -67,9 +71,9 @@ public class EventView<T> implements GameEventLog<T> {
      */
     @Override
     public boolean isEmpty() {
-        List<GameEvent<?>> all = log.getAll();
+        List<Event<?>> all = log.getAll();
         for (int i = all.size() - 1; i >= 0; i--) {
-            GameEvent<?> event = all.get(i);
+            Event<?> event = all.get(i);
             Object payload = event.payload();
             if (clazz.isInstance(payload) && subject.equals(event.subject())) {
                 return false;
@@ -88,9 +92,9 @@ public class EventView<T> implements GameEventLog<T> {
      */
     @Override
     public T getLatest() {
-        List<GameEvent<?>> all = log.getAll();
+        List<Event<?>> all = log.getAll();
         for (int i = all.size() - 1; i >= 0; i--) {
-            GameEvent<?> event = all.get(i);
+            Event<?> event = all.get(i);
             Object payload = event.payload();
             if (clazz.isInstance(payload) && subject.equals(event.subject())) {
                 return clazz.cast(payload);
@@ -109,7 +113,7 @@ public class EventView<T> implements GameEventLog<T> {
      */
     @Override
     public void add(T payload) {
-        log.add(gameEventFactory.create(subject, payload));
+        log.add(eventFactory.create(subject, payload));
     }
     
     /**
@@ -122,7 +126,7 @@ public class EventView<T> implements GameEventLog<T> {
     @Override
     public List<T> getAll() {
         List<T> result = new ArrayList<>();
-        for (GameEvent<?> event : log.getAll()) {
+        for (Event<?> event : log.getAll()) {
             Object payload = event.payload();
             if (clazz.isInstance(payload) && subject.equals(event.subject())) {
                 result.add(clazz.cast(payload));

@@ -4,8 +4,8 @@ import de.bwoester.coldfrontier.EventLogStub;
 import de.bwoester.coldfrontier.buildings.Building;
 import de.bwoester.coldfrontier.buildings.BuildingDataProvider;
 import de.bwoester.coldfrontier.buildings.BuildingMsg;
-import de.bwoester.coldfrontier.messaging.GameEventLog;
-import de.bwoester.coldfrontier.messaging.GameEventSubject;
+import de.bwoester.coldfrontier.messaging.EventLog;
+import de.bwoester.coldfrontier.messaging.EventSubject;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -33,14 +33,14 @@ class ProgressServiceTest {
     private BuildingMsg buildingMsg;
 
     EventLogStub eventLogStub;
-    private GameEventLog<ProgressMsg> progressLog;
+    private EventLog<ProgressMsg> progressLog;
     private ProgressService progressService;
     
     @BeforeEach
     void setUp() {
         eventLogStub = new EventLogStub();
         progressLog = eventLogStub.inMemoryGameEventLog
-                .viewOfType(ProgressMsg.class, GameEventSubject.Progress.building("planet-1"));
+                .viewOfType(ProgressMsg.class, EventSubject.Progress.building("planet-1"));
         progressService = new ProgressService(progressLog, buildingDataProvider);
     }
 

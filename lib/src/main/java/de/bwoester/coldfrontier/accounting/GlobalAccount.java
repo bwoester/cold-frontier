@@ -1,12 +1,12 @@
 package de.bwoester.coldfrontier.accounting;
 
-import de.bwoester.coldfrontier.messaging.GameEventLog;
+import de.bwoester.coldfrontier.messaging.EventLog;
 
 public class GlobalAccount {
 
-    private final GameEventLog<Long> balance;
+    private final EventLog<Long> balance;
 
-    public GlobalAccount(GameEventLog<Long> balance) {
+    public GlobalAccount(EventLog<Long> balance) {
         this.balance = balance;
     }
 

@@ -1,7 +1,7 @@
 package de.bwoester.coldfrontier.buildings;
 
 import de.bwoester.coldfrontier.accounting.ResourceSetMsg;
-import de.bwoester.coldfrontier.messaging.GameEventLog;
+import de.bwoester.coldfrontier.messaging.EventLog;
 
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicReference;
@@ -11,11 +11,11 @@ import java.util.concurrent.atomic.AtomicReference;
  */
 public class BuildingService {
 
-    private final GameEventLog<BuildingCountersMsg> buildings;
-    private final GameEventLog<ConstructionQueueMsg> constructionQueue;
+    private final EventLog<BuildingCountersMsg> buildings;
+    private final EventLog<ConstructionQueueMsg> constructionQueue;
     private final BuildingDataProvider buildingDataProvider;
 
-    public BuildingService(GameEventLog<BuildingCountersMsg> buildings, GameEventLog<ConstructionQueueMsg> constructionQueue, BuildingDataProvider buildingDataProvider) {
+    public BuildingService(EventLog<BuildingCountersMsg> buildings, EventLog<ConstructionQueueMsg> constructionQueue, BuildingDataProvider buildingDataProvider) {
         this.buildings = buildings;
         this.constructionQueue = constructionQueue;
         this.buildingDataProvider = buildingDataProvider;

@@ -1,6 +1,6 @@
 package de.bwoester.coldfrontier.input;
 
-import de.bwoester.coldfrontier.messaging.GameEventLog;
+import de.bwoester.coldfrontier.messaging.EventLog;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.LinkedList;
@@ -14,15 +14,15 @@ import java.util.stream.Collectors;
 @Slf4j
 public class InputService {
 
-    private final GameEventLog<InputQueueMsg> newInputsLog;
-    private final GameEventLog<InputQueueMsg> startedInputsLog;
-    private final GameEventLog<InputQueueMsg> finishedInputsLog;
-    private final GameEventLog<InputQueueMsg> failedInputsLog;
+    private final EventLog<InputQueueMsg> newInputsLog;
+    private final EventLog<InputQueueMsg> startedInputsLog;
+    private final EventLog<InputQueueMsg> finishedInputsLog;
+    private final EventLog<InputQueueMsg> failedInputsLog;
 
-    public InputService(GameEventLog<InputQueueMsg> newInputsLog,
-                        GameEventLog<InputQueueMsg> startedInputsLog,
-                        GameEventLog<InputQueueMsg> finishedInputsLog,
-                        GameEventLog<InputQueueMsg> failedInputsLog) {
+    public InputService(EventLog<InputQueueMsg> newInputsLog,
+                        EventLog<InputQueueMsg> startedInputsLog,
+                        EventLog<InputQueueMsg> finishedInputsLog,
+                        EventLog<InputQueueMsg> failedInputsLog) {
         this.newInputsLog = newInputsLog;
         this.startedInputsLog = startedInputsLog;
         this.finishedInputsLog = finishedInputsLog;
@@ -131,7 +131,7 @@ public class InputService {
         }
     }
 
-    private static <T extends InputMsg> Queue<T> find(Class<T> tClass, Predicate<T> predicate, GameEventLog<InputQueueMsg> eventLog) {
+    private static <T extends InputMsg> Queue<T> find(Class<T> tClass, Predicate<T> predicate, EventLog<InputQueueMsg> eventLog) {
         return eventLog.getLatest().queuedInput().stream()
                 .filter(tClass::isInstance)
                 .map(tClass::cast)
@@ -139,25 +139,25 @@ public class InputService {
                 .collect(Collectors.toCollection(LinkedList::new));
     }
 
-    private static void add(InputMsg inputMsg, GameEventLog<InputQueueMsg> eventLog) {
+    private static void add(InputMsg inputMsg, EventLog<InputQueueMsg> eventLog) {
         Queue<InputMsg> input = new LinkedList<>(eventLog.getLatest().queuedInput());
         input.add(inputMsg);
         eventLog.add(new InputQueueMsg(input));
     }
 
-    private static void addAll(Queue<? extends InputMsg> inputMsgs, GameEventLog<InputQueueMsg> eventLog) {
+    private static void addAll(Queue<? extends InputMsg> inputMsgs, EventLog<InputQueueMsg> eventLog) {
         Queue<InputMsg> input = new LinkedList<>(eventLog.getLatest().queuedInput());
         input.addAll(inputMsgs);
         eventLog.add(new InputQueueMsg(input));
     }
 
-    private static void remove(InputMsg inputMsg, GameEventLog<InputQueueMsg> eventLog) {
+    private static void remove(InputMsg inputMsg, EventLog<InputQueueMsg> eventLog) {
         Queue<InputMsg> input = new LinkedList<>(eventLog.getLatest().queuedInput());
         input.remove(inputMsg);
         eventLog.add(new InputQueueMsg(input));
     }
 
-    private static void removeAll(Queue<? extends InputMsg> inputMsgs, GameEventLog<InputQueueMsg> eventLog) {
+    private static void removeAll(Queue<? extends InputMsg> inputMsgs, EventLog<InputQueueMsg> eventLog) {
         Queue<InputMsg> input = new LinkedList<>(eventLog.getLatest().queuedInput());
         input.removeAll(inputMsgs);
         eventLog.add(new InputQueueMsg(input));

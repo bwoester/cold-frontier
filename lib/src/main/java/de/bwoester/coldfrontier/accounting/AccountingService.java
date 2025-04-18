@@ -1,6 +1,6 @@
 package de.bwoester.coldfrontier.accounting;
 
-import de.bwoester.coldfrontier.messaging.GameEventLog;
+import de.bwoester.coldfrontier.messaging.EventLog;
 
 /**
  * Handles accounting for one player.
@@ -8,9 +8,9 @@ import de.bwoester.coldfrontier.messaging.GameEventLog;
 public class AccountingService {
 
     private final PlayerLedger playerLedger;
-    private final GameEventLog<TransactionMsg> transactions;
+    private final EventLog<TransactionMsg> transactions;
 
-    public AccountingService(PlayerLedger playerLedger, GameEventLog<TransactionMsg> transactions) {
+    public AccountingService(PlayerLedger playerLedger, EventLog<TransactionMsg> transactions) {
         this.playerLedger = playerLedger;
         this.transactions = transactions;
     }

@@ -1,10 +1,12 @@
-package de.bwoester.coldfrontier.messaging;
+package de.bwoester.coldfrontier.messaging.memory;
+
+import de.bwoester.coldfrontier.messaging.Event;
 
 import java.util.List;
 
 public class GameEventPrinter {
 
-    public static String prettyPrint(List<GameEvent<?>> events) {
+    public static String prettyPrint(List<Event<?>> events) {
         if (events.isEmpty()) {
             return "(no events)";
         }
@@ -15,13 +17,13 @@ public class GameEventPrinter {
                 .orElse(10);
 
         StringBuilder sb = new StringBuilder();
-        for (GameEvent<?> event : events) {
+        for (Event<?> event : events) {
             sb.append(prettyPrintEvent(event, maxSubjectLength)).append(System.lineSeparator());
         }
         return sb.toString();
     }
 
-    private static String prettyPrintEvent(GameEvent<?> event, int subjectWidth) {
+    private static String prettyPrintEvent(Event<?> event, int subjectWidth) {
         return String.format(
                 "Seq: %d | Tick: %d | Subject: %-" + subjectWidth + "s | Payload: %s",
                 event.seq(),

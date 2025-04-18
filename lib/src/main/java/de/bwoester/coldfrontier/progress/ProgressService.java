@@ -3,7 +3,7 @@ package de.bwoester.coldfrontier.progress;
 import de.bwoester.coldfrontier.buildings.Building;
 import de.bwoester.coldfrontier.buildings.BuildingDataProvider;
 import de.bwoester.coldfrontier.buildings.BuildingMsg;
-import de.bwoester.coldfrontier.messaging.GameEventLog;
+import de.bwoester.coldfrontier.messaging.EventLog;
 
 import java.util.Optional;
 
@@ -28,7 +28,7 @@ public class ProgressService {
     /**
      * Event log that stores progress messages to track building construction state.
      */
-    private final GameEventLog<ProgressMsg> progressLog;
+    private final EventLog<ProgressMsg> progressLog;
     
     /**
      * Provider that supplies building data, including construction time information.
@@ -41,7 +41,7 @@ public class ProgressService {
      * @param progressLog The event log where progress messages will be stored
      * @param buildingDataProvider Provider of building-specific data needed for calculations
      */
-    public ProgressService(GameEventLog<ProgressMsg> progressLog, BuildingDataProvider buildingDataProvider) {
+    public ProgressService(EventLog<ProgressMsg> progressLog, BuildingDataProvider buildingDataProvider) {
         this.progressLog = progressLog;
         this.buildingDataProvider = buildingDataProvider;
     }

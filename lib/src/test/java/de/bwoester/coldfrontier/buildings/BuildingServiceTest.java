@@ -2,8 +2,8 @@ package de.bwoester.coldfrontier.buildings;
 
 import de.bwoester.coldfrontier.EventLogStub;
 import de.bwoester.coldfrontier.accounting.ResourceSetMsg;
-import de.bwoester.coldfrontier.messaging.GameEventLog;
-import de.bwoester.coldfrontier.messaging.GameEventSubject;
+import de.bwoester.coldfrontier.messaging.EventLog;
+import de.bwoester.coldfrontier.messaging.EventSubject;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
@@ -22,8 +22,8 @@ import static org.mockito.Mockito.when;
 class BuildingServiceTest {
 
     EventLogStub eventLogStub;
-    GameEventLog<BuildingCountersMsg> buildingCountersLog;
-    GameEventLog<ConstructionQueueMsg> constructionQueueLog;
+    EventLog<BuildingCountersMsg> buildingCountersLog;
+    EventLog<ConstructionQueueMsg> constructionQueueLog;
 
     BuildingDataProvider buildingDataProvider;
     BuildingService buildingService;
@@ -33,9 +33,9 @@ class BuildingServiceTest {
     void setUp() {
         eventLogStub = new EventLogStub();
         buildingCountersLog = eventLogStub.inMemoryGameEventLog.viewOfType(BuildingCountersMsg.class,
-                GameEventSubject.Building.counters("planet-1"));
+                EventSubject.Building.counters("planet-1"));
         constructionQueueLog = eventLogStub.inMemoryGameEventLog.viewOfType(ConstructionQueueMsg.class,
-                GameEventSubject.Building.queue("planet-1"));
+                EventSubject.Building.queue("planet-1"));
         buildingDataProvider = mock(BuildingDataProvider.class);
         buildingService = new BuildingService(buildingCountersLog, constructionQueueLog, buildingDataProvider);
 

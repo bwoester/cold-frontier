@@ -1,6 +1,6 @@
 package de.bwoester.coldfrontier.messaging;
 
-public class GameEventSubject {
+public class EventSubject {
 
     // ------------------------------------------------------------------------
 
