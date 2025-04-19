@@ -45,7 +45,7 @@ class NatsValueIntegrationTest {
     static void setupNats() {
         try {
             Options options = new Options.Builder()
-                    .server("nats://localhost:4222")
+                    .server("nats://demo.nats.io:4222")
                     .connectionTimeout(Duration.ofSeconds(5))
                     .build();
             

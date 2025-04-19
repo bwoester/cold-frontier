@@ -36,7 +36,8 @@ dependencies {
     implementation(libs.jackson.databind)
     implementation(libs.jackson.annotations)
     implementation(libs.jackson.datatype.jsr310)
-    
+    implementation(libs.jackson.module.parameter.names)
+
     // NATS JetStream client
     implementation(libs.nats.client)
     runtimeOnly(libs.logback.classic)
@@ -47,6 +48,11 @@ java {
     toolchain {
         languageVersion = JavaLanguageVersion.of(21)
     }
+}
+
+tasks.withType<JavaCompile>().configureEach {
+    // Required for jackson-module-parameter-names, which handles (de)serialization of record classes
+    options.compilerArgs.add("-parameters")
 }
 
 tasks.named<Test>("test") {
