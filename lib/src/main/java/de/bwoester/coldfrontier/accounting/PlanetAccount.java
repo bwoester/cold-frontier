@@ -1,17 +1,17 @@
 package de.bwoester.coldfrontier.accounting;
 
-import de.bwoester.coldfrontier.messaging.EventLog;
+import de.bwoester.coldfrontier.data.Value;
 
 public class PlanetAccount {
 
-    private final EventLog<PlanetResourceSetMsg> balance;
+    private final Value<PlanetResourceSetMsg> balance;
 
-    public PlanetAccount(EventLog<PlanetResourceSetMsg> balance) {
+    public PlanetAccount(Value<PlanetResourceSetMsg> balance) {
         this.balance = balance;
     }
 
     public PlanetResourceSetMsg getBalance() {
-        return balance.getLatest();
+        return balance.get();
     }
 
     public boolean validateTransaction(TransactionMsg transactionMsg) {
@@ -20,11 +20,11 @@ public class PlanetAccount {
 
     public void executeTransaction(TransactionMsg transactionMsg) {
         PlanetResourceSetMsg newBalance = calculateNewBalance(transactionMsg);
-        balance.add(newBalance);
+        balance.set(newBalance);
     }
 
     private PlanetResourceSetMsg calculateNewBalance(TransactionMsg transactionMsg) {
-        PlanetResourceSetMsg currentBalance = balance.getLatest();
+        PlanetResourceSetMsg currentBalance = balance.get();
         PlanetResourceSetMsg diff = transactionMsg.amount().planetResources();
         return switch (transactionMsg.type()) {
             case INCOME, TRANSFER -> currentBalance.add(diff);

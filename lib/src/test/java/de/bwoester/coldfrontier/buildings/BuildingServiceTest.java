@@ -1,9 +1,9 @@
 package de.bwoester.coldfrontier.buildings;
 
-import de.bwoester.coldfrontier.EventLogStub;
+import de.bwoester.coldfrontier.TestValues;
 import de.bwoester.coldfrontier.accounting.ResourceSetMsg;
-import de.bwoester.coldfrontier.messaging.EventLog;
-import de.bwoester.coldfrontier.messaging.EventSubject;
+import de.bwoester.coldfrontier.data.Value;
+import de.bwoester.coldfrontier.data.Keys;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
@@ -21,9 +21,9 @@ import static org.mockito.Mockito.when;
 @Slf4j
 class BuildingServiceTest {
 
-    EventLogStub eventLogStub;
-    EventLog<BuildingCountersMsg> buildingCountersLog;
-    EventLog<ConstructionQueueMsg> constructionQueueLog;
+    TestValues testValues;
+    Value<BuildingCountersMsg> buildingCounters;
+    Value<ConstructionQueueMsg> constructionQueue;
 
     BuildingDataProvider buildingDataProvider;
     BuildingService buildingService;
@@ -31,19 +31,19 @@ class BuildingServiceTest {
 
     @BeforeEach
     void setUp() {
-        eventLogStub = new EventLogStub();
-        buildingCountersLog = eventLogStub.inMemoryGameEventLog.viewOfType(BuildingCountersMsg.class,
-                EventSubject.Building.counters("planet-1"));
-        constructionQueueLog = eventLogStub.inMemoryGameEventLog.viewOfType(ConstructionQueueMsg.class,
-                EventSubject.Building.queue("planet-1"));
+        testValues = new TestValues();
+        buildingCounters = testValues.util.create(BuildingCountersMsg.class,
+                Keys.Building.counters("planet-1"));
+        constructionQueue = testValues.util.create(ConstructionQueueMsg.class,
+                Keys.Building.queue("planet-1"));
         buildingDataProvider = mock(BuildingDataProvider.class);
-        buildingService = new BuildingService(buildingCountersLog, constructionQueueLog, buildingDataProvider);
+        buildingService = new BuildingService(buildingCounters, constructionQueue, buildingDataProvider);
 
-        buildingCountersLog.add(new BuildingCountersMsg(Map.of(
+        buildingCounters.set(new BuildingCountersMsg(Map.of(
                 Building.IRON_MINE, 1L
         )));
         Queue<ConstructionQueueEntryMsg> constructionQueue = new LinkedList<>();
-        constructionQueueLog.add(new ConstructionQueueMsg(constructionQueue));
+        this.constructionQueue.set(new ConstructionQueueMsg(constructionQueue));
 
         when(buildingDataProvider.getData(eq(Building.IRON_MINE))).thenReturn(new BuildingMsg(
                 Building.IRON_MINE.toString(),
@@ -55,7 +55,7 @@ class BuildingServiceTest {
 
     @AfterEach
     void tearDown() {
-        log.info("event log:\n{}", eventLogStub.inMemoryGameEventLog.prettyPrint());
+        log.info("event log:\n{}", testValues.util.prettyPrint());
     }
 
     @Test

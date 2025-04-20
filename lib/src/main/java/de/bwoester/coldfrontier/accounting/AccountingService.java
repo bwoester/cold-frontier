@@ -1,6 +1,6 @@
 package de.bwoester.coldfrontier.accounting;
 
-import de.bwoester.coldfrontier.messaging.EventLog;
+import de.bwoester.coldfrontier.data.Value;
 
 /**
  * Handles accounting for one player.
@@ -8,9 +8,9 @@ import de.bwoester.coldfrontier.messaging.EventLog;
 public class AccountingService {
 
     private final PlayerLedger playerLedger;
-    private final EventLog<TransactionMsg> transactions;
+    private final Value<TransactionMsg> transactions;
 
-    public AccountingService(PlayerLedger playerLedger, EventLog<TransactionMsg> transactions) {
+    public AccountingService(PlayerLedger playerLedger, Value<TransactionMsg> transactions) {
         this.playerLedger = playerLedger;
         this.transactions = transactions;
     }
@@ -20,7 +20,7 @@ public class AccountingService {
         PlanetAccount planetAccount = playerLedger.getPlanetAccount(planetId);
         if (globalAccount.validateTransaction(transactionMsg)
                 && planetAccount.validateTransaction(transactionMsg)) {
-            transactions.add(transactionMsg);
+            transactions.set(transactionMsg);
             globalAccount.executeTransaction(transactionMsg);
             planetAccount.executeTransaction(transactionMsg);
             return true;

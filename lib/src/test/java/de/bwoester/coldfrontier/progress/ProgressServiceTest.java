@@ -1,11 +1,11 @@
 package de.bwoester.coldfrontier.progress;
 
-import de.bwoester.coldfrontier.EventLogStub;
+import de.bwoester.coldfrontier.TestValues;
 import de.bwoester.coldfrontier.buildings.Building;
 import de.bwoester.coldfrontier.buildings.BuildingDataProvider;
 import de.bwoester.coldfrontier.buildings.BuildingMsg;
-import de.bwoester.coldfrontier.messaging.EventLog;
-import de.bwoester.coldfrontier.messaging.EventSubject;
+import de.bwoester.coldfrontier.data.Value;
+import de.bwoester.coldfrontier.data.Keys;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -32,21 +32,21 @@ class ProgressServiceTest {
     @Mock
     private BuildingMsg buildingMsg;
 
-    EventLogStub eventLogStub;
-    private EventLog<ProgressMsg> progressLog;
+    private TestValues testValues;
+    private Value<ProgressMsg> progress;
     private ProgressService progressService;
     
     @BeforeEach
     void setUp() {
-        eventLogStub = new EventLogStub();
-        progressLog = eventLogStub.inMemoryGameEventLog
-                .viewOfType(ProgressMsg.class, EventSubject.Progress.building("planet-1"));
-        progressService = new ProgressService(progressLog, buildingDataProvider);
+        testValues = new TestValues();
+        progress = testValues.util
+                .create(ProgressMsg.class, Keys.Progress.building("planet-1"));
+        progressService = new ProgressService(progress, buildingDataProvider);
     }
 
     @AfterEach
     void tearDown() {
-        log.info("event log:\n{}", eventLogStub.inMemoryGameEventLog.prettyPrint());
+        log.info("event log:\n{}", testValues.util.prettyPrint());
     }
     
     @Test
@@ -55,7 +55,7 @@ class ProgressServiceTest {
         progressService.startBuilding(building, 1.0);
         
         // Then
-        ProgressMsg latest = progressLog.getLatest();
+        ProgressMsg latest = progress.get();
         assertNotNull(latest);
         assertInstanceOf(CreateBuildingProgressMsg.class, latest);
         
@@ -84,7 +84,7 @@ class ProgressServiceTest {
     @Test
     void hasBuildingInProgress_WithCompletedBuilding_ShouldReturnFalse() {
         // Given
-        progressLog.add(new CreateBuildingProgressMsg(building, 1.0, 1.0, false));
+        progress.set(new CreateBuildingProgressMsg(building, 1.0, 1.0, false));
         
         // When & Then
         assertFalse(progressService.hasBuildingInProgress());
@@ -96,7 +96,7 @@ class ProgressServiceTest {
         progressService.increaseProgress();
         
         // Then
-        assertTrue(progressLog.isEmpty());
+        assertFalse(progress.isPresent());
     }
     
     @Test
@@ -110,7 +110,7 @@ class ProgressServiceTest {
         progressService.increaseProgress();
         
         // Then
-        ProgressMsg latest = progressLog.getLatest();
+        ProgressMsg latest = progress.get();
         assertEquals(0.1, latest.progress()); // Exact 1/10 progress increment
     }
     
@@ -125,35 +125,36 @@ class ProgressServiceTest {
         progressService.increaseProgress();
         
         // Then
-        ProgressMsg latest = progressLog.getLatest();
+        ProgressMsg latest = progress.get();
         assertEquals(0.05, latest.progress()); // Exact 1/20 progress increment
     }
     
     @Test
     void increaseProgress_WithCompletedButNotConsumedBuilding_ShouldNotIncreaseProgress() {
         // Given
-        progressLog.add(new CreateBuildingProgressMsg(building, 1.0, 1.0, false));
-        int messageCount = progressLog.getAll().size();
-        
+        CreateBuildingProgressMsg msg = new CreateBuildingProgressMsg(building, 1.0, 1.0, false);
+        progress.set(msg);
+
+        // TODO register a watcher and verify no new messages are added?
+
         // When
         progressService.increaseProgress();
         
         // Then
-        assertEquals(messageCount, progressLog.getAll().size()); // No new message added
-        assertEquals(1.0, progressLog.getLatest().progress()); // Progress remains at 1.0
+        assertEquals(msg, progress.get());
     }
     
     @Test
     void increaseProgress_WithCompletedAndConsumedBuilding_ShouldDoNothing() {
         // Given
-        progressLog.add(new CreateBuildingProgressMsg(building, 1.0, 1.0, true));
-        int messageCount = progressLog.getAll().size();
-        
+        CreateBuildingProgressMsg msg = new CreateBuildingProgressMsg(building, 1.0, 1.0, true);
+        progress.set(msg);
+
         // When
         progressService.increaseProgress();
         
         // Then
-        assertEquals(messageCount, progressLog.getAll().size()); // No new message added
+        assertEquals(msg, progress.get());
     }
     
     @Test
@@ -180,7 +181,7 @@ class ProgressServiceTest {
     @Test
     void pollCompletedBuilding_WithCompletedBuilding_ShouldReturnAndMarkConsumed() {
         // Given
-        progressLog.add(new CreateBuildingProgressMsg(building, 1.0, 1.0, false));
+        progress.set(new CreateBuildingProgressMsg(building, 1.0, 1.0, false));
         
         // When
         Optional<Building> result = progressService.pollCompletedBuilding();
@@ -190,14 +191,14 @@ class ProgressServiceTest {
         assertSame(building, result.get());
         
         // The building should be marked as consumed
-        ProgressMsg latest = progressLog.getLatest();
+        ProgressMsg latest = progress.get();
         assertTrue(latest.consumed());
     }
     
     @Test
     void pollCompletedBuilding_WithAlreadyConsumedBuilding_ShouldReturnEmpty() {
         // Given
-        progressLog.add(new CreateBuildingProgressMsg(building, 1.0, 1.0, true));
+        progress.set(new CreateBuildingProgressMsg(building, 1.0, 1.0, true));
         
         // When
         Optional<Building> result = progressService.pollCompletedBuilding();
@@ -219,16 +220,16 @@ class ProgressServiceTest {
         }
         
         // Verify progress at 90%
-        assertEquals(0.9, progressLog.getLatest().progress());
+        assertEquals(0.9, progress.get().progress());
         assertTrue(progressService.hasBuildingInProgress());
         
         // Final tick to complete building
         progressService.increaseProgress();
         
         // Verify building is complete but not consumed
-        assertEquals(1.0, progressLog.getLatest().progress());
+        assertEquals(1.0, progress.get().progress());
         assertFalse(progressService.hasBuildingInProgress());
-        assertFalse(progressLog.getLatest().consumed());
+        assertFalse(progress.get().consumed());
         
         // Poll the completed building
         Optional<Building> completed = progressService.pollCompletedBuilding();
@@ -236,7 +237,7 @@ class ProgressServiceTest {
         // Verify building is returned and marked as consumed
         assertTrue(completed.isPresent());
         assertSame(building, completed.get());
-        assertTrue(progressLog.getLatest().consumed());
+        assertTrue(progress.get().consumed());
         
         // Further polls should return empty
         assertTrue(progressService.pollCompletedBuilding().isEmpty());

@@ -1,7 +1,7 @@
 package de.bwoester.coldfrontier.input;
 
 import de.bwoester.coldfrontier.TestInputMsg;
-import de.bwoester.coldfrontier.messaging.EventLog;
+import de.bwoester.coldfrontier.data.Value;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -13,23 +13,22 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.LinkedList;
 import java.util.Queue;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class InputServiceTest {
 
     @Mock
-    private EventLog<InputQueueMsg> newInputsLog;
-
+    private Value<InputQueueMsg> newInputsLog;
     @Mock
-    private EventLog<InputQueueMsg> startedInputsLog;
-
+    private Value<InputQueueMsg> startedInputsLog;
     @Mock
-    private EventLog<InputQueueMsg> finishedInputsLog;
-
+    private Value<InputQueueMsg> finishedInputsLog;
     @Mock
-    private EventLog<InputQueueMsg> failedInputsLog;
+    private Value<InputQueueMsg> failedInputsLog;
 
     @Captor
     private ArgumentCaptor<InputQueueMsg> inputQueueMsgCaptor;
@@ -48,17 +47,17 @@ class InputServiceTest {
         Queue<InputMsg> initialQueue = new LinkedList<>();
         InputQueueMsg initialQueueMsg = new InputQueueMsg(initialQueue);
 
-        when(newInputsLog.getLatest()).thenReturn(initialQueueMsg);
+        when(newInputsLog.get()).thenReturn(initialQueueMsg);
 
         // When
         inputService.add(inputMsg);
 
         // Then
-        verify(newInputsLog).add(inputQueueMsgCaptor.capture());
+        verify(newInputsLog).set(inputQueueMsgCaptor.capture());
 
         InputQueueMsg capturedMsg = inputQueueMsgCaptor.getValue();
-        assertEquals(1, capturedMsg.queuedInput().size());
-        assertEquals(inputMsg, capturedMsg.queuedInput().peek());
+        assertEquals(1, capturedMsg.msgQueue().size());
+        assertEquals(inputMsg, capturedMsg.msgQueue().peek());
     }
 
     @Test
@@ -75,8 +74,8 @@ class InputServiceTest {
         Queue<InputMsg> initialStartedQueue = new LinkedList<>();
         InputQueueMsg initialStartedQueueMsg = new InputQueueMsg(initialStartedQueue);
 
-        when(newInputsLog.getLatest()).thenReturn(initialNewQueueMsg);
-        when(startedInputsLog.getLatest()).thenReturn(initialStartedQueueMsg);
+        when(newInputsLog.get()).thenReturn(initialNewQueueMsg);
+        when(startedInputsLog.get()).thenReturn(initialStartedQueueMsg);
 
         // When
         Queue<TestInputMsg> result = inputService.startInputHandling(
@@ -86,16 +85,16 @@ class InputServiceTest {
 
         // Then
         // Verify the input was moved to started queue
-        verify(startedInputsLog).add(inputQueueMsgCaptor.capture());
+        verify(startedInputsLog).set(inputQueueMsgCaptor.capture());
         InputQueueMsg capturedStartedMsg = inputQueueMsgCaptor.getValue();
-        assertEquals(1, capturedStartedMsg.queuedInput().size());
-        assertEquals(inputMsg1, capturedStartedMsg.queuedInput().peek());
+        assertEquals(1, capturedStartedMsg.msgQueue().size());
+        assertEquals(inputMsg1, capturedStartedMsg.msgQueue().peek());
 
         // Verify the input was removed from new queue
-        verify(newInputsLog).add(inputQueueMsgCaptor.capture());
+        verify(newInputsLog).set(inputQueueMsgCaptor.capture());
         InputQueueMsg capturedNewMsg = inputQueueMsgCaptor.getValue();
-        assertEquals(1, capturedNewMsg.queuedInput().size());
-        assertEquals(inputMsg2, capturedNewMsg.queuedInput().peek());
+        assertEquals(1, capturedNewMsg.msgQueue().size());
+        assertEquals(inputMsg2, capturedNewMsg.msgQueue().peek());
 
         // Verify the returned queue contains the matched inputs
         assertEquals(1, result.size());
@@ -114,23 +113,23 @@ class InputServiceTest {
         Queue<InputMsg> initialFinishedQueue = new LinkedList<>();
         InputQueueMsg initialFinishedQueueMsg = new InputQueueMsg(initialFinishedQueue);
 
-        when(startedInputsLog.getLatest()).thenReturn(initialStartedQueueMsg);
-        when(finishedInputsLog.getLatest()).thenReturn(initialFinishedQueueMsg);
+        when(startedInputsLog.get()).thenReturn(initialStartedQueueMsg);
+        when(finishedInputsLog.get()).thenReturn(initialFinishedQueueMsg);
 
         // When
         inputService.finishInputHandling(inputMsg);
 
         // Then
         // Verify the input was moved to finished queue
-        verify(finishedInputsLog).add(inputQueueMsgCaptor.capture());
+        verify(finishedInputsLog).set(inputQueueMsgCaptor.capture());
         InputQueueMsg capturedFinishedMsg = inputQueueMsgCaptor.getValue();
-        assertEquals(1, capturedFinishedMsg.queuedInput().size());
-        assertEquals(inputMsg, capturedFinishedMsg.queuedInput().peek());
+        assertEquals(1, capturedFinishedMsg.msgQueue().size());
+        assertEquals(inputMsg, capturedFinishedMsg.msgQueue().peek());
 
         // Verify the input was removed from started queue
-        verify(startedInputsLog).add(inputQueueMsgCaptor.capture());
+        verify(startedInputsLog).set(inputQueueMsgCaptor.capture());
         InputQueueMsg capturedStartedMsg = inputQueueMsgCaptor.getValue();
-        assertEquals(0, capturedStartedMsg.queuedInput().size());
+        assertEquals(0, capturedStartedMsg.msgQueue().size());
     }
 
     @Test
@@ -146,27 +145,27 @@ class InputServiceTest {
         Queue<InputMsg> initialFailedQueue = new LinkedList<>();
         InputQueueMsg initialFailedQueueMsg = new InputQueueMsg(initialFailedQueue);
 
-        when(startedInputsLog.getLatest()).thenReturn(initialStartedQueueMsg);
-        when(failedInputsLog.getLatest()).thenReturn(initialFailedQueueMsg);
+        when(startedInputsLog.get()).thenReturn(initialStartedQueueMsg);
+        when(failedInputsLog.get()).thenReturn(initialFailedQueueMsg);
 
         // When
         inputService.failedInputHandling(inputMsg, exception);
 
         // Then
         // Verify the input was moved to failed queue as a FailedInputMsg
-        verify(failedInputsLog).add(inputQueueMsgCaptor.capture());
+        verify(failedInputsLog).set(inputQueueMsgCaptor.capture());
         InputQueueMsg capturedFailedMsg = inputQueueMsgCaptor.getValue();
-        assertEquals(1, capturedFailedMsg.queuedInput().size());
-        assertInstanceOf(FailedInputMsg.class, capturedFailedMsg.queuedInput().peek());
+        assertEquals(1, capturedFailedMsg.msgQueue().size());
+        assertInstanceOf(FailedInputMsg.class, capturedFailedMsg.msgQueue().peek());
 
-        FailedInputMsg failedInputMsg = (FailedInputMsg) capturedFailedMsg.queuedInput().peek();
+        FailedInputMsg failedInputMsg = (FailedInputMsg) capturedFailedMsg.msgQueue().peek();
         assertEquals(inputMsg, failedInputMsg.inputMsg());
         assertEquals(exception, failedInputMsg.reason());
 
         // Verify the input was removed from started queue
-        verify(startedInputsLog).add(inputQueueMsgCaptor.capture());
+        verify(startedInputsLog).set(inputQueueMsgCaptor.capture());
         InputQueueMsg capturedStartedMsg = inputQueueMsgCaptor.getValue();
-        assertEquals(0, capturedStartedMsg.queuedInput().size());
+        assertEquals(0, capturedStartedMsg.msgQueue().size());
     }
 
     @Test
@@ -181,22 +180,22 @@ class InputServiceTest {
         newInputQueue.add(recentInput);
         InputQueueMsg newInputQueueMsg = new InputQueueMsg(newInputQueue);
 
-        when(newInputsLog.isEmpty()).thenReturn(false);
-        when(newInputsLog.getLatest()).thenReturn(newInputQueueMsg);
+        when(newInputsLog.isPresent()).thenReturn(true);
+        when(newInputsLog.get()).thenReturn(newInputQueueMsg);
 
         // Empty started and failed queues
-        when(startedInputsLog.isEmpty()).thenReturn(true);
-        when(failedInputsLog.isEmpty()).thenReturn(true);
+        when(startedInputsLog.isPresent()).thenReturn(false);
+        when(failedInputsLog.isPresent()).thenReturn(false);
 
         // When
         inputService.verifyState(currentTick);
 
         // Then
         // Verify old inputs were removed
-        verify(newInputsLog).add(inputQueueMsgCaptor.capture());
+        verify(newInputsLog).set(inputQueueMsgCaptor.capture());
         InputQueueMsg capturedNewMsg = inputQueueMsgCaptor.getValue();
-        assertEquals(1, capturedNewMsg.queuedInput().size());
-        assertEquals(recentInput, capturedNewMsg.queuedInput().peek());
+        assertEquals(1, capturedNewMsg.msgQueue().size());
+        assertEquals(recentInput, capturedNewMsg.msgQueue().peek());
     }
 
     @Test
@@ -210,22 +209,22 @@ class InputServiceTest {
         InputQueueMsg startedInputQueueMsg = new InputQueueMsg(startedInputQueue);
 
         // Empty new and failed queues
-        when(newInputsLog.isEmpty()).thenReturn(true);
+        when(newInputsLog.isPresent()).thenReturn(false);
 
-        when(startedInputsLog.isEmpty()).thenReturn(false);
-        when(startedInputsLog.getLatest()).thenReturn(startedInputQueueMsg);
+        when(startedInputsLog.isPresent()).thenReturn(true);
+        when(startedInputsLog.get()).thenReturn(startedInputQueueMsg);
 
         // For failedInputHandling
-        when(failedInputsLog.isEmpty()).thenReturn(true);
+        when(failedInputsLog.isPresent()).thenReturn(false);
 
         // When
         inputService.verifyState(currentTick);
 
         // Then
         // Verify an empty input queue was set on started inputs
-        verify(startedInputsLog).add(inputQueueMsgCaptor.capture());
+        verify(startedInputsLog).set(inputQueueMsgCaptor.capture());
         InputQueueMsg capturedStartedMsg = inputQueueMsgCaptor.getValue();
-        assertEquals(0, capturedStartedMsg.queuedInput().size());
+        assertEquals(0, capturedStartedMsg.msgQueue().size());
     }
 
     @Test
@@ -241,20 +240,20 @@ class InputServiceTest {
         InputQueueMsg failedInputQueueMsg = new InputQueueMsg(failedInputQueue);
 
         // Empty new and started queues
-        when(newInputsLog.isEmpty()).thenReturn(true);
-        when(startedInputsLog.isEmpty()).thenReturn(true);
+        when(newInputsLog.isPresent()).thenReturn(false);
+        when(startedInputsLog.isPresent()).thenReturn(false);
 
-        when(failedInputsLog.isEmpty()).thenReturn(false);
-        when(failedInputsLog.getLatest()).thenReturn(failedInputQueueMsg);
+        when(failedInputsLog.isPresent()).thenReturn(true);
+        when(failedInputsLog.get()).thenReturn(failedInputQueueMsg);
 
         // When
         inputService.verifyState(currentTick);
 
         // Then
         // Verify an empty input queue was set on failed inputs
-        verify(failedInputsLog).add(inputQueueMsgCaptor.capture());
+        verify(failedInputsLog).set(inputQueueMsgCaptor.capture());
         InputQueueMsg capturedFailedMsg = inputQueueMsgCaptor.getValue();
-        assertEquals(0, capturedFailedMsg.queuedInput().size());
+        assertEquals(0, capturedFailedMsg.msgQueue().size());
     }
 
 }

@@ -1,8 +1,8 @@
 package de.bwoester.coldfrontier.accounting;
 
-import de.bwoester.coldfrontier.messaging.EventLog;
-import de.bwoester.coldfrontier.messaging.EventSubject;
-import de.bwoester.coldfrontier.messaging.memory.InMemoryEventLog;
+import de.bwoester.coldfrontier.data.Value;
+import de.bwoester.coldfrontier.data.ValueFactory;
+import de.bwoester.coldfrontier.data.Keys;
 import de.bwoester.coldfrontier.user.UserMsg;
 import lombok.extern.slf4j.Slf4j;
 
@@ -15,50 +15,50 @@ public class PlayerLedgerRepo {
     private static final long INITIAL_PLAYER_ACCOUNT_BALANCE = 0L;
     private static final PlanetResourceSetMsg INITIAL_PLANET_ACCOUNT_BALANCE = PlanetResourceSetMsg.createDefault();
 
-    private final InMemoryEventLog gameEventLog;
+    private final ValueFactory valueFactory;
 
-    public PlayerLedgerRepo(InMemoryEventLog gameEventLog) {
-        this.gameEventLog = gameEventLog;
+    public PlayerLedgerRepo(ValueFactory valueFactory) {
+        this.valueFactory = valueFactory;
     }
 
     public void init(UserMsg user) {
-        createPlayerAccountEventLog(user.id()).add(0L);
-        user.userProfile().planetIds().forEach(planetId -> createPlanetAccountEventLog(planetId)
-                .add(PlanetResourceSetMsg.createDefault())
+        createPlayerAccount(user.id()).set(0L);
+        user.userProfile().planetIds().forEach(planetId -> createPlanetAccount(planetId)
+                .set(PlanetResourceSetMsg.createDefault())
         );
     }
 
     public PlayerLedger get(UserMsg user) {
         Map<String, PlanetAccount> planetAccounts = new HashMap<>();
         for (String planetId : user.userProfile().planetIds()) {
-            PlanetAccount planetAccount = new PlanetAccount(createPlanetAccountEventLog(planetId));
+            PlanetAccount planetAccount = new PlanetAccount(createPlanetAccount(planetId));
             planetAccounts.put(planetId, planetAccount);
         }
-        GlobalAccount userAccount = new GlobalAccount(createPlayerAccountEventLog(user.id()));
+        GlobalAccount userAccount = new GlobalAccount(createPlayerAccount(user.id()));
         return new PlayerLedger(userAccount, planetAccounts);
     }
 
-    EventLog<Long> createPlayerAccountEventLog(String playerId) {
-        String subject = EventSubject.Accounting.playerAccount(playerId);
-        EventLog<Long> eventLog = gameEventLog.viewOfType(Long.class, subject);
-        if (eventLog.isEmpty()) {
+    Value<Long> createPlayerAccount(String playerId) {
+        String key = Keys.Accounting.playerAccount(playerId);
+        Value<Long> value = valueFactory.create(Long.class, key);
+        if (!value.isPresent()) {
             // TODO for now, it simplifies unit tests
             //  for later, player ledgers should be initialized when a user registers
             //  when getting the ledger, this should not happen
             //  maybe it should even be considered an error?
-            log.warn("No data for {}, initializing with {}.", subject, INITIAL_PLAYER_ACCOUNT_BALANCE);
-            eventLog.add(INITIAL_PLAYER_ACCOUNT_BALANCE);
+            log.warn("No data for {}, initializing with {}.", key, INITIAL_PLAYER_ACCOUNT_BALANCE);
+            value.set(INITIAL_PLAYER_ACCOUNT_BALANCE);
         }
-        return eventLog;
+        return value;
     }
 
-    EventLog<PlanetResourceSetMsg> createPlanetAccountEventLog(String planetId) {
-        String subject = EventSubject.Accounting.planetAccount(planetId);
-        EventLog<PlanetResourceSetMsg> eventLog = gameEventLog.viewOfType(PlanetResourceSetMsg.class, subject);
-        if (eventLog.isEmpty()) {
-            log.warn("No data for {}, initializing with {}.", subject, INITIAL_PLANET_ACCOUNT_BALANCE);
-            eventLog.add(INITIAL_PLANET_ACCOUNT_BALANCE);
+    Value<PlanetResourceSetMsg> createPlanetAccount(String planetId) {
+        String key = Keys.Accounting.planetAccount(planetId);
+        Value<PlanetResourceSetMsg> value = valueFactory.create(PlanetResourceSetMsg.class, key);
+        if (!value.isPresent()) {
+            log.warn("No data for {}, initializing with {}.", key, INITIAL_PLANET_ACCOUNT_BALANCE);
+            value.set(INITIAL_PLANET_ACCOUNT_BALANCE);
         }
-        return eventLog;
+        return value;
     }
 }

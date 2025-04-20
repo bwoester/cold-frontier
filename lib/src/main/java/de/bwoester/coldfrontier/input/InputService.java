@@ -1,6 +1,6 @@
 package de.bwoester.coldfrontier.input;
 
-import de.bwoester.coldfrontier.messaging.EventLog;
+import de.bwoester.coldfrontier.data.Value;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.LinkedList;
@@ -14,19 +14,19 @@ import java.util.stream.Collectors;
 @Slf4j
 public class InputService {
 
-    private final EventLog<InputQueueMsg> newInputsLog;
-    private final EventLog<InputQueueMsg> startedInputsLog;
-    private final EventLog<InputQueueMsg> finishedInputsLog;
-    private final EventLog<InputQueueMsg> failedInputsLog;
+    private final Value<InputQueueMsg> newInput;
+    private final Value<InputQueueMsg> startedInput;
+    private final Value<InputQueueMsg> finishedInput;
+    private final Value<InputQueueMsg> failedInput;
 
-    public InputService(EventLog<InputQueueMsg> newInputsLog,
-                        EventLog<InputQueueMsg> startedInputsLog,
-                        EventLog<InputQueueMsg> finishedInputsLog,
-                        EventLog<InputQueueMsg> failedInputsLog) {
-        this.newInputsLog = newInputsLog;
-        this.startedInputsLog = startedInputsLog;
-        this.finishedInputsLog = finishedInputsLog;
-        this.failedInputsLog = failedInputsLog;
+    public InputService(Value<InputQueueMsg> newInput,
+                        Value<InputQueueMsg> startedInput,
+                        Value<InputQueueMsg> finishedInput,
+                        Value<InputQueueMsg> failedInput) {
+        this.newInput = newInput;
+        this.startedInput = startedInput;
+        this.finishedInput = finishedInput;
+        this.failedInput = failedInput;
     }
 
     /**
@@ -35,7 +35,7 @@ public class InputService {
      * @param inputMsg the input message to handle (during the next input handling phase)
      */
     synchronized public void add(InputMsg inputMsg) {
-        add(inputMsg, newInputsLog);
+        add(inputMsg, newInput);
     }
 
     /**
@@ -47,9 +47,9 @@ public class InputService {
      * @return the queue of input messages to handle
      */
     synchronized public <T extends InputMsg> Queue<T> startInputHandling(Class<T> tClass, Predicate<T> predicate) {
-        Queue<T> matches = find(tClass, predicate, newInputsLog);
-        addAll(matches, startedInputsLog);
-        removeAll(matches, newInputsLog);
+        Queue<T> matches = find(tClass, predicate, newInput);
+        addAll(matches, startedInput);
+        removeAll(matches, newInput);
         return matches;
     }
 
@@ -59,8 +59,8 @@ public class InputService {
      * @param inputMsg the successfully handled input msg
      */
     synchronized public void finishInputHandling(InputMsg inputMsg) {
-        add(inputMsg, finishedInputsLog);
-        remove(inputMsg, startedInputsLog);
+        add(inputMsg, finishedInput);
+        remove(inputMsg, startedInput);
     }
 
     /**
@@ -70,8 +70,8 @@ public class InputService {
      * @param reason   the error that happened during input handling
      */
     synchronized public void failedInputHandling(InputMsg inputMsg, Throwable reason) {
-        add(new FailedInputMsg(0, inputMsg, reason), failedInputsLog);
-        remove(inputMsg, startedInputsLog);
+        add(new FailedInputMsg(0, inputMsg, reason), failedInput);
+        remove(inputMsg, startedInput);
     }
 
     /**
@@ -84,40 +84,40 @@ public class InputService {
      *     <li>FAILED inputs -> log/ alert?</li>
      * </ul>
      * TODO: also clean up?
-     * 
+     *
      * @param tick the current game tick
      */
     synchronized public void verifyState(long tick) {
         // Check for NEW inputs from more than one tick ago
-        if (!newInputsLog.isEmpty()) {
-            Queue<InputMsg> oldInputs = newInputsLog.getLatest().queuedInput().stream()
+        if (newInput.isPresent()) {
+            Queue<InputMsg> oldInputs = newInput.get().msgQueue().stream()
                     .filter(msg -> tick - msg.inputTick() > 1)
                     .collect(Collectors.toCollection(LinkedList::new));
-    
+
             if (!oldInputs.isEmpty()) {
                 log.error("Found {} unhandled input(s) from more than one tick ago!", oldInputs.size());
                 for (InputMsg oldInput : oldInputs) {
                     log.error("Unhandled input: {}", oldInput);
                 }
                 // Clean up by removing old inputs
-                removeAll(oldInputs, newInputsLog);
+                removeAll(oldInputs, newInput);
             }
         }
-    
+
         // Check for any remaining STARTED inputs
-        if (!startedInputsLog.isEmpty() && !startedInputsLog.getLatest().queuedInput().isEmpty()) {
-            Queue<InputMsg> startedInputs = startedInputsLog.getLatest().queuedInput();
+        if (startedInput.isPresent() && !startedInput.get().msgQueue().isEmpty()) {
+            Queue<InputMsg> startedInputs = startedInput.get().msgQueue();
             log.error("Found {} input(s) that started but never finished or failed!", startedInputs.size());
             for (InputMsg startedInput : startedInputs) {
                 log.error("Incomplete input: {}", startedInput);
             }
             // Clean up by re-setting the started inputs queue to empty
-            startedInputsLog.add(new InputQueueMsg(new LinkedList<>()));
+            startedInput.set(new InputQueueMsg(new LinkedList<>()));
         }
-    
+
         // Log any FAILED inputs
-        if (!failedInputsLog.isEmpty() && !failedInputsLog.getLatest().queuedInput().isEmpty()) {
-            Queue<InputMsg> failedInputs = failedInputsLog.getLatest().queuedInput();
+        if (failedInput.isPresent() && !failedInput.get().msgQueue().isEmpty()) {
+            Queue<InputMsg> failedInputs = failedInput.get().msgQueue();
             log.error("There are {} failed input(s):", failedInputs.size());
             for (InputMsg failedInput : failedInputs) {
                 if (failedInput instanceof FailedInputMsg failedInputMsg) {
@@ -127,39 +127,39 @@ public class InputService {
                 }
             }
             // Clean up by re-setting the failed inputs queue to empty
-            failedInputsLog.add(new InputQueueMsg(new LinkedList<>()));
+            failedInput.set(new InputQueueMsg(new LinkedList<>()));
         }
     }
 
-    private static <T extends InputMsg> Queue<T> find(Class<T> tClass, Predicate<T> predicate, EventLog<InputQueueMsg> eventLog) {
-        return eventLog.getLatest().queuedInput().stream()
+    private static <T extends InputMsg> Queue<T> find(Class<T> tClass, Predicate<T> predicate, Value<InputQueueMsg> input) {
+        return input.get().msgQueue().stream()
                 .filter(tClass::isInstance)
                 .map(tClass::cast)
                 .filter(predicate)
                 .collect(Collectors.toCollection(LinkedList::new));
     }
 
-    private static void add(InputMsg inputMsg, EventLog<InputQueueMsg> eventLog) {
-        Queue<InputMsg> input = new LinkedList<>(eventLog.getLatest().queuedInput());
+    private static void add(InputMsg inputMsg, Value<InputQueueMsg> inputs) {
+        Queue<InputMsg> input = new LinkedList<>(inputs.get().msgQueue());
         input.add(inputMsg);
-        eventLog.add(new InputQueueMsg(input));
+        inputs.set(new InputQueueMsg(input));
     }
 
-    private static void addAll(Queue<? extends InputMsg> inputMsgs, EventLog<InputQueueMsg> eventLog) {
-        Queue<InputMsg> input = new LinkedList<>(eventLog.getLatest().queuedInput());
+    private static void addAll(Queue<? extends InputMsg> inputMsgs, Value<InputQueueMsg> inputs) {
+        Queue<InputMsg> input = new LinkedList<>(inputs.get().msgQueue());
         input.addAll(inputMsgs);
-        eventLog.add(new InputQueueMsg(input));
+        inputs.set(new InputQueueMsg(input));
     }
 
-    private static void remove(InputMsg inputMsg, EventLog<InputQueueMsg> eventLog) {
-        Queue<InputMsg> input = new LinkedList<>(eventLog.getLatest().queuedInput());
+    private static void remove(InputMsg inputMsg, Value<InputQueueMsg> inputs) {
+        Queue<InputMsg> input = new LinkedList<>(inputs.get().msgQueue());
         input.remove(inputMsg);
-        eventLog.add(new InputQueueMsg(input));
+        inputs.set(new InputQueueMsg(input));
     }
 
-    private static void removeAll(Queue<? extends InputMsg> inputMsgs, EventLog<InputQueueMsg> eventLog) {
-        Queue<InputMsg> input = new LinkedList<>(eventLog.getLatest().queuedInput());
+    private static void removeAll(Queue<? extends InputMsg> inputMsgs, Value<InputQueueMsg> inputs) {
+        Queue<InputMsg> input = new LinkedList<>(inputs.get().msgQueue());
         input.removeAll(inputMsgs);
-        eventLog.add(new InputQueueMsg(input));
+        inputs.set(new InputQueueMsg(input));
     }
 }

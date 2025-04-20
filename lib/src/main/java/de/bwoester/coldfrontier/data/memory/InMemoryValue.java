@@ -10,18 +10,18 @@ import java.util.List;
 @RequiredArgsConstructor
 public class InMemoryValue<T> implements Value<T> {
 
-    private final List<Entry<Event<?>>> data;
-    private final String key;
+    private final List<ValueEntry<?>> data;
+    private final BucketAndKey bucketAndKey;
     private final Class<T> payloadClass;
     private final EventFactory eventFactory;
 
     @Override
     public boolean isPresent() {
         for (int i = data.size() - 1; i >= 0; i--) {
-            Entry<Event<?>> dataEntry = data.get(i);
-            Event<?> event = dataEntry.event();
+            ValueEntry<?> entry = data.get(i);
+            Event<?> event = entry.event();
             Object payload = event.payload();
-            if (payloadClass.isInstance(payload) && key.equals(dataEntry.key())) {
+            if (payloadClass.isInstance(payload) && bucketAndKey.equals(entry.bucketAndKey())) {
                 return true;
             }
         }
@@ -31,10 +31,10 @@ public class InMemoryValue<T> implements Value<T> {
     @Override
     public T get() {
         for (int i = data.size() - 1; i >= 0; i--) {
-            Entry<Event<?>> dataEntry = data.get(i);
-            Event<?> event = dataEntry.event();
+            ValueEntry<?> entry = data.get(i);
+            Event<?> event = entry.event();
             Object payload = event.payload();
-            if (payloadClass.isInstance(payload) && key.equals(dataEntry.key())) {
+            if (payloadClass.isInstance(payload) && bucketAndKey.equals(entry.bucketAndKey())) {
                 return payloadClass.cast(payload);
             }
         }
@@ -44,13 +44,13 @@ public class InMemoryValue<T> implements Value<T> {
     @Override
     public void set(T value) {
         Event<T> event = eventFactory.createEvent(value);
-        data.add(new Entry<>(key, event));
+        data.add(new ValueEntry<>(bucketAndKey, event));
     }
 
     @Override
     public void delete() {
         Event<T> event = eventFactory.createEvent(null);
-        data.add(new Entry<>(key, event));
+        data.add(new ValueEntry<>(bucketAndKey, event));
     }
 
     @Override

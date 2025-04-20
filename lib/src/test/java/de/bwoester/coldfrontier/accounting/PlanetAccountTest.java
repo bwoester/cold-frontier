@@ -1,8 +1,8 @@
 package de.bwoester.coldfrontier.accounting;
 
-import de.bwoester.coldfrontier.EventLogStub;
-import de.bwoester.coldfrontier.messaging.EventLog;
-import de.bwoester.coldfrontier.messaging.EventSubject;
+import de.bwoester.coldfrontier.TestValues;
+import de.bwoester.coldfrontier.data.Value;
+import de.bwoester.coldfrontier.data.Keys;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
@@ -20,27 +20,27 @@ class PlanetAccountTest {
     private static final PlanetResourceSetMsg ONE = new PlanetResourceSetMsg(1, 1, 1);
     private static final PlanetResourceSetMsg TWO = ONE.multiply(2);
 
-    EventLogStub eventLogStub;
-    EventLog<PlanetResourceSetMsg> balance;
+    TestValues testValues;
+    Value<PlanetResourceSetMsg> balance;
 
     @BeforeEach
     void setUp() {
-        eventLogStub = new EventLogStub();
-        balance = eventLogStub.inMemoryGameEventLog.viewOfType(
+        testValues = new TestValues();
+        balance = testValues.util.create(
                 PlanetResourceSetMsg.class,
-                EventSubject.Accounting.planetAccount(PLANET_ID)
+                Keys.Accounting.planetAccount(PLANET_ID)
         );
     }
 
     @AfterEach
     void tearDown() {
-        log.info("event log:\n{}", eventLogStub.inMemoryGameEventLog.prettyPrint());
+        log.info("event log:\n{}", testValues.util.prettyPrint());
     }
 
     @ParameterizedTest
     @MethodSource
     void validateTransaction(PlanetResourceSetMsg available, PlanetResourceSetMsg tryingToSpend, boolean expectedResult) {
-        balance.add(available);
+        balance.set(available);
         PlanetAccount account = new PlanetAccount(balance);
         ResourceSetMsg amount = new ResourceSetMsg(tryingToSpend, 0);
         TransactionMsg transactionMsg = new TransactionMsg("", TransactionMsg.TransactionType.EXPENSE, amount);
@@ -58,7 +58,7 @@ class PlanetAccountTest {
     @ParameterizedTest
     @MethodSource
     void executeTransaction(PlanetResourceSetMsg available, PlanetResourceSetMsg tryingToSpend, PlanetResourceSetMsg expectedBalance) {
-        balance.add(available);
+        balance.set(available);
         PlanetAccount account = new PlanetAccount(balance);
         ResourceSetMsg amount = new ResourceSetMsg(tryingToSpend, 0);
         TransactionMsg transactionMsg = new TransactionMsg("", TransactionMsg.TransactionType.EXPENSE, amount);

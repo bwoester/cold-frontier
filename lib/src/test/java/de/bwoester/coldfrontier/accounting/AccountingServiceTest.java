@@ -1,8 +1,8 @@
 package de.bwoester.coldfrontier.accounting;
 
-import de.bwoester.coldfrontier.EventLogStub;
-import de.bwoester.coldfrontier.messaging.EventLog;
-import de.bwoester.coldfrontier.messaging.EventSubject;
+import de.bwoester.coldfrontier.TestValues;
+import de.bwoester.coldfrontier.data.Value;
+import de.bwoester.coldfrontier.data.Keys;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
@@ -29,21 +29,21 @@ class AccountingServiceTest {
     private static final TransactionMsg TRANSACTION_EXPENSE_ONE = new TransactionMsg("expense",
             TransactionMsg.TransactionType.EXPENSE, new ResourceSetMsg(PLANET_RESOURCES_ONE, 1));
 
-    EventLogStub eventLogStub;
-    EventLog<TransactionMsg> transactions;
+    TestValues testValues;
+    Value<TransactionMsg> transactions;
     PlayerLedger playerLedger;
 
     @BeforeEach
     void setUp() {
-        eventLogStub = new EventLogStub();
-        transactions = eventLogStub.inMemoryGameEventLog.viewOfType(TransactionMsg.class,
-                EventSubject.Accounting.playerTransactions(PLAYER_ID));
+        testValues = new TestValues();
+        transactions = testValues.util.create(TransactionMsg.class,
+                Keys.Accounting.playerTransactions(PLAYER_ID));
         playerLedger = createLedger(2, PLANET_RESOURCES_TWO);
     }
 
     @AfterEach
     void tearDown() {
-        log.info("event log:\n{}", eventLogStub.inMemoryGameEventLog.prettyPrint());
+        log.info("event log:\n{}", testValues.util.prettyPrint());
     }
 
     @ParameterizedTest
@@ -63,13 +63,13 @@ class AccountingServiceTest {
     }
 
     private PlayerLedger createLedger(long playerBalance, PlanetResourceSetMsg planetBalance) {
-        EventLog<Long> playerBalanceLog = eventLogStub.inMemoryGameEventLog.viewOfType(Long.class,
-                EventSubject.Accounting.playerAccount(PLAYER_ID));
-        playerBalanceLog.add(playerBalance);
+        Value<Long> playerBalanceLog = testValues.util.create(Long.class,
+                Keys.Accounting.playerAccount(PLAYER_ID));
+        playerBalanceLog.set(playerBalance);
         GlobalAccount globalAccount = new GlobalAccount(playerBalanceLog);
-        EventLog<PlanetResourceSetMsg> planetBalanceLog = eventLogStub.inMemoryGameEventLog.viewOfType(PlanetResourceSetMsg.class,
-                EventSubject.Accounting.planetAccount(PLANET_ID));
-        planetBalanceLog.add(planetBalance);
+        Value<PlanetResourceSetMsg> planetBalanceLog = testValues.util.create(PlanetResourceSetMsg.class,
+                Keys.Accounting.planetAccount(PLANET_ID));
+        planetBalanceLog.set(planetBalance);
         PlanetAccount planetAccount = new PlanetAccount(planetBalanceLog);
         return new PlayerLedger(globalAccount, Map.of(PLANET_ID, planetAccount));
     }

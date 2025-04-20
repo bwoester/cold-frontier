@@ -3,7 +3,7 @@ package de.bwoester.coldfrontier.progress;
 import de.bwoester.coldfrontier.buildings.Building;
 import de.bwoester.coldfrontier.buildings.BuildingDataProvider;
 import de.bwoester.coldfrontier.buildings.BuildingMsg;
-import de.bwoester.coldfrontier.messaging.EventLog;
+import de.bwoester.coldfrontier.data.Value;
 
 import java.util.Optional;
 
@@ -28,8 +28,8 @@ public class ProgressService {
     /**
      * Event log that stores progress messages to track building construction state.
      */
-    private final EventLog<ProgressMsg> progressLog;
-    
+    private final Value<ProgressMsg> progressLog;
+
     /**
      * Provider that supplies building data, including construction time information.
      */
@@ -38,10 +38,10 @@ public class ProgressService {
     /**
      * Creates a new progress service for tracking building construction.
      *
-     * @param progressLog The event log where progress messages will be stored
+     * @param progressLog          The event log where progress messages will be stored
      * @param buildingDataProvider Provider of building-specific data needed for calculations
      */
-    public ProgressService(EventLog<ProgressMsg> progressLog, BuildingDataProvider buildingDataProvider) {
+    public ProgressService(Value<ProgressMsg> progressLog, BuildingDataProvider buildingDataProvider) {
         this.progressLog = progressLog;
         this.buildingDataProvider = buildingDataProvider;
     }
@@ -52,25 +52,25 @@ public class ProgressService {
      * Initializes a new construction progress entry in the event log with 0% progress.
      * </p>
      *
-     * @param building The building to start constructing
+     * @param building              The building to start constructing
      * @param timeToBuildMultiplier A multiplier that affects how long the building takes to construct.
-     *                             Values greater than 1.0 increase construction time, values less than
-     *                             1.0 decrease construction time.
+     *                              Values greater than 1.0 increase construction time, values less than
+     *                              1.0 decrease construction time.
      */
     public void startBuilding(Building building, double timeToBuildMultiplier) {
         // Create a new progress entry with 0% progress
         CreateBuildingProgressMsg progressMsg = new CreateBuildingProgressMsg(building, timeToBuildMultiplier, 0.0);
-        progressLog.add(progressMsg);
+        progressLog.set(progressMsg);
     }
 
     /**
      * Checks if there is currently a building under construction.
      *
      * @return {@code true} if a building is currently under construction (progress < 100%),
-     *         {@code false} otherwise
+     * {@code false} otherwise
      */
     public boolean hasBuildingInProgress() {
-        ProgressMsg latest = progressLog.getLatest();
+        ProgressMsg latest = progressLog.get();
         // Check if there's a latest progress message that is not completed
         return latest != null && latest.progress() < 1.0;
     }
@@ -88,8 +88,8 @@ public class ProgressService {
      * </p>
      */
     public void increaseProgress() {
-        ProgressMsg latest = progressLog.getLatest();
-        
+        ProgressMsg latest = progressLog.get();
+
         // If there's no progress or it's already completed and consumed, do nothing
         if (latest == null || (latest.progress() >= 1.0 && latest.consumed())) {
             return;
@@ -100,31 +100,31 @@ public class ProgressService {
             if (buildingProgress.progress() >= 1.0) {
                 return;
             }
-            
+
             Building building = buildingProgress.building();
             double timeToBuildMultiplier = buildingProgress.timeToBuildMultiplier();
-            
+
             // Get the building data to determine how long it takes to build
             BuildingMsg buildingData = buildingDataProvider.getData(building);
-            
+
             // Calculate the total number of ticks required
             long totalTicksRequired = Math.round(buildingData.ticksToBuild() * timeToBuildMultiplier);
-            
+
             // Extract the completed ticks from the current progress
             // Current progress is a fraction: completedTicks / totalTicksRequired
             double currentProgress = buildingProgress.progress();
             long completedTicks = Math.round(currentProgress * totalTicksRequired);
-            
+
             // Increment the completed ticks by 1
             completedTicks++;
-            
+
             // Calculate new progress value as a fraction, capping at 1.0 (100%)
             double newProgress = Math.min(1.0, (double) completedTicks / totalTicksRequired);
-            
+
             // Create and add new progress message (still not consumed)
             CreateBuildingProgressMsg newProgressMsg = new CreateBuildingProgressMsg(
                     building, timeToBuildMultiplier, newProgress, false);
-            progressLog.add(newProgressMsg);
+            progressLog.set(newProgressMsg);
         }
     }
 
@@ -141,16 +141,16 @@ public class ProgressService {
      * </p>
      *
      * @return An {@link Optional} containing the completed building if one exists and hasn't been
-     *         consumed yet, or an empty Optional if no completed building is available
+     * consumed yet, or an empty Optional if no completed building is available
      */
     public Optional<Building> pollCompletedBuilding() {
-        ProgressMsg latest = progressLog.getLatest();
-        
+        ProgressMsg latest = progressLog.get();
+
         // If there's no latest message, return empty
         if (latest == null) {
             return Optional.empty();
         }
-        
+
         // If the latest message represents a completed building that hasn't been consumed yet
         if (latest.progress() >= 1.0 && !latest.consumed() && latest instanceof CreateBuildingProgressMsg buildingProgress) {
             // Mark the building as consumed in the event log
@@ -160,12 +160,12 @@ public class ProgressService {
                     buildingProgress.progress(),
                     true // Mark as consumed
             );
-            progressLog.add(consumedMsg);
-            
+            progressLog.set(consumedMsg);
+
             // Return the completed building
             return Optional.of(buildingProgress.building());
         }
-        
+
         return Optional.empty();
     }
 }

@@ -1,6 +1,6 @@
 package de.bwoester.coldfrontier.accounting;
 
-import de.bwoester.coldfrontier.EventLogStub;
+import de.bwoester.coldfrontier.TestValues;
 import de.bwoester.coldfrontier.user.UserMsg;
 import de.bwoester.coldfrontier.user.UserProfileMsg;
 import de.bwoester.coldfrontier.user.UserSettingsMsg;
@@ -16,12 +16,12 @@ import java.util.List;
 @Slf4j
 class PlayerLedgerRepoTest {
 
-    EventLogStub eventLogStub;
+    TestValues testValues;
     UserMsg user;
 
     @BeforeEach
     void setUp() {
-        eventLogStub = new EventLogStub();
+        testValues = new TestValues();
         user = new UserMsg(
                 "player-1",
                 Collections.emptyList(),
@@ -32,12 +32,12 @@ class PlayerLedgerRepoTest {
 
     @AfterEach
     void tearDown() {
-        log.info("event log:\n{}", eventLogStub.inMemoryGameEventLog.prettyPrint());
+        log.info("event log:\n{}", testValues.util.prettyPrint());
     }
 
     @Test
     void get() {
-        PlayerLedgerRepo playerLedgerRepo = new PlayerLedgerRepo(eventLogStub.inMemoryGameEventLog);
+        PlayerLedgerRepo playerLedgerRepo = new PlayerLedgerRepo(testValues.util);
 
         PlayerLedger playerLedger = playerLedgerRepo.get(user);
         Assertions.assertNotNull(playerLedger);

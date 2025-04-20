@@ -1,7 +1,7 @@
 package de.bwoester.coldfrontier.buildings;
 
 import de.bwoester.coldfrontier.accounting.ResourceSetMsg;
-import de.bwoester.coldfrontier.messaging.EventLog;
+import de.bwoester.coldfrontier.data.Value;
 
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicReference;
@@ -11,44 +11,44 @@ import java.util.concurrent.atomic.AtomicReference;
  */
 public class BuildingService {
 
-    private final EventLog<BuildingCountersMsg> buildings;
-    private final EventLog<ConstructionQueueMsg> constructionQueue;
+    private final Value<BuildingCountersMsg> buildings;
+    private final Value<ConstructionQueueMsg> constructionQueue;
     private final BuildingDataProvider buildingDataProvider;
 
-    public BuildingService(EventLog<BuildingCountersMsg> buildings, EventLog<ConstructionQueueMsg> constructionQueue, BuildingDataProvider buildingDataProvider) {
+    public BuildingService(Value<BuildingCountersMsg> buildings, Value<ConstructionQueueMsg> constructionQueue, BuildingDataProvider buildingDataProvider) {
         this.buildings = buildings;
         this.constructionQueue = constructionQueue;
         this.buildingDataProvider = buildingDataProvider;
     }
 
     public BuildingCountersMsg getBuildings() {
-        return buildings.getLatest();
+        return buildings.get();
     }
 
     public void addAll(BuildingCountersMsg buildings) {
-        BuildingCountersMsg oldBuildingCounters = this.buildings.getLatest();
+        BuildingCountersMsg oldBuildingCounters = this.buildings.get();
         BuildingCountersMsg newBuildingCounters = oldBuildingCounters.add(buildings);
-        this.buildings.add(newBuildingCounters);
+        this.buildings.set(newBuildingCounters);
     }
 
     public long getConstructionQueueSize() {
-        return constructionQueue.getLatest().queuedBuildings().size();
+        return constructionQueue.get().queuedBuildings().size();
     }
 
     public void addToConstructionQueue(Building building) {
-        ConstructionQueueMsg oldConstructionQueue = constructionQueue.getLatest();
+        ConstructionQueueMsg oldConstructionQueue = constructionQueue.get();
         ConstructionQueueEntryMsg newEntry = new ConstructionQueueEntryMsg(building, calculateConstructionQueueFactor());
         ConstructionQueueMsg newConstructionQueue = oldConstructionQueue.add(newEntry);
-        constructionQueue.add(newConstructionQueue);
+        constructionQueue.set(newConstructionQueue);
     }
 
     public Optional<ConstructionQueueEntryMsg> pollConstructionQueue() {
-        ConstructionQueueMsg oldConstructionQueue = constructionQueue.getLatest();
+        ConstructionQueueMsg oldConstructionQueue = constructionQueue.get();
         AtomicReference<ConstructionQueueEntryMsg> polledEntry = new AtomicReference<>();
         ConstructionQueueMsg newConstructionQueue = oldConstructionQueue.poll(polledEntry::set);
         Optional<ConstructionQueueEntryMsg> result = Optional.ofNullable(polledEntry.get());
         result.ifPresent(r -> {
-            constructionQueue.add(newConstructionQueue);
+            constructionQueue.set(newConstructionQueue);
         });
         return result;
     }

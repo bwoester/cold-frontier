@@ -1,6 +1,6 @@
-package de.bwoester.coldfrontier.messaging;
+package de.bwoester.coldfrontier.data;
 
-public class EventSubject {
+public class Keys {
 
     // ------------------------------------------------------------------------
 
