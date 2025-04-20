@@ -52,18 +52,6 @@ public class Keys {
 
     // ------------------------------------------------------------------------
 
-    public static class Progress {
-        /**
-         * @param planetId the planet id
-         * @return "progress.planets.${planetId}.building"
-         */
-        public static String building(String planetId) {
-            return String.format("progress.planets.%s.building", planetId);
-        }
-    }
-
-    // ------------------------------------------------------------------------
-
     public static class Input {
         /**
          * @param playerId the player id
@@ -95,6 +83,48 @@ public class Keys {
          */
         public static String failedInput(String playerId) {
             return String.format("input.players.%s.failed", playerId);
+        }
+    }
+
+    // ------------------------------------------------------------------------
+
+    public static class Planet {
+        /**
+         * @param planetId the planet id
+         * @return "planet.planets.${planetId}"
+         */
+        public static String planet(String planetId) {
+            return String.format("planet.planets.%s", planetId);
+        }
+    }
+
+    // ------------------------------------------------------------------------
+
+    public static class Progress {
+        /**
+         * @param planetId the planet id
+         * @return "progress.planets.${planetId}.building"
+         */
+        public static String building(String planetId) {
+            return String.format("progress.planets.%s.building", planetId);
+        }
+    }
+
+    // ------------------------------------------------------------------------
+
+    public static class User {
+        /**
+         * @return "user.users.active"
+         */
+        public static String activeUsers() {
+            return "user.users.active";
+        }
+
+        /**
+         * @return "user.users.${userId}"
+         */
+        public static String user(String userId) {
+            return String.format("user.users.%s", userId);
         }
     }
 

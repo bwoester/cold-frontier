@@ -7,10 +7,13 @@ import de.bwoester.coldfrontier.accounting.TransactionMsg;
 import de.bwoester.coldfrontier.buildings.Building;
 import de.bwoester.coldfrontier.buildings.BuildingCountersMsg;
 import de.bwoester.coldfrontier.buildings.BuildingService;
+import de.bwoester.coldfrontier.data.Value;
 import de.bwoester.coldfrontier.input.CreateBuildingInputMsg;
 import de.bwoester.coldfrontier.input.InputService;
 import de.bwoester.coldfrontier.production.ProductionService;
 import de.bwoester.coldfrontier.progress.ProgressService;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.Collection;
 import java.util.Map;
@@ -18,30 +21,22 @@ import java.util.Map;
 /**
  * Handles a single planet.
  */
+@Slf4j
+@RequiredArgsConstructor
 public class Planet implements TickComponent {
 
-    private PlanetMsg planetData;
-
+    private final Value<PlanetMsg> planetData;
     private final InputService inputService;
     private final BuildingService buildingService;
     private final AccountingService accountingService;
     private final ProductionService productionService;
     private final ProgressService progressService;
 
-    public Planet(PlanetMsg planetData, InputService inputService, BuildingService buildingService, AccountingService accountingService, ProductionService productionService, ProgressService progressService) {
-        this.planetData = planetData;
-        this.inputService = inputService;
-        this.buildingService = buildingService;
-        this.accountingService = accountingService;
-        this.productionService = productionService;
-        this.progressService = progressService;
-    }
-
     @Override
     public void handleInput() {
         Collection<CreateBuildingInputMsg> input = inputService.startInputHandling(
                 CreateBuildingInputMsg.class,
-                i -> i.planetId().equals(planetData.id())
+                i -> i.planetId().equals(planetData.get().id())
         );
         input.forEach(this::handleCreateBuilding);
     }
@@ -73,7 +68,7 @@ public class Planet implements TickComponent {
     public void handleResourceUpdates() {
         BuildingCountersMsg planetBuildings = buildingService.getBuildings();
         ResourceSetMsg planetProduction = productionService.calculateProduction(planetBuildings);
-        accountingService.executeTransaction(planetData.id(),
+        accountingService.executeTransaction(planetData.get().id(),
                 new TransactionMsg("Planet production", TransactionMsg.TransactionType.INCOME, planetProduction)
         );
         // TODO deplete mined resources from planet

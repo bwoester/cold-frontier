@@ -1,19 +1,23 @@
 package de.bwoester.coldfrontier;
 
+import de.bwoester.coldfrontier.data.Value;
+import de.bwoester.coldfrontier.planet.Planet;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class TickCoordinator {
 
-    private final List<TickComponent> components;
-    private long currentTick;
+    private final List<TickComponent> components = new ArrayList<>();
+    private Value<Long> tick;
 
-    public TickCoordinator(List<TickComponent> components, long currentTick) {
-        this.components = components;
-        this.currentTick = currentTick;
+    public TickCoordinator(Value<Long> tick) {
+        this.tick = tick;
     }
 
     public void tick() {
-        currentTick++;
+        long oldTick = tick.get();
+        tick.set(oldTick + 1);
 
         for (TickComponent component : components) {
             component.handleInput();
@@ -45,9 +49,12 @@ public class TickCoordinator {
     }
 
     public void advanceTo(long tick) {
-        while (currentTick < tick) {
+        while (this.tick.get() < tick) {
             tick();
         }
     }
 
+    public void add(TickComponent tickComponent) {
+        components.add(tickComponent);
+    }
 }
