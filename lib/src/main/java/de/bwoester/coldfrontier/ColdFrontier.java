@@ -12,14 +12,15 @@ import de.bwoester.coldfrontier.input.InputQueueMsg;
 import de.bwoester.coldfrontier.input.InputService;
 import de.bwoester.coldfrontier.planet.Planet;
 import de.bwoester.coldfrontier.planet.PlanetMsg;
+import de.bwoester.coldfrontier.planet.PlanetService;
 import de.bwoester.coldfrontier.production.ProductionService;
 import de.bwoester.coldfrontier.progress.ProgressMsg;
 import de.bwoester.coldfrontier.progress.ProgressService;
 import de.bwoester.coldfrontier.user.UserIdsMsg;
 import de.bwoester.coldfrontier.user.UserMsg;
+import de.bwoester.coldfrontier.user.UserService;
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.Collections;
 import java.util.concurrent.atomic.AtomicLong;
 
 @Slf4j
@@ -33,6 +34,8 @@ public class ColdFrontier {
     private final ValuesUtil valuesUtil;
     private final PlayerLedgerRepo playerLedgerRepo;
     private final TickCoordinator tickCoordinator;
+    private final UserService userService;
+    private final PlanetService planetService;
 
     public static void main(String[] args) {
         log.info("Starting Cold Frontier...");
@@ -51,17 +54,28 @@ public class ColdFrontier {
         tickValue = valuesUtil.create(Long.class, "TODO");
         playerLedgerRepo = new PlayerLedgerRepo(valuesUtil);
         tickCoordinator = new TickCoordinator(tickValue);
+        planetService = new PlanetService(valuesUtil);
+        userService = new UserService(valuesUtil, planetService, playerLedgerRepo);
     }
 
     private static ColdFrontier create() {
+        log.info("Creating Cold Frontier instance...");
         ColdFrontier coldFrontier = new ColdFrontier();
         coldFrontier.init();
         return coldFrontier;
     }
 
     private void init() {
+        log.info("Initializing Cold Frontier...");
         Value<UserIdsMsg> activeUsers = valuesUtil.create(UserIdsMsg.class, Keys.User.activeUsers());
-        activeUsers.get().userIds().forEach(this::initUser);
+        if (activeUsers.isPresent()) {
+            activeUsers.get().userIds().forEach(this::initUser);
+        } else {
+            log.warn("No active users found. Creating a new user...");
+            Value<UserMsg> user = userService.registerNewUser("someExternalId");
+            initUser(user.get().id());
+        }
+        log.info("Cold Frontier initialized.");
     }
 
     private void initUser(String userId) {
@@ -79,10 +93,10 @@ public class ColdFrontier {
         AccountingService accountingService = new AccountingService(playerLedger, transactions);
 
         userMsg.userProfile().planetIds()
-                .forEach(planetId -> initPlanet(planetId, userMsg, inputService, accountingService));
+                .forEach(planetId -> initPlanet(planetId, inputService, accountingService));
     }
 
-    private void initPlanet(String planetId, UserMsg userMsg, InputService inputService, AccountingService accountingService) {
+    private void initPlanet(String planetId, InputService inputService, AccountingService accountingService) {
         Value<PlanetMsg> planetData = valuesUtil.create(PlanetMsg.class, Keys.Planet.planet(planetId));
 
         Value<BuildingCountersMsg> buildings = valuesUtil.create(BuildingCountersMsg.class, Keys.Building.counters(planetId));

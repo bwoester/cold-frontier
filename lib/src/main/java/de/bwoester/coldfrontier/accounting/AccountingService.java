@@ -27,5 +27,4 @@ public class AccountingService {
         }
         return false;
     }
-
 }

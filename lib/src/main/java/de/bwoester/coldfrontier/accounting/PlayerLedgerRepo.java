@@ -1,8 +1,8 @@
 package de.bwoester.coldfrontier.accounting;
 
+import de.bwoester.coldfrontier.data.Keys;
 import de.bwoester.coldfrontier.data.Value;
 import de.bwoester.coldfrontier.data.ValueFactory;
-import de.bwoester.coldfrontier.data.Keys;
 import de.bwoester.coldfrontier.user.UserMsg;
 import lombok.extern.slf4j.Slf4j;
 
@@ -21,10 +21,14 @@ public class PlayerLedgerRepo {
         this.valueFactory = valueFactory;
     }
 
-    public void init(UserMsg user) {
-        createPlayerAccount(user.id()).set(0L);
-        user.userProfile().planetIds().forEach(planetId -> createPlanetAccount(planetId)
-                .set(PlanetResourceSetMsg.createDefault())
+    public PlayerLedger createLedger(String playerId, String startPlanetId) {
+        Value<Long> playerAccount = createPlayerAccount(playerId);
+        playerAccount.set(INITIAL_PLAYER_ACCOUNT_BALANCE);
+        Value<PlanetResourceSetMsg> planetAccount = createPlanetAccount(startPlanetId);
+        planetAccount.set(INITIAL_PLANET_ACCOUNT_BALANCE);
+        return new PlayerLedger(
+                new GlobalAccount(playerAccount),
+                Map.of(startPlanetId, new PlanetAccount(planetAccount))
         );
     }
 
