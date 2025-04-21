@@ -29,6 +29,7 @@ dependencies {
 
     // This dependency is used internally, and not exposed to consumers on their own compile classpath.
     implementation(libs.guava)
+    implementation(libs.guice)
     implementation(libs.slf4j.api)
     
     // Jackson for JSON serialization
