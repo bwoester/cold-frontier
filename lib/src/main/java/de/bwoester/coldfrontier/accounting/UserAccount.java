@@ -4,7 +4,7 @@ import de.bwoester.coldfrontier.data.Value;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public class GlobalAccount {
+public class UserAccount {
 
     private final Value<Long> balance;
 

@@ -21,25 +21,25 @@ public class PlayerLedgerRepo {
         this.valueFactory = valueFactory;
     }
 
-    public PlayerLedger createLedger(String playerId, String startPlanetId) {
+    public Ledger createLedger(String playerId, String startPlanetId) {
         Value<Long> playerAccount = createPlayerAccount(playerId);
         playerAccount.set(INITIAL_PLAYER_ACCOUNT_BALANCE);
         Value<PlanetResourceSetMsg> planetAccount = createPlanetAccount(startPlanetId);
         planetAccount.set(INITIAL_PLANET_ACCOUNT_BALANCE);
-        return new PlayerLedger(
-                new GlobalAccount(playerAccount),
+        return new Ledger(
+                new UserAccount(playerAccount),
                 Map.of(startPlanetId, new PlanetAccount(planetAccount))
         );
     }
 
-    public PlayerLedger get(UserMsg user) {
+    public Ledger get(UserMsg user) {
         Map<String, PlanetAccount> planetAccounts = new HashMap<>();
         for (String planetId : user.userProfile().planetIds()) {
             PlanetAccount planetAccount = new PlanetAccount(createPlanetAccount(planetId));
             planetAccounts.put(planetId, planetAccount);
         }
-        GlobalAccount userAccount = new GlobalAccount(createPlayerAccount(user.id()));
-        return new PlayerLedger(userAccount, planetAccounts);
+        UserAccount userAccount = new UserAccount(createPlayerAccount(user.id()));
+        return new Ledger(userAccount, planetAccounts);
     }
 
     Value<Long> createPlayerAccount(String playerId) {

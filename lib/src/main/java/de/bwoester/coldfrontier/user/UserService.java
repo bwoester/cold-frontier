@@ -1,6 +1,6 @@
 package de.bwoester.coldfrontier.user;
 
-import de.bwoester.coldfrontier.accounting.PlayerLedger;
+import de.bwoester.coldfrontier.accounting.Ledger;
 import de.bwoester.coldfrontier.accounting.PlayerLedgerRepo;
 import de.bwoester.coldfrontier.data.Keys;
 import de.bwoester.coldfrontier.data.Value;
@@ -35,7 +35,7 @@ public class UserService {
         ));
 
         // each new player requires an accounting ledger
-        PlayerLedger ledger = playerLedgerRepo.createLedger(userId, startPlanetId);
+        Ledger ledger = playerLedgerRepo.createLedger(userId, startPlanetId);
 
         return user;
     }

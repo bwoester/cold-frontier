@@ -14,7 +14,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 import java.util.stream.Stream;
 
 @Slf4j
-class GlobalAccountTest {
+class UserAccountTest {
 
     private static final String PLAYER_ID = "player-1";
 
@@ -36,10 +36,10 @@ class GlobalAccountTest {
     @MethodSource
     void validateTransaction(long available, long tryingToSpend, boolean expectedResult) {
         balance.set(available);
-        GlobalAccount globalAccount = new GlobalAccount(balance);
+        UserAccount userAccount = new UserAccount(balance);
         ResourceSetMsg amount = new ResourceSetMsg(PlanetResourceSetMsg.createDefault(), tryingToSpend);
         TransactionMsg transactionMsg = new TransactionMsg("", TransactionMsg.TransactionType.EXPENSE, amount);
-        Assertions.assertEquals(expectedResult, globalAccount.validateTransaction(transactionMsg));
+        Assertions.assertEquals(expectedResult, userAccount.validateTransaction(transactionMsg));
     }
 
     private static Stream<Arguments> validateTransaction() {
@@ -54,11 +54,11 @@ class GlobalAccountTest {
     @MethodSource
     void executeTransaction(long available, long tryingToSpend, long expectedBalance) {
         balance.set(available);
-        GlobalAccount globalAccount = new GlobalAccount(balance);
+        UserAccount userAccount = new UserAccount(balance);
         ResourceSetMsg amount = new ResourceSetMsg(PlanetResourceSetMsg.createDefault(), tryingToSpend);
         TransactionMsg transactionMsg = new TransactionMsg("", TransactionMsg.TransactionType.EXPENSE, amount);
-        globalAccount.executeTransaction(transactionMsg);
-        Assertions.assertEquals(expectedBalance, globalAccount.getBalance());
+        userAccount.executeTransaction(transactionMsg);
+        Assertions.assertEquals(expectedBalance, userAccount.getBalance());
     }
 
     private static Stream<Arguments> executeTransaction() {

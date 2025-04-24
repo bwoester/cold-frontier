@@ -31,14 +31,14 @@ class AccountingServiceTest {
 
     TestValues testValues;
     Value<TransactionMsg> transactions;
-    PlayerLedger playerLedger;
+    Ledger ledger;
 
     @BeforeEach
     void setUp() {
         testValues = new TestValues();
         transactions = testValues.util.create(TransactionMsg.class,
                 Keys.Accounting.playerTransactions(PLAYER_ID));
-        playerLedger = createLedger(2, PLANET_RESOURCES_TWO);
+        ledger = createLedger(2, PLANET_RESOURCES_TWO);
     }
 
     @AfterEach
@@ -49,10 +49,10 @@ class AccountingServiceTest {
     @ParameterizedTest
     @MethodSource
     void executeTransaction(String planetId, TransactionMsg transaction, long expectedPlayerBalance, PlanetResourceSetMsg expectedPlanetBalance) {
-        AccountingService accountingService = new AccountingService(playerLedger, transactions);
+        AccountingService accountingService = new AccountingService(ledger, transactions);
         accountingService.executeTransaction(planetId, transaction);
-        Assertions.assertEquals(expectedPlayerBalance, playerLedger.getGlobalAccount().getBalance());
-        Assertions.assertEquals(expectedPlanetBalance, playerLedger.getPlanetAccount(planetId).getBalance());
+        Assertions.assertEquals(expectedPlayerBalance, ledger.getUserAccount().getBalance());
+        Assertions.assertEquals(expectedPlanetBalance, ledger.getPlanetAccount(planetId).getBalance());
     }
 
     private static Stream<Arguments> executeTransaction() {
@@ -62,15 +62,15 @@ class AccountingServiceTest {
         );
     }
 
-    private PlayerLedger createLedger(long playerBalance, PlanetResourceSetMsg planetBalance) {
+    private Ledger createLedger(long playerBalance, PlanetResourceSetMsg planetBalance) {
         Value<Long> playerBalanceLog = testValues.util.create(Long.class,
                 Keys.Accounting.playerAccount(PLAYER_ID));
         playerBalanceLog.set(playerBalance);
-        GlobalAccount globalAccount = new GlobalAccount(playerBalanceLog);
+        UserAccount userAccount = new UserAccount(playerBalanceLog);
         Value<PlanetResourceSetMsg> planetBalanceLog = testValues.util.create(PlanetResourceSetMsg.class,
                 Keys.Accounting.planetAccount(PLANET_ID));
         planetBalanceLog.set(planetBalance);
         PlanetAccount planetAccount = new PlanetAccount(planetBalanceLog);
-        return new PlayerLedger(globalAccount, Map.of(PLANET_ID, planetAccount));
+        return new Ledger(userAccount, Map.of(PLANET_ID, planetAccount));
     }
 }

@@ -7,14 +7,14 @@ import java.util.Map;
 /**
  * A player's overall finances, tracking credits and planetary accounts.
  */
-public class PlayerLedger {
+public class Ledger {
 
     @Getter
-    private final GlobalAccount globalAccount;
+    private final UserAccount userAccount;
     private final Map<String, PlanetAccount> planetAccounts;
 
-    public PlayerLedger(GlobalAccount globalAccount, Map<String, PlanetAccount> planetAccounts) {
-        this.globalAccount = globalAccount;
+    public Ledger(UserAccount userAccount, Map<String, PlanetAccount> planetAccounts) {
+        this.userAccount = userAccount;
         this.planetAccounts = planetAccounts;
     }
 

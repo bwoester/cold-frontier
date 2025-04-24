@@ -1,7 +1,7 @@
 package de.bwoester.coldfrontier;
 
 import de.bwoester.coldfrontier.accounting.AccountingService;
-import de.bwoester.coldfrontier.accounting.PlayerLedger;
+import de.bwoester.coldfrontier.accounting.Ledger;
 import de.bwoester.coldfrontier.accounting.PlayerLedgerRepo;
 import de.bwoester.coldfrontier.accounting.TransactionMsg;
 import de.bwoester.coldfrontier.buildings.*;
@@ -88,9 +88,9 @@ public class ColdFrontier {
         Value<InputQueueMsg> failedInput = valuesUtil.create(InputQueueMsg.class, Keys.Input.failedInput(userId));
         InputService inputService = new InputService(newInput, startedInput, finishedInput, failedInput);
 
-        PlayerLedger playerLedger = playerLedgerRepo.get(userMsg);
+        Ledger ledger = playerLedgerRepo.get(userMsg);
         Value<TransactionMsg > transactions = valuesUtil.create(TransactionMsg.class, Keys.Accounting.playerTransactions(userId));
-        AccountingService accountingService = new AccountingService(playerLedger, transactions);
+        AccountingService accountingService = new AccountingService(ledger, transactions);
 
         userMsg.userProfile().planetIds()
                 .forEach(planetId -> initPlanet(planetId, inputService, accountingService));

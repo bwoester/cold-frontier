@@ -7,21 +7,21 @@ import de.bwoester.coldfrontier.data.Value;
  */
 public class AccountingService {
 
-    private final PlayerLedger playerLedger;
+    private final Ledger ledger;
     private final Value<TransactionMsg> transactions;
 
-    public AccountingService(PlayerLedger playerLedger, Value<TransactionMsg> transactions) {
-        this.playerLedger = playerLedger;
+    public AccountingService(Ledger ledger, Value<TransactionMsg> transactions) {
+        this.ledger = ledger;
         this.transactions = transactions;
     }
 
     public boolean executeTransaction(String planetId, TransactionMsg transactionMsg) {
-        GlobalAccount globalAccount = playerLedger.getGlobalAccount();
-        PlanetAccount planetAccount = playerLedger.getPlanetAccount(planetId);
-        if (globalAccount.validateTransaction(transactionMsg)
+        UserAccount userAccount = ledger.getUserAccount();
+        PlanetAccount planetAccount = ledger.getPlanetAccount(planetId);
+        if (userAccount.validateTransaction(transactionMsg)
                 && planetAccount.validateTransaction(transactionMsg)) {
             transactions.set(transactionMsg);
-            globalAccount.executeTransaction(transactionMsg);
+            userAccount.executeTransaction(transactionMsg);
             planetAccount.executeTransaction(transactionMsg);
             return true;
         }

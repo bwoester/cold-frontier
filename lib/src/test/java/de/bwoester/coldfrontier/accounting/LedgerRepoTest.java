@@ -14,7 +14,7 @@ import java.util.Collections;
 import java.util.List;
 
 @Slf4j
-class PlayerLedgerRepoTest {
+class LedgerRepoTest {
 
     TestValues testValues;
     UserMsg user;
@@ -39,14 +39,14 @@ class PlayerLedgerRepoTest {
     void get() {
         PlayerLedgerRepo playerLedgerRepo = new PlayerLedgerRepo(testValues.util);
 
-        PlayerLedger playerLedger = playerLedgerRepo.get(user);
-        Assertions.assertNotNull(playerLedger);
+        Ledger ledger = playerLedgerRepo.get(user);
+        Assertions.assertNotNull(ledger);
 
-        GlobalAccount globalAccount = playerLedger.getGlobalAccount();
-        Assertions.assertNotNull(globalAccount);
-        Assertions.assertEquals(0L, globalAccount.getBalance());
+        UserAccount userAccount = ledger.getUserAccount();
+        Assertions.assertNotNull(userAccount);
+        Assertions.assertEquals(0L, userAccount.getBalance());
 
-        PlanetAccount planetAccount = playerLedger.getPlanetAccount("planet-1");
+        PlanetAccount planetAccount = ledger.getPlanetAccount("planet-1");
         Assertions.assertNotNull(planetAccount);
         Assertions.assertEquals(PlanetResourceSetMsg.createDefault(), planetAccount.getBalance());
     }
