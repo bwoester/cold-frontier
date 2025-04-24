@@ -51,7 +51,7 @@ public class ColdFrontier {
 
     private ColdFrontier() {
         valuesUtil = ValuesUtil.create(tick::get);
-        tickValue = valuesUtil.create(Long.class, "TODO");
+        tickValue = valuesUtil.get(Long.class, "TODO");
         playerLedgerRepo = new PlayerLedgerRepo(valuesUtil);
         tickCoordinator = new TickCoordinator(tickValue);
         planetService = new PlanetService(valuesUtil);
@@ -67,7 +67,7 @@ public class ColdFrontier {
 
     private void init() {
         log.info("Initializing Cold Frontier...");
-        Value<UserIdsMsg> activeUsers = valuesUtil.create(UserIdsMsg.class, Keys.User.activeUsers());
+        Value<UserIdsMsg> activeUsers = valuesUtil.get(UserIdsMsg.class, Keys.User.activeUsers());
         if (activeUsers.isPresent()) {
             activeUsers.get().userIds().forEach(this::initUser);
         } else {
@@ -79,17 +79,17 @@ public class ColdFrontier {
     }
 
     private void initUser(String userId) {
-        Value<UserMsg> user = valuesUtil.create(UserMsg.class, Keys.User.user(userId));
+        Value<UserMsg> user = valuesUtil.get(UserMsg.class, Keys.User.user(userId));
         UserMsg userMsg = user.get();
 
-        Value<InputQueueMsg> newInput = valuesUtil.create(InputQueueMsg.class, Keys.Input.newInput(userId));
-        Value<InputQueueMsg> startedInput = valuesUtil.create(InputQueueMsg.class, Keys.Input.startedInput(userId));
-        Value<InputQueueMsg> finishedInput = valuesUtil.create(InputQueueMsg.class, Keys.Input.finishedInput(userId));
-        Value<InputQueueMsg> failedInput = valuesUtil.create(InputQueueMsg.class, Keys.Input.failedInput(userId));
+        Value<InputQueueMsg> newInput = valuesUtil.get(InputQueueMsg.class, Keys.Input.newInput(userId));
+        Value<InputQueueMsg> startedInput = valuesUtil.get(InputQueueMsg.class, Keys.Input.startedInput(userId));
+        Value<InputQueueMsg> finishedInput = valuesUtil.get(InputQueueMsg.class, Keys.Input.finishedInput(userId));
+        Value<InputQueueMsg> failedInput = valuesUtil.get(InputQueueMsg.class, Keys.Input.failedInput(userId));
         InputService inputService = new InputService(newInput, startedInput, finishedInput, failedInput);
 
         Ledger ledger = playerLedgerRepo.get(userMsg);
-        Value<TransactionMsg > transactions = valuesUtil.create(TransactionMsg.class, Keys.Accounting.playerTransactions(userId));
+        Value<TransactionMsg> transactions = valuesUtil.get(TransactionMsg.class, Keys.Accounting.playerTransactions(userId));
         AccountingService accountingService = new AccountingService(ledger, transactions);
 
         userMsg.userProfile().planetIds()
@@ -97,16 +97,16 @@ public class ColdFrontier {
     }
 
     private void initPlanet(String planetId, InputService inputService, AccountingService accountingService) {
-        Value<PlanetMsg> planetData = valuesUtil.create(PlanetMsg.class, Keys.Planet.planet(planetId));
+        Value<PlanetMsg> planetData = valuesUtil.get(PlanetMsg.class, Keys.Planet.planet(planetId));
 
-        Value<BuildingCountersMsg> buildings = valuesUtil.create(BuildingCountersMsg.class, Keys.Building.counters(planetId));
-        Value<ConstructionQueueMsg> constructionQueue = valuesUtil.create(ConstructionQueueMsg.class, Keys.Building.queue(planetId));
+        Value<BuildingCountersMsg> buildings = valuesUtil.get(BuildingCountersMsg.class, Keys.Building.counters(planetId));
+        Value<ConstructionQueueMsg> constructionQueue = valuesUtil.get(ConstructionQueueMsg.class, Keys.Building.queue(planetId));
         BuildingDataProvider buildingDataProvider = new StaticBuildingDataProvider();
         BuildingService buildingService = new BuildingService(buildings, constructionQueue, buildingDataProvider);
 
         ProductionService productionService = new ProductionService(buildingDataProvider);
 
-        Value<ProgressMsg> progress = valuesUtil.create(ProgressMsg.class, Keys.Progress.building(planetId));
+        Value<ProgressMsg> progress = valuesUtil.get(ProgressMsg.class, Keys.Progress.building(planetId));
         ProgressService progressService = new ProgressService(progress, buildingDataProvider);
 
         Planet planet = new Planet(planetData, inputService, buildingService, accountingService, productionService, progressService);

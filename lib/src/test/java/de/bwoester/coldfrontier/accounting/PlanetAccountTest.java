@@ -26,7 +26,7 @@ class PlanetAccountTest {
     @BeforeEach
     void setUp() {
         testValues = new TestValues();
-        balance = testValues.util.create(
+        balance = testValues.util.get(
                 PlanetResourceSetMsg.class,
                 Keys.Accounting.planetAccount(PLANET_ID)
         );

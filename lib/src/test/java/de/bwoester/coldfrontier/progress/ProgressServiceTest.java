@@ -40,7 +40,7 @@ class ProgressServiceTest {
     void setUp() {
         testValues = new TestValues();
         progress = testValues.util
-                .create(ProgressMsg.class, Keys.Progress.building("planet-1"));
+                .get(ProgressMsg.class, Keys.Progress.building("planet-1"));
         progressService = new ProgressService(progress, buildingDataProvider);
     }
 

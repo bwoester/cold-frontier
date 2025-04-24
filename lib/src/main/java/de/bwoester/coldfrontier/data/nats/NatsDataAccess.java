@@ -1,9 +1,8 @@
 package de.bwoester.coldfrontier.data.nats;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import de.bwoester.coldfrontier.data.DataAccess;
 import de.bwoester.coldfrontier.data.ValueEntry;
-import de.bwoester.coldfrontier.data.ValueFactory;
+import de.bwoester.coldfrontier.data.ValueRepository;
 import io.nats.client.*;
 import io.nats.client.api.KeyValueConfiguration;
 import lombok.Getter;
@@ -17,7 +16,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class NatsDataAccess implements DataAccess {
 
-    private static final String GAME_EVENTS_BUCKET = ValueFactory.GAME_EVENTS_BUCKET;
+    private static final String GAME_EVENTS_BUCKET = ValueRepository.GAME_EVENTS_BUCKET;
 
     private final String natsEndpoint;
 

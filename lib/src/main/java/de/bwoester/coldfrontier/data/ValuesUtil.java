@@ -5,9 +5,9 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fasterxml.jackson.datatype.jsr310.ser.ZonedDateTimeSerializer;
 import com.fasterxml.jackson.module.paramnames.ParameterNamesModule;
 import de.bwoester.coldfrontier.data.memory.InMemoryDataAccess;
-import de.bwoester.coldfrontier.data.memory.InMemoryValueFactory;
+import de.bwoester.coldfrontier.data.memory.InMemoryValueRepository;
 import de.bwoester.coldfrontier.data.nats.NatsDataAccess;
-import de.bwoester.coldfrontier.data.nats.NatsValueFactory;
+import de.bwoester.coldfrontier.data.nats.NatsValueRepository;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,13 +20,30 @@ import java.util.function.Supplier;
 
 @Slf4j
 @RequiredArgsConstructor
-public class ValuesUtil implements ValueFactory, DataAccess {
+public class ValuesUtil implements ValueRepository, DataAccess {
 
     @Getter
     private final DataAccess dataAccess;
 
     @Getter
-    private final ValueFactory valueFactory;
+    private final ValueRepository valueRepository;
+
+    public static ValuesUtil create() {
+        String natsEndpoint = getNatsEndpoint();
+        EventFactory eventFactory = new EventFactory(() -> 0L);
+        if (natsEndpoint == null || natsEndpoint.isEmpty()) {
+            log.warn("No NATS endpoint configured, using in-memory value store");
+            InMemoryDataAccess dataAccess = new InMemoryDataAccess();
+            InMemoryValueRepository valueRepository = new InMemoryValueRepository(dataAccess.getData(), eventFactory);
+            return new ValuesUtil(dataAccess, valueRepository);
+        } else {
+            log.info("Using NATS endpoint: {}", natsEndpoint);
+            NatsDataAccess dataAccess = new NatsDataAccess(natsEndpoint);
+            dataAccess.init();
+            NatsValueRepository valueRepository = new NatsValueRepository(dataAccess.getKv(), eventFactory, objectMapper());
+            return new ValuesUtil(dataAccess, valueRepository);
+        }
+    }
 
     public static ValuesUtil create(Supplier<Long> tickSupplier) {
         String natsEndpoint = getNatsEndpoint();
@@ -34,14 +51,14 @@ public class ValuesUtil implements ValueFactory, DataAccess {
         if (natsEndpoint == null || natsEndpoint.isEmpty()) {
             log.warn("No NATS endpoint configured, using in-memory value store");
             InMemoryDataAccess dataAccess = new InMemoryDataAccess();
-            InMemoryValueFactory valueFactory = new InMemoryValueFactory(dataAccess.getData(), eventFactory);
-            return new ValuesUtil(dataAccess, valueFactory);
+            InMemoryValueRepository valueRepository = new InMemoryValueRepository(dataAccess.getData(), eventFactory);
+            return new ValuesUtil(dataAccess, valueRepository);
         } else {
             log.info("Using NATS endpoint: {}", natsEndpoint);
             NatsDataAccess dataAccess = new NatsDataAccess(natsEndpoint);
             dataAccess.init();
-            NatsValueFactory valueFactory = new NatsValueFactory(dataAccess.getKv(), eventFactory, objectMapper());
-            return new ValuesUtil(dataAccess, valueFactory);
+            NatsValueRepository valueRepository = new NatsValueRepository(dataAccess.getKv(), eventFactory, objectMapper());
+            return new ValuesUtil(dataAccess, valueRepository);
         }
     }
 
@@ -68,8 +85,8 @@ public class ValuesUtil implements ValueFactory, DataAccess {
     }
 
     @Override
-    public <T> Value<T> create(Class<T> clazz, String key) {
-        return valueFactory.create(clazz, key);
+    public <T> Value<T> get(Class<T> clazz, String key) {
+        return valueRepository.get(clazz, key);
     }
 
     @Override

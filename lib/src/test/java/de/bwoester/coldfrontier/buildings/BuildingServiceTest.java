@@ -32,9 +32,9 @@ class BuildingServiceTest {
     @BeforeEach
     void setUp() {
         testValues = new TestValues();
-        buildingCounters = testValues.util.create(BuildingCountersMsg.class,
+        buildingCounters = testValues.util.get(BuildingCountersMsg.class,
                 Keys.Building.counters("planet-1"));
-        constructionQueue = testValues.util.create(ConstructionQueueMsg.class,
+        constructionQueue = testValues.util.get(ConstructionQueueMsg.class,
                 Keys.Building.queue("planet-1"));
         buildingDataProvider = mock(BuildingDataProvider.class);
         buildingService = new BuildingService(buildingCounters, constructionQueue, buildingDataProvider);

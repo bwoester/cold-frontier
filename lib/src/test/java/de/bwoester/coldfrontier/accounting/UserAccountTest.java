@@ -24,7 +24,7 @@ class UserAccountTest {
     @BeforeEach
     void setUp() {
         testValues = new TestValues();
-        balance = testValues.util.create(Long.class, Keys.Accounting.playerAccount(PLAYER_ID));
+        balance = testValues.util.get(Long.class, Keys.Accounting.playerAccount(PLAYER_ID));
     }
 
     @AfterEach

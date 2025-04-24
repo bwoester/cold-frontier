@@ -4,7 +4,7 @@ import de.bwoester.coldfrontier.accounting.Ledger;
 import de.bwoester.coldfrontier.accounting.PlayerLedgerRepo;
 import de.bwoester.coldfrontier.data.Keys;
 import de.bwoester.coldfrontier.data.Value;
-import de.bwoester.coldfrontier.data.ValueFactory;
+import de.bwoester.coldfrontier.data.ValueRepository;
 import de.bwoester.coldfrontier.planet.PlanetMsg;
 import de.bwoester.coldfrontier.planet.PlanetService;
 import lombok.RequiredArgsConstructor;
@@ -15,7 +15,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class UserService {
 
-    private final ValueFactory valueFactory;
+    private final ValueRepository valueRepository;
     private final PlanetService planetService;
     private final PlayerLedgerRepo playerLedgerRepo;
 
@@ -26,7 +26,7 @@ public class UserService {
         Value<PlanetMsg> startPlanet = planetService.chooseStartPlanet(userId);
         String startPlanetId = startPlanet.get().id();
 
-        Value<UserMsg> user = valueFactory.create(UserMsg.class, Keys.User.user(userId));
+        Value<UserMsg> user = valueRepository.get(UserMsg.class, Keys.User.user(userId));
         user.set(new UserMsg(
                 userId,
                 List.of(externalId),

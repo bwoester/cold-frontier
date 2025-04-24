@@ -36,7 +36,7 @@ class AccountingServiceTest {
     @BeforeEach
     void setUp() {
         testValues = new TestValues();
-        transactions = testValues.util.create(TransactionMsg.class,
+        transactions = testValues.util.get(TransactionMsg.class,
                 Keys.Accounting.playerTransactions(PLAYER_ID));
         ledger = createLedger(2, PLANET_RESOURCES_TWO);
     }
@@ -63,11 +63,11 @@ class AccountingServiceTest {
     }
 
     private Ledger createLedger(long playerBalance, PlanetResourceSetMsg planetBalance) {
-        Value<Long> playerBalanceLog = testValues.util.create(Long.class,
+        Value<Long> playerBalanceLog = testValues.util.get(Long.class,
                 Keys.Accounting.playerAccount(PLAYER_ID));
         playerBalanceLog.set(playerBalance);
         UserAccount userAccount = new UserAccount(playerBalanceLog);
-        Value<PlanetResourceSetMsg> planetBalanceLog = testValues.util.create(PlanetResourceSetMsg.class,
+        Value<PlanetResourceSetMsg> planetBalanceLog = testValues.util.get(PlanetResourceSetMsg.class,
                 Keys.Accounting.planetAccount(PLANET_ID));
         planetBalanceLog.set(planetBalance);
         PlanetAccount planetAccount = new PlanetAccount(planetBalanceLog);
