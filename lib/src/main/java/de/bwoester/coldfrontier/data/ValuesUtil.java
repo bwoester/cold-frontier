@@ -16,7 +16,6 @@ import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.function.Supplier;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -30,36 +29,68 @@ public class ValuesUtil implements ValueRepository, DataAccess {
 
     public static ValuesUtil create() {
         String natsEndpoint = getNatsEndpoint();
-        EventFactory eventFactory = new EventFactory(() -> 0L);
         if (natsEndpoint == null || natsEndpoint.isEmpty()) {
             log.warn("No NATS endpoint configured, using in-memory value store");
-            InMemoryDataAccess dataAccess = new InMemoryDataAccess();
-            InMemoryValueRepository valueRepository = new InMemoryValueRepository(dataAccess.getData(), eventFactory);
-            return new ValuesUtil(dataAccess, valueRepository);
+            return createInMemoryImpl();
         } else {
             log.info("Using NATS endpoint: {}", natsEndpoint);
-            NatsDataAccess dataAccess = new NatsDataAccess(natsEndpoint);
-            dataAccess.init();
-            NatsValueRepository valueRepository = new NatsValueRepository(dataAccess.getKv(), eventFactory, objectMapper());
-            return new ValuesUtil(dataAccess, valueRepository);
+            return createNatsImpl(natsEndpoint);
         }
     }
 
-    public static ValuesUtil create(Supplier<Long> tickSupplier) {
-        String natsEndpoint = getNatsEndpoint();
-        EventFactory eventFactory = new EventFactory(tickSupplier);
-        if (natsEndpoint == null || natsEndpoint.isEmpty()) {
-            log.warn("No NATS endpoint configured, using in-memory value store");
-            InMemoryDataAccess dataAccess = new InMemoryDataAccess();
-            InMemoryValueRepository valueRepository = new InMemoryValueRepository(dataAccess.getData(), eventFactory);
-            return new ValuesUtil(dataAccess, valueRepository);
-        } else {
-            log.info("Using NATS endpoint: {}", natsEndpoint);
-            NatsDataAccess dataAccess = new NatsDataAccess(natsEndpoint);
-            dataAccess.init();
-            NatsValueRepository valueRepository = new NatsValueRepository(dataAccess.getKv(), eventFactory, objectMapper());
-            return new ValuesUtil(dataAccess, valueRepository);
-        }
+    private static ValuesUtil createInMemoryImpl() {
+        InMemoryDataAccess dataAccess = new InMemoryDataAccess();
+
+        // Bootstrap instance
+        // We kick off with an EventFactory that always returns 0 for the current tick value.
+        // This means all Value instances we get from the intermediary bootstrap ValueRepository would always
+        // wrap payloads with an Event envelop that indicates the event would have been generated at tick 0, which is
+        // obviously wrong.
+        // But it allows us to access the tick value, which we only have to read, not write.
+        Value<Long> bootstrapTick = new InMemoryValueRepository(dataAccess.getData(), new EventFactory(() -> 0L))
+                .get(Long.class, "tick", 0L);
+
+        // Actually used instance
+        // Once we got the bootstrap tick value, we can create the actual EventFactory, which will always use the
+        // value of the referenced tick as the current tick value. This means all Value instances we get from the
+        // actual ValueRepository will always wrap payloads with an Event envelop that indicates the event has been
+        // generated at the correct tick.
+        // When the tick Value instance is obtained from the actual ValueRepository, it can be read and written like
+        // all other Value instances. And because Value instances are references to data stored in the backend, both
+        // the actual tick Value instance and the bootstrap tick Value instance, which is used for the actual
+        // EventFactory, will see the updated value when they get the data via Value.get().
+        ValueRepository valueRepository = new InMemoryValueRepository(dataAccess.getData(), new EventFactory(bootstrapTick::get));
+
+        return new ValuesUtil(dataAccess, valueRepository);
+    }
+
+    private static ValuesUtil createNatsImpl(String natsEndpoint) {
+        NatsDataAccess dataAccess = new NatsDataAccess(natsEndpoint);
+        dataAccess.init();
+
+        ObjectMapper objectMapper = objectMapper();
+
+        // Bootstrap instance
+        // We kick off with an EventFactory that always returns 0 for the current tick value.
+        // This means all Value instances we get from the intermediary bootstrap ValueRepository would always
+        // wrap payloads with an Event envelop that indicates the event would have been generated at tick 0, which is
+        // obviously wrong.
+        // But it allows us to access the tick value, which we only have to read, not write.
+        Value<Long> bootstrapTick = new NatsValueRepository(dataAccess.getKv(), new EventFactory(() -> 0L), objectMapper)
+                .get(Long.class, "tick", 0L);
+
+        // Actually used instance
+        // Once we got the bootstrap tick value, we can create the actual EventFactory, which will always use the
+        // value of the referenced tick as the current tick value. This means all Value instances we get from the
+        // actual ValueRepository will always wrap payloads with an Event envelop that indicates the event has been
+        // generated at the correct tick.
+        // When the tick Value instance is obtained from the actual ValueRepository, it can be read and written like
+        // all other Value instances. And because Value instances are references to data stored in the backend, both
+        // the actual tick Value instance and the bootstrap tick Value instance, which is used for the actual
+        // EventFactory, will see the updated value when they get the data via Value.get().
+        ValueRepository valueRepository = new NatsValueRepository(dataAccess.getKv(), new EventFactory(bootstrapTick::get), objectMapper);
+
+        return new ValuesUtil(dataAccess, valueRepository);
     }
 
     private static String getNatsEndpoint() {
@@ -87,6 +118,11 @@ public class ValuesUtil implements ValueRepository, DataAccess {
     @Override
     public <T> Value<T> get(Class<T> clazz, String key) {
         return valueRepository.get(clazz, key);
+    }
+
+    @Override
+    public <T> Value<T> get(Class<T> clazz, String key, T initValue) {
+        return valueRepository.get(clazz, key, initValue);
     }
 
     @Override

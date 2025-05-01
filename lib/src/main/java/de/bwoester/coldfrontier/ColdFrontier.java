@@ -50,7 +50,7 @@ public class ColdFrontier {
     }
 
     private ColdFrontier() {
-        valuesUtil = ValuesUtil.create(tick::get);
+        valuesUtil = ValuesUtil.create();
         tickValue = valuesUtil.get(Long.class, "TODO");
         playerLedgerRepo = new PlayerLedgerRepo(valuesUtil);
         tickCoordinator = new TickCoordinator(tickValue);

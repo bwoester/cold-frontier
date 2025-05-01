@@ -18,11 +18,27 @@ public interface ValueRepository {
      * Implementations should return an existing instance if one has already been
      * created for this class and key combination, or create a new one if needed.
      *
-     * @param <T> The type of the value
+     * @param <T>   The type of the value
      * @param clazz The class representing the type of the value
-     * @param key The key that identifies this value in the store
+     * @param key   The key that identifies this value in the store
      * @return A Value instance that provides access to the data
      */
     <T> Value<T> get(Class<T> clazz, String key);
 
+    /**
+     * Gets a Value instance for the specified class and key.
+     * <p>
+     * Implementations should return an existing instance if one has already been
+     * created for this class and key combination or create a new one if needed.
+     * <p>
+     * If the obtained Value instance indicates it does not reference an existing value (see {@link Value#isPresent()}),
+     * the initial value will be set to the specified value.
+     *
+     * @param <T>       The type of the value
+     * @param clazz     The class representing the type of the value
+     * @param key       The key that identifies this value in the store
+     * @param initValue The initial value to set, if {@link Value#isPresent()} indicates false
+     * @return A Value instance that provides access to the data
+     */
+    <T> Value<T> get(Class<T> clazz, String key, T initValue);
 }
