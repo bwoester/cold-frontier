@@ -12,6 +12,7 @@ slf4j-api = "2.0.17"
 logback-classic = "1.5.18"
 jackson = "2.16.1"
 nats = "2.21.1"
+quarkus = "3.22.1"
 
 [libraries]
 commons-math3 = { module = "org.apache.commons:commons-math3", version.ref = "commons-math3" }
@@ -33,5 +34,13 @@ jackson-module-parameter-names = { module = "com.fasterxml.jackson.module:jackso
 # NATS JetStream dependencies
 nats-client = { module = "io.nats:jnats", version.ref = "nats" }
 
+# Quarkus dependencies
+quarkus-bom = { module = "io.quarkus.platform:quarkus-bom", version.ref = "quarkus" }
+quarkus-arc = { module = "io.quarkus:quarkus-arc" }
+quarkus-rest = { module = "io.quarkus:quarkus-rest" }
+quarkus-junit5 = { module = "io.quarkus:quarkus-junit5" }
+rest-assured = { module = "io.rest-assured:rest-assured" }
+
 [plugins]
 lombok = { id = "io.freefair.lombok", version.ref = "lombok-plugin" }
+quarkus = { id = "io.quarkus", version.ref = "quarkus" }
