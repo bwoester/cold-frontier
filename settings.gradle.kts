@@ -6,22 +6,23 @@
  */
 
 pluginManagement {
-    // TODO can this be replaced using the version catalog?
-    val quarkusPluginVersion: String by settings
-    val quarkusPluginId: String by settings
     repositories {
         mavenCentral()
         gradlePluginPortal()
         mavenLocal()
     }
+    // TODO can this be replaced using the version catalog?
+    val quarkusPluginId: String by settings
+    val quarkusPluginVersion: String by settings
+
+    val foojayResolverPlugin: String by settings
+    val foojayResolverPluginVersion: String by settings
+
     plugins {
         id(quarkusPluginId) version quarkusPluginVersion
+        // Apply the foojay-resolver plugin to allow automatic download of JDKs
+        id(foojayResolverPlugin) version foojayResolverPluginVersion
     }
-}
-
-plugins {
-    // Apply the foojay-resolver plugin to allow automatic download of JDKs
-    id("org.gradle.toolchains.foojay-resolver-convention") version "0.9.0"
 }
 
 rootProject.name = "cold-frontier"
