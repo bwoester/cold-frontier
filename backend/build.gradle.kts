@@ -12,6 +12,7 @@ dependencies {
     implementation(enforcedPlatform(libs.quarkus.bom))
     implementation(libs.quarkus.arc)
     implementation(libs.quarkus.rest)
+    implementation(libs.quarkus.web.bundler)
     implementation(project(":lib"))
     testImplementation(libs.quarkus.junit5)
     testImplementation(libs.rest.assured)

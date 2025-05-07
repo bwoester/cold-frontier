@@ -13,6 +13,7 @@ logback-classic = "1.5.18"
 jackson = "2.16.1"
 nats = "2.21.1"
 quarkus = "3.22.1"
+quarkus-web-bundler = "1.8.1"
 
 [libraries]
 commons-math3 = { module = "org.apache.commons:commons-math3", version.ref = "commons-math3" }
@@ -39,6 +40,7 @@ quarkus-bom = { module = "io.quarkus.platform:quarkus-bom", version.ref = "quark
 quarkus-arc = { module = "io.quarkus:quarkus-arc" }
 quarkus-rest = { module = "io.quarkus:quarkus-rest" }
 quarkus-junit5 = { module = "io.quarkus:quarkus-junit5" }
+quarkus-web-bundler = { module = "io.quarkiverse.web-bundler:quarkus-web-bundler", version.ref = "quarkus-web-bundler" }
 rest-assured = { module = "io.rest-assured:rest-assured" }
 
 [plugins]
