@@ -26,4 +26,4 @@ pluginManagement {
 }
 
 rootProject.name = "cold-frontier"
-include("backend", "lib")
+include("backend", "frontend", "lib")

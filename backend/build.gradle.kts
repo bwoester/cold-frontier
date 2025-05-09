@@ -13,6 +13,7 @@ dependencies {
     implementation(libs.quarkus.arc)
     implementation(libs.quarkus.rest)
     implementation(libs.quarkus.web.bundler)
+    implementation("io.quarkus:quarkus-oidc")
     implementation(project(":lib"))
     testImplementation(libs.quarkus.junit5)
     testImplementation(libs.rest.assured)
