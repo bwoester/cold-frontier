@@ -1,10 +1,12 @@
 <script setup lang="ts">
 import AppLayout from "@/components/AppLayout.vue";
 import AppNavigation from "@/components/AppNavigation.vue";
+import TestimonialCarousel from "@/components/TestimonialCarousel.vue";
 
 const navLinks = [
   {text: 'Features', href: '#features'},
   {text: 'Gameplay', href: '#gameplay'},
+  {text: 'Story', href: '#story'},
   {text: 'Community', href: '#community'},
   {text: 'FAQ', href: '#faq'},
   {text: 'Quarkus', href: '/q/dev-ui/welcome'}
@@ -74,6 +76,41 @@ const gameplayItems = [
       'Participate in alliance-exclusive events'
     ]
   }
+];
+
+const gameStories = [
+  {
+    text: "The day we established our first off-world agricultural biodome on the frozen plains of Borealis VI was truly heartening. To see those first seedlings sprout in the nutrient-rich soil, a vibrant splash of green against the stark white landscape, filled us all with a profound sense of hope and self-sufficiency. It was a tangible symbol of our commitment to nurturing life, even in the most challenging environments. The subsequent 'First Harvest Festival' was a joyous occasion, a testament to the resilience and ingenuity of our pioneering spirit.",
+    author: "Ambassador Elara Vex"
+  },
+  {
+    text: "The integration into the Intergalactic Stock Exchange marked a significant expansion of our economic influence. Access to a broader market allowed for the diversification of our investment portfolio and the potential for exponential growth. While the inherent volatility of intergalactic trade introduced a degree of risk, the projected returns outweighed the potential liabilities by a factor of 2.73. The initial trading algorithms required extensive calibration to account for the unpredictable fluctuations in xeno-currency exchange rates, but the long-term benefits to our resource accumulation are undeniable.",
+    author: "Director Algernon Fiduciary"
+  },
+  {
+    text: "The breakthrough in Gravitic Anomaly Containment! For cycles, we toiled, wrestling with the unpredictable fluctuations of localized spacetime distortions. Early attempts to harness their energy resulted in little more than flickering lights and the occasional misplaced teacup. But then! A moment of pure scientific serendipity! By cross-referencing ancient Lemurian star charts with the migratory patterns of the Nebula Nymph, we stumbled upon the key harmonic frequency! The subsequent surge of stable, harnessed energy powered our first interstellar warp drive prototype! A glorious testament to the power of interdisciplinary (and slightly unhinged) research!",
+    author: "Professor Quentin Quibble"
+  },
+  {
+    text: "Our first successful planetary siege was… efficient. The target, a heavily fortified pirate stronghold on the volcanic moon of Ignis Prime, offered significant resistance. Their orbital defenses were… adequate. Their ground troops… less so. Our coordinated assault, utilizing synchronized orbital bombardment and rapid deployment of armored divisions, neutralized the threat with minimal losses to our forces. The subsequent acquisition of their illicit resource caches proved… strategically advantageous. A clear demonstration of the superiority of disciplined military action over chaotic lawlessness. And, I might add, not a single tree was harmed in the process.",
+    author: "General Arminius \"Ironclad\" Von Bolt"
+  },
+  {
+    text: "The initial foray into Xeno-Linguistics was… humbling. We encountered a species of sentient gas clouds whose primary mode of communication involved complex shifts in atmospheric pressure and the occasional discharge of static electricity. Our universal translator, designed for humanoid vocalizations, proved about as useful as a chocolate teapot in a supernova. It required weeks of painstaking observation, the development of an entirely new sensory input array, and several near-electrocutions for my research assistants, before we could even begin to decipher their basic greetings. (Footnote: Their concept of 'greeting' appears to involve a mild form of atmospheric buffeting, often followed by what we tentatively translated as 'inquire about fungal specimens.') A fascinating, if somewhat breezy, endeavor.",
+    author: "Professor Quentin Quibble"
+  },
+  {
+    text: "The formation of the 'Galactic Cooperative of United Explorers' was a landmark moment for interspecies relations. To see representatives from so many diverse civilizations – the silicon-based Kryll, the aquatic Floobian Collective, the arboreal Sylvans – come together with a shared vision of peaceful exploration and mutual support... it was deeply moving. The initial negotiations were, admittedly, a little… animated, particularly concerning the proper etiquette for inter-species tea ceremonies. But ultimately, a spirit of understanding and compromise prevailed. It showed us that even across vast cultural divides, common ground can always be cultivated.",
+    author: "Ambassador Elara Vex"
+  },
+  {
+    text: "The early resource shortages on Aethelred IV tested our logistical capabilities. The initial survey data had underestimated the planet's geological instability, leading to significant disruptions in ore extraction. Certain… less disciplined commanders panicked. But through strict rationing, prioritized resource allocation, and the… persuasive reallocation of certain non-essential personnel to mining duties, we weathered the crisis. It was a vital lesson in the importance of meticulous planning and the swift, decisive application of… resource management protocols. And the elimination of any non-productive… foliage around the mining facilities.",
+    author: "General Arminius \"Ironclad\" Von Bolt"
+  },
+  {
+    text: "The period following the unexpected depletion of the primary neutronium reserves on Cygnus Minor presented a critical resource management challenge. Neutronium, as you know, is essential for advanced ship construction. The immediate cessation of supply necessitated a rapid reassessment of our production pipelines and the implementation of stringent conservation measures. While the short-term impact on fleet expansion was significant, the crisis spurred innovation in alternative propulsion technologies, ultimately leading to a more diversified and resilient industrial base. A painful, but ultimately instructive, lesson in the perils of over-reliance on a single resource stream.",
+    author: "Director Algernon Fiduciary"
+  },
 ];
 
 </script>
@@ -172,6 +209,31 @@ const gameplayItems = [
         </div>
       </section>
 
+      <!-- Story Section -->
+      <section id="story" class="relative z-10 px-6 py-24 bg-dark/50">
+        <div class="text-center mb-12">
+          <h2 class="text-4xl text-light mb-4">Tales from the Frontier</h2>
+          <p class="text-blue-200 max-w-2xl mx-auto">
+            Explore the rich narrative universe of Cold Frontier through the eyes of those who've ventured into the deep unknown
+          </p>
+        </div>
+        <div class="max-w-4xl mx-auto">
+          <TestimonialCarousel
+            :quotes="gameStories"
+            :autoplay="true"
+            :interval="8000"
+            class="story-carousel"
+          />
+
+          <div class="mt-16 text-center">
+            <p class="text-blue-200 italic mb-6">
+              Your story awaits among the stars. What legacy will you forge in the Cold Frontier?
+            </p>
+            <RouterLink to="/register" class="btn-primary">Begin Your Journey</RouterLink>
+          </div>
+        </div>
+      </section>
+
       <!-- Call to Action -->
       <section
         class="relative z-10 px-6 py-24 text-center bg-gradient-to-br from-dark/80 to-darker/90">
@@ -192,5 +254,22 @@ const gameplayItems = [
 </template>
 
 <style scoped>
+.story-carousel {
+  box-shadow: 0 0 30px rgba(59, 130, 246, 0.15);
+  position: relative;
+}
 
+.story-carousel::before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  bottom: -10px;
+  left: -10px;
+  background: linear-gradient(45deg, rgba(59, 130, 246, 0.05), rgba(16, 185, 129, 0.05));
+  border-radius: 1rem;
+  z-index: -1;
+  filter: blur(15px);
+  opacity: 0.6;
+}
 </style>
