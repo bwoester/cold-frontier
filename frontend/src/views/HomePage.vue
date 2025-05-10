@@ -129,7 +129,7 @@ const footerLinks = [
         </li>
       </ul>
       <div class="flex gap-4">
-        <a href="login.html" class="btn-secondary">Login</a>
+        <RouterLink to="/login" class="btn-secondary">Login</RouterLink>
         <a href="register.html" class="btn-primary">Register</a>
       </div>
     </nav>
@@ -224,7 +224,7 @@ const footerLinks = [
         </p>
         <div class="flex flex-col sm:flex-row justify-center gap-4">
           <a href="register.html" class="btn-primary">Create Account</a>
-          <a href="login.html" class="btn-secondary">Login</a>
+          <RouterLink to="/login" class="btn-secondary">Login</RouterLink>
         </div>
       </div>
     </section>
