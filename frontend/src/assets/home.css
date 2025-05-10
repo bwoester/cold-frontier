@@ -15,30 +15,3 @@
     @apply bg-slate-900 text-slate-100 font-sans;
   }
 }
-
-/* Custom utility classes */
-@layer utilities {
-  .bg-darker {
-    background-color: rgb(7, 12, 31);
-  }
-
-  .bg-darkest {
-    background-color: rgb(5, 8, 22);
-  }
-
-  .bg-dark {
-    background-color: rgb(15, 22, 49);
-  }
-
-  .text-light {
-    color: rgb(237, 242, 255);
-  }
-
-  .text-primary {
-    color: rgb(74, 107, 255);
-  }
-
-  .text-secondary {
-    color: rgb(21, 208, 124);
-  }
-}
