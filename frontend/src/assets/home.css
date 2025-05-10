@@ -16,3 +16,37 @@
     @apply bg-slate-900 text-slate-100 font-sans;
   }
 }
+
+@layer components {
+
+  /* Common button styles used across the application */
+  .btn-primary {
+    @apply inline-block px-5 py-3 bg-primary text-slate-100 font-medium rounded-lg text-center transition-all duration-300
+    hover:bg-primary/90 hover:transform-[translateY(-2px)] hover:shadow-lg hover:shadow-primary/30 ;
+  }
+
+  .btn-secondary {
+    @apply inline-block px-5 py-3 bg-transparent border border-primary text-slate-100 font-medium rounded-lg text-center transition-all duration-300
+    hover:bg-primary/10 hover:transform-[translateY(-2px)];
+  }
+
+  /* Card styles */
+  .app-card {
+    @apply bg-gradient-to-br from-dark/80 to-darker/95 rounded-xl shadow-lg
+    border border-primary/20 backdrop-blur-sm;
+  }
+
+  /* Auth cards for login and register pages */
+  .auth-card {
+    @apply bg-gradient-to-br from-dark/80 to-darker/95 rounded-xl shadow-lg
+    border border-primary/20 w-full max-w-450 p-12 text-center backdrop-blur-sm;
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .auth-card {
+      @apply p-8;
+    }
+  }
+
+}

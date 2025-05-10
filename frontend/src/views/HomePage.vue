@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import AppLayout from "@/components/AppLayout.vue";
+import AppNavigation from "@/components/AppNavigation.vue";
+
 const navLinks = [
   {text: 'Features', href: '#features'},
   {text: 'Gameplay', href: '#gameplay'},
@@ -104,194 +107,149 @@ const footerLinks = [
 </script>
 
 <template>
-  <div class="relative min-h-screen bg-darker">
+  <AppLayout>
+    <div class="relative min-h-screen">
 
-    <!-- Stars background effect -->
-    <div class="stars absolute inset-0"></div>
+      <!-- Navigation -->
+      <AppNavigation :showFullNav="true" :navLinks="navLinks">
+        <template #actions>
+          <RouterLink to="/login" class="btn-secondary">Login</RouterLink>
+          <RouterLink to="/register" class="btn-primary">Register</RouterLink>
+        </template>
+      </AppNavigation>
 
-    <!-- Navigation -->
-    <nav class="sticky top-0 z-100
-      flex justify-between items-center p-6 max-w-full mx-auto
-      bg-dark/80 backdrop-blur-sm border-b-1 border-primary/20">
-      <a href="#" class="text-3xl font-bold text-light">COLD<span
-        class="text-primary">FRONTIER</span></a>
-      <ul class="hidden md:flex gap-8 list-none">
-        <li v-for="(link, index) in navLinks" :key="index">
-          <a
-            :href="link.href"
-            class="text-light no-underline font-medium py-2 px-0 transition-colors duration-300 relative
-                  hover:text-primary after:content-[''] after:absolute after:w-0 after:h-0.5
-                  after:bg-primary after:bottom-0 after:left-0 after:transition-width after:duration-300
-                  hover:after:w-full"
-          >
-            {{ link.text }}
-          </a>
-        </li>
-      </ul>
-      <div class="flex gap-4">
-        <RouterLink to="/login" class="btn-secondary">Login</RouterLink>
-        <RouterLink to="/register" class="btn-primary">Register</RouterLink>
-      </div>
-    </nav>
-
-    <!-- Hero Section -->
-    <section class="relative z-10 flex flex-col items-center justify-center text-center px-6 py-24">
-      <h1
-        class="text-5xl md:text-6xl font-extrabold mb-6 leading-tight bg-gradient-to-r from-light to-primary bg-clip-text text-transparent">
-        Conquer the Cold Frontier
-      </h1>
-      <p class="text-lg max-w-2xl mb-10 text-blue-200 leading-relaxed">
-        Build your planetary empire, command mighty fleets, and raid rival colonies in this epic
-        space strategy game.
-        The galaxy awaits your command, commander!
-      </p>
-      <div class="flex flex-col sm:flex-row gap-4 mb-12">
-        <RouterLink to="/register" class="btn-primary">Start Your Empire</RouterLink>
-        <a href="#gameplay" class="btn-secondary">Learn More</a>
-      </div>
-    </section>
-
-    <!-- Features Section -->
-    <section id="features" class="relative z-10 px-6 py-24 bg-dark/50">
-      <div class="text-center mb-12">
-        <h2 class="text-4xl text-light mb-4">Game Features</h2>
-        <p class="text-blue-200 max-w-2xl mx-auto">
-          Explore the unique gameplay elements that make Cold Frontier an immersive space strategy
-          experience
+      <!-- Hero Section -->
+      <section
+        class="relative z-10 flex flex-col items-center justify-center text-center px-6 py-24">
+        <h1
+          class="text-5xl md:text-6xl font-extrabold mb-6 leading-tight bg-gradient-to-r from-light to-primary bg-clip-text text-transparent">
+          Conquer the Cold Frontier
+        </h1>
+        <p class="text-lg max-w-2xl mb-10 text-blue-200 leading-relaxed">
+          Build your planetary empire, command mighty fleets, and raid rival colonies in this epic
+          space strategy game.
+          The galaxy awaits your command, commander!
         </p>
-      </div>
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
-        <div
-          v-for="(feature, index) in features"
-          :key="index"
-          class="bg-gradient-to-br from-dark/80 to-darker/90 rounded-xl p-8 flex flex-col
+        <div class="flex flex-col sm:flex-row gap-4 mb-12">
+          <RouterLink to="/register" class="btn-primary">Start Your Empire</RouterLink>
+          <a href="#gameplay" class="btn-secondary">Learn More</a>
+        </div>
+      </section>
+
+      <!-- Features Section -->
+      <section id="features" class="relative z-10 px-6 py-24 bg-dark/50">
+        <div class="text-center mb-12">
+          <h2 class="text-4xl text-light mb-4">Game Features</h2>
+          <p class="text-blue-200 max-w-2xl mx-auto">
+            Explore the unique gameplay elements that make Cold Frontier an immersive space strategy
+            experience
+          </p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+          <div
+            v-for="(feature, index) in features"
+            :key="index"
+            class="bg-gradient-to-br from-dark/80 to-darker/90 rounded-xl p-8 flex flex-col
                 border border-primary/10 transition-all duration-300
                 hover:transform hover:-translate-y-2.5 hover:shadow-xl hover:shadow-primary/20 hover:border-primary/30"
-        >
-          <div
-            class="text-4xl mb-6 text-primary h-15 w-15 flex items-center justify-center rounded-xl bg-primary/10">
-            {{ feature.icon }}
+          >
+            <div
+              class="text-4xl mb-6 text-primary h-15 w-15 flex items-center justify-center rounded-xl bg-primary/10">
+              {{ feature.icon }}
+            </div>
+            <h3 class="text-2xl text-light mb-4">{{ feature.title }}</h3>
+            <p class="text-blue-200 leading-relaxed">{{ feature.description }}</p>
           </div>
-          <h3 class="text-2xl text-light mb-4">{{ feature.title }}</h3>
-          <p class="text-blue-200 leading-relaxed">{{ feature.description }}</p>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- Gameplay Section -->
-    <section id="gameplay" class="relative z-10 px-6 py-24">
-      <div class="text-center mb-12">
-        <h2 class="text-4xl text-light mb-4">Gameplay Highlights</h2>
-        <p class="text-blue-200 max-w-2xl mx-auto">Dive deeper into the Cold Frontier experience</p>
-      </div>
-      <div class="flex flex-col gap-20 max-w-7xl mx-auto">
-        <div
-          v-for="(item, index) in gameplayItems"
-          :key="index"
-          :class="[
+      <!-- Gameplay Section -->
+      <section id="gameplay" class="relative z-10 px-6 py-24">
+        <div class="text-center mb-12">
+          <h2 class="text-4xl text-light mb-4">Gameplay Highlights</h2>
+          <p class="text-blue-200 max-w-2xl mx-auto">Dive deeper into the Cold Frontier
+            experience</p>
+        </div>
+        <div class="flex flex-col gap-20 max-w-7xl mx-auto">
+          <div
+            v-for="(item, index) in gameplayItems"
+            :key="index"
+            :class="[
             'grid gap-12 items-center',
             index % 2 === 0 ? 'md:grid-cols-2' : 'md:grid-cols-2'
           ]"
-        >
-          <div
-            :class="[
+          >
+            <div
+              :class="[
               'relative rounded-xl overflow-hidden shadow-xl border border-primary/30 h-[350px] bg-dark flex items-center justify-center',
               index % 2 === 0 ? '' : 'md:row-start-1 md:row-end-2 md:col-start-2 md:col-end-3'
             ]">
-            <span class="text-lg text-blue-200 text-center p-4">{{ item.imagePlaceholder }}</span>
-          </div>
-          <div
-            :class="[ index % 2 === 0 ? '' : 'md:row-start-1 md:row-end-2 md:col-start-1 md:col-end-2' ]">
-            <h3 class="text-3xl text-light mb-6">{{ item.title }}</h3>
-            <p class="text-blue-200 leading-relaxed mb-6">{{ item.description }}</p>
-            <div v-for="(feature, featureIndex) in item.features" :key="featureIndex"
-                 class="flex items-center mb-4">
-              <div class="text-secondary mr-3">✓</div>
-              <div>{{ feature }}</div>
+              <span class="text-lg text-blue-200 text-center p-4">{{ item.imagePlaceholder }}</span>
+            </div>
+            <div
+              :class="[ index % 2 === 0 ? '' : 'md:row-start-1 md:row-end-2 md:col-start-1 md:col-end-2' ]">
+              <h3 class="text-3xl text-light mb-6">{{ item.title }}</h3>
+              <p class="text-blue-200 leading-relaxed mb-6">{{ item.description }}</p>
+              <div v-for="(feature, featureIndex) in item.features" :key="featureIndex"
+                   class="flex items-center mb-4">
+                <div class="text-secondary mr-3">✓</div>
+                <div>{{ feature }}</div>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- Call to Action -->
-    <section
-      class="relative z-10 px-6 py-24 text-center bg-gradient-to-br from-dark/80 to-darker/90">
-      <div class="max-w-3xl mx-auto">
-        <h2 class="text-5xl text-light mb-6">Ready to Claim Your Planet?</h2>
-        <p class="text-blue-200 mb-10 text-lg leading-relaxed">
-          Join thousands of commanders already exploring the Cold Frontier. Your empire awaits!
-        </p>
-        <div class="flex flex-col sm:flex-row justify-center gap-4">
-          <RouterLink to="/register" class="btn-primary">Create Account</RouterLink>
-          <RouterLink to="/login" class="btn-secondary">Login</RouterLink>
-        </div>
-      </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="relative z-10 bg-darker px-6 py-12 border-t-1 border-primary/20">
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 max-w-7xl mx-auto">
-        <div>
-          <a href="#" class="text-2xl font-bold text-light inline-block mb-4">COLD<span
-            class="text-primary">FRONTIER</span></a>
-          <p class="text-blue-200 leading-relaxed mb-6">
-            An immersive space strategy game where you build planets and command fleets in an
-            ever-expanding universe.
+      <!-- Call to Action -->
+      <section
+        class="relative z-10 px-6 py-24 text-center bg-gradient-to-br from-dark/80 to-darker/90">
+        <div class="max-w-3xl mx-auto">
+          <h2 class="text-5xl text-light mb-6">Ready to Claim Your Planet?</h2>
+          <p class="text-blue-200 mb-10 text-lg leading-relaxed">
+            Join thousands of commanders already exploring the Cold Frontier. Your empire awaits!
           </p>
+          <div class="flex flex-col sm:flex-row justify-center gap-4">
+            <RouterLink to="/register" class="btn-primary">Create Account</RouterLink>
+            <RouterLink to="/login" class="btn-secondary">Login</RouterLink>
+          </div>
         </div>
-        <div v-for="(linkGroup, groupIndex) in footerLinks" :key="groupIndex">
-          <h4 class="text-light mb-6 text-lg">{{ linkGroup.title }}</h4>
-          <ul class="list-none">
-            <li v-for="(link, linkIndex) in linkGroup.links" :key="linkIndex" class="mb-3">
-              <a
-                :href="link.href"
-                class="text-blue-200 no-underline transition-colors duration-300 hover:text-primary"
-              >
-                {{ link.text }}
-              </a>
-            </li>
-          </ul>
+      </section>
+
+      <!-- Footer -->
+      <footer class="relative z-10 bg-darker px-6 py-12 border-t-1 border-primary/20">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 max-w-7xl mx-auto">
+          <div>
+            <a href="#" class="text-2xl font-bold text-light inline-block mb-4">COLD<span
+              class="text-primary">FRONTIER</span></a>
+            <p class="text-blue-200 leading-relaxed mb-6">
+              An immersive space strategy game where you build planets and command fleets in an
+              ever-expanding universe.
+            </p>
+          </div>
+          <div v-for="(linkGroup, groupIndex) in footerLinks" :key="groupIndex">
+            <h4 class="text-light mb-6 text-lg">{{ linkGroup.title }}</h4>
+            <ul class="list-none">
+              <li v-for="(link, linkIndex) in linkGroup.links" :key="linkIndex" class="mb-3">
+                <a
+                  :href="link.href"
+                  class="text-blue-200 no-underline transition-colors duration-300 hover:text-primary"
+                >
+                  {{ link.text }}
+                </a>
+              </li>
+            </ul>
+          </div>
         </div>
-      </div>
-      <div class="text-center pt-12 text-blue-200 text-sm">
-        <p>&copy; 2023 Cold Frontier. All rights reserved.</p>
-      </div>
-    </footer>
-  </div>
+        <div class="text-center pt-12 text-blue-200 text-sm">
+          <p>&copy; 2023 Cold Frontier. All rights reserved.</p>
+        </div>
+      </footer>
+    </div>
+  </AppLayout>
 </template>
 
 <style scoped>
 @reference "@/assets/home.css";
-
-#app > div:first-child {
-  background-image:
-    radial-gradient(circle at 20% 35%, rgba(74, 107, 255, 0.15) 0%, transparent 50%),
-    radial-gradient(circle at 75% 65%, rgba(255, 91, 122, 0.1) 0%, transparent 50%);
-  background-attachment: fixed;
-}
-
-.stars {
-  background-image: radial-gradient(2px 2px at 20px 30px, #eee, rgba(0, 0, 0, 0)),
-  radial-gradient(2px 2px at 40px 70px, #fff, rgba(0, 0, 0, 0)),
-  radial-gradient(1px 1px at 90px 40px, #ddd, rgba(0, 0, 0, 0));
-  background-repeat: repeat;
-  background-size: 200px 200px;
-  opacity: 0.2;
-  animation: twinkle 5s ease-in-out infinite;
-}
-
-@keyframes twinkle {
-  0% {
-    opacity: 0.2;
-  }
-  50% {
-    opacity: 0.4;
-  }
-  100% {
-    opacity: 0.2;
-  }
-}
 
 .btn-primary {
   @apply inline-block px-5 py-3 bg-primary text-slate-100 font-medium rounded-lg text-center transition-all duration-300

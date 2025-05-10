@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import AppNavigation from '@/components/AppNavigation.vue';
+import AppLayout from '@/components/AppLayout.vue';
+
 // Auth providers configuration - same as in LoginPage for consistency
 const authProviders = [
   {
@@ -114,16 +117,11 @@ const handleSubmit = (e: Event) => {
 </script>
 
 <template>
-  <div class="relative min-h-screen bg-darker">
-    <!-- Stars background effect -->
-    <div class="stars absolute inset-0"></div>
+  <AppLayout>
 
     <!-- Navigation -->
-    <nav
-      class="navbar sticky top-0 z-100 flex justify-between items-center p-6 bg-dark/80 backdrop-blur-sm border-b-1 border-primary/20">
-      <a href="/" class="text-3xl font-bold text-light">COLD<span
-        class="text-primary">FRONTIER</span></a>
-    </nav>
+    <AppNavigation>
+    </AppNavigation>
 
     <!-- Register Section -->
     <div class="register-container flex-1 flex items-center justify-center p-8">
@@ -182,53 +180,11 @@ const handleSubmit = (e: Event) => {
         </RouterLink>
       </div>
     </div>
-  </div>
+  </AppLayout>
 </template>
 
 <style scoped>
-/* Using the same styling approach as in other Vue components */
 @reference "@/assets/home.css";
-
-#app > div:first-child {
-  background-image: radial-gradient(circle at 20% 35%, rgba(74, 107, 255, 0.15) 0%, transparent 50%),
-  radial-gradient(circle at 75% 65%, rgba(255, 91, 122, 0.1) 0%, transparent 50%);
-  background-attachment: fixed;
-}
-
-.stars {
-  background-image: radial-gradient(2px 2px at 20px 30px, #eee, rgba(0, 0, 0, 0)),
-  radial-gradient(2px 2px at 40px 70px, #fff, rgba(0, 0, 0, 0)),
-  radial-gradient(1px 1px at 90px 40px, #ddd, rgba(0, 0, 0, 0));
-  background-repeat: repeat;
-  background-size: 200px 200px;
-  opacity: 0.2;
-  animation: twinkle 5s ease-in-out infinite;
-}
-
-@keyframes twinkle {
-  0% {
-    opacity: 0.2;
-  }
-  50% {
-    opacity: 0.4;
-  }
-  100% {
-    opacity: 0.2;
-  }
-}
-
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1.5rem 3rem;
-  background-color: rgba(15, 22, 49, 0.8);
-  backdrop-filter: blur(10px);
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  border-bottom: 1px solid rgba(74, 107, 255, 0.2);
-}
 
 .register-card {
   background: linear-gradient(135deg, rgba(15, 22, 49, 0.8) 0%, rgba(7, 12, 31, 0.95) 100%);
@@ -242,10 +198,6 @@ const handleSubmit = (e: Event) => {
 }
 
 @media (max-width: 768px) {
-  .navbar {
-    padding: 1rem;
-  }
-
   .register-card {
     padding: 2rem;
   }
