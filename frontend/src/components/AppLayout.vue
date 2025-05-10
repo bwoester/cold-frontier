@@ -1,6 +1,37 @@
 <script setup lang="ts">
 // Main layout component that wraps page content with common elements
 import StarsBackground from './StarsBackground.vue';
+import AppFooter from "@/components/AppFooter.vue";
+
+const footerLinks = [
+  {
+    title: 'Game',
+    links: [
+      {text: 'Features', href: '/#features'},
+      {text: 'Gameplay', href: '/#gameplay'},
+      {text: 'Updates', href: '/updates'},
+      {text: 'Roadmap', href: '/roadmap'}
+    ]
+  },
+  {
+    title: 'Community',
+    links: [
+      {text: 'Forums', href: '/forums'},
+      {text: 'Discord', href: '/discord'},
+      {text: 'Wiki', href: '/wiki'},
+      {text: 'Support', href: '/support'}
+    ]
+  },
+  {
+    title: 'Legal',
+    links: [
+      {text: 'Terms of Service', href: '/terms'},
+      {text: 'Privacy Policy', href: '/privacy'},
+      {text: 'Cookie Policy', href: '/cookies'}
+    ]
+  }
+];
+
 </script>
 
 <template>
@@ -12,6 +43,9 @@ import StarsBackground from './StarsBackground.vue';
 
     <!-- Page content -->
     <slot></slot>
+
+    <!-- Footer -->
+    <AppFooter :footerLinks="footerLinks" />
 
   </div>
 </template>

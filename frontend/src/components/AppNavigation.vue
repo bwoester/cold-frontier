@@ -23,7 +23,7 @@ const navLinks = props.navLinks || [
   <nav class="sticky top-0 z-100
       flex justify-between items-center p-6 max-w-full mx-auto
       bg-dark/80 backdrop-blur-sm border-b-1 border-primary/20">
-    <a href="/" class="text-3xl font-bold text-light">COLD<span class="text-primary">FRONTIER</span></a>
+    <RouterLink to="/" class="text-3xl font-bold text-light">COLD<span class="text-primary">FRONTIER</span></RouterLink>
 
     <!-- Navigation links (shown on home page) -->
     <ul v-if="showFullNav" class="hidden md:flex gap-8 list-none">
