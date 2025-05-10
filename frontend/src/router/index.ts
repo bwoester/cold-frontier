@@ -1,7 +1,4 @@
 import {createRouter, createWebHistory} from 'vue-router'
-import HomePage from '../views/HomePage.vue'
-import LoginPage from "@/views/LoginPage.vue";
-import RegisterPage from "@/views/RegisterPage.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -9,15 +6,40 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: HomePage
+      component: () => import('../views/public/HomePage.vue'),
     }, {
       path: '/login',
       name: 'login',
-      component: LoginPage
+      component: () => import('../views/public/LoginPage.vue'),
     }, {
       path: '/register',
       name: 'register',
-      component: RegisterPage
+      component: () => import('../views/public/RegisterPage.vue'),
+    },
+    {
+      path: '/game',
+      name: 'game-dashboard',
+      component: () => import('../views/protected/GameDashboard.vue'),
+      // We would typically add authentication guard here
+      // meta: { requiresAuth: true }
+    },
+    {
+      path: '/game/buildings',
+      name: 'buildings',
+      component: () => import('../views/protected/GameDashboard.vue'),
+      // Placeholder for future building page
+    },
+    {
+      path: '/game/research',
+      name: 'research',
+      component: () => import('../views/protected/GameDashboard.vue'),
+      // Placeholder for future research page
+    },
+    {
+      path: '/game/shipyard',
+      name: 'shipyard',
+      component: () => import('../views/protected/GameDashboard.vue'),
+      // Placeholder for future shipyard page
     },
   ],
   scrollBehavior(to) {

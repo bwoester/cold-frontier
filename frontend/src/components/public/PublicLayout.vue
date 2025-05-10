@@ -1,7 +1,8 @@
 <script setup lang="ts">
+import "@/assets/public.css"
 // Main layout component that wraps page content with common elements
-import StarsBackground from './StarsBackground.vue';
-import AppFooter from "@/components/AppFooter.vue";
+import StarsBackground from '../StarsBackground.vue';
+import AppFooter from "@/components/public/AppFooter.vue";
 
 const footerLinks = [
   {
@@ -35,7 +36,7 @@ const footerLinks = [
 </script>
 
 <template>
-  <div class="relative min-h-screen flex flex-col bg-darker">
+  <div class="relative min-h-screen flex flex-col">
     <!-- Background gradients applied via CSS -->
 
     <!-- Stars background -->

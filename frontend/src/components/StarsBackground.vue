@@ -16,6 +16,7 @@
   background-attachment: fixed;
   opacity: 0.2;
   animation: twinkle 5s ease-in-out infinite;
+  z-index: -1;
 }
 
 @keyframes twinkle {

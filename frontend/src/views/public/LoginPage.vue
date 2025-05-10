@@ -1,13 +1,27 @@
 <script setup lang="ts">
-import AppNavigation from '@/components/AppNavigation.vue';
-import AppLayout from '@/components/AppLayout.vue';
+import AppNavigation from '@/components/public/AppNavigation.vue';
+import PublicLayout from '@/components/public/PublicLayout.vue';
+// Call the function when component is mounted
+import {onMounted} from 'vue';
 
-// Auth providers configuration - same as in LoginPage for consistency
+// Function to handle authentication errors
+const checkAuthErrors = () => {
+  // Check for authentication success/error messages from URL
+  const urlParams = new URLSearchParams(window.location.search);
+  const authError = urlParams.get('error');
+
+  if (authError) {
+    // Display error message if authentication failed
+    alert('Authentication failed: ' + authError);
+  }
+};
+
+// Auth providers configuration
 const authProviders = [
   {
     name: 'google',
     url: '/api/auth/google',
-    text: 'Sign up with Google',
+    text: 'Continue with Google',
     uniqueStyle: 'bg-white text-gray-800',
     svgFill: '',
     svgPaths: [
@@ -32,7 +46,7 @@ const authProviders = [
   {
     name: 'github',
     url: '/api/auth/github',
-    text: 'Sign up with GitHub',
+    text: 'Continue with GitHub',
     uniqueStyle: 'bg-gray-900 text-white',
     svgFill: 'white',
     svgPaths: [
@@ -42,7 +56,7 @@ const authProviders = [
   {
     name: 'facebook',
     url: '/api/auth/facebook',
-    text: 'Sign up with Facebook',
+    text: 'Continue with Facebook',
     uniqueStyle: 'bg-blue-900 text-white',
     svgFill: 'white',
     svgPaths: [
@@ -51,86 +65,27 @@ const authProviders = [
   }
 ];
 
-// Form data
-import { ref } from 'vue';
-
-const username = ref('');
-const email = ref('');
-const password = ref('');
-const confirmPassword = ref('');
-const acceptTerms = ref(false);
-const formError = ref('');
-
-// Form validation
-const validateForm = () => {
-  formError.value = '';
-
-  if (!username.value) {
-    formError.value = 'Username is required';
-    return false;
-  }
-
-  if (!email.value) {
-    formError.value = 'Email is required';
-    return false;
-  }
-
-  if (!password.value) {
-    formError.value = 'Password is required';
-    return false;
-  }
-
-  if (password.value !== confirmPassword.value) {
-    formError.value = 'Passwords do not match';
-    return false;
-  }
-
-  if (!acceptTerms.value) {
-    formError.value = 'You must accept the terms and conditions';
-    return false;
-  }
-
-  return true;
-};
-
-// Form submission
-const handleSubmit = (e: Event) => {
-  e.preventDefault();
-
-  if (validateForm()) {
-    // Form is valid, proceed with submission
-    alert('Registration form submitted!');
-    // In a real application, you would send the data to your backend
-    // fetch('/api/auth/register', {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //   },
-    //   body: JSON.stringify({
-    //     username: username.value,
-    //     email: email.value,
-    //     password: password.value
-    //   }),
-    // })
-  }
-};
+onMounted(() => {
+  checkAuthErrors();
+});
 </script>
 
 <template>
-  <AppLayout>
+  <PublicLayout>
 
     <!-- Navigation -->
     <AppNavigation>
     </AppNavigation>
 
-    <!-- Register Section -->
-    <div class="register-container flex-1 flex items-center justify-center p-8">
+    <!-- Login Section -->
+    <div class="login-container flex-1 flex items-center justify-center p-8">
       <div
-        class="register-card
+        class="login-card
           bg-gradient-to-br from-dark/80 to-darker/95 rounded-xl shadow-lg border border-primary/20 w-full max-w-450 p-12 text-center backdrop-blur-sm">
-        <div class="register-header mb-8 text-center">
-          <h1 class="text-4xl font-bold mb-4 text-light">Join the Galaxy</h1>
-          <p class="text-blue-200 text-lg leading-relaxed">Create your account and begin your quest to dominate the Cold Frontier</p>
+        <div class="login-header mb-8">
+          <h1 class="text-4xl font-bold mb-4 text-light">Welcome Back</h1>
+          <p class="text-blue-200 text-lg leading-relaxed">Login to continue your conquest of the
+            Cold Frontier</p>
         </div>
 
         <div class="auth-options flex flex-col gap-4 mb-8">
@@ -161,11 +116,13 @@ const handleSubmit = (e: Event) => {
           </a>
         </div>
 
-        <p class="login-link mt-8 text-center text-blue-200">
-          Already have an account?
-          <RouterLink to="/login"
-             class="font-semibold
-            text-primary no-underline transition-colors duration-300 hover:text-primary-dark">Sign in</RouterLink>
+        <p class="create-account mt-8 text-blue-200">
+          Don't have an account?
+          <RouterLink to="/register"
+                      class="font-semibold
+            text-primary no-underline transition-colors duration-300 hover:text-primary-dark">Sign
+            up
+          </RouterLink>
         </p>
 
         <RouterLink to="/"
@@ -180,13 +137,13 @@ const handleSubmit = (e: Event) => {
         </RouterLink>
       </div>
     </div>
-  </AppLayout>
+  </PublicLayout>
 </template>
 
 <style scoped>
-@reference "@/assets/home.css";
+@reference "@/assets/public.css";
 
-.register-card {
+.login-card {
   background: linear-gradient(135deg, rgba(15, 22, 49, 0.8) 0%, rgba(7, 12, 31, 0.95) 100%);
   border-radius: 1rem;
   box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
@@ -194,11 +151,12 @@ const handleSubmit = (e: Event) => {
   width: 100%;
   max-width: 450px;
   padding: 3rem;
+  text-align: center;
   backdrop-filter: blur(10px);
 }
 
 @media (max-width: 768px) {
-  .register-card {
+  .login-card {
     padding: 2rem;
   }
 }

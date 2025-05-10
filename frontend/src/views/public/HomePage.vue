@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import AppLayout from "@/components/AppLayout.vue";
-import AppNavigation from "@/components/AppNavigation.vue";
-import TestimonialCarousel from "@/components/TestimonialCarousel.vue";
+import PublicLayout from "@/components/public/PublicLayout.vue";
+import AppNavigation from "@/components/public/AppNavigation.vue";
+import TestimonialCarousel from "@/components/public/TestimonialCarousel.vue";
 
 const navLinks = [
   {text: 'Features', href: '#features'},
@@ -116,7 +116,7 @@ const gameStories = [
 </script>
 
 <template>
-  <AppLayout>
+  <PublicLayout>
     <div class="relative min-h-screen">
 
       <!-- Navigation -->
@@ -128,8 +128,7 @@ const gameStories = [
       </AppNavigation>
 
       <!-- Hero Section -->
-      <section
-        class="relative z-10 flex flex-col items-center justify-center text-center px-6 py-24">
+      <section class="relative z-10 flex flex-col items-center justify-center text-center px-6 py-24 bg-dark/5">
         <h1
           class="text-5xl md:text-6xl font-extrabold mb-6 leading-tight bg-gradient-to-r from-light to-primary bg-clip-text text-transparent">
           Conquer the Cold Frontier
@@ -173,7 +172,7 @@ const gameStories = [
       </section>
 
       <!-- Gameplay Section -->
-      <section id="gameplay" class="relative z-10 px-6 py-24">
+      <section id="gameplay" class="relative z-10 px-6 py-24 bg-dark/5">
         <div class="text-center mb-12">
           <h2 class="text-4xl text-light mb-4">Gameplay Highlights</h2>
           <p class="text-blue-200 max-w-2xl mx-auto">Dive deeper into the Cold Frontier
@@ -236,7 +235,7 @@ const gameStories = [
 
       <!-- Call to Action -->
       <section
-        class="relative z-10 px-6 py-24 text-center bg-gradient-to-br from-dark/80 to-darker/90">
+        class="relative z-10 px-6 py-24 text-center bg-darker/50">
         <div class="max-w-3xl mx-auto">
           <h2 class="text-5xl text-light mb-6">Ready to Claim Your Planet?</h2>
           <p class="text-blue-200 mb-10 text-lg leading-relaxed">
@@ -250,7 +249,7 @@ const gameStories = [
       </section>
 
     </div>
-  </AppLayout>
+  </PublicLayout>
 </template>
 
 <style scoped>
