@@ -130,7 +130,7 @@ const footerLinks = [
       </ul>
       <div class="flex gap-4">
         <RouterLink to="/login" class="btn-secondary">Login</RouterLink>
-        <a href="register.html" class="btn-primary">Register</a>
+        <RouterLink to="/register" class="btn-primary">Register</RouterLink>
       </div>
     </nav>
 
@@ -146,7 +146,7 @@ const footerLinks = [
         The galaxy awaits your command, commander!
       </p>
       <div class="flex flex-col sm:flex-row gap-4 mb-12">
-        <a href="register.html" class="btn-primary">Start Your Empire</a>
+        <RouterLink to="/register" class="btn-primary">Start Your Empire</RouterLink>
         <a href="#gameplay" class="btn-secondary">Learn More</a>
       </div>
     </section>
@@ -223,7 +223,7 @@ const footerLinks = [
           Join thousands of commanders already exploring the Cold Frontier. Your empire awaits!
         </p>
         <div class="flex flex-col sm:flex-row justify-center gap-4">
-          <a href="register.html" class="btn-primary">Create Account</a>
+          <RouterLink to="/register" class="btn-primary">Create Account</RouterLink>
           <RouterLink to="/login" class="btn-secondary">Login</RouterLink>
         </div>
       </div>
