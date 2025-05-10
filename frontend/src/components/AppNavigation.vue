@@ -21,8 +21,9 @@ const navLinks = props.navLinks || [
 
 <template>
   <nav class="sticky top-0 z-100
-      flex justify-between items-center p-6 max-w-full mx-auto
-      bg-dark/80 backdrop-blur-sm border-b-1 border-primary/20">
+      flex justify-between items-center p-6 max-w-full w-full mx-auto
+      bg-dark/80 backdrop-blur-sm border-b-1 border-primary/20
+      h-24 min-h-24">
     <RouterLink to="/" class="text-3xl font-bold text-light">COLD<span class="text-primary">FRONTIER</span></RouterLink>
 
     <!-- Navigation links (shown on home page) -->
@@ -48,5 +49,4 @@ const navLinks = props.navLinks || [
 </template>
 
 <style scoped>
-
 </style>

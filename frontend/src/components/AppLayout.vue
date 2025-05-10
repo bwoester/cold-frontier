@@ -35,7 +35,7 @@ const footerLinks = [
 </script>
 
 <template>
-  <div class="relative min-h-screen bg-darker">
+  <div class="relative min-h-screen flex flex-col bg-darker">
     <!-- Background gradients applied via CSS -->
 
     <!-- Stars background -->
