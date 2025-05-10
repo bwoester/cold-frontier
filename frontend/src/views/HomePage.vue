@@ -249,15 +249,5 @@ const footerLinks = [
 </template>
 
 <style scoped>
-@reference "@/assets/home.css";
 
-.btn-primary {
-  @apply inline-block px-5 py-3 bg-primary text-slate-100 font-medium rounded-lg text-center transition-all duration-300
-  hover:bg-primary/90 hover:transform-[translateY(-2px)] hover:shadow-lg hover:shadow-primary/30 ;
-}
-
-.btn-secondary {
-  @apply inline-block px-5 py-3 bg-transparent border border-primary text-slate-100 font-medium rounded-lg text-center transition-all duration-300
-  hover:bg-primary/10 hover:transform-[translateY(-2px)];
-}
 </style>
