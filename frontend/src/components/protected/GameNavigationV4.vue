@@ -170,7 +170,6 @@ onMounted(() => {
           </h2>
 
           <div class="holo-card nav-group-container mt-2 hologram-pulse">
-            <div class="group-icon">{{ group.icon }}</div>
             <div class="nav-links">
               <RouterLink
                 v-for="(link, linkIndex) in group.links"
@@ -189,7 +188,7 @@ onMounted(() => {
     </div>
 
     <!-- Logout Button -->
-    <div class="mt-5 p-4 border-t border-cyan-800/30">
+    <div class="mt-5 p-4 border-t border-cyan-800/30 relative z-10">
       <RouterLink to="/logout" class="logout-button">
         <div class="link-icon warning">🚪</div>
         <span class="link-text">DISCONNECT</span>
@@ -599,10 +598,6 @@ onMounted(() => {
   border-left: 1px solid #2c3844;
 }
 
-.align-right .section-title {
-  flex-direction: row-reverse;
-}
-
 .nav-group-container {
   position: relative;
   padding: 12px 8px;
@@ -650,21 +645,6 @@ onMounted(() => {
   }
 }
 
-.group-icon {
-  position: absolute;
-  top: -10px;
-  left: 10px;
-  width: 24px;
-  height: 24px;
-  background: rgba(20, 50, 80, 0.9);
-  border: 1px solid rgba(64, 218, 255, 0.3);
-  border-radius: 4px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.9rem;
-  z-index: 5;
-}
 
 .nav-links {
   display: flex;
