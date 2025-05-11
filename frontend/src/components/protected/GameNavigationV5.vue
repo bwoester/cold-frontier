@@ -258,27 +258,91 @@ onMounted(() => {
   height: 200%;
   background: radial-gradient(
     ellipse at center,
-    rgba(64, 218, 255, 0.02) 0%,
+    rgba(64, 218, 255, 0.15) 0%,
     rgba(64, 218, 255, 0) 70%
   );
   pointer-events: none;
   z-index: 0;
   transform-origin: center;
-  animation: floatGlow 10s infinite linear;
+  animation: floatGlow 12s infinite ease-in-out;
+}
+
+.nav-hologram::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(64, 218, 255, 0.08) 0%,
+    rgba(64, 218, 255, 0) 50%,
+    rgba(64, 218, 255, 0.08) 100%
+  );
+  z-index: 0;
+  animation: shimmerEffect 8s infinite ease-in-out;
+}
+
+.nav-hologram::after {
+  content: '';
+  position: absolute;
+  top: -10%;
+  left: -10%;
+  width: 120%;
+  height: 120%;
+  background: radial-gradient(
+    circle at 30% 70%,
+    rgba(64, 218, 255, 0.12) 0%,
+    rgba(64, 218, 255, 0) 60%
+  );
+  pointer-events: none;
+  z-index: 0;
+  animation: pulseGlow 6s infinite alternate ease-in-out;
 }
 
 @keyframes floatGlow {
   0% {
     transform: rotate(0deg) scale(1);
-    opacity: 0.02;
+    opacity: 0.15;
+  }
+  25% {
+    transform: rotate(90deg) scale(1.05);
+    opacity: 0.2;
   }
   50% {
     transform: rotate(180deg) scale(1.1);
-    opacity: 0.05;
+    opacity: 0.25;
+  }
+  75% {
+    transform: rotate(270deg) scale(1.05);
+    opacity: 0.2;
   }
   100% {
     transform: rotate(360deg) scale(1);
-    opacity: 0.02;
+    opacity: 0.15;
+  }
+}
+
+@keyframes shimmerEffect {
+  0%, 100% {
+    opacity: 0.3;
+    transform: translateX(-5%) translateY(-5%);
+  }
+  50% {
+    opacity: 0.7;
+    transform: translateX(5%) translateY(5%);
+  }
+}
+
+@keyframes pulseGlow {
+  0% {
+    opacity: 0.15;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0.35;
+    transform: scale(1.1);
   }
 }
 
