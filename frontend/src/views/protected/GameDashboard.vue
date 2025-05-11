@@ -1,10 +1,9 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
+import {onMounted, ref} from 'vue';
 import ProtectedLayout from "@/components/protected/ProtectedLayout.vue";
 import GameNavigation from "@/components/protected/GameNavigation.vue";
-import GameNavigationV2 from "@/components/protected/GameNavigationV2.vue";
-import GameNavigationV3 from "@/components/protected/GameNavigationV3.vue";
 import GameNavigationV4 from "@/components/protected/GameNavigationV4.vue";
+import GameNavigationV5 from "@/components/protected/GameNavigationV5.vue";
 
 // Mock data for resources
 const resources = ref({
@@ -81,7 +80,11 @@ const currentTime = ref('');
 
 const updateTime = () => {
   const now = new Date();
-  currentTime.value = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+  currentTime.value = now.toLocaleTimeString([], {
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit'
+  });
 };
 
 onMounted(() => {
@@ -96,10 +99,9 @@ onMounted(() => {
     <div class="flex h-screen">
 
       <!-- Left Navigation Panel -->
-      <GameNavigation />
-      <GameNavigationV2 />
-      <GameNavigationV3 />
-      <GameNavigationV4 />
+      <GameNavigation/>
+      <GameNavigationV4/>
+      <GameNavigationV5/>
 
       <!-- Main Content Area -->
       <main class="flex-1 overflow-y-auto p-6">
