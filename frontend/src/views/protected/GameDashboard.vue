@@ -99,8 +99,6 @@ onMounted(() => {
     <div class="flex h-screen">
 
       <!-- Left Navigation Panel -->
-      <GameNavigation/>
-      <GameNavigationV4/>
       <GameNavigationV5/>
 
       <!-- Main Content Area -->
