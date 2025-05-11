@@ -99,6 +99,7 @@ onMounted(() => {
       <GameNavigation />
       <GameNavigationV2 />
       <GameNavigationV3 />
+      <GameNavigationV4 />
 
       <!-- Main Content Area -->
       <main class="flex-1 overflow-y-auto p-6">
