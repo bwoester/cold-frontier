@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { ref, onMounted, computed } from 'vue';
+import {computed, onMounted, ref} from 'vue';
 
 // Mock data for planets
 const planets = ref([
-  { id: 1, name: 'Borealis VI', type: 'Ice Planet', selected: true },
-  { id: 2, name: 'Ignis Prime', type: 'Volcanic Moon', selected: false },
-  { id: 3, name: 'Verdant Echo', type: 'Forest World', selected: false }
+  {id: 1, name: 'Borealis VI', type: 'Ice Planet', selected: true},
+  {id: 2, name: 'Ignis Prime', type: 'Volcanic Moon', selected: false},
+  {id: 3, name: 'Verdant Echo', type: 'Forest World', selected: false}
 ]);
 
 // Current selected planet
@@ -21,11 +21,31 @@ const navigationGroups = [
     icon: "🔧",
     alignment: "left",
     links: [
-      { icon: '🪐', text: 'Overview', route: '/game', description: 'Planet status dashboard' },
-      { icon: '🏗️', text: 'Buildings', route: '/game/buildings', description: 'Construct and upgrade planetary facilities' },
-      { icon: '🔬', text: 'Research', route: '/game/research', description: 'Develop new technologies' },
-      { icon: '💱', text: 'Trade', route: '/game/trade', description: 'Trade resources with other players' },
-      { icon: '📊', text: 'Economy', route: '/game/economy', description: 'Economic overview and forecasts' }
+      {icon: '🪐', text: 'Overview', route: '/game', description: 'Planet status dashboard'},
+      {
+        icon: '🏗️',
+        text: 'Buildings',
+        route: '/game/buildings',
+        description: 'Construct and upgrade planetary facilities'
+      },
+      {
+        icon: '🔬',
+        text: 'Research',
+        route: '/game/research',
+        description: 'Develop new technologies'
+      },
+      {
+        icon: '💱',
+        text: 'Trade',
+        route: '/game/trade',
+        description: 'Trade resources with other players'
+      },
+      {
+        icon: '📊',
+        text: 'Economy',
+        route: '/game/economy',
+        description: 'Economic overview and forecasts'
+      }
     ]
   },
   {
@@ -33,10 +53,25 @@ const navigationGroups = [
     icon: "⚔️",
     alignment: "right",
     links: [
-      { icon: '🚀', text: 'Shipyard', route: '/game/shipyard', description: 'Build and manage your fleet' },
-      { icon: '🛡️', text: 'Defense', route: '/game/defense', description: 'Construct planetary defenses' },
-      { icon: '⚔️', text: 'Fleet', route: '/game/fleet', description: 'Fleet management and deployment' },
-      { icon: '🎲', text: 'Simulator', route: '/game/simulator', description: 'Battle simulator' }
+      {
+        icon: '🚀',
+        text: 'Shipyard',
+        route: '/game/shipyard',
+        description: 'Build and manage your fleet'
+      },
+      {
+        icon: '🛡️',
+        text: 'Defense',
+        route: '/game/defense',
+        description: 'Construct planetary defenses'
+      },
+      {
+        icon: '⚔️',
+        text: 'Fleet',
+        route: '/game/fleet',
+        description: 'Fleet management and deployment'
+      },
+      {icon: '🎲', text: 'Simulator', route: '/game/simulator', description: 'Battle simulator'}
     ]
   },
   {
@@ -44,10 +79,20 @@ const navigationGroups = [
     icon: "🌌",
     alignment: "left",
     links: [
-      { icon: '🌌', text: 'Universe', route: '/game/universe', description: 'Explore the galactic map' },
-      { icon: '✉️', text: 'Messages', route: '/game/messages', description: 'Communication center' },
-      { icon: '👤', text: 'Profile', route: '/game/profile', description: 'Commander profile and settings' },
-      { icon: '🤝', text: 'Alliance', route: '/game/alliance', description: 'Alliance management' }
+      {
+        icon: '🌌',
+        text: 'Universe',
+        route: '/game/universe',
+        description: 'Explore the galactic map'
+      },
+      {icon: '✉️', text: 'Messages', route: '/game/messages', description: 'Communication center'},
+      {
+        icon: '👤',
+        text: 'Profile',
+        route: '/game/profile',
+        description: 'Commander profile and settings'
+      },
+      {icon: '🤝', text: 'Alliance', route: '/game/alliance', description: 'Alliance management'}
     ]
   }
 ];
@@ -83,119 +128,121 @@ onMounted(() => {
 </script>
 
 <template>
-  <aside class="nav-hologram w-64 flex-shrink-0 relative">
-    <!-- Holographic overlay effects -->
-    <div class="hologram-overlay"></div>
-    <div class="floating-glow"></div>
-    <div class="corner-accent top-left"></div>
-    <div class="corner-accent top-right"></div>
-    <div class="corner-accent bottom-left"></div>
-    <div class="corner-accent bottom-right"></div>
+  <div class="nav-wrapper flex items-center">
+    <aside class="nav-hologram w-64">
+      <!-- Holographic overlay effects -->
+      <div class="hologram-overlay"></div>
+      <div class="floating-glow"></div>
+      <div class="corner-accent top-left"></div>
+      <div class="corner-accent top-right"></div>
+      <div class="corner-accent bottom-left"></div>
+      <div class="corner-accent bottom-right"></div>
 
-    <div class="p-4 z-10 relative">
-      <!-- Game Logo/Title -->
-      <div class="mb-5 text-center">
-        <div class="holo-card glow-intense pulse-subtle">
-          <h1 class="text-xl font-bold text-blue-100 hologram-text">
-            COLD FRONTIER
-          </h1>
-          <div class="system-info">
-            <div class="text-xs text-cyan-300 mt-1 tracking-widest">COMMAND INTERFACE v1.72</div>
-            <div class="flex justify-between items-center mt-2">
-              <div class="indicator-light" :class="{ 'active': isBlinking }"></div>
-              <div class="status-code">SYS NOMINAL</div>
+      <div class="p-4 z-10 relative">
+        <!-- Game Logo/Title -->
+        <div class="mb-5 text-center">
+          <div class="holo-card glow-intense pulse-subtle">
+            <h1 class="text-xl font-bold text-blue-100 hologram-text">
+              COLD FRONTIER
+            </h1>
+            <div class="system-info">
+              <div class="text-xs text-cyan-300 mt-1 tracking-widest">COMMAND INTERFACE v1.72</div>
+              <div class="flex justify-between items-center mt-2">
+                <div class="indicator-light" :class="{ 'active': isBlinking }"></div>
+                <div class="status-code">SYS NOMINAL</div>
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <!-- Planet Selector -->
-      <div class="mb-5">
-        <h2 class="section-title">
-          <span class="bracket">《</span>
-          ACTIVE COLONY
-          <span class="bracket">》</span>
-        </h2>
-
-        <div class="relative">
-          <!-- Selected Planet Display -->
-          <button
-            @click="showPlanetDropdown = !showPlanetDropdown"
-            class="holo-card planet-card selected-planet mt-2 w-full"
-          >
-            <div class="planet-hexagon">
-              <div class="planet-core"></div>
-              <div class="planet-ring"></div>
-            </div>
-            <div class="planet-info">
-              <div class="planet-name">{{ selectedPlanet?.name }}</div>
-              <div class="planet-type">{{ selectedPlanet?.type }}</div>
-            </div>
-            <div class="dropdown-indicator">
-              <div :class="['arrow', showPlanetDropdown ? 'up' : 'down']"></div>
-            </div>
-          </button>
-
-          <!-- Planet Dropdown -->
-          <div v-if="showPlanetDropdown" class="planet-dropdown">
-            <button
-              v-for="planet in planets.filter(p => !p.selected)"
-              :key="planet.id"
-              @click="selectPlanet(planet.id)"
-              class="holo-card planet-card w-full"
-            >
-              <div class="planet-hexagon small">
-                <div class="planet-core"></div>
-              </div>
-              <div class="planet-info">
-                <div class="planet-name">{{ planet.name }}</div>
-                <div class="planet-type">{{ planet.type }}</div>
-              </div>
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Navigation Links - Grouped with alternating alignment -->
-      <nav class="space-y-5">
-        <div
-          v-for="(group, groupIndex) in navigationGroups"
-          :key="groupIndex"
-          class="nav-group"
-          :class="[group.alignment === 'right' ? 'align-right' : 'align-left']"
-        >
+        <!-- Planet Selector -->
+        <div class="mb-5">
           <h2 class="section-title">
             <span class="bracket">《</span>
-            {{ group.title }}
+            ACTIVE COLONY
             <span class="bracket">》</span>
           </h2>
 
-          <div class="holo-card nav-group-container mt-2 hologram-pulse">
-            <div class="nav-links">
-              <RouterLink
-                v-for="(link, linkIndex) in group.links"
-                :key="linkIndex"
-                :to="link.route"
-                class="nav-link"
-                v-tooltip="link.description"
+          <div class="relative">
+            <!-- Selected Planet Display -->
+            <button
+              @click="showPlanetDropdown = !showPlanetDropdown"
+              class="holo-card planet-card selected-planet mt-2 w-full"
+            >
+              <div class="planet-hexagon">
+                <div class="planet-core"></div>
+                <div class="planet-ring"></div>
+              </div>
+              <div class="planet-info">
+                <div class="planet-name">{{ selectedPlanet?.name }}</div>
+                <div class="planet-type">{{ selectedPlanet?.type }}</div>
+              </div>
+              <div class="dropdown-indicator">
+                <div :class="['arrow', showPlanetDropdown ? 'up' : 'down']"></div>
+              </div>
+            </button>
+
+            <!-- Planet Dropdown -->
+            <div v-if="showPlanetDropdown" class="planet-dropdown">
+              <button
+                v-for="planet in planets.filter(p => !p.selected)"
+                :key="planet.id"
+                @click="selectPlanet(planet.id)"
+                class="holo-card planet-card w-full"
               >
-                <div class="link-icon">{{ link.icon }}</div>
-                <div class="link-text">{{ link.text }}</div>
-              </RouterLink>
+                <div class="planet-hexagon small">
+                  <div class="planet-core"></div>
+                </div>
+                <div class="planet-info">
+                  <div class="planet-name">{{ planet.name }}</div>
+                  <div class="planet-type">{{ planet.type }}</div>
+                </div>
+              </button>
             </div>
           </div>
         </div>
-      </nav>
-    </div>
 
-    <!-- Logout Button -->
-    <div class="mt-3 p-4 border-t border-cyan-800/30 relative z-10">
-      <RouterLink to="/logout" class="logout-button">
-        <div class="link-icon warning">🚪</div>
-        <div class="link-text">DISCONNECT</div>
-      </RouterLink>
-    </div>
-  </aside>
+        <!-- Navigation Links - Grouped with alternating alignment -->
+        <nav class="space-y-5">
+          <div
+            v-for="(group, groupIndex) in navigationGroups"
+            :key="groupIndex"
+            class="nav-group"
+            :class="[group.alignment === 'right' ? 'align-right' : 'align-left']"
+          >
+            <h2 class="section-title">
+              <span class="bracket">《</span>
+              {{ group.title }}
+              <span class="bracket">》</span>
+            </h2>
+
+            <div class="holo-card nav-group-container mt-2 hologram-pulse">
+              <div class="nav-links">
+                <RouterLink
+                  v-for="(link, linkIndex) in group.links"
+                  :key="linkIndex"
+                  :to="link.route"
+                  class="nav-link"
+                  v-tooltip="link.description"
+                >
+                  <div class="link-icon">{{ link.icon }}</div>
+                  <div class="link-text">{{ link.text }}</div>
+                </RouterLink>
+              </div>
+            </div>
+          </div>
+        </nav>
+      </div>
+
+      <!-- Logout Button -->
+      <div class="mt-3 p-4 border-t border-cyan-800/30 relative z-10">
+        <RouterLink to="/logout" class="logout-button">
+          <div class="link-icon warning">🚪</div>
+          <div class="link-text">DISCONNECT</div>
+        </RouterLink>
+      </div>
+    </aside>
+  </div>
 </template>
 
 <style scoped>
@@ -205,24 +252,20 @@ onMounted(() => {
   backdrop-filter: blur(20px);
   border-radius: 12px;
   border: 1px solid rgba(64, 218, 255, 0.2);
-  box-shadow:
-    0 0 30px rgba(0, 180, 255, 0.15),
-    0 10px 40px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 0 30px rgba(0, 180, 255, 0.15),
+  0 10px 40px rgba(0, 0, 0, 0.4);
   position: relative;
   overflow: hidden;
   font-family: 'Courier New', monospace;
   color: #e6e6e6;
-  height: auto;
-  margin: 1rem;
   /* Creates the floating effect */
   transform: translateZ(0);
   transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
 .nav-hologram:hover {
-  box-shadow:
-    0 0 40px rgba(0, 180, 255, 0.25),
-    0 12px 50px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 40px rgba(0, 180, 255, 0.25),
+  0 12px 50px rgba(0, 0, 0, 0.5);
   /*transform: translateY(-2px) translateZ(0);*/
 }
 
@@ -233,18 +276,17 @@ onMounted(() => {
   left: 0;
   right: 0;
   bottom: 0;
-  background:
-    repeating-linear-gradient(
-      to bottom,
-      rgba(0, 210, 255, 0.03) 0px,
-      rgba(0, 210, 255, 0.02) 1px,
-      rgba(0, 210, 255, 0.03) 2px
-    ),
-    linear-gradient(
-      135deg,
-      rgba(10, 30, 60, 0.7),
-      rgba(20, 40, 70, 0.6)
-    );
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(0, 210, 255, 0.03) 0px,
+    rgba(0, 210, 255, 0.02) 1px,
+    rgba(0, 210, 255, 0.03) 2px
+  ),
+  linear-gradient(
+    135deg,
+    rgba(10, 30, 60, 0.7),
+    rgba(20, 40, 70, 0.6)
+  );
   pointer-events: none;
   z-index: 1;
 }
@@ -391,9 +433,8 @@ onMounted(() => {
 
 /* Holographic text with glow effect */
 .hologram-text {
-  text-shadow:
-    0 0 10px rgba(64, 218, 255, 0.7),
-    0 0 20px rgba(64, 218, 255, 0.5);
+  text-shadow: 0 0 10px rgba(64, 218, 255, 0.7),
+  0 0 20px rgba(64, 218, 255, 0.5);
   letter-spacing: 2px;
   font-family: 'Courier New', monospace;
 }
@@ -406,18 +447,16 @@ onMounted(() => {
   padding: 12px;
   position: relative;
   overflow: hidden;
-  box-shadow:
-    inset 0 0 20px rgba(64, 218, 255, 0.05),
-    0 0 10px rgba(64, 218, 255, 0.1);
+  box-shadow: inset 0 0 20px rgba(64, 218, 255, 0.05),
+  0 0 10px rgba(64, 218, 255, 0.1);
   transition: all 0.3s ease;
   backdrop-filter: blur(5px);
 }
 
 .holo-card:hover {
   border-color: rgba(64, 218, 255, 0.5);
-  box-shadow:
-    inset 0 0 30px rgba(64, 218, 255, 0.15),
-    0 0 15px rgba(64, 218, 255, 0.3);
+  box-shadow: inset 0 0 30px rgba(64, 218, 255, 0.15),
+  0 0 15px rgba(64, 218, 255, 0.3);
   /*transform: translateY(-1px);*/
 }
 
@@ -520,8 +559,12 @@ onMounted(() => {
 }
 
 @keyframes pulse {
-  0%, 100% { opacity: 0.7; }
-  50% { opacity: 1; }
+  0%, 100% {
+    opacity: 0.7;
+  }
+  50% {
+    opacity: 1;
+  }
 }
 
 .pulse-subtle {
@@ -529,14 +572,17 @@ onMounted(() => {
 }
 
 @keyframes pulseShadow {
-  0%, 100% { box-shadow: 0 0 15px rgba(64, 218, 255, 0.15); }
-  50% { box-shadow: 0 0 25px rgba(64, 218, 255, 0.35); }
+  0%, 100% {
+    box-shadow: 0 0 15px rgba(64, 218, 255, 0.15);
+  }
+  50% {
+    box-shadow: 0 0 25px rgba(64, 218, 255, 0.35);
+  }
 }
 
 .glow-intense {
-  box-shadow:
-    0 0 15px rgba(64, 218, 255, 0.3),
-    0 0 30px rgba(64, 218, 255, 0.15);
+  box-shadow: 0 0 15px rgba(64, 218, 255, 0.3),
+  0 0 30px rgba(64, 218, 255, 0.15);
 }
 
 /* Planet selector styling */
@@ -661,9 +707,8 @@ onMounted(() => {
   overflow: hidden;
   z-index: 20;
   backdrop-filter: blur(15px);
-  box-shadow:
-    0 5px 15px rgba(0, 0, 0, 0.3),
-    0 0 20px rgba(64, 218, 255, 0.2);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3),
+  0 0 20px rgba(64, 218, 255, 0.2);
 }
 
 .planet-dropdown .planet-card {
@@ -780,9 +825,8 @@ onMounted(() => {
 
 .nav-link.router-link-active {
   background: rgba(40, 80, 120, 0.4);
-  box-shadow:
-    0 0 10px rgba(64, 218, 255, 0.2),
-    0 2px 8px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 10px rgba(64, 218, 255, 0.2),
+  0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
 .align-left .nav-link.router-link-active {
@@ -843,7 +887,12 @@ onMounted(() => {
 }
 
 @keyframes pulseDanger {
-  0%, 100% { opacity: 0.7; }
-  50% { opacity: 1; color: rgba(255, 150, 150, 1); }
+  0%, 100% {
+    opacity: 0.7;
+  }
+  50% {
+    opacity: 1;
+    color: rgba(255, 150, 150, 1);
+  }
 }
 </style>
