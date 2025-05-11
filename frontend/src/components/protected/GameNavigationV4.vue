@@ -191,10 +191,7 @@ onMounted(() => {
     <div class="mt-5 p-4 border-t border-cyan-800/30 relative z-10">
       <RouterLink to="/logout" class="logout-button">
         <div class="link-icon warning">🚪</div>
-        <span class="link-text">DISCONNECT</span>
-        <div class="hex-pattern small">
-          <span v-for="i in 3" :key="i" class="hex-digit danger">{{ 'AFC'[Math.floor(Math.random() * 3)] }}</span>
-        </div>
+        <div class="link-text">DISCONNECT</div>
       </RouterLink>
     </div>
   </aside>
@@ -426,26 +423,6 @@ onMounted(() => {
   box-shadow:
     0 0 15px rgba(64, 218, 255, 0.2),
     0 0 30px rgba(64, 218, 255, 0.1);
-}
-
-.hex-pattern {
-  display: flex;
-  gap: 1px;
-}
-
-.hex-digit {
-  font-family: monospace;
-  font-size: 0.7rem;
-  color: rgba(64, 218, 255, 0.8);
-  letter-spacing: 0px;
-}
-
-.hex-digit.danger {
-  color: rgba(255, 130, 130, 0.8);
-}
-
-.hex-pattern.small {
-  gap: 3px;
 }
 
 /* Planet selector styling */
@@ -723,7 +700,6 @@ onMounted(() => {
   font-weight: 600;
   letter-spacing: 1px;
   transition: all 0.2s ease;
-  justify-content: space-between;
 }
 
 .logout-button:hover {
