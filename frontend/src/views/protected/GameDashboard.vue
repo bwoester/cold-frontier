@@ -1,9 +1,8 @@
 <script setup lang="ts">
 import {onMounted, ref} from 'vue';
 import ProtectedLayout from "@/components/protected/ProtectedLayout.vue";
-import GameNavigation from "@/components/protected/GameNavigation.vue";
-import GameNavigationV4 from "@/components/protected/GameNavigationV4.vue";
 import GameNavigationV5 from "@/components/protected/GameNavigationV5.vue";
+import HoloCard from "@/components/protected/holoCard/HoloCard.vue";
 
 // Mock data for resources
 const resources = ref({
@@ -104,6 +103,12 @@ onMounted(() => {
       <!-- Main Content Area -->
       <main class="flex-1 overflow-y-auto p-6">
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+          <HoloCard title="BASIC CARD">
+            <div class="example-content">
+              <p>This is a basic card with default styling.</p>
+            </div>
+          </HoloCard>
 
           <!-- Planet Resources Section -->
           <!--
