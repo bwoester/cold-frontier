@@ -107,6 +107,20 @@ onMounted(() => {
           <HoloCard title="BASIC CARD">
             <div class="example-content">
               <p>This is a basic card with default styling.</p>
+              <p>This is a basic card with default styling.</p>
+              <p>This is a basic card with default styling.</p>
+              <p>This is a basic card with default styling.</p>
+              <p>This is a basic card with default styling.</p>
+            </div>
+          </HoloCard>
+
+          <HoloCard>
+            <div class="example-content">
+              <p>This is a basic card with default styling.</p>
+              <p>This is a basic card with default styling.</p>
+              <p>This is a basic card with default styling.</p>
+              <p>This is a basic card with default styling.</p>
+              <p>This is a basic card with default styling.</p>
             </div>
           </HoloCard>
 

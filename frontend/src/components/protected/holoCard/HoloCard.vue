@@ -2,21 +2,10 @@
 import {ref, onMounted, computed} from 'vue';
 
 const props = defineProps({
-  // Visual style options
-  glowIntensity: {
-    type: String,
-    default: 'medium', // 'subtle', 'medium', 'intense'
-    validator: (value: string) => ['subtle', 'medium', 'intense'].includes(value)
-  },
   accent: {
     type: String,
     default: 'all', // 'all', 'none', 'top', 'bottom', 'left', 'right'
     validator: (value: string) => ['all', 'none', 'top', 'bottom', 'left', 'right'].includes(value)
-  },
-  borderStyle: {
-    type: String,
-    default: 'default', // 'default', 'left', 'right', 'top', 'bottom', 'none'
-    validator: (value: string) => ['default', 'left', 'right', 'top', 'bottom', 'none'].includes(value)
   },
   // Animation options
   pulse: {
@@ -59,18 +48,6 @@ onMounted(() => {
   }
 });
 
-// Calculate glow class based on intensity
-const glowClass = computed(() => {
-  switch (props.glowIntensity) {
-    case 'subtle':
-      return 'glow-subtle';
-    case 'intense':
-      return 'glow-intense';
-    default:
-      return 'glow-medium';
-  }
-});
-
 // Determine which corner accents to show
 const showCorners = computed(() => {
   if (props.accent === 'none') return { tl: false, tr: false, bl: false, br: false };
@@ -81,29 +58,11 @@ const showCorners = computed(() => {
   return { tl: true, tr: true, bl: true, br: true }; // default is 'all'
 });
 
-// Define border style
-const borderClass = computed(() => {
-  switch (props.borderStyle) {
-    case 'left':
-      return 'border-left-accent';
-    case 'right':
-      return 'border-right-accent';
-    case 'top':
-      return 'border-top-accent';
-    case 'bottom':
-      return 'border-bottom-accent';
-    case 'none':
-      return 'border-none';
-    default:
-      return '';
-  }
-});
 </script>
 
 <template>
   <div
     class="holo-card-container"
-    :class="[glowClass, borderClass]"
     :style="{
       width: width,
       height: height,
@@ -159,8 +118,7 @@ const borderClass = computed(() => {
 
 .holo-card-container:hover {
   box-shadow: 0 0 40px rgba(0, 180, 255, 0.25),
-  0 12px 50px rgba(0, 0, 0, 0.5);
-  border-color: var(--primary-color, rgba(64, 218, 255, 0.3));
+              0 12px 50px rgba(0, 0, 0, 0.5);
 }
 
 /* Holographic overlay and texture */
@@ -287,7 +245,7 @@ const borderClass = computed(() => {
   position: absolute;
   width: 30px;
   height: 30px;
-  border: 2px solid var(--primary-color, rgba(64, 218, 255, 0.4));
+  border: 2px solid rgba(64, 218, 255, 0.4);
   z-index: 2;
   pointer-events: none;
 }
@@ -326,10 +284,14 @@ const borderClass = computed(() => {
 
 /* Card title */
 .card-title {
+  /* those two make sure it's not behind the hologram-overlay */
+  position: relative;
+  z-index: 10;
+
   font-size: 0.75rem;
   text-transform: uppercase;
   letter-spacing: 3px;
-  color: var(--primary-color, rgba(64, 218, 255, 0.9));
+  color: rgba(64, 218, 255, 0.9);
   font-weight: 500;
   padding: 8px 10px 0;
   display: flex;
@@ -339,7 +301,6 @@ const borderClass = computed(() => {
 }
 
 .bracket {
-  color: var(--primary-color, rgba(64, 218, 255, 0.8));
   padding: 0 4px;
   font-weight: bold;
   text-shadow: 0 0 8px rgba(64, 218, 255, 0.5);
@@ -347,6 +308,7 @@ const borderClass = computed(() => {
 
 /* Content area */
 .card-content {
+  /* those two make sure it's not behind the hologram-overlay */
   position: relative;
   z-index: 10;
 }
@@ -392,42 +354,5 @@ const borderClass = computed(() => {
     opacity: 0;
     transform: translate(33%, 33%);
   }
-}
-
-/* Glow intensities */
-.glow-subtle {
-  box-shadow: 0 0 10px rgba(64, 218, 255, 0.1),
-  0 0 20px rgba(64, 218, 255, 0.05);
-}
-
-.glow-medium {
-  box-shadow: 0 0 15px rgba(64, 218, 255, 0.2),
-  0 0 25px rgba(64, 218, 255, 0.1);
-}
-
-.glow-intense {
-  box-shadow: 0 0 15px rgba(64, 218, 255, 0.3),
-  0 0 30px rgba(64, 218, 255, 0.15);
-}
-
-/* Border accent styles */
-.border-left-accent {
-  border-left: 3px solid var(--primary-color, rgba(64, 218, 255, 0.9));
-}
-
-.border-right-accent {
-  border-right: 3px solid var(--primary-color, rgba(64, 218, 255, 0.9));
-}
-
-.border-top-accent {
-  border-top: 3px solid var(--primary-color, rgba(64, 218, 255, 0.9));
-}
-
-.border-bottom-accent {
-  border-bottom: 3px solid var(--primary-color, rgba(64, 218, 255, 0.9));
-}
-
-.border-none {
-  border: none;
 }
 </style>
