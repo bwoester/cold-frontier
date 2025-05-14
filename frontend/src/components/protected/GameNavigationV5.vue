@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import {computed, onMounted, ref} from 'vue';
+import HoloCard from "@/components/protected/holoCard/HoloCard.vue";
 
 // Mock data for planets
 const planets = ref([
@@ -128,17 +129,10 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="nav-wrapper flex items-center">
-    <aside class="nav-hologram w-64">
-      <!-- Holographic overlay effects -->
-      <div class="hologram-overlay"></div>
-      <div class="floating-glow"></div>
-      <div class="corner-accent top-left"></div>
-      <div class="corner-accent top-right"></div>
-      <div class="corner-accent bottom-left"></div>
-      <div class="corner-accent bottom-right"></div>
 
-      <div class="p-4 z-10 relative">
+  <div class="nav-wrapper flex items-center">
+    <HoloCard>
+      <div class="z-10 relative pb-4">
         <!-- Game Logo/Title -->
         <div class="mb-5 text-center">
           <div class="holo-card glow-intense pulse-subtle">
@@ -235,17 +229,23 @@ onMounted(() => {
       </div>
 
       <!-- Logout Button -->
-      <div class="mt-3 p-4 border-t border-cyan-800/30 relative z-10">
+      <div class="mt-3 pt-4 border-t border-cyan-800/30 relative z-10">
         <RouterLink to="/logout" class="logout-button">
           <div class="link-icon warning">🚪</div>
           <div class="link-text">DISCONNECT</div>
         </RouterLink>
       </div>
-    </aside>
+
+    </HoloCard>
   </div>
 </template>
 
 <style scoped>
+
+.nav-wrapper {
+  font-family: 'Courier New', monospace;
+}
+
 /* Main holographic panel */
 .nav-hologram {
   background: rgba(8, 20, 40, 0.75);

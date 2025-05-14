@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {ref, onMounted, computed} from 'vue';
+import {computed, ref} from 'vue';
 
 const props = defineProps({
   accent: {
@@ -19,12 +19,12 @@ const cardElement = ref<HTMLElement | null>(null);
 
 // Determine which corner accents to show
 const showCorners = computed(() => {
-  if (props.accent === 'none') return { tl: false, tr: false, bl: false, br: false };
-  if (props.accent === 'top') return { tl: true, tr: true, bl: false, br: false };
-  if (props.accent === 'bottom') return { tl: false, tr: false, bl: true, br: true };
-  if (props.accent === 'left') return { tl: true, tr: false, bl: true, br: false };
-  if (props.accent === 'right') return { tl: false, tr: true, bl: false, br: true };
-  return { tl: true, tr: true, bl: true, br: true }; // default is 'all'
+  if (props.accent === 'none') return {tl: false, tr: false, bl: false, br: false};
+  if (props.accent === 'top') return {tl: true, tr: true, bl: false, br: false};
+  if (props.accent === 'bottom') return {tl: false, tr: false, bl: true, br: true};
+  if (props.accent === 'left') return {tl: true, tr: false, bl: true, br: false};
+  if (props.accent === 'right') return {tl: false, tr: true, bl: false, br: true};
+  return {tl: true, tr: true, bl: true, br: true}; // default is 'all'
 });
 
 </script>
@@ -58,6 +58,7 @@ const showCorners = computed(() => {
 <style scoped>
 /* Main holographic container */
 .holo-card-container {
+  background: rgba(8, 20, 40, 0.75);
   backdrop-filter: blur(20px);
   border-radius: 12px;
   border: 1px solid rgba(64, 218, 255, 0.2);
@@ -74,7 +75,7 @@ const showCorners = computed(() => {
 
 .holo-card-container:hover {
   box-shadow: 0 0 40px rgba(0, 180, 255, 0.25),
-              0 12px 50px rgba(0, 0, 0, 0.5);
+  0 12px 50px rgba(0, 0, 0, 0.5);
 }
 
 /* Holographic overlay and texture */
@@ -88,13 +89,8 @@ const showCorners = computed(() => {
     to bottom,
     rgba(0, 210, 255, 0.03) 0px,
     rgba(0, 210, 255, 0.02) 1px,
-    rgba(0, 210, 255, 0.03) 2px
-  ),
-  linear-gradient(
-    135deg,
-    rgba(10, 30, 60, 0.7),
-    rgba(20, 40, 70, 0.6)
-  );
+    rgba(0, 210, 255, 0.03) 2px),
+  linear-gradient(135deg, rgba(10, 30, 60, 0.7), rgba(20, 40, 70, 0.6));
   pointer-events: none;
   z-index: 1;
 }
