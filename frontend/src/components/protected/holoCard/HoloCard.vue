@@ -7,46 +7,15 @@ const props = defineProps({
     default: 'all', // 'all', 'none', 'top', 'bottom', 'left', 'right'
     validator: (value: string) => ['all', 'none', 'top', 'bottom', 'left', 'right'].includes(value)
   },
-  // Animation options
-  pulse: {
-    type: Boolean,
-    default: false
-  },
   // Content options
   title: {
     type: String,
     default: ''
   },
-  // Color theme (using rgba values for customization)
-  primaryColor: {
-    type: String,
-    default: 'rgba(64, 218, 255, 0.9)' // Cyan blue default
-  },
-  // Additional styling
-  width: {
-    type: String,
-    default: 'auto'
-  },
-  height: {
-    type: String,
-    default: 'auto'
-  },
-  padding: {
-    type: String,
-    default: '12px'
-  }
 });
 
 // Element references for animation effects
 const cardElement = ref<HTMLElement | null>(null);
-const pulseElement = ref<HTMLElement | null>(null);
-
-// Apply animation effects on mount
-onMounted(() => {
-  if (props.pulse && pulseElement.value) {
-    pulseElement.value.classList.add('hologram-pulse');
-  }
-});
 
 // Determine which corner accents to show
 const showCorners = computed(() => {
@@ -61,15 +30,7 @@ const showCorners = computed(() => {
 </script>
 
 <template>
-  <div
-    class="holo-card-container"
-    :style="{
-      width: width,
-      height: height,
-      '--primary-color': primaryColor,
-    }"
-    ref="cardElement"
-  >
+  <div class="holo-card-container" ref="cardElement">
     <!-- Holographic overlay effects -->
     <div class="hologram-overlay"></div>
     <div class="floating-glow"></div>
@@ -88,11 +49,7 @@ const showCorners = computed(() => {
     </div>
 
     <!-- Card content -->
-    <div
-      class="card-content"
-      :style="{ padding }"
-      ref="pulseElement"
-    >
+    <div class="card-content">
       <slot></slot>
     </div>
   </div>
@@ -101,7 +58,6 @@ const showCorners = computed(() => {
 <style scoped>
 /* Main holographic container */
 .holo-card-container {
-  background: rgba(8, 20, 40, 0.75);
   backdrop-filter: blur(20px);
   border-radius: 12px;
   border: 1px solid rgba(64, 218, 255, 0.2);
@@ -109,8 +65,8 @@ const showCorners = computed(() => {
   0 10px 40px rgba(0, 0, 0, 0.4);
   position: relative;
   overflow: hidden;
-  font-family: 'Courier New', monospace;
   color: #e6e6e6;
+
   /* Creates the floating effect */
   transform: translateZ(0);
   transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
@@ -192,7 +148,6 @@ const showCorners = computed(() => {
   );
   pointer-events: none;
   z-index: 0;
-  animation: pulseGlow 6s infinite alternate ease-in-out;
 }
 
 @keyframes floatGlow {
@@ -226,17 +181,6 @@ const showCorners = computed(() => {
   50% {
     opacity: 0.7;
     transform: translateX(5%) translateY(5%);
-  }
-}
-
-@keyframes pulseGlow {
-  0% {
-    opacity: 0.15;
-    transform: scale(1);
-  }
-  100% {
-    opacity: 0.35;
-    transform: scale(1.1);
   }
 }
 
@@ -308,51 +252,11 @@ const showCorners = computed(() => {
 
 /* Content area */
 .card-content {
+  padding: 12px;
+
   /* those two make sure it's not behind the hologram-overlay */
   position: relative;
   z-index: 10;
 }
 
-/* Pulse animation for content */
-.hologram-pulse {
-  position: relative;
-  overflow: hidden;
-}
-
-.hologram-pulse::after {
-  content: '';
-  position: absolute;
-  top: -100%;
-  left: -100%;
-  height: 300%;
-  width: 300%;
-  background: radial-gradient(
-    circle,
-    rgba(64, 218, 255, 0.2) 0%,
-    rgba(64, 218, 255, 0) 70%
-  );
-  animation: pulseMove 8s infinite linear;
-  pointer-events: none;
-  opacity: 0;
-}
-
-@keyframes pulseMove {
-  0% {
-    opacity: 0;
-    transform: translate(0, 0);
-  }
-  25% {
-    opacity: 0.08;
-  }
-  50% {
-    opacity: 0;
-  }
-  75% {
-    opacity: 0.08;
-  }
-  100% {
-    opacity: 0;
-    transform: translate(33%, 33%);
-  }
-}
 </style>

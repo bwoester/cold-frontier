@@ -104,6 +104,10 @@ onMounted(() => {
       <main class="flex-1 overflow-y-auto p-6">
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
+          <div class="w-full rounded-xl shadow-lg" style="background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet); padding: 10px;">
+
+            <p>foo</p>
+
           <HoloCard title="BASIC CARD">
             <div class="example-content">
               <p>This is a basic card with default styling.</p>
@@ -113,6 +117,7 @@ onMounted(() => {
               <p>This is a basic card with default styling.</p>
             </div>
           </HoloCard>
+            <p>foo</p>
 
           <HoloCard>
             <div class="example-content">
@@ -123,6 +128,9 @@ onMounted(() => {
               <p>This is a basic card with default styling.</p>
             </div>
           </HoloCard>
+            <p>foo</p>
+
+          </div>
 
           <!-- Planet Resources Section -->
           <!--
