@@ -12,7 +12,8 @@ Die folgenden Informationen stammen aus historischen Webquellen zum ursprünglic
 - Der Spielbetrieb war rundenbasiert (in der Übersicht: rund 9–12 Monate je Runde), während das Spiel in Echtzeit lief. **Das legt kein Tick-Modell für Cold Frontier fest.** [GamesSphere – Überblick](https://www.gamessphere.de/games/icewars)
 - 2009 wurden unter anderem Forschungsabläufe geändert, Aliens und Piraten als NPCs sowie Quests angekündigt. [GamesSphere – Rundenneustart](https://gamessphere.de/games/icewars/news/2480_rundenneustart_mit_neuen_features)
 - 2008 gab es eigene Einsteiger-Galaxien mit Schutzmechaniken. [GamesSphere – Neueinsteiger](https://gamessphere.de/games/icewars/news/1577_neueinsteiger_in_zukunft_mit_mehr_schutz)
-- In einem zeitgenössischen Forenthread beschreiben Spieler einen Zusammenhang zwischen Credits, Arbeitslosigkeit, Besteuerung und Zufriedenheit. **Das ist eine Spielerbeobachtung, keine verifizierte vollständige Regelbeschreibung.** [Mastersforum, Juni 2005](https://www.mastersforum.de/wiki/index.php?page=Thread&threadID=20562)
+- 2010 wurde eine Aufrüstung vorhandener Schiffe mit Forschungsvoraussetzungen, Baukosten und zeitabhängigen Modifikatoren beschrieben. [GamesSphere – Schiffsupgrades](https://gamessphere.de/games/icewars/news/3565_pimp_my_shuttle_-_aus_alt_mach_neu)
+- Zur neunten Runde 2009 meldete das IceWars-Team **mehrere tausend teilnehmende Spieler**. Die ursprünglich vermutete Größenordnung unter 1.000 ist daher keine belastbare historische Grenze. [GamesSphere – Rundenstart](https://gamessphere.de/games/icewars/news/2510_erfolgreicher_start_in_die_neunte_runde)
 
 ## Mögliche Inspirationsfelder – ausdrücklich offen
 
