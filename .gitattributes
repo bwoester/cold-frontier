@@ -1,12 +1,25 @@
 #
 # https://help.github.com/articles/dealing-with-line-endings/
 #
-# Linux start script should use lf
+# Normalize detected text files to LF in the repository
+*               text=auto
+
+# Linux start script should use LF
 /gradlew        text eol=lf
 
-# These are Windows script files and should use crlf
+# Documentation, Obsidian, configuration and source files should use LF
+*.md            text eol=lf
+*.canvas        text eol=lf
+*.json          text eol=lf
+*.java          text eol=lf
+*.kt            text eol=lf
+*.kts           text eol=lf
+*.ts            text eol=lf
+*.vue           text eol=lf
+*.css           text eol=lf
+
+# These are Windows script files and should use CRLF
 *.bat           text eol=crlf
 
 # Binary files should be left untouched
 *.jar           binary
-
