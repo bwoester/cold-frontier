@@ -16,6 +16,10 @@ Diese Dokumentation ist bewusst **ein wachsendes Arbeitsmodell**, kein fertiges 
 - [[notes|Frühere technische Notizen]] – unveränderte Ideensammlung.
 - [[personas/overall-tone|Erzählton]] und [[personas/interpersonal-dynamics|Berater-Beziehungen]] – vorhandene Figurenkonzepte.
 
+## Qualitätspriorität
+
+**Vom Projektinhaber am 2026-11-01 klargestellt:** Das Simulationssystem soll einfach verständlich, nachvollziehbar und beherrschbar sein. Technische Raffinesse oder spekulative Ressourceneinsparungen rechtfertigen keine schwer nachvollziehbare Verarbeitung. Zeitmodell und Ausführungsstrategie werden anhand fachlicher Szenarien und realistischer Betriebsziele bewertet; weder globale Ticks noch Lazy-Fortschreibung sind damit beschlossen oder grundsätzlich ausgeschlossen. Die Erfahrungen aus dem früheren Lazy-Entwurf stehen im [[sources/icewars-catalog#Einordnung RD-01 – früherer Lazy-Ansatz und heutige Priorität|Quellenkatalog]].
+
 ## Konventionen
 
 **Evidenzkennzeichnungen:** `Projektziel` (vom Projekt formuliert), `Code-Ist` (im Quellcode beobachtet), `IceWars-Quelle` (historische Anregung), `Vorschlag`, `Offene Frage`. Aus einem Code-Ist oder einer historischen Quelle folgt **keine** verbindliche Spielregel.
