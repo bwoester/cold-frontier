@@ -35,6 +35,12 @@ Das Inventar der bereitgestellten Unterlagen sowie der Fortschritt von Analyse, 
 
 Die daraus entwickelte Cold-Frontier-Designrichtung und das Schutzziel für Abwesenheit stehen in [[economy#Sinkende Ergiebigkeit und Zeit als Ressource]]. Historische Zahlen werden dadurch nicht automatisch übernommen.
 
+## Rekonstruierte historische Einheiten
+
+Der [XML-Einheitenkatalog](../sources/icewars-ships.md) bewahrt alle 64 Export-Einträge mit Materialkosten, Dauer und baubar. Die [Forschungszuordnung](../sources/icewars-ship-research.md) ergänzt für jede ID einen Befund: 37 namensbasierte Zuordnungen in Serie B1–B5 und eine zusätzliche in A2, 26 ohne belastbaren Forschungsbeleg. Forschungsvorgänger, explizite Zusatzfelder, ausgewählte indirekte Gebäudeanforderungen und unbekannte Bauvoraussetzungen werden getrennt. Versions- und Namenskonflikte bleiben sichtbar.
+
+**Nur historische Referenz:** Für Cold Frontier sind diese Einheiten Inspiration; weder Liste, Kosten noch Voraussetzungen gelten als beschlossene Spielregeln.
+
 ## Mögliche Inspirationsfelder – ausdrücklich offen
 
 - Tiefer Technologiebaum und ungewöhnliche Gebäude
@@ -46,7 +52,7 @@ Die daraus entwickelte Cold-Frontier-Designrichtung und das Schutzziel für Abwe
 ## Noch zu recherchieren
 
 - Rohstoffliste einschließlich VV4A in der bereitgestellten Ressourcen-XML gelesen; siehe [[sources/icewars-catalog#Offizielle XMLs laut Projektinhaber (IW-01 bis IW-03)]]. Ursprünglichen Endpunkt und Spielversion weiter klären; Produktionsketten sind daraus noch nicht belegt.
-- Genaue Gebäude- und Forschungsabhängigkeiten
+- Weitere Gebäude- und Forschungsabhängigkeiten: Einheiten-Zuordnungen teilweise rekonstruiert; vollständige transitive Ketten, konkrete Bauwerften und fehlende/unleserliche späte Tech-Tree-Seiten bleiben offen
 - Bau-, Transport- und Kampfregeln je Spielversion
 
 **Quellenkritik:** Ähnliche Spiele (beispielsweise XWars oder GalaxyWars) nicht als Beleg für IceWars verwenden.
