@@ -18,7 +18,7 @@ Analyse, Dokumentation und Archivierung werden unabhängig erfasst:
 | Dokumentation | **Inventar:** nur erfasst. **Kurzbefund:** erste Erkenntnisse hier festgehalten. **Teilübernahme:** ausgewählte Inhalte zusätzlich in Fachseiten übernommen. **Abgeschlossen:** relevante Inhalte mit Herkunft und offenen Fragen im Repo dokumentiert. |
 | Archiv im Repo | **Offen:** keine eigenständige Quellenkopie im Repo. **Teilweise:** nur Teile gesichert. **Gesichert:** Original oder geeigneter Export mit Herkunft und Integritätsprüfung im Repo. **Entfällt:** begründeter Ausschluss, gemeinsam festgehalten. |
 
-**Aktueller Stand:** 23 Dateien inventarisiert; noch keine Quelle als vollständig ausgewertet, vollständig dokumentiert oder im Repo archiviert abgeschlossen. Ausgewählte Inhalte aus Tech Tree und Abbau-Tabelle sind bereits fachlich dokumentiert. Die nachfolgende Tabelle ist die maßgebliche Einzelübersicht; keine pauschale Prozentzahl aus der Anzahl geöffneter Dateien ableiten.
+**Aktueller Stand:** 23 Dateien inventarisiert; noch keine Quelle als vollständig ausgewertet, vollständig dokumentiert oder im Repo archiviert abgeschlossen. Ausgewählte Inhalte aus Tech Tree und Abbau-Tabelle sind bereits fachlich dokumentiert. Die Ressourcen-Zuordnung und alle 64 Einträge der Schiffkosten-XML sind im [Einheitenkatalog](icewars-ships.md) rekonstruiert; Tier- und Versionszuordnung bleiben offen. Die nachfolgende Tabelle ist die maßgebliche Einzelübersicht; keine pauschale Prozentzahl aus der Anzahl geöffneter Dateien ableiten.
 
 Bei jeder weiteren Bearbeitung die betroffenen Zeilen, Ergebnislinks und nächsten Schritte aktualisieren. Neue Dateien ergänzen, bestehende IDs nicht neu vergeben. Eine Entscheidung, eine Quelle auszuschließen, ebenfalls begründen; nicht stillschweigend aus dem Inventar entfernen.
 
@@ -28,9 +28,9 @@ Bei jeder weiteren Bearbeitung die betroffenen Zeilen, Ergebnislinks und nächst
 
 | ID | Quelle | Drive geändert | Herkunft / Einordnung | Analyse | Dokumentation | Archiv im Repo | Befund / Restarbeit |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| IW-01 | [ressourcen.xml](https://drive.google.com/file/d/0B_fvsE93Ci4daTh6cGsxanI1WkE/view?usp=drivesdk&resourcekey=0-S3HkE-OC7qvI07N4srsFrw) | 2014-05-04 | Offiziell laut Projektinhaber | Gelesen | Kurzbefund | Offen | Zehn Ressourcen mit IDs; siehe XML-Befunde unten. Semantik und Spielversion offen. |
+| IW-01 | [ressourcen.xml](https://drive.google.com/file/d/0B_fvsE93Ci4daTh6cGsxanI1WkE/view?usp=drivesdk&resourcekey=0-S3HkE-OC7qvI07N4srsFrw) | 2014-05-04 | Offiziell laut Projektinhaber | Gelesen | Teilübernahme | Offen | Alle zehn Ressourcen im [Einheitenkatalog](icewars-ships.md) zugeordnet; Semantik und Spielversion offen. |
 | IW-02 | [handelskurse.xml](https://drive.google.com/file/d/0B_fvsE93Ci4deVZ5VS13S2sySFE/view?usp=drivesdk&resourcekey=0-swFV1uninjMyWosCxJ9Waw) | 2014-05-04 | Offiziell laut Projektinhaber | Gelesen | Kurzbefund | Offen | Preise, Freigaben und Gebühren gelesen; dynamische Preisbildung und Exportkontext offen. |
-| IW-03 | [schiffkosten.xml](https://drive.google.com/file/d/0B_fvsE93Ci4dNXJwbzZhTzRZTkk/view?usp=drivesdk&resourcekey=0--Tbgj_pN3P0ugV2nN92V-w) | 2014-05-04 | Offiziell laut Projektinhaber | Gelesen | Kurzbefund | Offen | 64 Einträge ausgewertet; vollständiger Einheitenkatalog noch zu übertragen. |
+| IW-03 | [schiffkosten.xml](https://drive.google.com/file/d/0B_fvsE93Ci4dNXJwbzZhTzRZTkk/view?usp=drivesdk&resourcekey=0--Tbgj_pN3P0ugV2nN92V-w) | 2014-05-04 | Offiziell laut Projektinhaber | Gelesen | Teilübernahme | Offen | [Alle 64 Einträge rekonstruiert](icewars-ships.md), mit Kosten, Dauer, baubar und Prüfung der ID-Hypothese. Tiers, Feldsemantik und Version offen. |
 | IW-04 | [evo0.png](https://drive.google.com/file/d/0B_fvsE93Ci4dT2VjMVd6MlVRT0k/view?usp=drivesdk&resourcekey=0-Dxq6yH-vU9HLRohWXEvArA) | 2025-04-04 | Community-Referenz | Gesichtet | Kurzbefund | Offen | Starttechnologien sichtbar; Zuordnung zu einer der Serien und Spielversion offen. |
 | IW-05 | [evo1.png](https://drive.google.com/file/d/0B_fvsE93Ci4dUmNOTkxwc29xSlE/view?usp=drivesdk&resourcekey=0-ITGyOHLZgh_DzJeyJltNew) | 2014-05-04 | Community-Referenz | Teilweise | Kurzbefund | Offen | Mit anderer Evo-1-Grafik verglichen; Versionsunterschiede, siehe Tech-Tree-Befunde. |
 | IW-06 | [evo2.png](https://drive.google.com/file/d/0B_fvsE93Ci4dRzFsTm0xbWNEcDQ/view?usp=drivesdk&resourcekey=0-hfGxGwfNyOfGAVKs9zaJkg) | 2014-05-04 | Community-Referenz | Teilweise | Kurzbefund | Offen | Einzeln gesichtet; Forschungs-/Gebäudeabhängigkeiten noch nicht vollständig extrahiert. |
@@ -67,7 +67,7 @@ Originale sind XML mit deklarierter ISO-8859-1-Kodierung. Die Dateiausgabe des C
 
 - **IW-01:** Ressourcen-IDs: 1 Eisen, 2 Stahl, 3 VV4A, 4 Eis, 5 chem. Elemente, 6 Wasser, 7 Energie, 8 Pinguine, 10 Credits, 11 Bevölkerung. Die gemeinsame Struktur belegt keine gemeinsame Lager-, Verbrauchs- oder Besitzsemantik. Produktionsrezepte fehlen.
 - **IW-02:** Zehn Ressourcen-Einträge mit An-/Verkaufspreisen und Handelsfreigabe. Aktiv markiert sind IDs 1–7; nicht aktiv sind 8, 10 und 11. Gebührenfelder: 4 Prozent, einmalig 100, Mindestmenge 100. Anwendung und Perspektive der Gebühren-/Preisfelder sind noch zu klären. Interner Aktualisierungszeitpunkt: 2014-05-04 10:00:01 UTC. Keine belegte Preisbildungsformel.
-- **IW-03:** 64 Einträge, darunter Lebensformen; Kostenvektoren, Dauer, Kategorie und baubar. 56 Einträge mit baubar=1, acht mit baubar=0. Kategorien: Lebensformen (2), Sonden (3), Zivile Schiffe (22), Jäger (6), Bomber (4), Korvetten (5), Zerstörer (5), Kreuzer (6), Schlachtschiffe (4), Dreadnoughts (5), Spezielle Schiffe (2). Interner Aktualisierungszeitpunkt: 2014-05-03 22:00:01 UTC. Bedeutung von baubar (global oder accountabhängig) und Einheit der Dauer nicht gesichert. Vollständige Einheitenliste noch nicht in Markdown übertragen.
+- **IW-03:** 64 Einträge, darunter Lebensformen; Kostenvektoren, Dauer, Kategorie und baubar. 56 Einträge mit baubar=1, acht mit baubar=0. Kategorien: Lebensformen (2), Sonden (3), Zivile Schiffe (22), Jäger (6), Bomber (4), Korvetten (5), Zerstörer (5), Kreuzer (6), Schlachtschiffe (4), Dreadnoughts (5), Spezielle Schiffe (2). Interner Aktualisierungszeitpunkt: 2014-05-03 22:00:01 UTC. Bedeutung von baubar (global oder accountabhängig) und Einheit der Dauer nicht gesichert. Die [vollständige Einheitenliste](icewars-ships.md) ist jetzt mit allen Nichtnull-Kosten, Dauer und baubar in Markdown übertragen. Die ID-Hypothese zeigt Gegenbeispiele; Freischaltstufen sind noch zu rekonstruieren.
 
 ### Community-Tech-Trees (IW-04 bis IW-15)
 
@@ -88,6 +88,8 @@ IW-11 zeigt die große Eismine unter Robotik, aber keine Förderwerte. IW-13 unt
 UNK-01 enthält Abteilungen und Aufgaben zu Lager, Personal, Wartung und Vertrieb; der Projektbezug ist offen. UNK-02 enthält nur „Button Text“. UNK-03 wurde noch nicht inhaltlich geöffnet. Kein Ausschluss ist damit bereits entschieden.
 
 ## Ergebnisse und heutige Entscheidungen
+
+- [Rekonstruierter Einheitenkatalog](icewars-ships.md): vollständige Extraktion von IW-03 mit Ressourcen aus IW-01, Quellen-Prüfsummen und Prüfung der ID-/Tier-Hypothese. Technische Extraktion abgeschlossen; historische Einordnung und Quellenarchivierung noch offen.
 
 - [IceWars-Referenzen](../game-design/icewars-references.md): ausgewählte Quellenbefunde und Benjamins ausdrücklich gekennzeichneter Erfahrungsbericht vom 2026-11-01. Der Erfahrungsbericht ist eine zusätzliche Quelle außerhalb des Drive-Dateiinventars.
 - [Planetare Wirtschaft](../game-design/economy.md): bestätigte Designrichtung zu sinkender Ergiebigkeit, begrenzter Baukapazität, Quellenwechsel und Überleben bei Abwesenheit; konkrete Regeln und Balancing bleiben offen.
