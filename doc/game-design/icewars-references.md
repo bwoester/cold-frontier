@@ -6,6 +6,8 @@ type: source-notes
 
 Die folgenden Informationen stammen aus historischen Webquellen, bereitgestellten Unterlagen und einem ausdrücklich gekennzeichneten Erfahrungsbericht zum ursprünglichen IceWars. Sie beschreiben nicht automatisch Regeln für Cold Frontier. Zahlen oder Spielmechaniken können sich zwischen IceWars-Runden verändert haben.
 
+Das Inventar der bereitgestellten Unterlagen sowie der Fortschritt von Analyse, Dokumentation und Archivierung stehen im [[sources/icewars-catalog|Quellenkatalog]].
+
 ## Belastbare Orientierung
 
 - Besiedeln von Planeten, Ressourcenkonkurrenz, Schiffe, Forschung und komplexere Bau-/Technologieoptionen gehörten zur Selbstbeschreibung. Der Humor und die Selbstironie waren ausdrücklich Teil der Spielidentität. [GamesSphere – Spielbeschreibung](https://www.gamessphere.de/games/icewars)
@@ -43,7 +45,7 @@ Die daraus entwickelte Cold-Frontier-Designrichtung und das Schutzziel für Abwe
 
 ## Noch zu recherchieren
 
-- Primärquellen oder archivierte IceWars-Dokumentation zur Rohstoffliste, insbesondere VV4A und Produktionsketten
+- Rohstoffliste einschließlich VV4A in der bereitgestellten Ressourcen-XML gelesen; siehe [[sources/icewars-catalog#Offizielle XMLs laut Projektinhaber (IW-01 bis IW-03)]]. Ursprünglichen Endpunkt und Spielversion weiter klären; Produktionsketten sind daraus noch nicht belegt.
 - Genaue Gebäude- und Forschungsabhängigkeiten
 - Bau-, Transport- und Kampfregeln je Spielversion
 
