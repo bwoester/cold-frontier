@@ -1,0 +1,127 @@
+{
+  "nodes": [
+    {
+      "id": "root",
+      "type": "text",
+      "text": "# Cold Frontier\nSpielmechaniken – explorative Landkarte\n**Karten sind keine beschlossenen Requirements.**",
+      "x": 0,
+      "y": 0,
+      "width": 350,
+      "height": 120
+    },
+    {
+      "id": "economy",
+      "type": "file",
+      "file": "game-design/economy.md",
+      "x": -440,
+      "y": 210,
+      "width": 340,
+      "height": 230
+    },
+    {
+      "id": "reference",
+      "type": "file",
+      "file": "game-design/icewars-references.md",
+      "x": 390,
+      "y": 210,
+      "width": 340,
+      "height": 220
+    },
+    {
+      "id": "overview",
+      "type": "file",
+      "file": "game-design/overview.md",
+      "x": 0,
+      "y": 210,
+      "width": 340,
+      "height": 230
+    },
+    {
+      "id": "planet",
+      "type": "text",
+      "text": "## Planeten & Kolonisation\nProjektziel · Fachregeln offen",
+      "x": -440,
+      "y": 515,
+      "width": 310,
+      "height": 105
+    },
+    {
+      "id": "fleet",
+      "type": "text",
+      "text": "## Flotten & Konflikte\nProjektziel · Fachregeln offen",
+      "x": -90,
+      "y": 515,
+      "width": 310,
+      "height": 105
+    },
+    {
+      "id": "research",
+      "type": "text",
+      "text": "## Forschung & Technologien\nProjektziel · Fachregeln offen",
+      "x": 260,
+      "y": 515,
+      "width": 310,
+      "height": 105
+    },
+    {
+      "id": "advisors",
+      "type": "file",
+      "file": "personas/overall-tone.md",
+      "x": 610,
+      "y": 515,
+      "width": 310,
+      "height": 125
+    }
+  ],
+  "edges": [
+    {
+      "id": "e1",
+      "fromNode": "root",
+      "fromSide": "bottom",
+      "toNode": "overview",
+      "toSide": "top"
+    },
+    {
+      "id": "e2",
+      "fromNode": "root",
+      "fromSide": "left",
+      "toNode": "economy",
+      "toSide": "top"
+    },
+    {
+      "id": "e3",
+      "fromNode": "root",
+      "fromSide": "right",
+      "toNode": "reference",
+      "toSide": "top"
+    },
+    {
+      "id": "e4",
+      "fromNode": "overview",
+      "fromSide": "bottom",
+      "toNode": "fleet",
+      "toSide": "top"
+    },
+    {
+      "id": "e5",
+      "fromNode": "overview",
+      "fromSide": "bottom",
+      "toNode": "research",
+      "toSide": "top"
+    },
+    {
+      "id": "e6",
+      "fromNode": "economy",
+      "fromSide": "bottom",
+      "toNode": "planet",
+      "toSide": "top"
+    },
+    {
+      "id": "e7",
+      "fromNode": "reference",
+      "fromSide": "bottom",
+      "toNode": "advisors",
+      "toSide": "top"
+    }
+  ]
+}
