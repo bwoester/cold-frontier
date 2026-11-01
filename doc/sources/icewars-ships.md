@@ -4,7 +4,9 @@ type: source-analysis
 ---
 # IceWars – rekonstruierter Einheitenkatalog
 
-**Stand:** 2026-11-01. Historische XML-Daten, keine Cold-Frontier-Spezifikation.
+**Stand:** 2026-11-01. Historische XML-Daten, keine Cold-Frontier-Spezifikation. Für Cold Frontier ausschließlich Inspirationsmaterial.
+
+**Forschungen und Gebäude:** Die [Forschungszuordnung](icewars-ship-research.md) ergänzt für jede der 64 IDs entweder belegbare Grafikbezüge oder einen ausdrücklichen Unbekannt-Status. XML-Kosten und Grafik-Voraussetzungen bleiben unterschiedliche Quellenstände.
 
 ## Quellen und Aussagegrenzen
 
@@ -14,7 +16,7 @@ type: source-analysis
 - Die Liste deckt den vorhandenen Export ab, nicht nachweislich alle Einheiten aller IceWars-Versionen. „Lebensformen“ sind im Export enthalten und werden nicht als Raumschiffe umgedeutet.
 - Namen und Kategorien bleiben wörtlich erhalten, auch „Vendeta“, Carrier-Zuordnungen und die abweichenden Bezeichnungen aus Tech Trees.
 - Dauer und baubar sind Rohwerte: Die Zeiteinheit und die globale oder accountbezogene Bedeutung von baubar sind nicht belegt. baubar=0 bedeutet insbesondere nicht automatisch Event-, NPC- oder unerforschtes Schiff.
-- Kampfwerte, Transportkapazität, Forschungsabhängigkeiten und Rollen über die Benennung hinaus fehlen. Keine Tier-Zuordnung aus Kosten allein ableiten.
+- Im XML fehlen Kampfwerte, Transportkapazität, Forschungsabhängigkeiten und Rollen über die Benennung hinaus. Die [separate Forschungsrekonstruktion](icewars-ship-research.md) erschließt ausgewählte Voraussetzungen aus den Grafiken. Keine Tier-Zuordnung aus Kosten allein ableiten.
 - [Quellenkatalog und Bearbeitungsstand](icewars-catalog.md). Die XML-Originale sind noch nicht im Repo archiviert.
 
 ### Identifikation der ausgewerteten Dateien
@@ -186,7 +188,7 @@ Innerhalb jeder Kategorie numerisch nach ID sortiert, **nicht nach bestätigtem 
 
 - ID als Identität bewahren. Historische Reihenfolge der Datenbankanlage oder spätere Ergänzungen sind mögliche Erklärungen für ID-Muster, aber unbewiesene Hypothesen.
 - Kandidaten für Familien aus Namen und Kostenprofil ableiten; nicht jede Einheit einer Kategorie muss derselben Progressionslinie angehören.
-- Forschungs-/Evo-Stufen separat pro Tech-Tree-Version erfassen und erst anschließend über Namen mit XML-IDs verknüpfen. Widersprüche und unsichere Zuordnungen erhalten.
+- [Forschungs-/Evo-Zuordnung](icewars-ship-research.md) liegt jetzt für 38 Einträge namensbasiert vor; 26 bleiben offen. Die Quellenstände bleiben getrennt, ebenso direkte Forschung, indirekte Gebäudeanforderung und unbekannte Bauvoraussetzung. Vollständige transitive Forschungsketten sind nicht gesichert.
 - Keine ungewichtete Summe aus Eisen, Energie, Credits und Bevölkerung als „Gesamtkosten“ verwenden. Ressourcenfortschritt und wirtschaftlicher Wert sind eigenständige, bisher nicht vollständig belegte Größen.
 
 ## Prüfung der Extraktion
