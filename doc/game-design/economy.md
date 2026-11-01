@@ -5,7 +5,7 @@ focus: true
 ---
 # Planetare Wirtschaft
 
-**Stand:** Erste fachliche Exploration, **keine akzeptierte Regelspezifikation**.
+**Stand:** Fachliche Exploration mit einzelnen ausdrücklich bestätigten Regeln und Designrichtungen; keine vollständige akzeptierte Regelspezifikation.
 
 ## Zielbild (Projektziel)
 
@@ -60,7 +60,31 @@ Für Eis soll deshalb eine positive Mindestergiebigkeit die weitere Förderung u
 
 **Code-Ist:** Die Enum enthält Eisenmine; Solarzelle, Solar-, Kohle- und Atomkraftwerk; Stahlwerk; Observatorium; Energiespeicher; Wohngebäude; Bunker; Stadtzentrum; Verteidigungsplattform; Schiffswerft. Es existieren Bauwarteschlange und Baufortschritt. Das sind **Kandidaten**, keine festgeschriebene Gebäudeliste.
 
-**Offene Fragen:** Kosten wann abziehen/reservieren? Wie beeinflussen Energie/Bevölkerung Baustopps? Wann wird eine Fertigstellung wirksam? Wie viele Bauplätze oder parallele Aufträge?
+### Kosten, Abbruch und Fortschritt
+
+**Quelle / Stand:** Klärung durch den Projektinhaber am 2026-11-02. Heutige Regeln und Designrichtungen sind von historischer Inspiration und Vorschlägen getrennt.
+
+| Aspekt | Festgehalten | Status / Grenze |
+| --- | --- | --- |
+| Baukosten | Bei Beginn eines Baus werden die eingesetzten Ressourcen abgezogen. | Bestätigte Regel. Ob bereits das Einreihen in eine Warteschlange als Beginn gilt, ist noch offen. Kostenzeitpunkt für Forschung nicht ausdrücklich separat bestätigt. |
+| Freiwilliger Bauabbruch | Der Spieler erhält nur einen Teil seiner eingesetzten Ressourcen zurück. | Bestätigte Regel. Quote, Rundung, betroffene Ressourcen und Fortschrittsabhängigkeit offen. |
+| Zweck des Abbruchverlusts | Bauplätze sollen keine verlustfreie Möglichkeit sein, Ressourcen vor Angriffen zu sichern. | Bestätigte Designabsicht. Teilrückzahlung verhindert allein noch nicht jede profitable Schutzstrategie. |
+| Gebäude und Forschung bei beeinträchtigten Bedingungen | Fortschritt soll sich verlangsamen, etwa bei Strommangel. | Bestätigte Designrichtung. Auslöser, Stärke, Kombination von Effekten, möglicher Stillstand und Erholung noch zu definieren. Kein allgemeiner Verlust bereits erreichten Fortschritts festgelegt. |
+| Orbitale Werften | Denkbar sind härtere Folgen: Verlust gerade produzierter Schiffe oder Absturz der Werft. | Vorschläge des Projektinhabers, keine beschlossenen Regeln. Ereignisse, Häufigkeiten, Schutzmöglichkeiten und Konsequenzen offen. |
+| Unterschiedliche Auftragstypen | Bedingungen und Folgen dürfen sich nach Gebäudebau, Forschung und Schiffbau unterscheiden. Weitere Regeln können später hinzukommen. | Fachlicher Gestaltungsspielraum; daraus folgt kein universelles Job-Framework oder Plugin-System. |
+
+**Zeit und Kosten getrennt betrachten:** Vorausbezahlte Baukosten und zeitabhängiger Fortschritt sind verschiedene fachliche Größen. Begrenzte Baukapazität macht Zeit strategisch wertvoll, erfordert aber kein gemeinsames Verbrauchskonto für Material und Zeit. Das frühere Modell, Zeit kontinuierlich wie eine Ressource zu verbrauchen, ist historische Lösungsarbeit. Ob Energie oder Arbeitskräfte als laufender Bedarf wirken und wie sie berechnet werden, ist gesondert zu klären; aus dem anfänglichen Kostenabzug folgt dazu keine Regel.
+
+**Offene Randfälle / Prüfung der Designabsicht:**
+
+- **Warteschlange:** Wann genau werden Kosten bezahlt: beim Einreihen oder erst beim tatsächlichen Arbeitsbeginn? Welche Regeln gelten für noch nicht begonnene Aufträge?
+- **Abbruchrückzahlung:** Feste Quote oder abhängig von Fortschritt beziehungsweise Auftragstyp? Maßgeblich sind die tatsächlich eingesetzten Ressourcen; eine genaue Berechnungsregel ist noch nicht beschlossen. Verhalten bei zwischenzeitlichen Balancing-Änderungen und Lagergrenzen offen.
+- **Ressourcenschutz:** Auch mit Verlust kann Einlagern in Bauaufträge lohnen, wenn die erwartete Rückzahlung höher ist als der nach einem Angriff verbleibende Bestand. Das ist eine zu prüfende Folgewirkung, kein bereits nachgewiesener Exploit einer fertigen Regel.
+- **Abbruch, Zwischenfall und Zerstörung unterscheiden:** Die Teilrückzahlung ist bisher für freiwilligen Bauabbruch festgehalten. Erstattungen und Fortschrittsfolgen bei zerstörtem Bauplatz, verlorener Werft oder verlorenem Schiff sind nicht daraus abgeleitet.
+- **Fortschritt:** Konkrete Auslöser für Verlangsamung, mögliche Rate null, Wiederaufnahme, Reihenfolge gleichzeitiger Ereignisse und das Wirksamwerden einer Fertigstellung sind offen.
+- **Bau-Frei-Minuten:** Historische Beschleunigungsmechanik separat in [[icewars-references#Erfahrungsbericht – Bau-Frei-Minuten]]; keine automatische Übernahme für Cold Frontier.
+
+**Weitere offene Fragen:** Wie viele Bauplätze oder parallele Aufträge? Welche Voraussetzungen müssen nur beim Start beziehungsweise bis zur Fertigstellung erfüllt sein?
 
 ## Handel und Transport
 
@@ -101,6 +125,29 @@ Dieses Szenario legt keine vollständige Erschöpfung von Eis fest; dafür gelte
 **Wenn:** Die Eisdichte ihre positive Untergrenze erreicht und vorhandene Vorräte verbraucht werden.  
 **Dann soll gelten (Schutzziel):** Die Quelle versiegt nicht vollständig; eine fortgesetzte Wasserversorgung soll zumindest eine gewisse Bevölkerung erhalten können. Vollständiges Aussterben des Accounts allein durch diese Verknappungsmechanik soll vermieden werden.  
 **Noch zu bestimmen:** Dauer und Ausgangsbedingungen des Abwesenheitsszenarios, Mindestversorgung, Energie-/Arbeitskräfteabhängigkeiten, Verbraucherprioritäten und Verhalten bei Wassermangel. Die Untergrenze allein gilt noch nicht als Nachweis des Schutzziels.
+
+### S6 – Kostenabzug und freiwilliger Abbruch
+
+**Gegeben:** Ein Spieler hat die Ressourcen für einen Bau.  
+**Wenn:** Der Bau beginnt.  
+**Dann gilt (bestätigte Regel):** Die Baukosten werden abgezogen.  
+**Wenn:** Der Spieler diesen Bau anschließend abbricht.  
+**Dann gilt (bestätigte Regel):** Er erhält nur einen Teil der eingesetzten Ressourcen zurück.  
+**Noch zu bestimmen:** Beginn bei Warteschlangennutzung, Rückzahlungsformel, Rundung und Umgang mit verschiedenen Kostenarten.
+
+### S7 – Beeinträchtigter Bau- oder Forschungsfortschritt
+
+**Gegeben:** Ein Gebäude wird gebaut oder eine Forschung läuft.  
+**Wenn:** Eine für die Fortschrittsrate relevante Bedingung beeinträchtigt wird, etwa die Stromversorgung.  
+**Dann soll gelten (Designrichtung):** Der Fortschritt verlangsamt sich. Ein automatischer Fehlschlag nur wegen der Verlangsamung ist damit nicht festgelegt.  
+**Noch zu bestimmen:** Auslöser, Rate einschließlich möglichem Stillstand, Kombination mehrerer Engpässe und Verhalten bei Erholung.
+
+### S8 – Zwischenfall an einer orbitalen Werft (offener Vorschlag)
+
+**Gegeben:** Eine orbitale Werft produziert ein Schiff.  
+**Wenn:** Ein noch zu definierender Zwischenfall eintritt.  
+**Dann ist zu entscheiden:** Nur Verlangsamung oder auch Schiffsverlust, Werftverlust beziehungsweise Absturz? Welche Folgen für gezahlte Kosten, andere Aufträge und mögliche betroffene Objekte?  
+**Status:** Keine dieser härteren Folgen ist beschlossen.
 
 ## Offene fachliche Fragen – zuerst klären
 
