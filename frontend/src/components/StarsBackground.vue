@@ -3,10 +3,19 @@
 </script>
 
 <template>
-  <div class="stars absolute inset-0"></div>
+  <div class="stars-bg absolute inset-0 bg-cover bg-center -z-10"></div>
+  <div class="stars absolute inset-0 bg-cover bg-center -z-10"></div>
 </template>
 
 <style scoped>
+
+.stars-bg {
+  background-image:
+    radial-gradient(circle at 20% 35%, rgba(74, 107, 255, 0.15) 0%, transparent 50%),
+    radial-gradient(circle at 75% 65%, rgba(255, 91, 122, 0.1) 0%, transparent 50%);
+  background-attachment: fixed;
+}
+
 .stars {
   background-image: radial-gradient(2px 2px at 20px 30px, #eee, rgba(0, 0, 0, 0)),
   radial-gradient(2px 2px at 40px 70px, #fff, rgba(0, 0, 0, 0)),
