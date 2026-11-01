@@ -41,6 +41,18 @@ Der [XML-Einheitenkatalog](../sources/icewars-ships.md) bewahrt alle 64 Export-E
 
 **Nur historische Referenz:** Für Cold Frontier sind diese Einheiten Inspiration; weder Liste, Kosten noch Voraussetzungen gelten als beschlossene Spielregeln.
 
+## Erfahrungsbericht – Bau-Frei-Minuten
+
+**Quelle:** Benjamin Wöster, Projektgespräch vom 2026-11-02. Historische Erinnerung an die BFM-Mechanik; nicht durch die bisher ausgewerteten Dateien unabhängig verifiziert. Keine Übernahmeentscheidung für Cold Frontier.
+
+- Bau-Frei-Minuten (BFM) dienten vor allem Späteinsteigern zum schnelleren Aufholen in einer fortgeschrittenen Runde.
+- Gebäudebauten ließen sich mit einem BFM-Guthaben beschleunigen. Die Differenz zur normalen Bauzeit wurde vom BFM-Konto abgezogen.
+- Nach unsicherer Erinnerung war eine Beschleunigung auf eine verbleibende beziehungsweise minimale Bauzeit von **5 oder 15 Minuten** möglich. Exakter Grenzwert und genaue Anwendung sind nicht gesichert.
+- Vergabe, Gültigkeit, Einsatzzeitpunkt, Rückzahlung bei Abbruch, Wechselwirkung mit Engpässen und Anwendbarkeit auf andere Auftragstypen sind offen.
+- Die Mechanik zeigt einen explizit geführten Beschleunigungsvorrat. Sie belegt nicht, dass normale vergehende Zeit wie ein lagerbarer Ressourcenbestand modelliert werden muss.
+
+Heutige Baukosten- und Abbruchregeln stehen in [[economy#Kosten, Abbruch und Fortschritt]].
+
 ## Mögliche Inspirationsfelder – ausdrücklich offen
 
 - Tiefer Technologiebaum und ungewöhnliche Gebäude
