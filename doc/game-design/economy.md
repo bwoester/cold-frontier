@@ -77,12 +77,14 @@ Für Eis soll deshalb eine positive Mindestergiebigkeit die weitere Förderung u
 
 **Offene Randfälle / Prüfung der Designabsicht:**
 
-- **Warteschlange:** Wann genau werden Kosten bezahlt: beim Einreihen oder erst beim tatsächlichen Arbeitsbeginn? Welche Regeln gelten für noch nicht begonnene Aufträge?
+- **Warteschlange:** Für IceWars ist inzwischen der Abzug beim Einreihen als historische Erinnerung dokumentiert; siehe [[icewars-references#Erfahrungsbericht – planetare Bauwarteschlangen]]. Für Cold Frontier sind der genaue Abbuchungszeitpunkt sowie Regeln für noch nicht begonnene Aufträge noch zu bestätigen.
 - **Abbruchrückzahlung:** Feste Quote oder abhängig von Fortschritt beziehungsweise Auftragstyp? Maßgeblich sind die tatsächlich eingesetzten Ressourcen; eine genaue Berechnungsregel ist noch nicht beschlossen. Verhalten bei zwischenzeitlichen Balancing-Änderungen und Lagergrenzen offen.
 - **Ressourcenschutz:** Auch mit Verlust kann Einlagern in Bauaufträge lohnen, wenn die erwartete Rückzahlung höher ist als der nach einem Angriff verbleibende Bestand. Das ist eine zu prüfende Folgewirkung, kein bereits nachgewiesener Exploit einer fertigen Regel.
 - **Abbruch, Zwischenfall und Zerstörung unterscheiden:** Die Teilrückzahlung ist bisher für freiwilligen Bauabbruch festgehalten. Erstattungen und Fortschrittsfolgen bei zerstörtem Bauplatz, verlorener Werft oder verlorenem Schiff sind nicht daraus abgeleitet.
 - **Fortschritt:** Konkrete Auslöser für Verlangsamung, mögliche Rate null, Wiederaufnahme, Reihenfolge gleichzeitiger Ereignisse und das Wirksamwerden einer Fertigstellung sind offen.
 - **Bau-Frei-Minuten:** Historische Beschleunigungsmechanik separat in [[icewars-references#Erfahrungsbericht – Bau-Frei-Minuten]]; keine automatische Übernahme für Cold Frontier.
+
+**Historische Kandidaten, noch nicht übernommen:** Eine Bauwarteschlange je Planet, Kostenabzug beim Einreihen, Ressourcen- und Zeitaufschläge für weitere Positionen sowie zusätzliche Plätze über Genetik. Siehe [[icewars-references#Erfahrungsbericht – planetare Bauwarteschlangen]]. Zu klären ist insbesondere, ob und wie stark häufiges manuelles Beauftragen gegenüber Abwesenheit wirtschaftlich bevorzugt werden soll.
 
 **Weitere offene Fragen:** Wie viele Bauplätze oder parallele Aufträge? Welche Voraussetzungen müssen nur beim Start beziehungsweise bis zur Fertigstellung erfüllt sein?
 
