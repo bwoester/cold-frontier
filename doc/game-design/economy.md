@@ -122,7 +122,40 @@ S9–S11 unten dienen als fachliche Prüfspezifikation. Insbesondere S11 ist nac
 - Personal zwischen Wirtschaft und Flotte verschieben und Schiffe vorübergehend stilllegen.
 - Noch keine dieser Optionen ist beschlossen; keine Besatzungsverwaltung als Voraussetzung für das erste Wirtschaftsmodell.
 
-**Nächste offene Entscheidung:** Unterbesetzung auf Gebäude verteilen (z. B. proportional zum Bedarf oder mit Schutz der Grundversorgung). Eine proportionale Produktivitätsformel P/D ist nur ein Kandidat, keine bestätigte Regel. Die in S11 dokumentierte Rückkopplung zwischen Wasserproduktion und Arbeitskräften bleibt dabei zu prüfen.
+### Verteilung und Produktivität bei Unterbesetzung
+
+**Stand 2026-11-02:** Vorrang für kritische Infrastruktur ist als Designrichtung bestätigt. Welche Teile der Versorgungskette dazugehören und welcher notwendige Versorgungsumfang geschützt wird, ist noch zu definieren. Priorisierung ersetzt nicht den separat geforderten Schutz vor vollständigem Aussterben (S11).
+
+Drei fachliche Fragen getrennt entscheiden:
+
+| Ebene | Frage | Stand |
+| --- | --- | --- |
+| Arbeitskräfteverteilung | Welche Betriebe erhalten bei Mangel wie viele Bürger? | Automatisch mit Vorrang für kritische Infrastruktur; genauer Algorithmus offen. Anteilig nach Bedarf verteilen ist der einfache Einstiegskandidat. |
+| Produktivität | Wie viel Leistung erzielt ein Betrieb bei gegebener Besetzung? | Linear skalieren als pragmatischer Einstiegskandidat. Kurve mit zunächst gut kompensierbarem und später stark wirksamem Personalmangel ist eine spätere Option. |
+| Zeitlicher Verlauf | Wann wirkt Unterbesetzung, wie lange und wie erfolgt Erholung? | Schonfrist beziehungsweise verzögerte Wirkung als Idee; noch keine Dauer, Ermüdungs- oder Rückstandsregel beschlossen. |
+
+Bei Priorisierung ist die Besetzungsquote **je Betrieb** maßgeblich, nicht automatisch die globale Quote Bevölkerung/Gesamtbedarf. Ein bereits vollständig versorgter Betrieb erhält nicht deshalb einen globalen Personalmangel-Malus, weil andere Branchen unterbesetzt sind. Die konkrete Leistungsverteilung ist dennoch offen.
+
+**Mögliche Ausbaustufen, keine verbindliche Implementierungs-Roadmap:**
+
+1. **Einfacher Einstieg:** Automatische Verteilung mit Schutz kritischer Versorgung; außerhalb dieser Versorgung anteilig gedeckte Personalbedarfe, Leistung zunächst linear zur tatsächlichen Besetzung. Linearität ist vorgeschlagen, noch nicht als endgültige Formel beschlossen.
+2. **Wählbare Prioritätsprofile:** Zum Beispiel Ressourcenabbau, Schiffbau oder Handelswesen. Spieler können unterschiedliche Schwerpunkte setzen, ohne jeden Betrieb einzeln zu steuern. Kein Profil soll den Überlebensschutz unabsichtlich aushebeln; genauen geschützten Umfang noch festlegen.
+3. **Individuelle Steuerung:** Spieler definieren selbst, wo Bevölkerung arbeitet. Als spätere Ausbaustufe zurückgestellt, nicht für den Einstieg vorausgesetzt.
+
+Produktivitätskurven und verzögerte Wirkungen sind unabhängig von diesen Steuerungsstufen zu bewerten. Es ist noch kein allgemeines Strategie-, Regel- oder Plugin-Framework gefordert.
+
+**Spezialisierung als weitere Idee:** Genetik könnte wirtschaftliche Spezialisierungen ermöglichen und Zusammenarbeit motivieren; historische Anregung siehe [[icewars-references#Erfahrungsbericht – Spezialisierungen über Genetik]]. Ein umschaltbares Verteilungsprofil ist fachlich etwas anderes als ein dauerhafter Spezialisierungsbonus. Verknüpfung, Kosten und Wechselbarkeit sind offen.
+
+**Randfälle und spätere Tests:**
+
+- **Kleine Defizite:** Ein nahezu flacher Kurvenbeginn könnte dauerhaft geplante Unterbesetzung besonders attraktiv machen. Das ist ein möglicher strategischer Effekt, dessen Ausmaß zu bewerten ist, nicht automatisch ein Fehler.
+- **Schonfrist zurücksetzen:** Wiederholtes kurzes Auffüllen oder Umverteilen darf nicht ungeprüft jede Unterbesetzungsfolge dauerhaft vermeiden. Prüfen, ob Nachteile mit Dauer/Stärke des Mangels zusammenhängen und wie schnell sie sich erholen. Keine konkrete Gedächtnis-/Ermüdungsformel vorweggenommen.
+- **Umverteilung:** Bei Profilwechseln müssen bisherige Belastungen beziehungsweise Rückstände ein definiertes Verhalten haben; keine mehrfache gleichzeitige Zuweisung derselben Bürger.
+- **Zeitliche Fortschreibung:** Eine eventuelle Schonfrist muss unabhängig von Logins und konsistent bei kleinen Schritten wie bei langer Fortschreibung wirken.
+- **Wechselwirkung:** Personalmangel, fehlende Betriebsmittel und Grundversorgung gemeinsam mit S11 prüfen. Kompensation durch Personal darf keinen unbegrenzten Betrieb ohne verbrauchtes Material implizieren.
+- **Nachvollziehbarkeit:** Spieler sollen tatsächliche Besetzung, Leistung und gegebenenfalls verbleibende Schonfrist erkennen können. Relevante Eingaben und zeitliche Effekte müssen für Entwicklung/Support reproduzierbar sein.
+
+Diese Fälle sind Prüfpunkte für noch zu beschließende Regeln, keine bereits ausgeführten Simulationstests.
 
 ## Gebäude und Bau
 
