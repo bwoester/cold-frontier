@@ -53,6 +53,20 @@ Der [XML-Einheitenkatalog](../sources/icewars-ships.md) bewahrt alle 64 Export-E
 
 Heutige Baukosten- und Abbruchregeln stehen in [[economy#Kosten, Abbruch und Fortschritt]].
 
+## Erfahrungsbericht – planetare Bauwarteschlangen
+
+**Quelle:** Benjamin Wöster, Projektgespräch vom 2026-11-02. Historische Erinnerung; nicht unabhängig durch die vorliegenden Dateien verifiziert. Diese Details sind noch keine Übernahmeentscheidung für Cold Frontier.
+
+- Jeder Planet hatte eine eigene Bauwarteschlange.
+- Die Ressourcen wurden nach Erinnerung bereits beim Einreihen des Auftrags abgezogen, nicht erst beim tatsächlichen Arbeitsbeginn.
+- Das erste Gebäude wurde zu regulären Kosten und regulärer Bauzeit beauftragt; das zweite eingereihte Gebäude kostete **10 Prozent mehr Ressourcen und Zeit**.
+- Manuelles Beauftragen nach Leeren der Schlange vermied den Warteschlangenaufschlag. Vorausplanung war damit teurer, ermöglichte aber längere Abwesenheit ohne ständiges Einloggen.
+- Ein zusätzlicher Warteschlangenplatz war über später im Spiel verfügbare **Genetik-Optionen** erreichbar. Grundkapazität, genaue Option und Zahl möglicher Erweiterungen sind nicht gesichert.
+- Staffelung für weitere Positionen (z. B. gleicher Aufschlag, linear oder multiplikativ), Umfang der betroffenen Ressourcen und Rundung sind offen.
+- Ebenfalls offen: Blieb der beim Einreihen bestimmte Aufschlag beim Nachrücken bestehen? Wie wirkten sich Abbruch oder Umordnen auf Kosten und Zeit anderer Aufträge aus? Galt die teilweise Rückzahlung auch für noch nicht begonnene Aufträge?
+
+**Analyse für die weitere Diskussion:** Der Aufschlag bewertet Abwesenheit und Komfort wirtschaftlich. Er gibt häufig aktiven Spielern neben früherer Reaktion auch einen Ressourcen- und Zeitvorteil. Ob dieser Aktivitätsvorteil zu Cold Frontier passt, ist als Spielziel zu klären; die historischen 10 Prozent legen das nicht fest.
+
 ## Mögliche Inspirationsfelder – ausdrücklich offen
 
 - Tiefer Technologiebaum und ungewöhnliche Gebäude
