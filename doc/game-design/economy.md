@@ -100,7 +100,21 @@ S9–S11 unten dienen als fachliche Prüfspezifikation. Insbesondere S11 ist nac
 
 **Begriffe:** Mit Bevölkerung P und gesamtem laufendem Gebäude-Personalbedarf D beträgt der rechnerische Überschuss max(0, P − D), das Personaldefizit max(0, D − P). Diese Größen beschreiben den Bedarf; sie legen noch keine Besetzungsreihenfolge oder Produktivitätsformel fest. Ein Bedarf von 1.000 bei 800 Bürgern bedeutet 200 fehlende Arbeitskräfte, nicht minus 200 lagerbare Bevölkerung.
 
-**Bevölkerung als Baukosten – Semantik noch offen:** Die Aussage, ein Auftrag „kostet Bevölkerung“, ist von laufendem Personalbedarf getrennt. Noch zu klären ist, ob die Bürger bei Beauftragung den planetaren Bevölkerungsbestand verlassen (z. B. Besatzung), vorübergehend reserviert oder dauerhaft zugewiesen werden. Ebenso offen: Zeitpunkt, Auswirkungen auf Wasser/Wohnraum, Behandlung wartender Aufträge und Rückgabe bei Abbruch. Das bereits bestätigte Prinzip des Kostenabzugs bestimmt diese Bevölkerungssemantik nicht automatisch.
+### Konstruktionskosten, laufender Verbrauch und Personalbindung
+
+**Bestätigte fachliche Unterscheidung, 2026-11-02:** Gebäude und Fahrzeuge können Konstruktionskosten und laufende Unterhaltskosten haben. Die konkrete Zuordnung einzelner Kosten bleibt je Typ festzulegen.
+
+| Kosten-/Bedarfsart | Einheit / Bedeutung | Wirkung |
+| --- | --- | --- |
+| Konstruktionskosten | Einmalige Ressourcenmenge, einschließlich möglicher Bevölkerungskosten | Wird aus dem entsprechenden Bestand abgezogen; keine bloße Bindung. Eine Rückzahlung beim Abbruch richtet sich nach der separat festzulegenden Rückzahlungsregel. |
+| Laufender Ressourcenverbrauch | Ressourcenmenge pro Zeit; laut Projektinhaber voraussichtlich pro Stunde angegeben | Bestand nimmt über die Betriebsdauer entsprechend dem tatsächlichen Verbrauch ab. Exakte Raten, Teilbetrieb und Defizitverhalten sind noch offen. |
+| Laufender Personalbedarf | Anzahl gleichzeitig gebundener Bürger | Die Bürger bleiben Bevölkerung, stehen aber nicht gleichzeitig für andere Arbeit beziehungsweise als freier Überschuss zur Verfügung. Kein wiederholter Abzug dieser Anzahl pro Stunde. |
+
+**Bevölkerung als Konstruktionskosten:** Wird Bevölkerung als einmaliger Kostenposten angegeben, wird sie aus dem belasteten Bevölkerungsbestand entfernt. Als laufender Personalbedarf bindet dieselbe Größe dagegen Personen, ohne sie zu verbrauchen. Beide Angaben können fachlich nebeneinander vorkommen; daraus wird noch kein konkretes Flotten-Besatzungssystem abgeleitet. Die erzählerische Bedeutung ausgegebener Bürger (z. B. Wechsel in eine Besatzung) ist nicht gleichbedeutend mit festgelegten Todesfällen.
+
+**Beispiel zur Begriffsprüfung, keine Typdefinition:** Bei 1.000 Einwohnern und 800 laufend benötigten Arbeitskräften sind 200 frei. Ein einmaliger Bevölkerungskostenposten von 100 reduziert den belasteten Bestand auf 900; bei unverändertem Gebäude-Personalbedarf verbleiben 100 freie Bürger. Ein zusätzlicher laufender Personalbedarf von 100 belässt dagegen 1.000 Einwohner, erhöht den Gesamtbedarf auf 900 und lässt ebenfalls 100 frei. Im zweiten Fall gehören die gebundenen Bürger weiterhin zur Bevölkerung für Wasser- und Wohnraumbedarf. Zusätzliche Versorgung außerhalb des planetaren Bestands im ersten Fall ist nicht festgelegt.
+
+**Weiter offen:** Exakter Abbuchungszeitpunkt bei Warteschlangen, mögliche Kosten schon wartender Aufträge, Freigabe von Personal bei Stilllegung, Verluste bei Zerstörung, Rückgabe einmaliger Bevölkerungskosten bei Abbruch sowie die konkrete Zuordnung von Bevölkerungsbeständen bei Fahrzeugen. Laufender Personalbedarf ist kein automatisch angelegtes Reservierungskonto für wartende Bauaufträge.
 
 **Nach hinten gestellte Ideen:**
 
@@ -127,7 +141,7 @@ S9–S11 unten dienen als fachliche Prüfspezifikation. Insbesondere S11 ist nac
 | Orbitale Werften | Denkbar sind härtere Folgen: Verlust gerade produzierter Schiffe oder Absturz der Werft. | Vorschläge des Projektinhabers, keine beschlossenen Regeln. Ereignisse, Häufigkeiten, Schutzmöglichkeiten und Konsequenzen offen. |
 | Unterschiedliche Auftragstypen | Bedingungen und Folgen dürfen sich nach Gebäudebau, Forschung und Schiffbau unterscheiden. Weitere Regeln können später hinzukommen. | Fachlicher Gestaltungsspielraum; daraus folgt kein universelles Job-Framework oder Plugin-System. |
 
-**Zeit und Kosten getrennt betrachten:** Vorausbezahlte Baukosten und zeitabhängiger Fortschritt sind verschiedene fachliche Größen. Begrenzte Baukapazität macht Zeit strategisch wertvoll, erfordert aber kein gemeinsames Verbrauchskonto für Material und Zeit. Das frühere Modell, Zeit kontinuierlich wie eine Ressource zu verbrauchen, ist historische Lösungsarbeit. Ob Energie oder Arbeitskräfte als laufender Bedarf wirken und wie sie berechnet werden, ist gesondert zu klären; aus dem anfänglichen Kostenabzug folgt dazu keine Regel.
+**Zeit und Kosten getrennt betrachten:** Vorausbezahlte Baukosten und zeitabhängiger Fortschritt sind verschiedene fachliche Größen. Begrenzte Baukapazität macht Zeit strategisch wertvoll, erfordert aber kein gemeinsames Verbrauchskonto für Material und Zeit. Das frühere Modell, Zeit kontinuierlich wie eine Ressource zu verbrauchen, ist historische Lösungsarbeit. Laufender Gebäude-Personalbedarf ist inzwischen als Bindung einer Personenanzahl geklärt; verbrauchbare Betriebsmittel werden dagegen als Menge pro Zeit beschrieben. Konkrete Energie-, Verbrauchs- und Fortschrittsregeln bleiben offen.
 
 **Offene Randfälle / Prüfung der Designabsicht:**
 
