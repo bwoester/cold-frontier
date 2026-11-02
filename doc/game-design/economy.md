@@ -88,6 +88,28 @@ Die Optionen sind weder als abschließende Liste noch als zwingend gegenseitig a
 
 S9–S11 unten dienen als fachliche Prüfspezifikation. Insbesondere S11 ist nach Festlegung von Produktions-, Verbrauchs-, Arbeitskräfte- und Bevölkerungsregeln als automatisierter Regressionstest der Simulation umzusetzen. **Derzeit dokumentiert, noch nicht als Simulation ausgeführt:** Die notwendigen Formeln und der Schutzmechanismus sind noch offen; eine Beispielimplementierung würde sonst nicht beschlossene Spielregeln erfinden.
 
+## Bevölkerung und Arbeitskräfte
+
+**Klärung durch den Projektinhaber am 2026-11-02:**
+
+- Jeder Bürger ist grundsätzlich bereit zu arbeiten. Eine gesonderte Erwerbsquote oder Bevölkerungsgruppen werden zunächst nicht eingeführt.
+- Laufender Arbeitskräftebedarf entsteht durch Gebäude. Wirtschaftliche Arbeit verbraucht die Bürger nicht als Material.
+- Übersteigt die Bevölkerung den laufenden Personalbedarf, besteht **freie Bevölkerung**. Dieser Überschuss ermöglicht Aufträge, deren Kosten Bevölkerung enthalten.
+- Unterschreitet die Bevölkerung den Personalbedarf, ist die Wirtschaft unterbesetzt. Wie die Produktivität der einzelnen Gebäude sinkt, ist noch zu entscheiden.
+- Ein zusätzlicher laufender Personalbedarf jedes Bau- oder Forschungsauftrags wird aus dieser Aussage nicht abgeleitet. Ob solche Aufträge selbst laufend Personal binden oder nur über ihre ausführenden Gebäude, bleibt offen.
+
+**Begriffe:** Mit Bevölkerung P und gesamtem laufendem Gebäude-Personalbedarf D beträgt der rechnerische Überschuss max(0, P − D), das Personaldefizit max(0, D − P). Diese Größen beschreiben den Bedarf; sie legen noch keine Besetzungsreihenfolge oder Produktivitätsformel fest. Ein Bedarf von 1.000 bei 800 Bürgern bedeutet 200 fehlende Arbeitskräfte, nicht minus 200 lagerbare Bevölkerung.
+
+**Bevölkerung als Baukosten – Semantik noch offen:** Die Aussage, ein Auftrag „kostet Bevölkerung“, ist von laufendem Personalbedarf getrennt. Noch zu klären ist, ob die Bürger bei Beauftragung den planetaren Bevölkerungsbestand verlassen (z. B. Besatzung), vorübergehend reserviert oder dauerhaft zugewiesen werden. Ebenso offen: Zeitpunkt, Auswirkungen auf Wasser/Wohnraum, Behandlung wartender Aufträge und Rückgabe bei Abbruch. Das bereits bestätigte Prinzip des Kostenabzugs bestimmt diese Bevölkerungssemantik nicht automatisch.
+
+**Nach hinten gestellte Ideen:**
+
+- Flottenpersonal könnte gesondert modelliert oder ausschließlich über Bevölkerungs-Baukosten abgebildet werden.
+- Personal zwischen Wirtschaft und Flotte verschieben und Schiffe vorübergehend stilllegen.
+- Noch keine dieser Optionen ist beschlossen; keine Besatzungsverwaltung als Voraussetzung für das erste Wirtschaftsmodell.
+
+**Nächste offene Entscheidung:** Unterbesetzung auf Gebäude verteilen (z. B. proportional zum Bedarf oder mit Schutz der Grundversorgung). Eine proportionale Produktivitätsformel P/D ist nur ein Kandidat, keine bestätigte Regel. Die in S11 dokumentierte Rückkopplung zwischen Wasserproduktion und Arbeitskräften bleibt dabei zu prüfen.
+
 ## Gebäude und Bau
 
 **Code-Ist:** Die Enum enthält Eisenmine; Solarzelle, Solar-, Kohle- und Atomkraftwerk; Stahlwerk; Observatorium; Energiespeicher; Wohngebäude; Bunker; Stadtzentrum; Verteidigungsplattform; Schiffswerft. Es existieren Bauwarteschlange und Baufortschritt. Das sind **Kandidaten**, keine festgeschriebene Gebäudeliste.
@@ -122,7 +144,7 @@ S9–S11 unten dienen als fachliche Prüfspezifikation. Insbesondere S11 ist nac
 
 - **Regelrichtung für freiwilligen Abbruch:** Zunächst wechselt der Auftrag in den Status **„wird abgebrochen“**. Erst nach Abschluss des Abbruchs werden Ressourcen anteilig zurückgezahlt und der Bauplatz wieder freigegeben. Die Dauer von **5 Minuten** ist ein vorläufiger Vorschlag, kein festes Balancing.
 - **Noch offen zum Abbruch:** Arbeitet der Bau währenddessen weiter oder endet sein Fortschritt mit Annahme des Abbruchs? Was geschieht, wenn die reguläre Fertigstellung vorher läge? Kann der Abbruch widerrufen werden? Gelten für wartende Aufträge dieselben Regeln? Wie wirken Angriffe, zerstörte Bauplätze oder Lagergrenzen während der Abbruchphase?
-- **Betriebsbedingungen:** Strom und freie Bevölkerung sind erste Kandidaten; die Liste ist erweiterbar und noch nicht abschließend beschlossen. Was „frei“ bedeutet (z. B. verfügbar oder bereits einem Auftrag zugewiesen), ist zu klären.
+- **Betriebsbedingungen:** Strom und freie Bevölkerung sind erste Kandidaten; die Liste ist erweiterbar und noch nicht abschließend beschlossen. „Freie Bevölkerung“ ist inzwischen als Überschuss über den laufenden Gebäude-Personalbedarf eingeordnet; siehe [[economy#Bevölkerung und Arbeitskräfte]]. Die genaue Verwendung bei Aufträgen ist noch offen.
 - **Vorläufige Präferenz gegen Stillstand:** Der Projektinhaber möchte vollständigen Stillstand bei Betriebsmangel nach erster Einschätzung vermeiden, damit sich Accounts nicht vollständig blockieren. Mindestfortschritt, dessen fachliche Grundlage und Grenzen sind noch offen. Eine positive Rate ohne Strom oder Bevölkerung ist damit nicht bereits spezifiziert.
 - **Verlust einer Auftragsgrundlage:** Automatischer Abbruch erscheint bei fehlender tragender Infrastruktur, etwa Schiffbau ohne Werft, plausibel. Dies ist ein Diskussionskandidat, keine bestätigte Regel. Kostenverlust, Erstattung, mögliche Rettung beziehungsweise Übertragung und Umgang mit bereits geleisteter Arbeit bleiben offen.
 - **Designspannung:** Verlust einer Voraussetzung könnte wochenlang angesparte Investitionen vernichten. Die historische Häufigkeit solcher Fälle ist unbekannt; geringe vermutete Häufigkeit ist kein Beleg für akzeptable Folgen.
