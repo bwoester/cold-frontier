@@ -84,7 +84,17 @@ Für Eis soll deshalb eine positive Mindestergiebigkeit die weitere Förderung u
 - **Fortschritt:** Konkrete Auslöser für Verlangsamung, mögliche Rate null, Wiederaufnahme, Reihenfolge gleichzeitiger Ereignisse und das Wirksamwerden einer Fertigstellung sind offen.
 - **Bau-Frei-Minuten:** Historische Beschleunigungsmechanik separat in [[icewars-references#Erfahrungsbericht – Bau-Frei-Minuten]]; keine automatische Übernahme für Cold Frontier.
 
-**Historische Kandidaten, noch nicht übernommen:** Eine Bauwarteschlange je Planet, Kostenabzug beim Einreihen, Ressourcen- und Zeitaufschläge für weitere Positionen sowie zusätzliche Plätze über Genetik. Siehe [[icewars-references#Erfahrungsbericht – planetare Bauwarteschlangen]]. Zu klären ist insbesondere, ob und wie stark häufiges manuelles Beauftragen gegenüber Abwesenheit wirtschaftlich bevorzugt werden soll.
+### Warteschlangenaufschlag und Zusammenarbeit
+
+**Bestätigte Designrichtung, 2026-11-02:** Der Projektinhaber möchte den Warteschlangenaufschlag beibehalten. Zeit beziehungsweise begrenzte Baukapazität soll eine besonders wertvolle strategische Größe bleiben. Vorausplanung darf gegenüber zeitnahem manuellem Beauftragen wirtschaftlich nachteilig sein; sinnlose kurze Logins sind dabei kein eigenständiges Motivationsziel.
+
+**Noch zu definieren:** Höhe und Staffelung, betroffene Ressourcenkosten, konkrete Zeitaufschläge und Wechselwirkung mit BFM. Die historische Kombination aus 10 Prozent Ressourcen- und Zeitaufschlag ist nicht als exakter Cold-Frontier-Parametersatz bestätigt.
+
+**Mögliche Entlastung:** Betreuung durch andere Spieler könnte individuellen Zeitdruck abfedern und Zusammenarbeit sowie Koordination belohnen. Historische Inspiration ist der [[icewars-references#Erfahrungsbericht – Sitter-Login|eingeschränkte Sitter-Login]]. Für Cold Frontier sind noch keine konkrete Berechtigungsliste oder Sitter-Regeln beschlossen.
+
+**Abgrenzung als Analyse:** Ein Verbot unmittelbarer Interaktionen mit fremden Accounts beschränkt direktes Pushen über diese Rechte. Es beweist nicht, dass jede Mehrfachaccount-Nutzung oder indirekte Begünstigung ausgeschlossen ist. Die zulässigen Handlungen und die gewünschten Grenzen delegierter Accountpflege sind erst fachlich zu bestimmen; keine technischen Schutzmaßnahmen daraus vorwegnehmen.
+
+**Weitere historische Kandidaten, noch nicht übernommen:** Eine Bauwarteschlange je Planet, Kostenabzug beim Einreihen sowie zusätzliche Plätze über Genetik. Siehe [[icewars-references#Erfahrungsbericht – planetare Bauwarteschlangen]].
 
 **Weitere offene Fragen:** Wie viele Bauplätze oder parallele Aufträge? Welche Voraussetzungen müssen nur beim Start beziehungsweise bis zur Fertigstellung erfüllt sein?
 
