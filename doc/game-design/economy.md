@@ -69,7 +69,7 @@ Für Eis soll deshalb eine positive Mindestergiebigkeit die weitere Förderung u
 | Baukosten | Bei Beginn eines Baus werden die eingesetzten Ressourcen abgezogen. | Bestätigte Regel. Ob bereits das Einreihen in eine Warteschlange als Beginn gilt, ist noch offen. Kostenzeitpunkt für Forschung nicht ausdrücklich separat bestätigt. |
 | Freiwilliger Bauabbruch | Der Spieler erhält nur einen Teil seiner eingesetzten Ressourcen zurück. | Bestätigte Regel. Quote, Rundung, betroffene Ressourcen und Fortschrittsabhängigkeit offen. |
 | Zweck des Abbruchverlusts | Bauplätze sollen keine verlustfreie Möglichkeit sein, Ressourcen vor Angriffen zu sichern. | Bestätigte Designabsicht. Teilrückzahlung verhindert allein noch nicht jede profitable Schutzstrategie. |
-| Gebäude und Forschung bei beeinträchtigten Bedingungen | Fortschritt soll sich verlangsamen, etwa bei Strommangel. | Bestätigte Designrichtung. Auslöser, Stärke, Kombination von Effekten, möglicher Stillstand und Erholung noch zu definieren. Kein allgemeiner Verlust bereits erreichten Fortschritts festgelegt. |
+| Gebäude und Forschung bei beeinträchtigten Bedingungen | Fortschritt soll sich verlangsamen, etwa bei Strommangel. | Bestätigte Designrichtung. Auslöser, Stärke, Kombination von Effekten und Erholung noch zu definieren. Vorläufige Präferenz gegen vollständigen Stillstand; siehe Ergänzung unten. Kein allgemeiner Verlust bereits erreichten Fortschritts festgelegt. |
 | Orbitale Werften | Denkbar sind härtere Folgen: Verlust gerade produzierter Schiffe oder Absturz der Werft. | Vorschläge des Projektinhabers, keine beschlossenen Regeln. Ereignisse, Häufigkeiten, Schutzmöglichkeiten und Konsequenzen offen. |
 | Unterschiedliche Auftragstypen | Bedingungen und Folgen dürfen sich nach Gebäudebau, Forschung und Schiffbau unterscheiden. Weitere Regeln können später hinzukommen. | Fachlicher Gestaltungsspielraum; daraus folgt kein universelles Job-Framework oder Plugin-System. |
 
@@ -83,6 +83,21 @@ Für Eis soll deshalb eine positive Mindestergiebigkeit die weitere Förderung u
 - **Abbruch, Zwischenfall und Zerstörung unterscheiden:** Die Teilrückzahlung ist bisher für freiwilligen Bauabbruch festgehalten. Erstattungen und Fortschrittsfolgen bei zerstörtem Bauplatz, verlorener Werft oder verlorenem Schiff sind nicht daraus abgeleitet.
 - **Fortschritt:** Konkrete Auslöser für Verlangsamung, mögliche Rate null, Wiederaufnahme, Reihenfolge gleichzeitiger Ereignisse und das Wirksamwerden einer Fertigstellung sind offen.
 - **Bau-Frei-Minuten:** Historische Beschleunigungsmechanik separat in [[icewars-references#Erfahrungsbericht – Bau-Frei-Minuten]]; keine automatische Übernahme für Cold Frontier.
+
+### Verzögerter Abbruch und Verlust von Voraussetzungen
+
+**Klärung vom 2026-11-02 durch den Projektinhaber:**
+
+- **Regelrichtung für freiwilligen Abbruch:** Zunächst wechselt der Auftrag in den Status **„wird abgebrochen“**. Erst nach Abschluss des Abbruchs werden Ressourcen anteilig zurückgezahlt und der Bauplatz wieder freigegeben. Die Dauer von **5 Minuten** ist ein vorläufiger Vorschlag, kein festes Balancing.
+- **Noch offen zum Abbruch:** Arbeitet der Bau währenddessen weiter oder endet sein Fortschritt mit Annahme des Abbruchs? Was geschieht, wenn die reguläre Fertigstellung vorher läge? Kann der Abbruch widerrufen werden? Gelten für wartende Aufträge dieselben Regeln? Wie wirken Angriffe, zerstörte Bauplätze oder Lagergrenzen während der Abbruchphase?
+- **Betriebsbedingungen:** Strom und freie Bevölkerung sind erste Kandidaten; die Liste ist erweiterbar und noch nicht abschließend beschlossen. Was „frei“ bedeutet (z. B. verfügbar oder bereits einem Auftrag zugewiesen), ist zu klären.
+- **Vorläufige Präferenz gegen Stillstand:** Der Projektinhaber möchte vollständigen Stillstand bei Betriebsmangel nach erster Einschätzung vermeiden, damit sich Accounts nicht vollständig blockieren. Mindestfortschritt, dessen fachliche Grundlage und Grenzen sind noch offen. Eine positive Rate ohne Strom oder Bevölkerung ist damit nicht bereits spezifiziert.
+- **Verlust einer Auftragsgrundlage:** Automatischer Abbruch erscheint bei fehlender tragender Infrastruktur, etwa Schiffbau ohne Werft, plausibel. Dies ist ein Diskussionskandidat, keine bestätigte Regel. Kostenverlust, Erstattung, mögliche Rettung beziehungsweise Übertragung und Umgang mit bereits geleisteter Arbeit bleiben offen.
+- **Designspannung:** Verlust einer Voraussetzung könnte wochenlang angesparte Investitionen vernichten. Die historische Häufigkeit solcher Fälle ist unbekannt; geringe vermutete Häufigkeit ist kein Beleg für akzeptable Folgen.
+
+**Vorschlag zur fachlichen Unterscheidung:** Startvoraussetzungen (z. B. Freischaltung), Betriebsbedingungen für die Fortschrittsrate und die physische Grundlage eines Auftrags getrennt betrachten. Ein verloren gegangenes Forschungsgebäude muss nicht dieselben Folgen haben wie die Zerstörung der Werft, in der ein Schiff entsteht. Welche konkrete Voraussetzung zu welcher Gruppe gehört, wird erst anhand der Mechanik entschieden; keine allgemeine Abbruchregel für jeden Voraussetzungsverlust.
+
+**Zusätzliche Prüfung der Blockadefreiheit:** Wenn ein verzögerter Abbruch den Bauplatz erst später freigibt, ist zu klären, ob auch dieser Abbruch durch Strom-/Personalmangel verlangsamt werden kann. Vorschlag zur Diskussion: Der freiwillige Abbruch bleibt als begrenzter Ausweg nutzbar. Dies ist noch keine getroffene Entscheidung.
 
 ### Warteschlangenaufschlag und Zusammenarbeit
 
@@ -144,15 +159,15 @@ Dieses Szenario legt keine vollständige Erschöpfung von Eis fest; dafür gelte
 **Wenn:** Der Bau beginnt.  
 **Dann gilt (bestätigte Regel):** Die Baukosten werden abgezogen.  
 **Wenn:** Der Spieler diesen Bau anschließend abbricht.  
-**Dann gilt (bestätigte Regel):** Er erhält nur einen Teil der eingesetzten Ressourcen zurück.  
-**Noch zu bestimmen:** Beginn bei Warteschlangennutzung, Rückzahlungsformel, Rundung und Umgang mit verschiedenen Kostenarten.
+**Dann gilt (Regelrichtung):** Der Auftrag wechselt zunächst auf „wird abgebrochen“. Erst nach Abschluss des Abbruchs werden ein Teil der eingesetzten Ressourcen zurückgezahlt und der Bauplatz freigegeben. Die vorgeschlagenen 5 Minuten sind vorläufig.  
+**Noch zu bestimmen:** Beginn bei Warteschlangennutzung, Abbruchdauer und deren Einflussfaktoren, Fortschritt während des Abbruchs, Rückzahlungsformel, Rundung und Umgang mit verschiedenen Kostenarten.
 
 ### S7 – Beeinträchtigter Bau- oder Forschungsfortschritt
 
 **Gegeben:** Ein Gebäude wird gebaut oder eine Forschung läuft.  
 **Wenn:** Eine für die Fortschrittsrate relevante Bedingung beeinträchtigt wird, etwa die Stromversorgung.  
 **Dann soll gelten (Designrichtung):** Der Fortschritt verlangsamt sich. Ein automatischer Fehlschlag nur wegen der Verlangsamung ist damit nicht festgelegt.  
-**Noch zu bestimmen:** Auslöser, Rate einschließlich möglichem Stillstand, Kombination mehrerer Engpässe und Verhalten bei Erholung.
+**Noch zu bestimmen:** Strom und freie Bevölkerung als erste Bedingungskandidaten; konkrete Auslöser, Mindestrate, Kombination mehrerer Engpässe und Verhalten bei Erholung. Vorläufige Präferenz: vollständigen Stillstand und eine dadurch blockierte Accountentwicklung vermeiden; noch keine garantierte Mindestgeschwindigkeit festgelegt.
 
 ### S8 – Zwischenfall an einer orbitalen Werft (offener Vorschlag)
 
