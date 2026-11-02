@@ -65,7 +65,20 @@ Heutige Baukosten- und Abbruchregeln stehen in [[economy#Kosten, Abbruch und For
 - Staffelung für weitere Positionen (z. B. gleicher Aufschlag, linear oder multiplikativ), Umfang der betroffenen Ressourcen und Rundung sind offen.
 - Ebenfalls offen: Blieb der beim Einreihen bestimmte Aufschlag beim Nachrücken bestehen? Wie wirkten sich Abbruch oder Umordnen auf Kosten und Zeit anderer Aufträge aus? Galt die teilweise Rückzahlung auch für noch nicht begonnene Aufträge?
 
-**Analyse für die weitere Diskussion:** Der Aufschlag bewertet Abwesenheit und Komfort wirtschaftlich. Er gibt häufig aktiven Spielern neben früherer Reaktion auch einen Ressourcen- und Zeitvorteil. Ob dieser Aktivitätsvorteil zu Cold Frontier passt, ist als Spielziel zu klären; die historischen 10 Prozent legen das nicht fest.
+**Analyse für die weitere Diskussion:** Der Aufschlag bewertet Abwesenheit und Komfort wirtschaftlich. Er gibt häufig aktiven Spielern neben früherer Reaktion auch einen Ressourcen- und Zeitvorteil. Für Cold Frontier wurde am 2026-11-02 das Beibehalten eines Warteschlangenaufschlags als Designrichtung bestätigt; konkrete Parameter sind weiterhin offen. Siehe [[economy#Warteschlangenaufschlag und Zusammenarbeit]].
+
+## Erfahrungsbericht – Sitter-Login
+
+**Quelle:** Benjamin Wöster, Projektgespräch vom 2026-11-02. Historische Erinnerung; nicht unabhängig anhand der bereitgestellten Dateien verifiziert.
+
+- Ein spezieller Sitter-Login erlaubte anderen Spielern, bestimmte Handlungen im betreuten Account auszuführen.
+- Die Rechte waren auf Handlungen innerhalb des betreuten Accounts beschränkt. Handlungen, die eine Interaktion mit anderen Spielern dargestellt hätten, waren nach Erinnerung nicht möglich.
+- Dies erleichterte die Betreuung bei Abwesenheit und belohnte Zusammenarbeit und Koordination, auch im Zusammenhang mit Bauwarteschlangen.
+- **Einordnung des Projektinhabers:** Durch diese Beschränkung sollte Missbrauch durch eine Person mit mehreren sich gegenseitig unterstützenden Accounts verhindert werden.
+- **Beleggrenze / Analyse:** Die konkrete Berechtigungsliste und Durchsetzung sind nicht dokumentiert. Aus dem Ausschluss direkter Spielerinteraktionen lässt sich kein vollständiger Nachweis gegen jede Form von Mehrfachaccount-Nutzung oder indirekter Begünstigung ableiten. Die behauptete vollständige Ausschließbarkeit wird daher nicht als gesicherte historische Tatsache übernommen.
+- Offen bleiben unter anderem zulässige Bau-/Forschungsaktionen, Sichtbarkeit von Accountinformationen, Verwaltung der Sitter-Rechte und Einschränkungen je betreutem Account. Keine dieser Detailregeln wird erfunden.
+
+Mögliche Bedeutung für Cold Frontier: [[economy#Warteschlangenaufschlag und Zusammenarbeit]]. Ein Sitter-System ist damit noch nicht konkret beschlossen.
 
 ## Mögliche Inspirationsfelder – ausdrücklich offen
 
