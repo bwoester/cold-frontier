@@ -48,13 +48,45 @@ Sinkende Rohstoffergiebigkeit soll den Aufwand zur Aufrechterhaltung der Versorg
 
 **Bestätigtes Schutzziel:** Ressourcenverknappung soll einen Account bei längerer Abwesenheit, etwa im Urlaub, nicht allein durch vollständiges Versiegen der Eisversorgung aussterben lassen. Insbesondere neue Spieler sollen eine verbleibende Versorgungsgrundlage behalten.
 
-**Fachlicher Zusammenhang laut Projektinhaber:** Aus Eis wird Wasser hergestellt; die Bevölkerung verbraucht Wasser zum Überleben. Fehlendes Wasser kann zum Tod der Bevölkerung führen. Raten, Zeitverhalten und Sterberegeln sind noch offen.
+**Fachlicher Zusammenhang:** Aus Eis wird Wasser hergestellt; die Bevölkerung verbraucht Wasser zum Überleben. Die am 2026-11-02 bestätigten Bevölkerungsregeln und der ausdrücklich zu prüfende Überlebensschutz stehen in [[economy#Bevölkerung, Wohnraum und Wasserversorgung]]. Wachstums-/Schrumpfungsraten und konkrete Schutzmechanismen sind noch offen.
 
 Für Eis soll deshalb eine positive Mindestergiebigkeit die weitere Förderung und damit grundsätzlich die Herstellung von Wasser ermöglichen. Gemeint ist eine verbleibende Fördermöglichkeit, kein automatisch gefüllter Eis- oder Wasservorrat. Ziel ist, zumindest eine gewisse Bevölkerung am Leben erhalten zu können; der Erhalt der gesamten bisherigen Bevölkerung oder Wirtschaftsleistung ist damit nicht zugesagt. Eine entsprechende Untergrenze für alle anderen Ressourcen ist noch nicht beschlossen.
 
 **Noch nachzuweisen:** Eine positive Eisdichte allein garantiert keine überlebensfähige Versorgung. Energie, Arbeitskräfte, Umwandlungsanlagen und die Verteilung knapper Ressourcen können die Kette dennoch unterbrechen. Zu klären ist, wie die Mindestversorgung ohne manuelles Eingreifen weiterläuft und ob sich eine überlebensfähige Restbevölkerung stabilisieren kann. Konkrete Schutzmechanismen werden daraus erst abgeleitet.
 
 **Balancing offen:** Anfangsdichte, Mindestdichte, Förderleistung, Abbaukurve, Dauer bis zum spürbaren Druck und Versorgung einer Restbevölkerung. Die historischen 5 beziehungsweise 15 Prozent sind keine übernommenen Cold-Frontier-Werte.
+
+## Bevölkerung, Wohnraum und Wasserversorgung
+
+**Quelle / Status:** Im Projektgespräch am 2026-11-02 ausdrücklich bestätigte Regeln und Schutzziel; keine aus IceWars-Quellen übernommenen Formeln.
+
+| Situation | Bestätigtes Verhalten |
+| --- | --- |
+| Freier Wohnraum und ausreichendes Wasser | Bevölkerung wächst. Wachstumsrate und genaue Wachstumsbedingungen sind noch zu definieren. |
+| Verlust von Wohnraum | Bevölkerung wird sofort auf die verbleibende Wohnkapazität begrenzt, soweit sie diese überschreitet. Verlust ungenutzter Kapazität allein tötet niemanden. |
+| Wasserproduktion kleiner als Verbrauch, Vorrat noch ausreichend | Der Vorrat deckt den Bedarf. Das Produktionsdefizit allein löst noch keinen Bevölkerungsverlust aus. |
+| Vorrat kann Wasserbedarf nicht mehr decken | Bevölkerung schrumpft über die Zeit, bis die Versorgung für die verbleibende Bevölkerung ausreicht. Schrumpfungsrate und Verhalten bei Teilversorgung sind offen. |
+
+**Bestätigtes Schutzziel:** Eine zuvor bewohnte Welt soll nicht allein infolge von Wassermangel und der damit verbundenen Produktions-/Arbeitskräfte-Rückkopplung ihre gesamte Bevölkerung verlieren. Eine überlebensfähige Restbevölkerung soll erhalten bleiben, auch ohne Eingreifen des Spielers. Der Schutz ist planetenbezogen; das Fortbestehen einer anderen Kolonie allein erfüllt ihn nicht.
+
+**Abgrenzung:** Das Schutzziel ist im Kontext der Versorgung formuliert. Es hebt die bestätigte Begrenzung durch Wohnraum nicht auf. Ob es auch bei Verlust sämtlichen Wohnraums, Anlagenzerstörung oder militärischer Vernichtung gelten soll, ist eine eigene offene Regel. Für den primären Prüffall sind positiver Wohnraum und vorhandene Versorgungsanlagen gegeben.
+
+### Rückkopplungsfall: Wasserproduktion braucht Arbeitskräfte
+
+**Risiko, noch kein behauptetes Simulationsergebnis:** Wassermangel senkt die Bevölkerung. Weniger Bevölkerung kann weniger Arbeitskräfte und dadurch weniger Eis- oder Wasserproduktion bedeuten. Die sinkende Versorgung könnte weiteren Bevölkerungsverlust auslösen. Priorisierung allein garantiert keine Stabilität, wenn bereits die gesamte Versorgungskapazität mit der Bevölkerung sinkt.
+
+**Zwei vorgeschlagene Lösungsrichtungen, noch nicht entschieden:**
+
+1. **Autonome Eis- und Wasserproduktion:** Diese Betriebe benötigen grundsätzlich keine Bevölkerung als Arbeitskräfte. Das entfernt diese Personalabhängigkeit, löst jedoch andere Abhängigkeiten (etwa Energie oder erforderliche Vorprodukte) nicht automatisch.
+2. **Gesicherte Grundversorgung:** Eine noch zu definierende Versorgung erhält zumindest eine überlebensfähige Restbevölkerung. Umfang, Auslösung, Abhängigkeiten, Kosten und Wechselwirkung mit regulärer Produktion sind offen.
+
+Die Optionen sind weder als abschließende Liste noch als zwingend gegenseitig ausschließend beschlossen. Auch Arbeitskräftebedarf der Energieversorgung und weitere Vorprodukte sind in die Prüfung einzubeziehen. Eine positive Mindest-Eisdichte allein ist kein Nachweis des Schutzziels.
+
+**Noch zu definierende fachliche Prüfkriterien:** Welche Restbevölkerung ist überlebensfähig? Kann sie die erforderliche Grundversorgung dauerhaft aufrechterhalten und bei verbesserten Bedingungen wieder wachsen? Eine nur mathematisch positive Bevölkerung, die sich null annähert oder durch Rundung faktisch handlungsunfähig wird, ist kein ausreichender Nachweis. Daraus wird noch keine konkrete Bevölkerungsuntergrenze oder kostenloser Produktionsbonus festgelegt.
+
+### Geplante Prüfung
+
+S9–S11 unten dienen als fachliche Prüfspezifikation. Insbesondere S11 ist nach Festlegung von Produktions-, Verbrauchs-, Arbeitskräfte- und Bevölkerungsregeln als automatisierter Regressionstest der Simulation umzusetzen. **Derzeit dokumentiert, noch nicht als Simulation ausgeführt:** Die notwendigen Formeln und der Schutzmechanismus sind noch offen; eine Beispielimplementierung würde sonst nicht beschlossene Spielregeln erfinden.
 
 ## Gebäude und Bau
 
@@ -175,6 +207,41 @@ Dieses Szenario legt keine vollständige Erschöpfung von Eis fest; dafür gelte
 **Wenn:** Ein noch zu definierender Zwischenfall eintritt.  
 **Dann ist zu entscheiden:** Nur Verlangsamung oder auch Schiffsverlust, Werftverlust beziehungsweise Absturz? Welche Folgen für gezahlte Kosten, andere Aufträge und mögliche betroffene Objekte?  
 **Status:** Keine dieser härteren Folgen ist beschlossen.
+
+### S9 – Wohnraumverlust begrenzt Bevölkerung
+
+**Gegeben:** 1.000 Einwohner und 1.200 Wohnplätze.  
+**Wenn:** 400 Wohnplätze verloren gehen.  
+**Dann gilt:** Unmittelbar danach verbleiben 800 Einwohner bei 800 Wohnplätzen.  
+**Gegenprobe:** Gehen stattdessen nur 100 ungenutzte Plätze verloren, bleiben 1.000 Einwohner bei 1.100 Plätzen. Die Werte sind ein bestätigtes Beispiel, keine Balancing-Vorgabe für Planetengrößen.
+
+### S10 – Vorräte überbrücken ein Wasserdefizit
+
+**Gegeben:** Wasserverbrauch übersteigt Wasserproduktion; der Vorrat deckt den tatsächlichen Bedarf noch vollständig.  
+**Wenn:** Dieser Zustand über einen Zeitraum anhält.  
+**Dann gilt:** Der Vorrat nimmt entsprechend der Bilanz ab; allein wegen dieses Defizits schrumpft die Bevölkerung noch nicht.  
+**Wenn:** Der verfügbare Vorrat den Bedarf nicht mehr deckt.  
+**Dann gilt:** Wassermangel kann Bevölkerungsschrumpfung auslösen. Zeitpunkt, Teilversorgung und Rate sind nach den noch festzulegenden Regeln zu berechnen.
+
+### S11 – Überleben trotz Wasser-/Arbeitskräfte-Rückkopplung
+
+**Gegeben:** Ein bewohnter Planet mit positivem Wohnraum, vorhandenen Eis-/Wasseranlagen und geringer Wasserversorgung. Produktions-, Verbrauchs- und Bevölkerungsregeln sind für den Test explizit festgelegt; benötigt die Produktionskette Arbeitskräfte, ist deren Bedarf enthalten.  
+**Wenn:** Der Wasservorrat aufgebraucht wird, Bevölkerung schrumpft und die Simulation ohne Spieleraktion über längere Zeit fortschreitet.  
+**Dann muss das bestätigte Schutzziel erfüllt sein:** Die Versorgungsspirale löscht die Bevölkerung nicht vollständig aus; eine nach noch festzulegenden Kriterien überlebensfähige Restbevölkerung bleibt erhalten. Für deren Versorgung reicht die reguläre oder geschützte Grundversorgung dauerhaft aus.  
+**Noch nicht festgelegt:** Konkrete Untergrenze, Zeit bis zum Gleichgewicht, Wachstums-/Schrumpfungsformeln und gewählter Schutzmechanismus.
+
+| Testvariante | Was zu prüfen ist |
+| --- | --- |
+| Sehr wenig Bevölkerung, leerer Wasservorrat | Schutz greift rechtzeitig; kein arbeitskräftebedingter Kollaps der gesamten Kette. |
+| Eisförderung bei Mindestergiebigkeit | Verbleibendes Vorkommen allein wird nicht mit ausreichender Wasserversorgung gleichgesetzt. |
+| Energieversorgung ebenfalls personalabhängig | Autonome Wasseranlagen dürfen die Rückkopplung nicht nur in die Stromerzeugung verlagern. |
+| Keine verfügbare Energie | Explizit entscheiden, ob der Schutz dies abdecken muss und wodurch; noch keine kostenlose Energie angenommen. |
+| Wiederholte kleine Zeitschritte und lange Fortschreibung | Schutz und Bilanz werden nicht durch Zeitschrittweite oder übersprungene Mangelschwellen umgangen; Vergleich innerhalb definierter numerischer Toleranzen. |
+| Kleine Mengen und Rundung nahe null | Kein vollständiges Aussterben durch Rundung oder Reihenfolge von Produktion, Verbrauch und Schrumpfung. |
+| Versorgung verbessert sich wieder | Bei freiem Wohnraum und ausreichendem Wasser ist erneutes Wachstum möglich; kein dauerhaft blockierter Restzustand. |
+| Lange Abwesenheit / wiederholte Fortschreibung | Restbevölkerung bleibt dauerhaft versorgbar; bloßes Verzögern des Aussterbens reicht nicht. |
+
+**Nachvollziehbarkeit für Entwicklung/Support:** Im Fehlerfall müssen Ausgangszustand, geltende Regeln, Zeitschritte beziehungsweise Ereignisfolge, Verteilung der Arbeitskräfte und Wasserbilanz reproduzierbar sein. Dies legt weder Event Sourcing noch die Speicherung jedes Zwischenzustands fest.
 
 ## Offene fachliche Fragen – zuerst klären
 
