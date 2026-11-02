@@ -80,6 +80,12 @@ Heutige Baukosten- und Abbruchregeln stehen in [[economy#Kosten, Abbruch und For
 
 Mögliche Bedeutung für Cold Frontier: [[economy#Warteschlangenaufschlag und Zusammenarbeit]]. Ein Sitter-System ist damit noch nicht konkret beschlossen.
 
+## Erfahrungsbericht – Spezialisierungen über Genetik
+
+**Quelle:** Benjamin Wöster, Projektgespräch vom 2026-11-02. Historische Erinnerung, nicht unabhängig durch die ausgewerteten Dateien verifiziert.
+
+IceWars ermöglichte laut Projektinhaber Spezialisierungen über Genetik, die unterschiedliche Rollen und Zusammenarbeit zwischen Spielern begünstigten. Konkrete Optionen, Wirkungen, Kosten und Wechselmöglichkeiten sind noch nicht rekonstruiert. Die für Cold Frontier genannten Profile Ressourcenabbau, Schiffbau und Handelswesen sind heutige Ideen; sie werden nicht als belegte damalige Genetik-Optionen ausgegeben.
+
 ## Mögliche Inspirationsfelder – ausdrücklich offen
 
 - Tiefer Technologiebaum und ungewöhnliche Gebäude
