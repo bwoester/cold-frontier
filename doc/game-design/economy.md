@@ -94,6 +94,14 @@ Der Überlebensschutz setzt voraus, dass konkurrierende Verbraucher genügend Wa
 
 Die ersten Baumaterialien kommen als einmalige Startfracht mit dem Kolonieschiff. Das Habitat produziert diese Materialien nicht. Zusätzlichen Nachschub schickt der Spieler per Transport. Als Vorschlag kann das Habitat zusätzlich einen kleinen Bunker bieten, der einen Teil der Vorräte vor Angriffen schützt. Startfracht, Schutzumfang und reguläre Produktion sind getrennte Größen.
 
+### Vorrang bei Wasserknappheit
+
+**Bestätigte Regel (2026-11-03):** Verfügbares Wasser deckt zuerst den Trinkwasserbedarf der gesamten aktuellen Bevölkerung. Andere Verbraucher erhalten erst danach Wasser aus der verbleibenden Menge. Reicht das Wasser schon für die Bevölkerung nicht, gelten die Regeln zu Vorräten und Bevölkerungsschrumpfung.
+
+Kann der Bedarf eines Betriebs nicht gedeckt werden, liegt ein Versorgungsmangel vor. Die Folge ist je Verbraucher und Betriebsmittel zu bestimmen. Drosselung und mögliche Schäden an kühlungsabhängigen Gebäuden sind Vorschläge. Schwellen, Dauer, Erholung und Verteilung des Rests unter gleichrangigen Betrieben bleiben offen.
+
+**Prüffall für S11:** Bei 300 Einwohnern, leerem Vorrat und Habitatproduktion für 200 Einwohner erhält die Bevölkerung das gesamte verfügbare Wasser. Ein weiterer Verbraucher erhält in diesem Fall kein Wasser. Seine konkrete Reaktion bleibt offen.
+
 ### Geplante Prüfung
 
 S9–S11 unten dienen als fachliche Prüfspezifikation. Insbesondere S11 ist nach Festlegung von Produktions-, Verbrauchs-, Arbeitskräfte- und Bevölkerungsregeln als automatisierter Regressionstest der Simulation umzusetzen. **Derzeit dokumentiert, noch nicht als Simulation ausgeführt:** Die notwendigen Formeln und der Schutzmechanismus sind noch offen; eine Beispielimplementierung würde sonst nicht beschlossene Spielregeln erfinden.
