@@ -189,7 +189,7 @@ Diese Fälle sind Prüfpunkte für noch zu beschließende Regeln, keine bereits 
 | Freiwilliger Bauabbruch | Der Spieler erhält auch bei einem noch wartenden Auftrag nur einen Teil der eingesetzten Ressourcen zurück. | Bestätigte Regel. Feste Quote unabhängig vom Fortschritt. Höhe, Rundung und betroffene Ressourcen offen. |
 | Zweck des Abbruchverlusts | Bauplätze sollen keine verlustfreie Möglichkeit sein, Ressourcen vor Angriffen zu sichern. | Bestätigte Designabsicht. Teilrückzahlung verhindert allein noch nicht jede profitable Schutzstrategie. |
 | Gebäude und Forschung bei beeinträchtigten Bedingungen | Fortschritt soll sich verlangsamen, etwa bei Strommangel. | Bestätigte Designrichtung. Auslöser, Stärke, Kombination von Effekten und Erholung noch zu definieren. Vorläufige Präferenz gegen vollständigen Stillstand; siehe Ergänzung unten. Kein allgemeiner Verlust bereits erreichten Fortschritts festgelegt. |
-| Orbitale Werften | Bei Zerstörung gehen die darin im Bau befindlichen Schiffe verloren. | Bestätigte Regel. Auslöser der Zerstörung und Folgen für wartende Aufträge bleiben offen. |
+| Orbitale Werften | Bei Zerstörung gehen die darin im Bau befindlichen Schiffe verloren. | Bestätigte Regel. Wartende Aufträge werden wie freiwillig abgebrochene Aufträge behandelt. Auslöser der Zerstörung bleiben offen. |
 | Unterschiedliche Auftragstypen | Bedingungen und Folgen dürfen sich nach Gebäudebau, Forschung und Schiffbau unterscheiden. Weitere Regeln können später hinzukommen. | Fachlicher Gestaltungsspielraum; daraus folgt kein universelles Job-Framework oder Plugin-System. |
 
 **Zeit und Kosten getrennt betrachten:** Vorausbezahlte Baukosten und zeitabhängiger Fortschritt sind verschiedene fachliche Größen. Begrenzte Baukapazität macht Zeit strategisch wertvoll, erfordert aber kein gemeinsames Verbrauchskonto für Material und Zeit. Das frühere Modell, Zeit kontinuierlich wie eine Ressource zu verbrauchen, ist historische Lösungsarbeit. Laufender Gebäude-Personalbedarf ist inzwischen als Bindung einer Personenanzahl geklärt; verbrauchbare Betriebsmittel werden dagegen als Menge pro Zeit beschrieben. Konkrete Energie-, Verbrauchs- und Fortschrittsregeln bleiben offen.
@@ -330,7 +330,7 @@ Dieses Szenario legt keine vollständige Erschöpfung von Eis fest; dafür gelte
 
 ### S8 – Werftzerstörung während des Schiffbaus
 
-Eine orbitale Werft wird zerstört, während darin ein oder mehrere Schiffe entstehen. Die unfertigen Schiffe gehen samt Baufortschritt verloren. Die Behandlung wartender Aufträge, die Erstattung gezahlter Kosten und die Regeln für Beschädigung ohne Zerstörung bleiben offen.
+Eine orbitale Werft wird zerstört, während darin ein oder mehrere Schiffe entstehen. Die unfertigen Schiffe gehen samt Baufortschritt verloren. Wartende Aufträge werden wie freiwillig abgebrochene Aufträge behandelt. Für sie gilt die feste anteilige Erstattung auf die tatsächlich gezahlten Kosten. Wann sie bei Werftverlust gutgeschrieben wird, bleibt offen. Für begonnene Schiffe steht die anteilige Erstattung nach derselben Regel als Alternative zum vollständigen Kostenverlust zur Diskussion. Der Verlust der unfertigen Schiffe samt Baufortschritt bleibt bestehen. Regeln für Beschädigung ohne Zerstörung sind offen.
 
 **Spätere Idee aus der IceWars-Erinnerung:** Bergung und Wiederverwendung von Weltraumschrott könnten teure Verluste mildern. Ob und in welcher Menge ein Werftverlust Schrott erzeugt, wer ihn bergen kann und welche Materialien zurückgewonnen werden, bleibt offen.
 
