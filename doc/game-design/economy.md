@@ -270,7 +270,9 @@ Gründungsflüge belegen unterwegs keinen Kolonieplatz. Bei Ankunft werden das K
 
 **Beladung beim Abflug:** Der Spieler wählt, wie viele Siedler und welche Baumaterialien das Kolonieschiff mitnimmt. Die Siedler stammen aus der freien Bevölkerung des Startplaneten, die Fracht aus seinem Rohstoffpool. Beim wirksamen Abflug gehen die gewählten Mengen an Bord und stehen am Startplaneten danach nicht mehr zur Verfügung. Bei erfolgreicher Gründung werden die mitgeführten Siedler zur Startbevölkerung und die Materialien zur einmaligen Startfracht der Kolonie. Wartet das Schiff im Orbit, bleiben Siedler und Fracht an Bord.
 
-**Offen:** Konkrete Personen- und Frachtkapazität je Schiffstyp und Umgang mit Startfracht oberhalb der anfänglichen Lagerkapazität.
+**Grenze der Startfracht:** Die gewählte Fracht muss beim Abflug in die Frachtkapazität des Schiffs passen. Für jeden lagerpflichtigen Rohstoff darf sie außerdem höchstens dessen anfängliche Lagerkapazität der Zielkolonie erreichen. Eine zulässige Startfracht passt damit bei erfolgreicher Gründung vollständig in den neuen Rohstoffpool.
+
+**Qualitätskriterium für Schiffstypen:** Frachtkapazität und anfängliche Lagerkapazitäten sollen so abgestimmt sein, dass die nutzbare Startfracht den vorgesehenen Koloniestart unterstützt. Die konkreten Kapazitäten je Schiffstyp bleiben Balancing-Werte.
 
 **Iteration 1:** Jede begonnene Gründung wird nach der Gründungsdauer erfolgreich abgeschlossen. Unterbrechungen oder Scheitern während des Aufbaus sowie die dadurch nötige Freigabe von Planet und Kolonieplatz sind spätere Ideen.
 
