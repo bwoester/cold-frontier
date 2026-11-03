@@ -248,7 +248,7 @@ Historische Anregung: [[icewars-references#Erfahrungsbericht – planetare Bauwa
 
 ## Lager und Bunker
 
-**Bestätigte Regeln:** Jede Kolonie führt einen gemeinsamen Rohstoffpool. Lager und Bunker erhöhen beide dessen Kapazität. Die vom Bunker beigetragene Kapazität ist vor fremdem Zugriff bei Angriffen geschützt. Vorräte bleiben für eigene Ausgaben direkt verfügbar. Eine Umlagerung entfällt.
+**Bestätigte Regeln:** Jede Kolonie führt einen gemeinsamen Rohstoffpool. Lager erhöhen dessen Kapazität. Bunker schützen eine feste Menge je unterstütztem Rohstoff und können bei lagerpflichtigen Rohstoffen zusätzlich Lagerkapazität beitragen. Vorräte bleiben für eigene Ausgaben direkt verfügbar. Eine Umlagerung entfällt.
 
 Für lagerpflichtige Ressourcen begrenzt die Kapazität den Vorrat. Bei vollem Lager geht zusätzliche Produktion verloren. Lager und Bunker können einem einzelnen Ressourcentyp oder mehreren Typen zugeordnet sein. Die Kapazität gilt für jeden unterstützten Typ separat. Ein Eis- und Wasserlager mit Kapazität 100 fasst gleichzeitig 100 Eis und 100 Wasser. Freier Eisplatz erhöht die Wasserkapazität nicht. Energie hat ein eigenes Lager. Bei Mehrstoffbunkern gilt die Schutzkapazität entsprechend je unterstütztem Ressourcentyp.
 
@@ -256,11 +256,11 @@ Für Iteration 1 gilt vorläufig: Chemische Elemente und Energie haben jeweils e
 
 **Anforderung an die Konfigurierbarkeit:** Ressourcentypen, ihre Lagerpflicht und die Beiträge von Gebäuden zu Lagerkapazität und Schutz sollen sich im Rahmen der unterstützten Regeln über Spieldaten konfigurieren lassen. Zusätzliche Rohstoffe und geänderte Zuordnungen sollen dadurch ohne Änderung der Simulationslogik möglich sein.
 
-**Offene Bunkervariante:** Bunker könnten Eisen, Stahl und VV4A bis zu einer konfigurierten Menge vor Plünderung schützen. Für unbegrenzt lagerbare Rohstoffe wäre dafür kein Beitrag zur Lagerkapazität nötig. Ob IceWars solche Bunker hatte und ob Cold Frontier sie übernimmt, ist offen.
+**Bestätigte Regel für Iteration 1:** Bunker können auch Eisen, Stahl und VV4A bis zu einer festen Menge je Rohstoff schützen. Für diese unbegrenzt lagerbaren Rohstoffe tragen sie Schutzkapazität bei. Die Schutzmenge ist unabhängig von der Lagerkapazität.
 
  Bei Kapazitätsverlust verfällt der Überbestand je lagerpflichtigem Ressourcentyp sofort. Verfallene Mengen stehen für eine anschließende Plünderung nicht zur Verfügung. Ob Bunker zerstörbar sind, bleibt offen. Die Anlieferung aus dem Orbit ist unter Handel und Transport geregelt.
 
-**Bestätigte Balancing-Richtung:** Die Ausbaukosten von Lagern und Bunkern steigen überproportional, bei Bunkern noch stärker. Kleine Lager sollen günstig sein, Stufe 5 bereits deutlich mehr kosten und Stufe 10 längeres Sparen erfordern. Stufe 15 soll praktisch unerschwinglich sein. Das sind Zielbilder, konkrete Preise und Kapazitätskurven stehen noch aus. Die Kapazität darf nichtlinear wachsen.
+**Bestätigte Balancing-Richtung:** Die Ausbaukosten von Lagern und Bunkern steigen überproportional, bei Bunkern noch stärker. Bunker sollen im Verhältnis zu den üblichen Vorräten nur einen kleinen Notvorrat schützen. Die Schutzmenge je Rohstoff und Stufe bleibt ein Balancing-Wert. Kleine Lager sollen günstig sein, Stufe 5 bereits deutlich mehr kosten und Stufe 10 längeres Sparen erfordern. Stufe 15 soll praktisch unerschwinglich sein. Das sind Zielbilder, konkrete Preise und Kapazitätskurven stehen noch aus. Die Kapazität darf nichtlinear wachsen.
 
 **Entwicklungstempo:** Die Lagergröße soll wichtige Schritte wie den Bau eines Kolonieschiffs begrenzen. Wenn dessen lagerpflichtige Baukosten gleichzeitig aus dem lokalen Pool bezahlt werden müssen, kann die erforderliche Kapazität direkt aus den Kosten folgen. Die Baukosten sind daher je lagerpflichtigem Ressourcentyp gegen dessen verfügbare Kapazität zu prüfen. Ob zusätzlich ein ausdrückliches Mindestlagerlevel nötig ist, bleibt offen.
 
@@ -423,13 +423,17 @@ Die [übergreifende Architekturfrage zur Auftragsreihenfolge](../architecture/co
 
 Spieler A beginnt auf einem freien Planeten mit der Gründung. Spieler B trifft während der Aufbauphase ein. Der Planet ist bereits belegt. B kann keine Gründung beginnen und wartet im Orbit auf einen neuen Auftrag. In Iteration 1 endet der Aufbau mit der erfolgreichen Gründung von A. Der Planet bleibt durch die fertige Kolonie belegt.
 
+### S18 – Bunkerschutz für unbegrenzt lagerbaren Stahl
+
+Eine Kolonie besitzt 5.000 Stahl und Bunkerschutz für 1.000 Stahl. Höchstens 4.000 Stahl sind plünderbar. Fällt der Schutz weg, bleiben 5.000 Stahl im Bestand und sind vollständig plünderbar. Die Zahlen sind Testwerte.
+
 ## Offene fachliche Fragen – zuerst klären
 
 1. Welche Ressourcen sind lagerbar, welche stellen Kapazität/Rate/Population dar?
 2. Welche Ebene besitzt welche Bestände (Planet, Spieler, Flotte)?
 3. Wie werden knappe Eingangsressourcen auf Verbraucher verteilt?
 4. Welche Ereignisse ändern Produktionsraten?
-5. Welche Rohstoffe können Bunker schützen und wie werden erschöpfbare Vorkommen behandelt?
+5. Wie groß ist die Schutzmenge je Rohstoff und Stufe, und wie werden erschöpfbare Vorkommen behandelt?
 6. Welche Zeitsemantik erwarten Spieler bei gleichzeitigen Aktionen?
 
 ## Nächster Modellierungsschritt
