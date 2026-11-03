@@ -238,7 +238,7 @@ Diese Fälle sind Prüfpunkte für noch zu beschließende Regeln, keine bereits 
 
 Für lagerpflichtige Ressourcen begrenzt die Kapazität den Vorrat. Bei vollem Lager geht zusätzliche Produktion verloren. Lager und Bunker können einem einzelnen Ressourcentyp oder mehreren Typen zugeordnet sein. Die Kapazität gilt für jeden unterstützten Typ separat. Ein Eis- und Wasserlager mit Kapazität 100 fasst gleichzeitig 100 Eis und 100 Wasser. Freier Eisplatz erhöht die Wasserkapazität nicht. Energie hat ein eigenes Lager. Bei Mehrstoffbunkern gilt die Schutzkapazität entsprechend je unterstütztem Ressourcentyp.
 
-Welche weiteren Ressourcen lagerpflichtig sind und was bei Anlieferung oder Kapazitätsverlust geschieht, bleibt offen.
+Welche weiteren Ressourcen lagerpflichtig sind und was bei Kapazitätsverlust geschieht, bleibt offen. Die Anlieferung aus dem Orbit ist unter Handel und Transport geregelt.
 
 **Bestätigte Balancing-Richtung:** Die Ausbaukosten von Lagern und Bunkern steigen überproportional, bei Bunkern noch stärker. Kleine Lager sollen günstig sein, Stufe 5 bereits deutlich mehr kosten und Stufe 10 längeres Sparen erfordern. Stufe 15 soll praktisch unerschwinglich sein. Das sind Zielbilder, konkrete Preise und Kapazitätskurven stehen noch aus. Die Kapazität darf nichtlinear wachsen.
 
@@ -256,7 +256,11 @@ Welche weiteren Ressourcen lagerpflichtig sind und was bei Anlieferung oder Kapa
 
 ## Handel und Transport
 
-**Projektziel:** Ressourcen handeln und zwischen Planeten transportieren. Noch offen: Warenbesitz während Transport, Credits-Transfers, Handelsregeln, Verzögerung, Angriffe auf Konvois und atomare Buchungen.
+Produktion und Verbrauch auf einem Planeten wirken unmittelbar auf dessen Rohstoffpool. Transporte finden zwischen Planeten statt.
+
+**Bestätigte Einstiegsregel:** Ein Entladevorgang aus dem Orbit dauert 15 Minuten. Am Ende geht die Fracht je Ressourcentyp bis zur dann freien Lagerkapazität in den Zielpool über. Der Überschuss verfällt. Ein Audit-Ereignis erfasst den Abschlusszeitpunkt, Transport und Ziel sowie je Ressourcentyp die übernommene und die verfallene Menge.
+
+Mehrere aufeinanderfolgende Flottenaufträge bleiben eine spätere Idee. Die tatsächliche Fracht kann auch bei einer Abholung von der Planung abweichen. Wie Folgeaufträge damit umgehen, ist offen. Warenbesitz unterwegs, Handelsregeln, Credits-Transfers und Angriffe auf Konvois bleiben ebenfalls offen.
 
 ## Erste Szenarien (noch ohne erfundene Erwartungswerte)
 
@@ -361,6 +365,10 @@ Dieses Szenario legt keine vollständige Erschöpfung von Eis fest; dafür gelte
 Die Beispielraten dienen der Prüfung, die konkreten Gebäudeparameter bleiben offen. Die zeitliche Auflösung soll den Wechsel bei Erschöpfung des Vorrats abbilden. Zeiteinheit, Rundung und technische Fortschreibung bleiben offen.
 
 **Audit-Anforderung:** Beim Erschöpfen des Eisvorrats entsteht ein fachliches Ereignis mit dem wirksamen Spielzeitpunkt, der betroffenen Kolonie und dem Rohstoff. Für S12 liegt dieser Zeitpunkt bei Minute 36, auch wenn die Simulation das Ereignis später verarbeitet. Der Produktionsstopp des Wasserwerks, der Wegfall seines Energiebedarfs und tatsächlich ausgelöste Änderungen bei anderen Verbrauchern sollen sich im Audit auf dieses Ereignis zurückführen lassen. Eine mögliche Neuverteilung allein zählt noch nicht als eingetretene Änderung. Ereignisstruktur, Aufbewahrung und Persistenz bleiben Architekturfragen.
+
+### S13 – Entladung bei begrenzter Lagerkapazität
+
+Ein Transport entlädt 30 Eis aus dem Orbit. Nach 15 Minuten liegen im Zielpool 90 Eis bei einer Kapazität von 100. Beim Abschluss gehen 10 Eis in den Pool über und 20 Eis verfallen. Der Transport führt danach kein Eis aus dieser Lieferung mehr mit. Das Audit-Ereignis weist beide Mengen aus. Ändert sich der Zielbestand während der Entladung, zählt der freie Platz beim Abschluss.
 
 ## Offene fachliche Fragen – zuerst klären
 
