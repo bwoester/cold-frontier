@@ -238,7 +238,7 @@ Diese Fälle sind Prüfpunkte für noch zu beschließende Regeln, keine bereits 
 
 Für lagerpflichtige Ressourcen begrenzt die Kapazität den Vorrat. Bei vollem Lager geht zusätzliche Produktion verloren. Lager und Bunker können einem einzelnen Ressourcentyp oder mehreren Typen zugeordnet sein. Die Kapazität gilt für jeden unterstützten Typ separat. Ein Eis- und Wasserlager mit Kapazität 100 fasst gleichzeitig 100 Eis und 100 Wasser. Freier Eisplatz erhöht die Wasserkapazität nicht. Energie hat ein eigenes Lager. Bei Mehrstoffbunkern gilt die Schutzkapazität entsprechend je unterstütztem Ressourcentyp.
 
-Welche weiteren Ressourcen lagerpflichtig sind und was bei Kapazitätsverlust geschieht, bleibt offen. Die Anlieferung aus dem Orbit ist unter Handel und Transport geregelt.
+Welche weiteren Ressourcen lagerpflichtig sind, bleibt offen. Bei Kapazitätsverlust verfällt der Überbestand je lagerpflichtigem Ressourcentyp sofort. Verfallene Mengen stehen für eine anschließende Plünderung nicht zur Verfügung. Ob Bunker zerstörbar sind, bleibt offen. Die Anlieferung aus dem Orbit ist unter Handel und Transport geregelt.
 
 **Bestätigte Balancing-Richtung:** Die Ausbaukosten von Lagern und Bunkern steigen überproportional, bei Bunkern noch stärker. Kleine Lager sollen günstig sein, Stufe 5 bereits deutlich mehr kosten und Stufe 10 längeres Sparen erfordern. Stufe 15 soll praktisch unerschwinglich sein. Das sind Zielbilder, konkrete Preise und Kapazitätskurven stehen noch aus. Die Kapazität darf nichtlinear wachsen.
 
@@ -369,6 +369,10 @@ Die Beispielraten dienen der Prüfung, die konkreten Gebäudeparameter bleiben o
 ### S13 – Entladung bei begrenzter Lagerkapazität
 
 Ein Transport entlädt 30 Eis aus dem Orbit. Nach 15 Minuten liegen im Zielpool 90 Eis bei einer Kapazität von 100. Beim Abschluss gehen 10 Eis in den Pool über und 20 Eis verfallen. Der Transport führt danach kein Eis aus dieser Lieferung mehr mit. Das Audit-Ereignis weist beide Mengen aus. Ändert sich der Zielbestand während der Entladung, zählt der freie Platz beim Abschluss.
+
+### S14 – Sofortiger Verfall bei Kapazitätsverlust
+
+Eine Kolonie hält 90 Eis bei 100 Gesamtkapazität, davon 20 durch einen Bunker geschützt. Fällt ein normales Lager mit 20 Kapazität weg, verfallen sofort 10 Eis. Von den verbleibenden 80 Eis bleiben 20 geschützt. Falls ein Bunker mit 20 Kapazität zerstört werden kann und wegfällt, verfallen ebenfalls sofort 10 Eis und der Schutz entfällt. Bei einer anschließenden Plünderung stehen damit höchstens 80 Eis zur Verfügung. Das Beispiel setzt für die zweite Variante einen Bunkerverlust voraus. Ob dieser im Spiel möglich ist, bleibt offen.
 
 ## Offene fachliche Fragen – zuerst klären
 
