@@ -360,6 +360,8 @@ Dieses Szenario legt keine vollständige Erschöpfung von Eis fest; dafür gelte
 
 Die Beispielraten dienen der Prüfung, die konkreten Gebäudeparameter bleiben offen. Die zeitliche Auflösung soll den Wechsel bei Erschöpfung des Vorrats abbilden. Zeiteinheit, Rundung und technische Fortschreibung bleiben offen.
 
+**Audit-Anforderung:** Beim Erschöpfen des Eisvorrats entsteht ein fachliches Ereignis mit dem wirksamen Spielzeitpunkt, der betroffenen Kolonie und dem Rohstoff. Für S12 liegt dieser Zeitpunkt bei Minute 36, auch wenn die Simulation das Ereignis später verarbeitet. Der Produktionsstopp des Wasserwerks, der Wegfall seines Energiebedarfs und tatsächlich ausgelöste Änderungen bei anderen Verbrauchern sollen sich im Audit auf dieses Ereignis zurückführen lassen. Eine mögliche Neuverteilung allein zählt noch nicht als eingetretene Änderung. Ereignisstruktur, Aufbewahrung und Persistenz bleiben Architekturfragen.
+
 ## Offene fachliche Fragen – zuerst klären
 
 1. Welche Ressourcen sind lagerbar, welche stellen Kapazität/Rate/Population dar?
