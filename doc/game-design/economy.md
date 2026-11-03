@@ -90,6 +90,8 @@ Das Kolonieschiff wird bei der Gründung zum robusten, unzerstörbaren Habitat. 
 
 Der Überlebensschutz setzt voraus, dass konkurrierende Verbraucher genügend Wasser für die geschützte Bevölkerung übrig lassen. S11 soll deshalb auch bei leerem Vorrat, Ausfall der übrigen Versorgung und konkurrierenden Verbrauchern geprüft werden. Ob sich Energie ansammelt, hängt von den noch offenen Speicherregeln ab. Ob die Erträge für erste Gebäude reichen, hängt zusätzlich von deren übrigen Baukosten ab.
 
+Die ersten Baumaterialien kommen als einmalige Startfracht mit dem Kolonieschiff. Das Habitat produziert diese Materialien nicht. Zusätzlichen Nachschub schickt der Spieler per Transport. Als Vorschlag kann das Habitat zusätzlich einen kleinen Bunker bieten, der einen Teil der Vorräte vor Angriffen schützt. Startfracht, Schutzumfang und reguläre Produktion sind getrennte Größen.
+
 ### Geplante Prüfung
 
 S9–S11 unten dienen als fachliche Prüfspezifikation. Insbesondere S11 ist nach Festlegung von Produktions-, Verbrauchs-, Arbeitskräfte- und Bevölkerungsregeln als automatisierter Regressionstest der Simulation umzusetzen. **Derzeit dokumentiert, noch nicht als Simulation ausgeführt:** Die notwendigen Formeln und der Schutzmechanismus sind noch offen; eine Beispielimplementierung würde sonst nicht beschlossene Spielregeln erfinden.
@@ -220,6 +222,12 @@ Diese Fälle sind Prüfpunkte für noch zu beschließende Regeln, keine bereits 
 
 **Weitere offene Fragen:** Wie viele Bauplätze oder parallele Aufträge? Welche Voraussetzungen müssen nur beim Start beziehungsweise bis zur Fertigstellung erfüllt sein?
 
+## Lager und Bunker
+
+Für lagerpflichtige Ressourcen begrenzen Lager den verfügbaren Vorrat. Ist die Lagerkapazität ausgeschöpft, geht zusätzliche Produktion verloren. Welche Ressourcen Lager benötigen und wie Anlieferungen bei vollem Lager behandelt werden, bleibt offen.
+
+Bunker haben eine geringere Kapazität als Lager und schützen Ressourcen vor dem Zugriff fremder Spieler bei Angriffen. Offen ist, ob die Bunkerkapazität einen Teil des Lagerbestands schützt oder einen separaten Vorrat bildet. Auch die Auswahl der geschützten Ressourcen und die Folgen eines Bunkerverlusts bleiben zu klären.
+
 ## Handel und Transport
 
 **Projektziel:** Ressourcen handeln und zwischen Planeten transportieren. Noch offen: Warenbesitz während Transport, Credits-Transfers, Handelsregeln, Verzögerung, Angriffe auf Konvois und atomare Buchungen.
@@ -324,7 +332,7 @@ Dieses Szenario legt keine vollständige Erschöpfung von Eis fest; dafür gelte
 2. Welche Ebene besitzt welche Bestände (Planet, Spieler, Flotte)?
 3. Wie werden knappe Eingangsressourcen auf Verbraucher verteilt?
 4. Welche Ereignisse ändern Produktionsraten?
-5. Wie werden Lagergrenzen und erschöpfbare Vorkommen behandelt?
+5. Welche Ressourcen benötigen Lager, wie wirken Bunker und wie werden erschöpfbare Vorkommen behandelt?
 6. Welche Zeitsemantik erwarten Spieler bei gleichzeitigen Aktionen?
 
 ## Nächster Modellierungsschritt
