@@ -220,7 +220,9 @@ Diese Fälle sind Prüfpunkte für noch zu beschließende Regeln, keine bereits 
 
 ### Warteschlangenaufschlag und Zusammenarbeit
 
-**Zeitpunkte für Baumodifikatoren:** Der Auftrag behält den beim Einreihen bestimmten Zeitfaktor der Warteschlange. Beim tatsächlichen Baubeginn gelten die dann wirksamen übrigen Baumodifikatoren. Ändern sich diese während des Baus, wirken sie standardmäßig ab ihrem fachlichen Wirksamkeitszeitpunkt auf die verbleibende Arbeit. Bereits geleisteter Fortschritt bleibt erhalten. Mögliche Quellen sind Forschung, Genetik, durch Terraforming veränderte Planetenwerte und Betriebsbedingungen. Welche Modifikatoren gelten und wie sie kombiniert werden, bleibt offen.
+**Zeitpunkte für Baumodifikatoren:** Der Auftrag behält den beim Einreihen bestimmten Zeitfaktor der Warteschlange. Beim tatsächlichen Baubeginn gelten die dann wirksamen übrigen Baumodifikatoren. Ändern sich diese während des Baus, wirken sie standardmäßig ab ihrem fachlichen Wirksamkeitszeitpunkt auf die verbleibende Arbeit. Bereits geleisteter Fortschritt bleibt erhalten. Mögliche Quellen sind Forschung, Genetik, durch Terraforming veränderte Planetenwerte und Betriebsbedingungen. Welche Modifikatoren gelten, bleibt offen.
+
+**Vorschlag zur Kombination:** Gleichzeitig wirksame Tempofaktoren werden multipliziert. Beispielsweise ergeben 20 Prozent mehr Bautempo und 25 Prozent weniger Bautempo zusammen den Faktor 1,20 × 0,75 = 0,90. Der Warteschlangenfaktor erhöht den Arbeitsumfang. Für eine Berechnung über das Bautempo entspricht ein Zeitfaktor von 1,21 einem Tempofaktor von 1 / 1,21, sofern der Aufschlag dort abgebildet wird. Der Aufschlag wird genau einmal berücksichtigt. Änderungen gelten ab ihrem jeweiligen Wirksamkeitszeitpunkt für die verbleibende Arbeit.
 
 **Anforderung an das Modell:** Die Fortschrittsberechnung verarbeitet die wirksamen Einflüsse und ihre Zeitpunkte unabhängig von ihrer Herkunft. Zusätzliche Einflussquellen sollen sich ergänzen lassen, ohne die Fortschrittsregeln für jede Quelle einzeln zu ändern.
 
