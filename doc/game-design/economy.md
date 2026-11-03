@@ -84,6 +84,12 @@ Die Optionen sind weder als abschließende Liste noch als zwingend gegenseitig a
 
 **Noch zu definierende fachliche Prüfkriterien:** Welche Restbevölkerung ist überlebensfähig? Kann sie die erforderliche Grundversorgung dauerhaft aufrechterhalten und bei verbesserten Bedingungen wieder wachsen? Eine nur mathematisch positive Bevölkerung, die sich null annähert oder durch Rundung faktisch handlungsunfähig wird, ist kein ausreichender Nachweis. Daraus wird noch keine konkrete Bevölkerungsuntergrenze oder kostenloser Produktionsbonus festgelegt.
 
+### Autonomes Starthabitat (Vorschlag)
+
+Das Kolonieschiff wird bei der Gründung zum robusten, unzerstörbaren Habitat. Es bietet beispielsweise 200 Wohnplätze und erzeugt Wasser und Energie ohne externe Versorgung oder Arbeitskräfte. Beide Erträge gehen in die reguläre planetare Wirtschaft ein. Ein kleiner Überschuss könnte den ersten Ausbau und den Wiederaufbau unterstützen. Kapazität und Produktionsraten sind Balancing-Kandidaten.
+
+Der Überlebensschutz setzt voraus, dass konkurrierende Verbraucher genügend Wasser für die geschützte Bevölkerung übrig lassen. S11 soll deshalb auch bei leerem Vorrat, Ausfall der übrigen Versorgung und konkurrierenden Verbrauchern geprüft werden. Ob sich Energie ansammelt, hängt von den noch offenen Speicherregeln ab. Ob die Erträge für erste Gebäude reichen, hängt zusätzlich von deren übrigen Baukosten ab.
+
 ### Geplante Prüfung
 
 S9–S11 unten dienen als fachliche Prüfspezifikation. Insbesondere S11 ist nach Festlegung von Produktions-, Verbrauchs-, Arbeitskräfte- und Bevölkerungsregeln als automatisierter Regressionstest der Simulation umzusetzen. **Derzeit dokumentiert, noch nicht als Simulation ausgeführt:** Die notwendigen Formeln und der Schutzmechanismus sind noch offen; eine Beispielimplementierung würde sonst nicht beschlossene Spielregeln erfinden.
