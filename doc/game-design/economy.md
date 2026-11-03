@@ -220,6 +220,11 @@ Diese Fälle sind Prüfpunkte für noch zu beschließende Regeln, keine bereits 
 
 ### Warteschlangenaufschlag und Zusammenarbeit
 
+**Zeitpunkte für Baumodifikatoren:** Der Bauauftrag hält den beim Einreihen bestimmten Zeitfaktor der Warteschlange fest. Beim tatsächlichen Baubeginn werden die dann geltenden übrigen Baumodifikatoren für die Bauzeit berücksichtigt. Planetenwerte, Genetik und Forschung sind mögliche Quellen. Welche Modifikatoren gelten und wie sie kombiniert werden, bleibt offen. Die laufenden Betriebsbedingungen für den Baufortschritt werden gesondert betrachtet. Welche sonstigen Modifikatoren sich nach Baubeginn noch auswirken, bleibt offen.
+
+**Prüffall:** Ein Auftrag wird auf Warteplatz 2 mit Zeitfaktor 1,21 eingereiht. Vor Baubeginn wird eine Forschung wirksam, die die Bauzeit beeinflusst. Beim Start gehen der gespeicherte Faktor 1,21 und der nun gültige Forschungsmodifikator in die Berechnung ein. Nachrücken ändert den gespeicherten Faktor nicht.
+
+
 **Bestätigte Designrichtung, 2026-11-02:** Der Projektinhaber möchte den Warteschlangenaufschlag beibehalten. Zeit beziehungsweise begrenzte Baukapazität soll eine besonders wertvolle strategische Größe bleiben. Vorausplanung darf gegenüber zeitnahem manuellem Beauftragen wirtschaftlich nachteilig sein; sinnlose kurze Logins sind dabei kein eigenständiges Motivationsziel.
 
 **Bestätigte Regel:** Jeder Planet hat eine eigene Gebäudebauwarteschlange. Neben dem laufenden Bau kann zunächst genau ein weiterer Gebäudeauftrag warten. Ein wartend eingereihter Auftrag kostet mehr Ressourcen und hat eine längere Bauzeit. Als vorläufiger Balancing-Wert gilt pro Warteplatz ein multiplikativer Aufschlag von 10 Prozent auf Baukosten und Bauzeit. Für Warteplatz 1 gilt Faktor 1,1, für Warteplatz 2 Faktor 1,1 × 1,1 = 1,21. Beim Einreihen werden die erhöhten Kosten abgezogen. Der anhand des Warteplatzes beim Einreihen bestimmte Zeitaufschlag bleibt beim Nachrücken und beim Baubeginn bestehen. Später kann ein zweiter Warteplatz freigeschaltet werden, beispielsweise optional über Genetik.
