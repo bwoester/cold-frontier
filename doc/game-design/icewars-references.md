@@ -95,6 +95,10 @@ IceWars ermöglichte laut Projektinhaber Spezialisierungen über Genetik, die un
 - Jede vierte Galaxie war nach Erinnerung eine Chaosgalaxie. Dort gab es extreme Planeten mit hohen, oft auf einen Rohstoff konzentrierten Vorkommen sowie Anomalien wie Zeitverkrümmungen und Antimateriewirbel. Eine Wirkung der Anomalien auf das Spielgeschehen ist nicht erinnert.
 - **Inspiration für Cold Frontier:** Chaosgalaxien mit extremen Vorkommen und Anomalien als erzählerische Elemente. Platzierung und Vorkommensregeln sind offen. Für Anomalien ist derzeit keine Simulationswirkung vorgesehen.
 
+## Erfahrungsbericht – Pinguine am Rundenende
+
+Laut Benjamin Wösters Erinnerung aus dem Projektgespräch vom 2026-11-03 tauchten Pinguine erst kurz vor Rundenende auf. Sie breiteten sich aus und vermehrten sich unkontrolliert. Als Vorboten der Apokalypse waren sie Teil des IceWars-Humors. Die Ressourcen-XML führt Pinguine unter ID 8. Ablauf und Wirkung stammen aus der Spielerinnerung. [Ressourcen-Zuordnung](../sources/icewars-ships.md#ressourcen-zuordnung)
+
 ## Mögliche Inspirationsfelder – ausdrücklich offen
 
 - Tiefer Technologiebaum und ungewöhnliche Gebäude
