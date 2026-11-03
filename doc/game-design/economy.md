@@ -224,9 +224,15 @@ Diese Fälle sind Prüfpunkte für noch zu beschließende Regeln, keine bereits 
 
 ## Lager und Bunker
 
-Für lagerpflichtige Ressourcen begrenzen Lager den verfügbaren Vorrat. Ist die Lagerkapazität ausgeschöpft, geht zusätzliche Produktion verloren. Welche Ressourcen Lager benötigen und wie Anlieferungen bei vollem Lager behandelt werden, bleibt offen.
+**Bestätigte Regeln:** Jede Kolonie führt einen gemeinsamen Rohstoffpool. Lager und Bunker erhöhen beide dessen Kapazität. Die vom Bunker beigetragene Kapazität ist vor fremdem Zugriff bei Angriffen geschützt. Vorräte bleiben für eigene Ausgaben direkt verfügbar. Eine Umlagerung entfällt.
 
-Bunker haben eine geringere Kapazität als Lager und schützen Ressourcen vor dem Zugriff fremder Spieler bei Angriffen. Offen ist, ob die Bunkerkapazität einen Teil des Lagerbestands schützt oder einen separaten Vorrat bildet. Auch die Auswahl der geschützten Ressourcen und die Folgen eines Bunkerverlusts bleiben zu klären.
+Für lagerpflichtige Ressourcen begrenzt die Kapazität den Vorrat. Bei vollem Lager geht zusätzliche Produktion verloren. Welche Ressourcen lagerpflichtig sind, wie sich Kapazität und Schutz auf mehrere Rohstoffe verteilen und was bei Anlieferung oder Kapazitätsverlust geschieht, bleibt offen.
+
+**Bestätigte Balancing-Richtung:** Die Ausbaukosten von Lagern und Bunkern steigen überproportional, bei Bunkern noch stärker. Kleine Lager sollen günstig sein, Stufe 5 bereits deutlich mehr kosten und Stufe 10 längeres Sparen erfordern. Stufe 15 soll praktisch unerschwinglich sein. Das sind Zielbilder, konkrete Preise und Kapazitätskurven stehen noch aus. Die Kapazität darf nichtlinear wachsen.
+
+**Entwicklungstempo:** Die Lagergröße soll wichtige Schritte wie den Bau eines Kolonieschiffs begrenzen. Wenn dessen lagerpflichtige Baukosten gleichzeitig aus dem lokalen Pool bezahlt werden müssen, kann die erforderliche Kapazität direkt aus den Kosten folgen. Ob die Kapazität je Rohstoff oder gemeinsam gilt und ob ein ausdrückliches Mindestlagerlevel nötig ist, bleibt offen.
+
+**Prüffall:** Ein Kolonieschiff soll mit der vorgesehenen Lagergröße finanzierbar sein. Die nötige Lagererweiterung muss ihrerseits aus dem bis dahin verfügbaren Vorrat bezahlbar sein. Für kleinere Lagerstufen ist zu prüfen, ob Bunkerausbau oder die Kombination mehrerer Lager den Meilenstein wie vorgesehen beeinflussen.
 
 ## Handel und Transport
 
