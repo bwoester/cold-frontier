@@ -288,6 +288,10 @@ Gründungsflüge belegen unterwegs keinen Kolonieplatz. Bei Ankunft werden das K
 
 ## Handel und Transport
 
+**Versenden:** Beim wirksamen Versandauftrag wird die gewählte Fracht sofort aus dem Rohstoffpool des Startplaneten an Bord geladen. Ob danach eine eigene Startphase vor dem Abflug folgt und wie lange sie dauert, bleibt offen.
+
+**Abholen als spätere Idee:** Ein eigener Abholauftrag ist für die erste Iteration zurückgestellt. Für eine spätere Variante ist der Ablauf Landen, Aus- oder Einladen und erneuter Start zu prüfen. Dauer und Regeln dieser Phasen bleiben offen.
+
 Produktion und Verbrauch auf einem Planeten wirken unmittelbar auf dessen Rohstoffpool. Transporte finden zwischen Planeten statt.
 
 **Bestätigte Einstiegsregel:** Ein Entladevorgang aus dem Orbit dauert 15 Minuten. Am Ende geht die Fracht je Ressourcentyp bis zur dann freien Lagerkapazität in den Zielpool über. Der Überschuss verfällt. Ein Audit-Ereignis erfasst den Abschlusszeitpunkt, Transport und Ziel sowie je Ressourcentyp die übernommene und die verfallene Menge.
