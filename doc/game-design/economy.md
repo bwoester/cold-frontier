@@ -264,7 +264,7 @@ Welche weiteren Ressourcen lagerpflichtig sind, bleibt offen. Bei Kapazitätsver
 
 **Bestätigte Regel:** Die Ausbaustufe des Kolonisationszentrums bestimmt, wie viele Kolonien ein Spieler gründen kann. Die Zuordnung von Stufe zu Limit bleibt offen.
 
-Gründungsflüge belegen unterwegs keinen Kolonieplatz. Bei Ankunft werden das Kolonielimit und die Verfügbarkeit des Ziels geprüft. Sobald eine Gründung beginnt, zählt sie bereits gegen das Limit. Prüfung und Belegung müssen auch bei gleichzeitigen Ankünften zusammenwirken, sodass ein freier Platz höchstens einmal belegt wird. Die Gründung dauert eine gewisse Zeit. 15 Minuten sind ein vorläufiger Balancing-Wert. Kann das Schiff bei Ankunft nicht gründen, bleibt es unabhängig vom Treibstoffstand im Orbit und wartet auf einen neuen Auftrag des Spielers. Das gilt insbesondere bei blockiertem Ziel oder erreichtem Kolonielimit. Die verfügbaren Folgeaufträge sowie die Behandlung unterbrochener Gründungen und die Freigabe belegter Plätze bleiben offen.
+Gründungsflüge belegen unterwegs keinen Kolonieplatz. Bei Ankunft werden das Kolonielimit und die Verfügbarkeit des Ziels geprüft. Sobald eine Gründung beginnt, zählt sie bereits gegen das Limit. Ab diesem Zeitpunkt ist der Zielplanet exklusiv durch die laufende Gründung belegt. Auf demselben Planeten kann höchstens eine Gründung gleichzeitig laufen. Prüfung und Belegung müssen auch bei gleichzeitigen Ankünften zusammenwirken, sodass ein freier Platz höchstens einmal belegt wird. Die Gründung dauert eine gewisse Zeit. 15 Minuten sind ein vorläufiger Balancing-Wert. Kann das Schiff bei Ankunft nicht gründen, bleibt es unabhängig vom Treibstoffstand im Orbit und wartet auf einen neuen Auftrag des Spielers. Das gilt insbesondere bei blockiertem Ziel oder erreichtem Kolonielimit. Die verfügbaren Folgeaufträge sowie die Behandlung unterbrochener Gründungen und die Freigabe belegter Plätze bleiben offen.
 
 **Vorschlag:** Wenige Kolonieschiffstypen können sich in Reichweite und Startfracht unterscheiden. Eine Kopplung ihrer Kapazität an die Ausbaustufe des Zentrums bleibt offen.
 
@@ -402,6 +402,10 @@ Die [übergreifende Architekturfrage zur Auftragsreihenfolge](../architecture/co
 **Vorschlag für S16:** Bei gleicher Ankunftszeit hat der frühere wirksame Abflug Vorrang. Bei identischer Abflugzeit entscheidet eine verbindliche Auftragsreihenfolge, die im Audit nachvollziehbar ist. Wie diese Reihenfolge festgelegt wird, wie Aufträge aus mehreren Tabs zusammengeführt werden und wie Wiederholungen behandelt werden, bleibt zu entscheiden.
 
 **Prüffall:** Zwei Tabs schicken für denselben Spieler je einen Gründungsauftrag. Beide Abflüge und Ankünfte haben jeweils denselben Spielzeitpunkt, und nur ein Kolonieplatz ist frei. Die Requests können in beliebiger Reihenfolge eintreffen und erneut gesendet werden. Der Prüffall soll nach Festlegung der Reihenfolgeregel zeigen, welcher Auftrag Vorrang hat, dass der Platz höchstens einmal belegt wird und dass ein wiederholter Request keinen zusätzlichen Flug auslöst.
+
+### S17 – Zwei Spieler fliegen denselben Planeten an
+
+Spieler A beginnt auf einem freien Planeten mit der Gründung. Spieler B trifft während der Aufbauphase ein. Der Planet ist bereits belegt. B kann keine Gründung beginnen und wartet im Orbit auf einen neuen Auftrag. Wie die Belegung bei unterbrochener Gründung endet, bleibt offen.
 
 ## Offene fachliche Fragen – zuerst klären
 
