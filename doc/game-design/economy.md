@@ -374,6 +374,10 @@ Ein Transport entlädt 30 Eis aus dem Orbit. Nach 15 Minuten liegen im Zielpool 
 
 Eine Kolonie hält 90 Eis bei 100 Gesamtkapazität, davon 20 durch einen Bunker geschützt. Fällt ein normales Lager mit 20 Kapazität weg, verfallen sofort 10 Eis. Von den verbleibenden 80 Eis bleiben 20 geschützt. Falls ein Bunker mit 20 Kapazität zerstört werden kann und wegfällt, verfallen ebenfalls sofort 10 Eis und der Schutz entfällt. Bei einer anschließenden Plünderung stehen damit höchstens 80 Eis zur Verfügung. Das Beispiel setzt für die zweite Variante einen Bunkerverlust voraus. Ob dieser im Spiel möglich ist, bleibt offen.
 
+### S15 – Wiederaufbau mit Nachschub
+
+Nach einem Angriff versorgt das Habitat die verbliebene Bevölkerung. Die Mine ist zerstört und der verfügbare Bestand an Baumaterial reicht für ihren Neubau nicht aus. In diesem Fall setzt der Wiederaufbau einen Transport mit den fehlenden Materialien voraus. Nach dessen Entladung gelten die üblichen Bauvoraussetzungen.
+
 ## Offene fachliche Fragen – zuerst klären
 
 1. Welche Ressourcen sind lagerbar, welche stellen Kapazität/Rate/Population dar?
