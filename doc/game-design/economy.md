@@ -26,6 +26,8 @@ Quellcode: [ResourceSetMsg](../../lib/src/main/java/de/bwoester/coldfrontier/acc
 
 ## Produktion und Abhängigkeiten
 
+**Bestätigtes Wasserrezept:** Für 1 Einheit Wasser werden 2 Einheiten Eis und 1 Einheit Energie verbraucht. Durchsatz und Teilbetrieb bleiben offen.
+
 **Code-Ist:** `ProductionService` summiert feste Produktionsvektoren je Gebäude; noch ohne Engpässe, verfügbare Ausgangsstoffe oder Modifikatoren. `IRON_MINE` ist als Beispiel mit positiver Eisen- und negativer Energieproduktion konfiguriert. Das ist **kein** endgültiges Balancing.
 
 **Zu untersuchen:** Input/Output-Rezepte, gleichzeitig konkurrierende Verbraucher, Prioritäten, Teilbetrieb, Speicherfähigkeit, zeitliche Auflösung, Rundungsregeln, Sättigung und Kaskadenengpässe.
@@ -226,11 +228,13 @@ Diese Fälle sind Prüfpunkte für noch zu beschließende Regeln, keine bereits 
 
 **Bestätigte Regeln:** Jede Kolonie führt einen gemeinsamen Rohstoffpool. Lager und Bunker erhöhen beide dessen Kapazität. Die vom Bunker beigetragene Kapazität ist vor fremdem Zugriff bei Angriffen geschützt. Vorräte bleiben für eigene Ausgaben direkt verfügbar. Eine Umlagerung entfällt.
 
-Für lagerpflichtige Ressourcen begrenzt die Kapazität den Vorrat. Bei vollem Lager geht zusätzliche Produktion verloren. Welche Ressourcen lagerpflichtig sind, wie sich Kapazität und Schutz auf mehrere Rohstoffe verteilen und was bei Anlieferung oder Kapazitätsverlust geschieht, bleibt offen.
+Für lagerpflichtige Ressourcen begrenzt die Kapazität den Vorrat. Bei vollem Lager geht zusätzliche Produktion verloren. Lager und Bunker können einem einzelnen Ressourcentyp oder mehreren Typen zugeordnet sein. Die Kapazität gilt für jeden unterstützten Typ separat. Ein Eis- und Wasserlager mit Kapazität 100 fasst gleichzeitig 100 Eis und 100 Wasser. Freier Eisplatz erhöht die Wasserkapazität nicht. Energie hat ein eigenes Lager. Bei Mehrstoffbunkern gilt die Schutzkapazität entsprechend je unterstütztem Ressourcentyp.
+
+Welche weiteren Ressourcen lagerpflichtig sind und was bei Anlieferung oder Kapazitätsverlust geschieht, bleibt offen.
 
 **Bestätigte Balancing-Richtung:** Die Ausbaukosten von Lagern und Bunkern steigen überproportional, bei Bunkern noch stärker. Kleine Lager sollen günstig sein, Stufe 5 bereits deutlich mehr kosten und Stufe 10 längeres Sparen erfordern. Stufe 15 soll praktisch unerschwinglich sein. Das sind Zielbilder, konkrete Preise und Kapazitätskurven stehen noch aus. Die Kapazität darf nichtlinear wachsen.
 
-**Entwicklungstempo:** Die Lagergröße soll wichtige Schritte wie den Bau eines Kolonieschiffs begrenzen. Wenn dessen lagerpflichtige Baukosten gleichzeitig aus dem lokalen Pool bezahlt werden müssen, kann die erforderliche Kapazität direkt aus den Kosten folgen. Ob die Kapazität je Rohstoff oder gemeinsam gilt und ob ein ausdrückliches Mindestlagerlevel nötig ist, bleibt offen.
+**Entwicklungstempo:** Die Lagergröße soll wichtige Schritte wie den Bau eines Kolonieschiffs begrenzen. Wenn dessen lagerpflichtige Baukosten gleichzeitig aus dem lokalen Pool bezahlt werden müssen, kann die erforderliche Kapazität direkt aus den Kosten folgen. Die Baukosten sind daher je lagerpflichtigem Ressourcentyp gegen dessen verfügbare Kapazität zu prüfen. Ob zusätzlich ein ausdrückliches Mindestlagerlevel nötig ist, bleibt offen.
 
 **Prüffall:** Ein Kolonieschiff soll mit der vorgesehenen Lagergröße finanzierbar sein. Die nötige Lagererweiterung muss ihrerseits aus dem bis dahin verfügbaren Vorrat bezahlbar sein. Für kleinere Lagerstufen ist zu prüfen, ob Bunkerausbau oder die Kombination mehrerer Lager den Meilenstein wie vorgesehen beeinflussen.
 
