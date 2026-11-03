@@ -262,7 +262,9 @@ Welche weiteren Ressourcen lagerpflichtig sind, bleibt offen. Bei Kapazitätsver
 
 ## Kolonisation
 
-**Bestätigte Regel:** Die Ausbaustufe des Kolonisationszentrums bestimmt, wie viele Kolonien ein Spieler gründen kann. Die Zuordnung von Stufe zu Limit und die Behandlung laufender Gründungsflüge bleiben offen.
+**Bestätigte Regel:** Die Ausbaustufe des Kolonisationszentrums bestimmt, wie viele Kolonien ein Spieler gründen kann. Die Zuordnung von Stufe zu Limit bleibt offen.
+
+Gründungsflüge belegen unterwegs keinen Kolonieplatz. Bei Ankunft werden das Kolonielimit und die Verfügbarkeit des Ziels geprüft. Sobald eine Gründung beginnt, zählt sie bereits gegen das Limit. Prüfung und Belegung müssen auch bei gleichzeitigen Ankünften zusammenwirken, sodass ein freier Platz höchstens einmal belegt wird. Die Gründung dauert eine gewisse Zeit. 15 Minuten sind ein vorläufiger Balancing-Wert. Das Verhalten bei verweigerter oder unterbrochener Gründung und die Freigabe des Platzes bleiben offen.
 
 **Vorschlag:** Wenige Kolonieschiffstypen können sich in Reichweite und Startfracht unterscheiden. Eine Kopplung ihrer Kapazität an die Ausbaustufe des Zentrums bleibt offen.
 
@@ -390,6 +392,10 @@ Eine Kolonie hält 90 Eis bei 100 Gesamtkapazität, davon 20 durch einen Bunker 
 ### S15 – Wiederaufbau mit Nachschub
 
 Nach einem Angriff versorgt das Habitat die verbliebene Bevölkerung. Die Mine ist zerstört und der verfügbare Bestand an Baumaterial reicht für ihren Neubau nicht aus. In diesem Fall setzt der Wiederaufbau einen Transport mit den fehlenden Materialien voraus. Nach dessen Entladung gelten die üblichen Bauvoraussetzungen.
+
+### S16 – Zwei Gründungsflüge bei einem freien Kolonieplatz
+
+Ein Spieler hat einen freien Kolonieplatz und schickt zwei Kolonieschiffe zu verschiedenen Kandidaten. Beide können starten. Ist das erste Ziel bei Ankunft blockiert, belegt dieser Anflug keinen Platz. Kann das zweite Schiff gründen, belegt es den Platz mit Beginn der Gründung. Beginnt dagegen schon das erste Schiff eine Gründung, ist der Platz auch während ihrer Dauer belegt. Das zweite Schiff kann dann keine weitere Gründung beginnen. Bei Ankünften zum gleichen Spielzeitpunkt kann höchstens eine Gründung beginnen. Die Reihenfolge bei Gleichzeitigkeit bleibt offen.
 
 ## Offene fachliche Fragen – zuerst klären
 
