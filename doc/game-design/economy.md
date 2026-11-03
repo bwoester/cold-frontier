@@ -264,7 +264,9 @@ Welche weiteren Ressourcen lagerpflichtig sind, bleibt offen. Bei Kapazitätsver
 
 **Bestätigte Regel:** Die Ausbaustufe des Kolonisationszentrums bestimmt, wie viele Kolonien ein Spieler gründen kann. Die Zuordnung von Stufe zu Limit bleibt offen.
 
-Gründungsflüge belegen unterwegs keinen Kolonieplatz. Bei Ankunft werden das Kolonielimit und die Verfügbarkeit des Ziels geprüft. Sobald eine Gründung beginnt, zählt sie bereits gegen das Limit. Ab diesem Zeitpunkt ist der Zielplanet exklusiv durch die laufende Gründung belegt. Auf demselben Planeten kann höchstens eine Gründung gleichzeitig laufen. Prüfung und Belegung müssen auch bei gleichzeitigen Ankünften zusammenwirken, sodass ein freier Platz höchstens einmal belegt wird. Die Gründung dauert eine gewisse Zeit. 15 Minuten sind ein vorläufiger Balancing-Wert. Kann das Schiff bei Ankunft nicht gründen, bleibt es unabhängig vom Treibstoffstand im Orbit und wartet auf einen neuen Auftrag des Spielers. Das gilt insbesondere bei blockiertem Ziel oder erreichtem Kolonielimit. Die verfügbaren Folgeaufträge sowie die Behandlung unterbrochener Gründungen und die Freigabe belegter Plätze bleiben offen.
+Gründungsflüge belegen unterwegs keinen Kolonieplatz. Bei Ankunft werden das Kolonielimit und die Verfügbarkeit des Ziels geprüft. Sobald eine Gründung beginnt, zählt sie bereits gegen das Limit. Ab diesem Zeitpunkt ist der Zielplanet exklusiv durch die laufende Gründung belegt. Auf demselben Planeten kann höchstens eine Gründung gleichzeitig laufen. Prüfung und Belegung müssen auch bei gleichzeitigen Ankünften zusammenwirken, sodass ein freier Platz höchstens einmal belegt wird. Die Gründung dauert eine gewisse Zeit. 15 Minuten sind ein vorläufiger Balancing-Wert. Kann das Schiff bei Ankunft nicht gründen, bleibt es unabhängig vom Treibstoffstand im Orbit und wartet auf einen neuen Auftrag des Spielers. Das gilt insbesondere bei blockiertem Ziel oder erreichtem Kolonielimit. Die verfügbaren Folgeaufträge bleiben offen.
+
+**Iteration 1:** Jede begonnene Gründung wird nach der Gründungsdauer erfolgreich abgeschlossen. Unterbrechungen oder Scheitern während des Aufbaus sowie die dadurch nötige Freigabe von Planet und Kolonieplatz sind spätere Ideen.
 
 **Vorschlag:** Wenige Kolonieschiffstypen können sich in Reichweite und Startfracht unterscheiden. Eine Kopplung ihrer Kapazität an die Ausbaustufe des Zentrums bleibt offen.
 
@@ -405,7 +407,7 @@ Die [übergreifende Architekturfrage zur Auftragsreihenfolge](../architecture/co
 
 ### S17 – Zwei Spieler fliegen denselben Planeten an
 
-Spieler A beginnt auf einem freien Planeten mit der Gründung. Spieler B trifft während der Aufbauphase ein. Der Planet ist bereits belegt. B kann keine Gründung beginnen und wartet im Orbit auf einen neuen Auftrag. Wie die Belegung bei unterbrochener Gründung endet, bleibt offen.
+Spieler A beginnt auf einem freien Planeten mit der Gründung. Spieler B trifft während der Aufbauphase ein. Der Planet ist bereits belegt. B kann keine Gründung beginnen und wartet im Orbit auf einen neuen Auftrag. In Iteration 1 endet der Aufbau mit der erfolgreichen Gründung von A. Der Planet bleibt durch die fertige Kolonie belegt.
 
 ## Offene fachliche Fragen – zuerst klären
 
