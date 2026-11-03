@@ -13,6 +13,7 @@ Diese Dokumentation ist bewusst **ein wachsendes Arbeitsmodell**, kein fertiges 
 - [[sources/icewars-catalog|Alte IceWars-Unterlagen – Fortschritt]] – Quelleninventar, Analyse, Dokumentation und Archivierung.
 - [[game-design/icewars-references|IceWars-Recherche]] – historische Inspiration, **keine** Cold-Frontier-Anforderungen.
 - [[architecture/current-state|Technischer Ist-Zustand]] – beobachteter Prototyp, keine Architekturentscheidung.
+- [Auftragsreihenfolge und konkurrierende Aktionen](architecture/command-ordering.md) – offene Architekturfrage für das gesamte Spiel.
 - [[notes|Frühere technische Notizen]] – unveränderte Ideensammlung.
 - [[personas/overall-tone|Erzählton]] und [[personas/interpersonal-dynamics|Berater-Beziehungen]] – vorhandene Figurenkonzepte.
 
