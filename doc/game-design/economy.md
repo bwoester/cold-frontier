@@ -189,7 +189,7 @@ Diese Fälle sind Prüfpunkte für noch zu beschließende Regeln, keine bereits 
 | Freiwilliger Bauabbruch | Der Spieler erhält auch bei einem noch wartenden Auftrag nur einen Teil der eingesetzten Ressourcen zurück. | Bestätigte Regel. Feste Quote unabhängig vom Fortschritt. Höhe, Rundung und betroffene Ressourcen offen. |
 | Zweck des Abbruchverlusts | Bauplätze sollen keine verlustfreie Möglichkeit sein, Ressourcen vor Angriffen zu sichern. | Bestätigte Designabsicht. Teilrückzahlung verhindert allein noch nicht jede profitable Schutzstrategie. |
 | Gebäude und Forschung bei beeinträchtigten Bedingungen | Fortschritt soll sich verlangsamen, etwa bei Strommangel. | Bestätigte Designrichtung. Auslöser, Stärke, Kombination von Effekten und Erholung noch zu definieren. Vorläufige Präferenz gegen vollständigen Stillstand; siehe Ergänzung unten. Kein allgemeiner Verlust bereits erreichten Fortschritts festgelegt. |
-| Orbitale Werften | Denkbar sind härtere Folgen: Verlust gerade produzierter Schiffe oder Absturz der Werft. | Vorschläge des Projektinhabers, keine beschlossenen Regeln. Ereignisse, Häufigkeiten, Schutzmöglichkeiten und Konsequenzen offen. |
+| Orbitale Werften | Bei Zerstörung gehen die darin im Bau befindlichen Schiffe verloren. | Bestätigte Regel. Auslöser der Zerstörung und Folgen für wartende Aufträge bleiben offen. |
 | Unterschiedliche Auftragstypen | Bedingungen und Folgen dürfen sich nach Gebäudebau, Forschung und Schiffbau unterscheiden. Weitere Regeln können später hinzukommen. | Fachlicher Gestaltungsspielraum; daraus folgt kein universelles Job-Framework oder Plugin-System. |
 
 **Zeit und Kosten getrennt betrachten:** Vorausbezahlte Baukosten und zeitabhängiger Fortschritt sind verschiedene fachliche Größen. Begrenzte Baukapazität macht Zeit strategisch wertvoll, erfordert aber kein gemeinsames Verbrauchskonto für Material und Zeit. Das frühere Modell, Zeit kontinuierlich wie eine Ressource zu verbrauchen, ist historische Lösungsarbeit. Laufender Gebäude-Personalbedarf ist inzwischen als Bindung einer Personenanzahl geklärt; verbrauchbare Betriebsmittel werden dagegen als Menge pro Zeit beschrieben. Konkrete Energie-, Verbrauchs- und Fortschrittsregeln bleiben offen.
@@ -200,7 +200,7 @@ Diese Fälle sind Prüfpunkte für noch zu beschließende Regeln, keine bereits 
 - **Abbruchrückzahlung:** Für laufende und wartende Bauaufträge gilt dieselbe feste Quote auf die tatsächlich gezahlten Kosten einschließlich Warteschlangenaufschlag. Die Quote ist unabhängig vom Baufortschritt. Höhe, Rundung und Lagergrenzen bei der Erstattung bleiben offen.
 - **Korrekturfrist (Vorschlag):** Ein versehentlich erteilter Bauauftrag könnte innerhalb weniger Minuten ohne Verlust zurückgenommen werden. Eine solche Frist darf keinen zusätzlichen Schutz vor Plünderung eröffnen. Prüffall: Bau kurz vor einem Angriff einreihen, vor oder während des Angriffs zurücknehmen und die vollständige Erstattung erst nach dem Angriff erhalten. Auch wiederholtes Einreihen und Zurücknehmen ist zu prüfen. Dauer und genaue Spielregel bleiben offen.
 - **Ressourcenschutz:** Auch mit Verlust kann Einlagern in Bauaufträge lohnen, wenn die erwartete Rückzahlung höher ist als der nach einem Angriff verbleibende Bestand. Das ist eine zu prüfende Folgewirkung, kein bereits nachgewiesener Exploit einer fertigen Regel.
-- **Abbruch, Zwischenfall und Zerstörung unterscheiden:** Die Teilrückzahlung ist bisher für freiwilligen Bauabbruch festgehalten. Erstattungen und Fortschrittsfolgen bei zerstörtem Bauplatz, verlorener Werft oder verlorenem Schiff sind nicht daraus abgeleitet.
+- **Abbruch, Zwischenfall und Zerstörung unterscheiden:** Die Teilrückzahlung ist bisher für freiwilligen Bauabbruch festgehalten. Für Werftzerstörung gilt der Verlust laufender Schiffbauten gemäß S8. Erstattungen bei Zerstörung bleiben offen.
 - **Fortschritt:** Konkrete Auslöser für Verlangsamung, mögliche Rate null, Wiederaufnahme, Reihenfolge gleichzeitiger Ereignisse und das Wirksamwerden einer Fertigstellung sind offen.
 - **Bau-Frei-Minuten:** Historische Beschleunigungsmechanik separat in [[icewars-references#Erfahrungsbericht – Bau-Frei-Minuten]]; keine automatische Übernahme für Cold Frontier.
 
@@ -212,7 +212,7 @@ Diese Fälle sind Prüfpunkte für noch zu beschließende Regeln, keine bereits 
 - **Noch offen zum Abbruch:** Kann der Abbruch widerrufen werden? Wie wirken Angriffe, zerstörte Bauplätze oder Lagergrenzen während der Abbruchphase?
 - **Betriebsbedingungen:** Strom und freie Bevölkerung sind erste Kandidaten; die Liste ist erweiterbar und noch nicht abschließend beschlossen. „Freie Bevölkerung“ ist inzwischen als Überschuss über den laufenden Gebäude-Personalbedarf eingeordnet; siehe [[economy#Bevölkerung und Arbeitskräfte]]. Die genaue Verwendung bei Aufträgen ist noch offen.
 - **Vorläufige Präferenz gegen Stillstand:** Der Projektinhaber möchte vollständigen Stillstand bei Betriebsmangel nach erster Einschätzung vermeiden, damit sich Accounts nicht vollständig blockieren. Mindestfortschritt, dessen fachliche Grundlage und Grenzen sind noch offen. Eine positive Rate ohne Strom oder Bevölkerung ist damit nicht bereits spezifiziert.
-- **Verlust einer Auftragsgrundlage:** Automatischer Abbruch erscheint bei fehlender tragender Infrastruktur, etwa Schiffbau ohne Werft, plausibel. Dies ist ein Diskussionskandidat, keine bestätigte Regel. Kostenverlust, Erstattung, mögliche Rettung beziehungsweise Übertragung und Umgang mit bereits geleisteter Arbeit bleiben offen.
+- **Verlust einer Auftragsgrundlage:** Bei Zerstörung einer Werft gehen die dort im Bau befindlichen Schiffe samt Fortschritt verloren. Folgen beim Verlust anderer Auftragsgrundlagen bleiben offen.
 - **Designspannung:** Verlust einer Voraussetzung könnte wochenlang angesparte Investitionen vernichten. Die historische Häufigkeit solcher Fälle ist unbekannt; geringe vermutete Häufigkeit ist kein Beleg für akzeptable Folgen.
 
 **Vorschlag zur fachlichen Unterscheidung:** Startvoraussetzungen (z. B. Freischaltung), Betriebsbedingungen für die Fortschrittsrate und die physische Grundlage eines Auftrags getrennt betrachten. Ein verloren gegangenes Forschungsgebäude muss nicht dieselben Folgen haben wie die Zerstörung der Werft, in der ein Schiff entsteht. Welche konkrete Voraussetzung zu welcher Gruppe gehört, wird erst anhand der Mechanik entschieden; keine allgemeine Abbruchregel für jeden Voraussetzungsverlust.
@@ -328,12 +328,11 @@ Dieses Szenario legt keine vollständige Erschöpfung von Eis fest; dafür gelte
 **Dann soll gelten (Designrichtung):** Der Fortschritt verlangsamt sich. Ein automatischer Fehlschlag nur wegen der Verlangsamung ist damit nicht festgelegt.  
 **Noch zu bestimmen:** Strom und freie Bevölkerung als erste Bedingungskandidaten; konkrete Auslöser, Mindestrate, Kombination mehrerer Engpässe und Verhalten bei Erholung. Vorläufige Präferenz: vollständigen Stillstand und eine dadurch blockierte Accountentwicklung vermeiden; noch keine garantierte Mindestgeschwindigkeit festgelegt.
 
-### S8 – Zwischenfall an einer orbitalen Werft (offener Vorschlag)
+### S8 – Werftzerstörung während des Schiffbaus
 
-**Gegeben:** Eine orbitale Werft produziert ein Schiff.  
-**Wenn:** Ein noch zu definierender Zwischenfall eintritt.  
-**Dann ist zu entscheiden:** Nur Verlangsamung oder auch Schiffsverlust, Werftverlust beziehungsweise Absturz? Welche Folgen für gezahlte Kosten, andere Aufträge und mögliche betroffene Objekte?  
-**Status:** Keine dieser härteren Folgen ist beschlossen.
+Eine orbitale Werft wird zerstört, während darin ein oder mehrere Schiffe entstehen. Die unfertigen Schiffe gehen samt Baufortschritt verloren. Die Behandlung wartender Aufträge, die Erstattung gezahlter Kosten und die Regeln für Beschädigung ohne Zerstörung bleiben offen.
+
+**Spätere Idee aus der IceWars-Erinnerung:** Bergung und Wiederverwendung von Weltraumschrott könnten teure Verluste mildern. Ob und in welcher Menge ein Werftverlust Schrott erzeugt, wer ihn bergen kann und welche Materialien zurückgewonnen werden, bleibt offen.
 
 ### S9 – Wohnraumverlust begrenzt Bevölkerung
 
