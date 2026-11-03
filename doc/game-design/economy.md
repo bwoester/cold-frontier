@@ -220,9 +220,13 @@ Diese Fälle sind Prüfpunkte für noch zu beschließende Regeln, keine bereits 
 
 ### Warteschlangenaufschlag und Zusammenarbeit
 
-**Zeitpunkte für Baumodifikatoren:** Der Bauauftrag hält den beim Einreihen bestimmten Zeitfaktor der Warteschlange fest. Beim tatsächlichen Baubeginn werden die dann geltenden übrigen Baumodifikatoren für die Bauzeit berücksichtigt. Planetenwerte, Genetik und Forschung sind mögliche Quellen. Welche Modifikatoren gelten und wie sie kombiniert werden, bleibt offen. Die laufenden Betriebsbedingungen für den Baufortschritt werden gesondert betrachtet. Welche sonstigen Modifikatoren sich nach Baubeginn noch auswirken, bleibt offen.
+**Zeitpunkte für Baumodifikatoren:** Der Auftrag behält den beim Einreihen bestimmten Zeitfaktor der Warteschlange. Beim tatsächlichen Baubeginn gelten die dann wirksamen übrigen Baumodifikatoren. Ändern sich diese während des Baus, wirken sie standardmäßig ab ihrem fachlichen Wirksamkeitszeitpunkt auf die verbleibende Arbeit. Bereits geleisteter Fortschritt bleibt erhalten. Mögliche Quellen sind Forschung, Genetik, durch Terraforming veränderte Planetenwerte und Betriebsbedingungen. Welche Modifikatoren gelten und wie sie kombiniert werden, bleibt offen.
+
+**Anforderung an das Modell:** Die Fortschrittsberechnung verarbeitet die wirksamen Einflüsse und ihre Zeitpunkte unabhängig von ihrer Herkunft. Zusätzliche Einflussquellen sollen sich ergänzen lassen, ohne die Fortschrittsregeln für jede Quelle einzeln zu ändern.
 
 **Prüffall:** Ein Auftrag wird auf Warteplatz 2 mit Zeitfaktor 1,21 eingereiht. Vor Baubeginn wird eine Forschung wirksam, die die Bauzeit beeinflusst. Beim Start gehen der gespeicherte Faktor 1,21 und der nun gültige Forschungsmodifikator in die Berechnung ein. Nachrücken ändert den gespeicherten Faktor nicht.
+
+**Prüffall für einen laufenden Bau:** Unter den Startbedingungen dauert ein Bau zwei Stunden. Nach einer Stunde ist die Hälfte der Arbeit geleistet. Ab dann steigt das Bautempo um 20 Prozent. Bei unveränderten übrigen Bedingungen dauert die verbleibende Arbeit 50 Minuten. Derselbe wirksame Tempoänderungswert führt zum selben Ergebnis, ob er von Forschung, Genetik oder Terraforming stammt. Der Warteschlangenfaktor bleibt erhalten.
 
 
 **Bestätigte Designrichtung, 2026-11-02:** Der Projektinhaber möchte den Warteschlangenaufschlag beibehalten. Zeit beziehungsweise begrenzte Baukapazität soll eine besonders wertvolle strategische Größe bleiben. Vorausplanung darf gegenüber zeitnahem manuellem Beauftragen wirtschaftlich nachteilig sein; sinnlose kurze Logins sind dabei kein eigenständiges Motivationsziel.
