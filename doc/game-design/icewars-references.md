@@ -86,6 +86,15 @@ Mögliche Bedeutung für Cold Frontier: [[economy#Warteschlangenaufschlag und Zu
 
 IceWars ermöglichte laut Projektinhaber Spezialisierungen über Genetik, die unterschiedliche Rollen und Zusammenarbeit zwischen Spielern begünstigten. Konkrete Optionen, Wirkungen, Kosten und Wechselmöglichkeiten sind noch nicht rekonstruiert. Die für Cold Frontier genannten Profile Ressourcenabbau, Schiffbau und Handelswesen sind heutige Ideen; sie werden nicht als belegte damalige Genetik-Optionen ausgegeben.
 
+## Erfahrungsbericht – Galaxien und Kolonisationsreichweite
+
+**Quelle:** Benjamin Wöster, Projektgespräch vom 2026-11-03.
+
+- Sonnensysteme umfassten nach Erinnerung ungefähr 1 bis 15 Planeten. Flüge zwischen Sonnensystemen derselben Galaxie waren grundsätzlich mit allen Schiffstypen möglich. An auf ein einziges Sonnensystem beschränkte Schiffe erinnert sich der Projektinhaber nicht.
+- Galaxiewechsel erforderten besondere Forschung und dafür geeignete Schiffstypen. Das INS-03A gehört nach Erinnerung zu dieser fortgeschrittenen Entwicklungsstufe. Der Name „Systemkolonieschiff“ des KISS-01 belegt für sich keine Beschränkung auf ein Sonnensystem.
+- Jede vierte Galaxie war nach Erinnerung eine Chaosgalaxie. Dort gab es extreme Planeten mit hohen, oft auf einen Rohstoff konzentrierten Vorkommen sowie Anomalien wie Zeitverkrümmungen und Antimateriewirbel. Eine Wirkung der Anomalien auf das Spielgeschehen ist nicht erinnert.
+- **Inspiration für Cold Frontier:** Chaosgalaxien mit extremen Vorkommen und Anomalien als erzählerische Elemente. Platzierung und Vorkommensregeln sind offen. Für Anomalien ist derzeit keine Simulationswirkung vorgesehen.
+
 ## Mögliche Inspirationsfelder – ausdrücklich offen
 
 - Tiefer Technologiebaum und ungewöhnliche Gebäude
