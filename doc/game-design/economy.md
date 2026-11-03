@@ -238,6 +238,14 @@ Welche weiteren Ressourcen lagerpflichtig sind und was bei Anlieferung oder Kapa
 
 **Prüffall:** Ein Kolonieschiff soll mit der vorgesehenen Lagergröße finanzierbar sein. Die nötige Lagererweiterung muss ihrerseits aus dem bis dahin verfügbaren Vorrat bezahlbar sein. Für kleinere Lagerstufen ist zu prüfen, ob Bunkerausbau oder die Kombination mehrerer Lager den Meilenstein wie vorgesehen beeinflussen.
 
+## Kolonisation
+
+**Bestätigte Regel:** Die Ausbaustufe des Kolonisationszentrums bestimmt, wie viele Kolonien ein Spieler gründen kann. Die Zuordnung von Stufe zu Limit und die Behandlung laufender Gründungsflüge bleiben offen.
+
+**Vorschlag:** Wenige Kolonieschiffstypen können sich in Reichweite und Startfracht unterscheiden. Eine Kopplung ihrer Kapazität an die Ausbaustufe des Zentrums bleibt offen.
+
+**Idee zur späteren Prüfung:** Ein zweckgebundener Flottenauftrag könnte Ziel, Flug und Handlung bei Ankunft zusammenfassen. Ein eigenes Missionssystem ist eine offene Designidee.
+
 ## Handel und Transport
 
 **Projektziel:** Ressourcen handeln und zwischen Planeten transportieren. Noch offen: Warenbesitz während Transport, Credits-Transfers, Handelsregeln, Verzögerung, Angriffe auf Konvois und atomare Buchungen.
