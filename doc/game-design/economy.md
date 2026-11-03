@@ -207,8 +207,8 @@ Diese Fälle sind Prüfpunkte für noch zu beschließende Regeln, keine bereits 
 
 **Klärung vom 2026-11-02 durch den Projektinhaber:**
 
-- **Regelrichtung für freiwilligen Abbruch:** Zunächst wechselt der Auftrag in den Status **„wird abgebrochen“**. Erst nach Abschluss des Abbruchs werden Ressourcen anteilig zurückgezahlt und der Bauplatz wieder freigegeben. Die Dauer von **5 Minuten** ist ein vorläufiger Vorschlag, kein festes Balancing.
-- **Noch offen zum Abbruch:** Arbeitet der Bau währenddessen weiter oder endet sein Fortschritt mit Annahme des Abbruchs? Was geschieht, wenn die reguläre Fertigstellung vorher läge? Kann der Abbruch widerrufen werden? Gilt die Abbruchphase auch für wartende Aufträge? Wie wirken Angriffe, zerstörte Bauplätze oder Lagergrenzen während der Abbruchphase?
+- **Bestätigte Regel für freiwilligen Abbruch:** Mit Annahme des Abbruchs wechselt ein laufender oder wartender Bauauftrag in den Status **„wird abgebrochen“**. Laufender Baufortschritt stoppt sofort. Ein wartender Auftrag in diesem Status startet auch bei frei werdendem Bauplatz nicht. Bis zum Abschluss bleibt der jeweilige Bau- oder Warteplatz belegt. Danach erfolgt die anteilige Erstattung und der Platz wird freigegeben. Die Dauer von **5 Minuten** bleibt ein vorläufiger Balancing-Wert.
+- **Noch offen zum Abbruch:** Kann der Abbruch widerrufen werden? Wie wirken Angriffe, zerstörte Bauplätze oder Lagergrenzen während der Abbruchphase?
 - **Betriebsbedingungen:** Strom und freie Bevölkerung sind erste Kandidaten; die Liste ist erweiterbar und noch nicht abschließend beschlossen. „Freie Bevölkerung“ ist inzwischen als Überschuss über den laufenden Gebäude-Personalbedarf eingeordnet; siehe [[economy#Bevölkerung und Arbeitskräfte]]. Die genaue Verwendung bei Aufträgen ist noch offen.
 - **Vorläufige Präferenz gegen Stillstand:** Der Projektinhaber möchte vollständigen Stillstand bei Betriebsmangel nach erster Einschätzung vermeiden, damit sich Accounts nicht vollständig blockieren. Mindestfortschritt, dessen fachliche Grundlage und Grenzen sind noch offen. Eine positive Rate ohne Strom oder Bevölkerung ist damit nicht bereits spezifiziert.
 - **Verlust einer Auftragsgrundlage:** Automatischer Abbruch erscheint bei fehlender tragender Infrastruktur, etwa Schiffbau ohne Werft, plausibel. Dies ist ein Diskussionskandidat, keine bestätigte Regel. Kostenverlust, Erstattung, mögliche Rettung beziehungsweise Übertragung und Umgang mit bereits geleisteter Arbeit bleiben offen.
@@ -317,8 +317,8 @@ Dieses Szenario legt keine vollständige Erschöpfung von Eis fest; dafür gelte
 **Wenn:** Der Spieler reiht den Bauauftrag ein, während der Bauplatz belegt ist.  
 **Dann gilt (bestätigte Regel):** Die Baukosten werden sofort abgezogen.  
 **Wenn:** Der Spieler bricht den Auftrag ab, während er noch wartet oder bereits läuft.  
-**Dann gilt (Regelrichtung):** Der Auftrag wechselt zunächst auf „wird abgebrochen“. Erst nach Abschluss des Abbruchs werden ein Teil der eingesetzten Ressourcen zurückgezahlt und der Bauplatz freigegeben. Die vorgeschlagenen 5 Minuten sind vorläufig.  
-**Noch zu bestimmen:** Abbruchdauer und deren Einflussfaktoren, Geltung der Abbruchphase für wartende Aufträge, Fortschritt während des Abbruchs, Rückzahlungsformel, Rundung und Umgang mit verschiedenen Kostenarten.
+**Dann gilt:** Der Auftrag wechselt auf „wird abgebrochen“. Er erzielt keinen weiteren Fortschritt und startet nicht aus der Warteschlange. Erst nach Abschluss erfolgen die anteilige Erstattung und die Freigabe des jeweiligen Platzes. Liegt die bisher prognostizierte Fertigstellung in der Abbruchphase, wird der Bau nicht fertig.
+**Noch zu bestimmen:** Abbruchdauer und deren Einflussfaktoren, Rückzahlungsformel, Rundung und Umgang mit verschiedenen Kostenarten.
 
 ### S7 – Beeinträchtigter Bau- oder Forschungsfortschritt
 
