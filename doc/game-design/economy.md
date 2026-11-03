@@ -252,7 +252,13 @@ Historische Anregung: [[icewars-references#Erfahrungsbericht – planetare Bauwa
 
 Für lagerpflichtige Ressourcen begrenzt die Kapazität den Vorrat. Bei vollem Lager geht zusätzliche Produktion verloren. Lager und Bunker können einem einzelnen Ressourcentyp oder mehreren Typen zugeordnet sein. Die Kapazität gilt für jeden unterstützten Typ separat. Ein Eis- und Wasserlager mit Kapazität 100 fasst gleichzeitig 100 Eis und 100 Wasser. Freier Eisplatz erhöht die Wasserkapazität nicht. Energie hat ein eigenes Lager. Bei Mehrstoffbunkern gilt die Schutzkapazität entsprechend je unterstütztem Ressourcentyp.
 
-Welche weiteren Ressourcen lagerpflichtig sind, bleibt offen. Bei Kapazitätsverlust verfällt der Überbestand je lagerpflichtigem Ressourcentyp sofort. Verfallene Mengen stehen für eine anschließende Plünderung nicht zur Verfügung. Ob Bunker zerstörbar sind, bleibt offen. Die Anlieferung aus dem Orbit ist unter Handel und Transport geregelt.
+Für Iteration 1 gilt vorläufig: Chemische Elemente und Energie haben jeweils eigene Lager. Eis und Wasser teilen sich ein Lagergebäude mit separater Kapazität je Rohstoff. Eisen, Stahl und VV4A können unbegrenzt auf der Planetenoberfläche lagern. Wohnraum begrenzt die Bevölkerung.
+
+**Anforderung an die Konfigurierbarkeit:** Ressourcentypen, ihre Lagerpflicht und die Beiträge von Gebäuden zu Lagerkapazität und Schutz sollen sich im Rahmen der unterstützten Regeln über Spieldaten konfigurieren lassen. Zusätzliche Rohstoffe und geänderte Zuordnungen sollen dadurch ohne Änderung der Simulationslogik möglich sein.
+
+**Offene Bunkervariante:** Bunker könnten Eisen, Stahl und VV4A bis zu einer konfigurierten Menge vor Plünderung schützen. Für unbegrenzt lagerbare Rohstoffe wäre dafür kein Beitrag zur Lagerkapazität nötig. Ob IceWars solche Bunker hatte und ob Cold Frontier sie übernimmt, ist offen.
+
+ Bei Kapazitätsverlust verfällt der Überbestand je lagerpflichtigem Ressourcentyp sofort. Verfallene Mengen stehen für eine anschließende Plünderung nicht zur Verfügung. Ob Bunker zerstörbar sind, bleibt offen. Die Anlieferung aus dem Orbit ist unter Handel und Transport geregelt.
 
 **Bestätigte Balancing-Richtung:** Die Ausbaukosten von Lagern und Bunkern steigen überproportional, bei Bunkern noch stärker. Kleine Lager sollen günstig sein, Stufe 5 bereits deutlich mehr kosten und Stufe 10 längeres Sparen erfordern. Stufe 15 soll praktisch unerschwinglich sein. Das sind Zielbilder, konkrete Preise und Kapazitätskurven stehen noch aus. Die Kapazität darf nichtlinear wachsen.
 
@@ -423,7 +429,7 @@ Spieler A beginnt auf einem freien Planeten mit der Gründung. Spieler B trifft 
 2. Welche Ebene besitzt welche Bestände (Planet, Spieler, Flotte)?
 3. Wie werden knappe Eingangsressourcen auf Verbraucher verteilt?
 4. Welche Ereignisse ändern Produktionsraten?
-5. Welche Ressourcen benötigen Lager, wie wirken Bunker und wie werden erschöpfbare Vorkommen behandelt?
+5. Welche Rohstoffe können Bunker schützen und wie werden erschöpfbare Vorkommen behandelt?
 6. Welche Zeitsemantik erwarten Spieler bei gleichzeitigen Aktionen?
 
 ## Nächster Modellierungsschritt
