@@ -186,7 +186,7 @@ Diese Fälle sind Prüfpunkte für noch zu beschließende Regeln, keine bereits 
 | Aspekt | Festgehalten | Status / Grenze |
 | --- | --- | --- |
 | Baukosten | Die Baukosten werden beim Einreihen abgezogen, auch wenn der Auftrag warten muss. | Bestätigte Regel. Kostenzeitpunkt für Forschung nicht ausdrücklich separat bestätigt. |
-| Freiwilliger Bauabbruch | Der Spieler erhält auch bei einem noch wartenden Auftrag nur einen Teil der eingesetzten Ressourcen zurück. | Bestätigte Regel. Quote, Rundung, betroffene Ressourcen und Fortschrittsabhängigkeit offen. |
+| Freiwilliger Bauabbruch | Der Spieler erhält auch bei einem noch wartenden Auftrag nur einen Teil der eingesetzten Ressourcen zurück. | Bestätigte Regel. Feste Quote unabhängig vom Fortschritt. Höhe, Rundung und betroffene Ressourcen offen. |
 | Zweck des Abbruchverlusts | Bauplätze sollen keine verlustfreie Möglichkeit sein, Ressourcen vor Angriffen zu sichern. | Bestätigte Designabsicht. Teilrückzahlung verhindert allein noch nicht jede profitable Schutzstrategie. |
 | Gebäude und Forschung bei beeinträchtigten Bedingungen | Fortschritt soll sich verlangsamen, etwa bei Strommangel. | Bestätigte Designrichtung. Auslöser, Stärke, Kombination von Effekten und Erholung noch zu definieren. Vorläufige Präferenz gegen vollständigen Stillstand; siehe Ergänzung unten. Kein allgemeiner Verlust bereits erreichten Fortschritts festgelegt. |
 | Orbitale Werften | Denkbar sind härtere Folgen: Verlust gerade produzierter Schiffe oder Absturz der Werft. | Vorschläge des Projektinhabers, keine beschlossenen Regeln. Ereignisse, Häufigkeiten, Schutzmöglichkeiten und Konsequenzen offen. |
@@ -197,7 +197,8 @@ Diese Fälle sind Prüfpunkte für noch zu beschließende Regeln, keine bereits 
 **Offene Randfälle / Prüfung der Designabsicht:**
 
 - **Warteschlange:** Die Kosten werden beim Einreihen verbindlich abgezogen. Beim späteren Arbeitsbeginn erfolgt keine zweite Abbuchung.
-- **Abbruchrückzahlung:** Feste Quote oder abhängig von Fortschritt beziehungsweise Auftragstyp? Maßgeblich sind die tatsächlich eingesetzten Ressourcen; eine genaue Berechnungsregel ist noch nicht beschlossen. Verhalten bei zwischenzeitlichen Balancing-Änderungen und Lagergrenzen offen.
+- **Abbruchrückzahlung:** Für laufende und wartende Bauaufträge gilt dieselbe feste Quote auf die tatsächlich gezahlten Kosten einschließlich Warteschlangenaufschlag. Die Quote ist unabhängig vom Baufortschritt. Höhe, Rundung und Lagergrenzen bei der Erstattung bleiben offen.
+- **Korrekturfrist (Vorschlag):** Ein versehentlich erteilter Bauauftrag könnte innerhalb weniger Minuten ohne Verlust zurückgenommen werden. Eine solche Frist darf keinen zusätzlichen Schutz vor Plünderung eröffnen. Prüffall: Bau kurz vor einem Angriff einreihen, vor oder während des Angriffs zurücknehmen und die vollständige Erstattung erst nach dem Angriff erhalten. Auch wiederholtes Einreihen und Zurücknehmen ist zu prüfen. Dauer und genaue Spielregel bleiben offen.
 - **Ressourcenschutz:** Auch mit Verlust kann Einlagern in Bauaufträge lohnen, wenn die erwartete Rückzahlung höher ist als der nach einem Angriff verbleibende Bestand. Das ist eine zu prüfende Folgewirkung, kein bereits nachgewiesener Exploit einer fertigen Regel.
 - **Abbruch, Zwischenfall und Zerstörung unterscheiden:** Die Teilrückzahlung ist bisher für freiwilligen Bauabbruch festgehalten. Erstattungen und Fortschrittsfolgen bei zerstörtem Bauplatz, verlorener Werft oder verlorenem Schiff sind nicht daraus abgeleitet.
 - **Fortschritt:** Konkrete Auslöser für Verlangsamung, mögliche Rate null, Wiederaufnahme, Reihenfolge gleichzeitiger Ereignisse und das Wirksamwerden einer Fertigstellung sind offen.
@@ -318,7 +319,7 @@ Dieses Szenario legt keine vollständige Erschöpfung von Eis fest; dafür gelte
 **Dann gilt (bestätigte Regel):** Die Baukosten werden sofort abgezogen.  
 **Wenn:** Der Spieler bricht den Auftrag ab, während er noch wartet oder bereits läuft.  
 **Dann gilt:** Der Auftrag wechselt auf „wird abgebrochen“. Er erzielt keinen weiteren Fortschritt und startet nicht aus der Warteschlange. Erst nach Abschluss erfolgen die anteilige Erstattung und die Freigabe des jeweiligen Platzes. Liegt die bisher prognostizierte Fertigstellung in der Abbruchphase, wird der Bau nicht fertig.
-**Noch zu bestimmen:** Abbruchdauer und deren Einflussfaktoren, Rückzahlungsformel, Rundung und Umgang mit verschiedenen Kostenarten.
+**Noch zu bestimmen:** Abbruchdauer und deren Einflussfaktoren, Höhe der festen Rückzahlungsquote, Rundung und Umgang mit verschiedenen Kostenarten.
 
 ### S7 – Beeinträchtigter Bau- oder Forschungsfortschritt
 
