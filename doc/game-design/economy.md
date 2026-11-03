@@ -266,6 +266,10 @@ Welche weiteren Ressourcen lagerpflichtig sind, bleibt offen. Bei Kapazitätsver
 
 Gründungsflüge belegen unterwegs keinen Kolonieplatz. Bei Ankunft werden das Kolonielimit und die Verfügbarkeit des Ziels geprüft. Sobald eine Gründung beginnt, zählt sie bereits gegen das Limit. Ab diesem Zeitpunkt ist der Zielplanet exklusiv durch die laufende Gründung belegt. Auf demselben Planeten kann höchstens eine Gründung gleichzeitig laufen. Prüfung und Belegung müssen auch bei gleichzeitigen Ankünften zusammenwirken, sodass ein freier Platz höchstens einmal belegt wird. Die Gründung dauert eine gewisse Zeit. 15 Minuten sind ein vorläufiger Balancing-Wert. Kann das Schiff bei Ankunft nicht gründen, bleibt es unabhängig vom Treibstoffstand im Orbit und wartet auf einen neuen Auftrag des Spielers. Das gilt insbesondere bei blockiertem Ziel oder erreichtem Kolonielimit. Die verfügbaren Folgeaufträge bleiben offen.
 
+**Beladung beim Abflug:** Der Spieler wählt, wie viele Siedler und welche Baumaterialien das Kolonieschiff mitnimmt. Die Siedler stammen aus der freien Bevölkerung des Startplaneten, die Fracht aus seinem Rohstoffpool. Beim wirksamen Abflug gehen die gewählten Mengen an Bord und stehen am Startplaneten danach nicht mehr zur Verfügung. Bei erfolgreicher Gründung werden die mitgeführten Siedler zur Startbevölkerung und die Materialien zur einmaligen Startfracht der Kolonie. Wartet das Schiff im Orbit, bleiben Siedler und Fracht an Bord.
+
+**Offen:** Mindestzahl der Siedler, Personen- und Frachtkapazität je Schiffstyp, Verhältnis zur Wohnkapazität des Habitats und Umgang mit Startfracht oberhalb der anfänglichen Lagerkapazität.
+
 **Iteration 1:** Jede begonnene Gründung wird nach der Gründungsdauer erfolgreich abgeschlossen. Unterbrechungen oder Scheitern während des Aufbaus sowie die dadurch nötige Freigabe von Planet und Kolonieplatz sind spätere Ideen.
 
 **Vorschlag:** Wenige Kolonieschiffstypen können sich in Reichweite und Startfracht unterscheiden. Eine Kopplung ihrer Kapazität an die Ausbaustufe des Zentrums bleibt offen.
