@@ -397,6 +397,12 @@ Nach einem Angriff versorgt das Habitat die verbliebene Bevölkerung. Die Mine i
 
 Ein Spieler hat einen freien Kolonieplatz und schickt zwei Kolonieschiffe zu verschiedenen Kandidaten. Beide können starten. Ist das erste Ziel bei Ankunft blockiert, belegt dieser Anflug keinen Platz. Kann das zweite Schiff gründen, belegt es den Platz mit Beginn der Gründung. Beginnt dagegen schon das erste Schiff eine Gründung, ist der Platz auch während ihrer Dauer belegt. Das zweite Schiff kann dann keine weitere Gründung beginnen. Bei Ankünften zum gleichen Spielzeitpunkt hat das zuerst abgeschickte Schiff Vorrang, sofern es die Gründungsvoraussetzungen erfüllt. Belegt es den letzten freien Platz, bleibt das zweite Schiff im Orbit. Ein automatischer Rückflug ist dafür nicht vorgesehen, da der Treibstoff möglicherweise nicht reicht. Die Reihenfolge bei identischer Abflugzeit und die weiteren Möglichkeiten des Schiffs im Orbit bleiben offen.
 
+**Offene technische Frage – Auftragsreihenfolge über mehrere Tabs:** Ein Tab kann seine Eingabereihenfolge ausdrücklich übermitteln. Bei Aktionen aus mehreren Tabs oder Geräten können Ankunft und Verarbeitung am Server von der Eingabereihenfolge abweichen. Eine gemeinsame Klickreihenfolge lässt sich aus den Requests allein nicht zuverlässig ableiten.
+
+**Vorschlag für S16:** Bei gleicher Ankunftszeit hat der frühere wirksame Abflug Vorrang. Bei identischer Abflugzeit entscheidet eine verbindliche Auftragsreihenfolge, die im Audit nachvollziehbar ist. Wie diese Reihenfolge festgelegt wird, wie Aufträge aus mehreren Tabs zusammengeführt werden und wie Wiederholungen behandelt werden, bleibt zu entscheiden.
+
+**Prüffall:** Zwei Tabs schicken für denselben Spieler je einen Gründungsauftrag. Beide Abflüge und Ankünfte haben jeweils denselben Spielzeitpunkt, und nur ein Kolonieplatz ist frei. Die Requests können in beliebiger Reihenfolge eintreffen und erneut gesendet werden. Der Prüffall soll nach Festlegung der Reihenfolgeregel zeigen, welcher Auftrag Vorrang hat, dass der Platz höchstens einmal belegt wird und dass ein wiederholter Request keinen zusätzlichen Flug auslöst.
+
 ## Offene fachliche Fragen – zuerst klären
 
 1. Welche Ressourcen sind lagerbar, welche stellen Kapazität/Rate/Population dar?
