@@ -132,7 +132,7 @@ S9–S11 unten dienen als fachliche Prüfspezifikation. Insbesondere S11 ist nac
 
 **Beispiel zur Begriffsprüfung, keine Typdefinition:** Bei 1.000 Einwohnern und 800 laufend benötigten Arbeitskräften sind 200 frei. Ein einmaliger Bevölkerungskostenposten von 100 reduziert den belasteten Bestand auf 900; bei unverändertem Gebäude-Personalbedarf verbleiben 100 freie Bürger. Ein zusätzlicher laufender Personalbedarf von 100 belässt dagegen 1.000 Einwohner, erhöht den Gesamtbedarf auf 900 und lässt ebenfalls 100 frei. Im zweiten Fall gehören die gebundenen Bürger weiterhin zur Bevölkerung für Wasser- und Wohnraumbedarf. Zusätzliche Versorgung außerhalb des planetaren Bestands im ersten Fall ist nicht festgelegt.
 
-**Weiter offen:** Exakter Abbuchungszeitpunkt bei Warteschlangen, mögliche Kosten schon wartender Aufträge, Freigabe von Personal bei Stilllegung, Verluste bei Zerstörung, Rückgabe einmaliger Bevölkerungskosten bei Abbruch sowie die konkrete Zuordnung von Bevölkerungsbeständen bei Fahrzeugen. Laufender Personalbedarf ist kein automatisch angelegtes Reservierungskonto für wartende Bauaufträge.
+**Weiter offen:** Freigabe von Personal bei Stilllegung, Verluste bei Zerstörung, Rückgabe einmaliger Bevölkerungskosten bei Abbruch sowie die konkrete Zuordnung von Bevölkerungsbeständen bei Fahrzeugen. Laufender Personalbedarf ist kein automatisch angelegtes Reservierungskonto für wartende Bauaufträge.
 
 **Nach hinten gestellte Ideen:**
 
@@ -185,8 +185,8 @@ Diese Fälle sind Prüfpunkte für noch zu beschließende Regeln, keine bereits 
 
 | Aspekt | Festgehalten | Status / Grenze |
 | --- | --- | --- |
-| Baukosten | Bei Beginn eines Baus werden die eingesetzten Ressourcen abgezogen. | Bestätigte Regel. Ob bereits das Einreihen in eine Warteschlange als Beginn gilt, ist noch offen. Kostenzeitpunkt für Forschung nicht ausdrücklich separat bestätigt. |
-| Freiwilliger Bauabbruch | Der Spieler erhält nur einen Teil seiner eingesetzten Ressourcen zurück. | Bestätigte Regel. Quote, Rundung, betroffene Ressourcen und Fortschrittsabhängigkeit offen. |
+| Baukosten | Die Baukosten werden beim Einreihen abgezogen, auch wenn der Auftrag warten muss. | Bestätigte Regel. Kostenzeitpunkt für Forschung nicht ausdrücklich separat bestätigt. |
+| Freiwilliger Bauabbruch | Der Spieler erhält auch bei einem noch wartenden Auftrag nur einen Teil der eingesetzten Ressourcen zurück. | Bestätigte Regel. Quote, Rundung, betroffene Ressourcen und Fortschrittsabhängigkeit offen. |
 | Zweck des Abbruchverlusts | Bauplätze sollen keine verlustfreie Möglichkeit sein, Ressourcen vor Angriffen zu sichern. | Bestätigte Designabsicht. Teilrückzahlung verhindert allein noch nicht jede profitable Schutzstrategie. |
 | Gebäude und Forschung bei beeinträchtigten Bedingungen | Fortschritt soll sich verlangsamen, etwa bei Strommangel. | Bestätigte Designrichtung. Auslöser, Stärke, Kombination von Effekten und Erholung noch zu definieren. Vorläufige Präferenz gegen vollständigen Stillstand; siehe Ergänzung unten. Kein allgemeiner Verlust bereits erreichten Fortschritts festgelegt. |
 | Orbitale Werften | Denkbar sind härtere Folgen: Verlust gerade produzierter Schiffe oder Absturz der Werft. | Vorschläge des Projektinhabers, keine beschlossenen Regeln. Ereignisse, Häufigkeiten, Schutzmöglichkeiten und Konsequenzen offen. |
@@ -196,7 +196,7 @@ Diese Fälle sind Prüfpunkte für noch zu beschließende Regeln, keine bereits 
 
 **Offene Randfälle / Prüfung der Designabsicht:**
 
-- **Warteschlange:** Für IceWars ist inzwischen der Abzug beim Einreihen als historische Erinnerung dokumentiert; siehe [[icewars-references#Erfahrungsbericht – planetare Bauwarteschlangen]]. Für Cold Frontier sind der genaue Abbuchungszeitpunkt sowie Regeln für noch nicht begonnene Aufträge noch zu bestätigen.
+- **Warteschlange:** Die Kosten werden beim Einreihen verbindlich abgezogen. Beim späteren Arbeitsbeginn erfolgt keine zweite Abbuchung.
 - **Abbruchrückzahlung:** Feste Quote oder abhängig von Fortschritt beziehungsweise Auftragstyp? Maßgeblich sind die tatsächlich eingesetzten Ressourcen; eine genaue Berechnungsregel ist noch nicht beschlossen. Verhalten bei zwischenzeitlichen Balancing-Änderungen und Lagergrenzen offen.
 - **Ressourcenschutz:** Auch mit Verlust kann Einlagern in Bauaufträge lohnen, wenn die erwartete Rückzahlung höher ist als der nach einem Angriff verbleibende Bestand. Das ist eine zu prüfende Folgewirkung, kein bereits nachgewiesener Exploit einer fertigen Regel.
 - **Abbruch, Zwischenfall und Zerstörung unterscheiden:** Die Teilrückzahlung ist bisher für freiwilligen Bauabbruch festgehalten. Erstattungen und Fortschrittsfolgen bei zerstörtem Bauplatz, verlorener Werft oder verlorenem Schiff sind nicht daraus abgeleitet.
@@ -208,7 +208,7 @@ Diese Fälle sind Prüfpunkte für noch zu beschließende Regeln, keine bereits 
 **Klärung vom 2026-11-02 durch den Projektinhaber:**
 
 - **Regelrichtung für freiwilligen Abbruch:** Zunächst wechselt der Auftrag in den Status **„wird abgebrochen“**. Erst nach Abschluss des Abbruchs werden Ressourcen anteilig zurückgezahlt und der Bauplatz wieder freigegeben. Die Dauer von **5 Minuten** ist ein vorläufiger Vorschlag, kein festes Balancing.
-- **Noch offen zum Abbruch:** Arbeitet der Bau währenddessen weiter oder endet sein Fortschritt mit Annahme des Abbruchs? Was geschieht, wenn die reguläre Fertigstellung vorher läge? Kann der Abbruch widerrufen werden? Gelten für wartende Aufträge dieselben Regeln? Wie wirken Angriffe, zerstörte Bauplätze oder Lagergrenzen während der Abbruchphase?
+- **Noch offen zum Abbruch:** Arbeitet der Bau währenddessen weiter oder endet sein Fortschritt mit Annahme des Abbruchs? Was geschieht, wenn die reguläre Fertigstellung vorher läge? Kann der Abbruch widerrufen werden? Gilt die Abbruchphase auch für wartende Aufträge? Wie wirken Angriffe, zerstörte Bauplätze oder Lagergrenzen während der Abbruchphase?
 - **Betriebsbedingungen:** Strom und freie Bevölkerung sind erste Kandidaten; die Liste ist erweiterbar und noch nicht abschließend beschlossen. „Freie Bevölkerung“ ist inzwischen als Überschuss über den laufenden Gebäude-Personalbedarf eingeordnet; siehe [[economy#Bevölkerung und Arbeitskräfte]]. Die genaue Verwendung bei Aufträgen ist noch offen.
 - **Vorläufige Präferenz gegen Stillstand:** Der Projektinhaber möchte vollständigen Stillstand bei Betriebsmangel nach erster Einschätzung vermeiden, damit sich Accounts nicht vollständig blockieren. Mindestfortschritt, dessen fachliche Grundlage und Grenzen sind noch offen. Eine positive Rate ohne Strom oder Bevölkerung ist damit nicht bereits spezifiziert.
 - **Verlust einer Auftragsgrundlage:** Automatischer Abbruch erscheint bei fehlender tragender Infrastruktur, etwa Schiffbau ohne Werft, plausibel. Dies ist ein Diskussionskandidat, keine bestätigte Regel. Kostenverlust, Erstattung, mögliche Rettung beziehungsweise Übertragung und Umgang mit bereits geleisteter Arbeit bleiben offen.
@@ -228,7 +228,7 @@ Diese Fälle sind Prüfpunkte für noch zu beschließende Regeln, keine bereits 
 
 **Abgrenzung als Analyse:** Ein Verbot unmittelbarer Interaktionen mit fremden Accounts beschränkt direktes Pushen über diese Rechte. Es beweist nicht, dass jede Mehrfachaccount-Nutzung oder indirekte Begünstigung ausgeschlossen ist. Die zulässigen Handlungen und die gewünschten Grenzen delegierter Accountpflege sind erst fachlich zu bestimmen; keine technischen Schutzmaßnahmen daraus vorwegnehmen.
 
-**Weitere historische Kandidaten, noch nicht übernommen:** Eine Bauwarteschlange je Planet, Kostenabzug beim Einreihen sowie zusätzliche Plätze über Genetik. Siehe [[icewars-references#Erfahrungsbericht – planetare Bauwarteschlangen]].
+**Weitere historische Kandidaten, noch nicht übernommen:** Eine Bauwarteschlange je Planet sowie zusätzliche Plätze über Genetik. Siehe [[icewars-references#Erfahrungsbericht – planetare Bauwarteschlangen]].
 
 **Weitere offene Fragen:** Wie viele Bauplätze oder parallele Aufträge? Welche Voraussetzungen müssen nur beim Start beziehungsweise bis zur Fertigstellung erfüllt sein?
 
@@ -301,11 +301,11 @@ Dieses Szenario legt keine vollständige Erschöpfung von Eis fest; dafür gelte
 ### S6 – Kostenabzug und freiwilliger Abbruch
 
 **Gegeben:** Ein Spieler hat die Ressourcen für einen Bau.  
-**Wenn:** Der Bau beginnt.  
-**Dann gilt (bestätigte Regel):** Die Baukosten werden abgezogen.  
-**Wenn:** Der Spieler diesen Bau anschließend abbricht.  
+**Wenn:** Der Spieler reiht den Bauauftrag ein, während der Bauplatz belegt ist.  
+**Dann gilt (bestätigte Regel):** Die Baukosten werden sofort abgezogen.  
+**Wenn:** Der Spieler bricht den Auftrag ab, während er noch wartet oder bereits läuft.  
 **Dann gilt (Regelrichtung):** Der Auftrag wechselt zunächst auf „wird abgebrochen“. Erst nach Abschluss des Abbruchs werden ein Teil der eingesetzten Ressourcen zurückgezahlt und der Bauplatz freigegeben. Die vorgeschlagenen 5 Minuten sind vorläufig.  
-**Noch zu bestimmen:** Beginn bei Warteschlangennutzung, Abbruchdauer und deren Einflussfaktoren, Fortschritt während des Abbruchs, Rückzahlungsformel, Rundung und Umgang mit verschiedenen Kostenarten.
+**Noch zu bestimmen:** Abbruchdauer und deren Einflussfaktoren, Geltung der Abbruchphase für wartende Aufträge, Fortschritt während des Abbruchs, Rückzahlungsformel, Rundung und Umgang mit verschiedenen Kostenarten.
 
 ### S7 – Beeinträchtigter Bau- oder Forschungsfortschritt
 
