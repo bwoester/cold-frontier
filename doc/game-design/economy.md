@@ -352,6 +352,14 @@ Dieses Szenario legt keine vollständige Erschöpfung von Eis fest; dafür gelte
 
 **Nachvollziehbarkeit für Entwicklung/Support:** Im Fehlerfall müssen Ausgangszustand, geltende Regeln, Zeitschritte beziehungsweise Ereignisfolge, Verteilung der Arbeitskräfte und Wasserbilanz reproduzierbar sein. Dies legt weder Event Sourcing noch die Speicherung jedes Zwischenzustands fest.
 
+### S12 – Eisvorrat endet während der Wasserproduktion
+
+**Bestätigte Regelrichtung (2026-11-03):** Spieler sehen Produktions- und Verbrauchsraten pro Stunde. Bei verfügbaren Inputs läuft die Produktion mit der durch die Betriebsbedingungen gegebenen Rate. Sobald ein notwendiger Input fehlt, sinkt die Leistung entsprechend. Bei leerem Eisvorrat und ohne Eisnachschub steht das Wasserwerk still und verbraucht keine Energie für die Wasserproduktion.
+
+**Prüfbeispiel:** Ein Wasserwerk produziert bei voller Leistung 10 Wasser pro Stunde. Es hat Zugriff auf 12 Eis, ausreichend Energie und Personal sowie Platz für das erzeugte Wasser. Eis kommt im Prüfzeitraum nicht hinzu. Andere Verbraucher greifen nicht auf diesen Eisvorrat zu. Das Werk erzeugt bis Minute 36 insgesamt 6 Wasser und verbraucht dabei 12 Eis und 6 Energie. Ab Minute 36 steht es still. Die zuvor für Wasserproduktion benötigte Energie ist ab dann für andere Verbraucher verfügbar, soweit die Versorgung und Verteilungsregeln dies erlauben.
+
+Die Beispielraten dienen der Prüfung, die konkreten Gebäudeparameter bleiben offen. Die zeitliche Auflösung soll den Wechsel bei Erschöpfung des Vorrats abbilden. Zeiteinheit, Rundung und technische Fortschreibung bleiben offen.
+
 ## Offene fachliche Fragen – zuerst klären
 
 1. Welche Ressourcen sind lagerbar, welche stellen Kapazität/Rate/Population dar?
