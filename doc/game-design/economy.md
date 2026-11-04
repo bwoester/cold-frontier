@@ -292,7 +292,7 @@ Gründungsflüge belegen unterwegs keinen Kolonieplatz. Bei Ankunft werden das K
 
 **Offener Randfall:** Wechselt der Besitzer während der 15-minütigen Entladung, soll die Fracht ebenfalls nicht an den neuen Besitzer übergehen. Vorschlag für den Prüffall: Empfänger und Berechtigung unmittelbar vor der Übergabe erneut prüfen. Bei Abweichung bleibt die Fracht an Bord. Die Behandlung des unterbrochenen Entladevorgangs bleibt offen.
 
-**Versenden:** Beim wirksamen Versandauftrag wird die gewählte Fracht sofort aus dem Rohstoffpool des Startplaneten an Bord geladen. Ob danach eine eigene Startphase vor dem Abflug folgt und wie lange sie dauert, bleibt offen.
+**Versenden:** Beim wirksamen Versandauftrag wird die gewählte Fracht sofort aus dem Rohstoffpool des Startplaneten an Bord geladen. In Iteration 1 fliegt das Schiff zum selben Spielzeitpunkt ab.
 
 **Abholen als spätere Idee:** Ein eigener Abholauftrag ist für die erste Iteration zurückgestellt. Für eine spätere Variante ist der Ablauf Landen, Aus- oder Einladen und erneuter Start zu prüfen. Dauer und Regeln dieser Phasen bleiben offen.
 
