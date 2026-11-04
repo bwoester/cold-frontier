@@ -302,7 +302,9 @@ Produktion und Verbrauch auf einem Planeten wirken unmittelbar auf dessen Rohsto
 
 **Nach erfolgreicher Entladung:** Bei einem reinen Lieferauftrag bleibt der Transporter im Zielorbit und wartet auf Anweisungen. Hat der Spieler im Lieferauftrag einen Rückflug oder Weiterflug angegeben, folgt dieser auf die erfolgreiche Entladung. Der Treibstoff für alle im Auftrag vorgesehenen Flugabschnitte wird beim ersten Abflug geladen. Das gilt auch für einen geplanten Rückflug oder eine Route mit mehreren Stopps.
 
-**Treibstoff für wartende Flotten:** Hat eine Flotte nur den Hinflug eingeplant und reicht ihr verbleibender Treibstoff für den nächsten Flug nicht aus, braucht sie Nachschub. Woher dieser kommt und wie die Übergabe im Orbit funktioniert, bleibt offen. Denkbar sind die Versorgung aus einer eigenen Kolonie und eine Lieferung durch ein anderes Schiff. Welche dieser Varianten Iteration 1 unterstützt, ist noch zu entscheiden.
+**Treibstoff für wartende Flotten:** Auch an einem unbesiedelten oder fremden Planeten soll ein gestrandetes Schiff in Iteration 1 wieder flugfähig werden können. Welche Versorgung und Übergabe im Orbit dafür unterstützt wird, bleibt offen.
+
+**Vorschlag zur Treibstoffgewinnung:** Schiffe könnten geeignete Rohstoffe aus ihrer normalen Fracht für Treibstoff verwenden. Welche Rohstoffe geeignet sind, wie die Umwandlung erfolgt und ob der Spieler sie ausdrücklich beauftragt, bleibt offen. Der Rettungsweg für ein Schiff ohne geeignete Fracht ist gesondert zu klären.
 
 Allgemeine Ketten mehrerer Flottenaufträge bleiben eine spätere Idee. Die tatsächliche Fracht kann auch bei einer Abholung von der Planung abweichen. Wie Folgeaufträge damit umgehen, ist offen. Warenbesitz unterwegs, Handelsregeln, Credits-Transfers und Angriffe auf Konvois bleiben ebenfalls offen.
 
