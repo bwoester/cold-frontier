@@ -310,6 +310,10 @@ Produktion und Verbrauch auf einem Planeten wirken unmittelbar auf dessen Rohsto
 
 **Prüffall:** Ein Versorgungsschiff legt mit einem gestrandeten Schiff zusammen. Der gemeinsame Bestand beträgt 100 Einheiten. Beim anschließenden Split kann der Spieler etwa 70 Einheiten der einen und 30 der anderen Flotte zuweisen, sofern eventuelle Kapazitätsgrenzen dies zulassen.
 
+**Bestätigte Regel zur Frachtverteilung:** Fracht ist ein gemeinsamer Bestand pro Flotte. Beim vollständigen Zusammenlegen werden die Bestände je Rohstoff addiert. Beim Split wählt der Spieler die Verteilung je Rohstoff auf die resultierenden Flotten. Die gesamte Fracht bleibt dabei erhalten und muss in die jeweiligen Frachtkapazitäten passen. Als optionale Bedienhilfen kann der Client eine neue Flotte leer lassen, sie befüllen oder die Fracht anteilig verteilen. Die genaue Belegung bei gemischter Fracht bleibt offen.
+
+**Alternative zum separaten Treibstoffvorrat:** Der Antrieb könnte einen gewöhnlichen transportierbaren Rohstoff direkt aus dem Frachtbestand verbrauchen, etwa chemische Elemente oder Energie. Ob diese Alternative den separaten Vorrat ersetzt und welche Rohstoffe als Antriebsressource dienen, bleibt offen. Zu klären ist insbesondere, wie Liefermenge und Bedarf für bereits beauftragte Rück- oder Weiterflüge beim Beladen getrennt ausgewiesen werden.
+
 **Vorschlag zur Treibstoffgewinnung:** Schiffe könnten geeignete Rohstoffe aus ihrer normalen Fracht für Treibstoff verwenden. Welche Rohstoffe geeignet sind, wie die Umwandlung erfolgt und ob der Spieler sie ausdrücklich beauftragt, bleibt offen. Der Rettungsweg für ein Schiff ohne geeignete Fracht ist gesondert zu klären.
 
 Allgemeine Ketten mehrerer Flottenaufträge bleiben eine spätere Idee. Die tatsächliche Fracht kann auch bei einer Abholung von der Planung abweichen. Wie Folgeaufträge damit umgehen, ist offen. Warenbesitz unterwegs, Handelsregeln, Credits-Transfers und Angriffe auf Konvois bleiben ebenfalls offen.
