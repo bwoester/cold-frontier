@@ -306,9 +306,9 @@ Produktion und Verbrauch auf einem Planeten wirken unmittelbar auf dessen Rohsto
 
 **Vorschlag zur Flottenverwaltung im Orbit:** Flotten am selben Orbit werden separat aufgeführt. Der Spieler kann einzelne Schiffe oder eine ganze Flotte mit einer anderen Flotte zusammenlegen und Schiffe in eine neue Flotte abspalten. Für die erste Diskussion betrachten wir eigene, wartende Flotten im selben Orbit. Welche weiteren Flotten oder Auftragszustände dafür infrage kommen, bleibt offen.
 
-**Bevorzugter Kandidat:** Ein gemeinsamer Treibstoffvorrat pro Flotte soll Mikromanagement vermeiden. Unterschiedliche Tankkapazitäten und Verbräuche einzelner Schiffstypen können weiterhin in die Berechnung der Flotte eingehen. Die genaue Berechnung bleibt offen.
+**Bestätigte Regel zur Treibstoffverteilung:** Treibstoff gehört zur Flotte. Beim vollständigen Zusammenlegen addieren sich die Bestände zu einem gemeinsamen Vorrat. Beim Aufteilen wählt der Spieler, wie viel Treibstoff jede resultierende Flotte erhält, einschließlich einer eventuell verbleibenden Restflotte. Die Summe der zugeteilten Mengen entspricht dem bisherigen Bestand. Falls Tankkapazitäten vorgesehen sind, begrenzen sie die Zuteilung je Flotte. Ob und wie Tankkapazität und Verbrauch aus den beteiligten Schiffstypen berechnet werden, bleibt offen.
 
-**Prüffall:** Ein Versorgungsschiff trifft auf ein gestrandetes Schiff. Nach Zusammenlegen und erneutem Aufteilen soll das versorgte Schiff genug Treibstoff für seinen nächsten Flug erhalten können. Die Aufteilung muss die Gesamttreibstoffmenge erhalten und die Tankkapazität jeder resultierenden Flotte einhalten. Ob die Menge automatisch verteilt oder vom Spieler gewählt wird, bleibt offen.
+**Prüffall:** Ein Versorgungsschiff legt mit einem gestrandeten Schiff zusammen. Der gemeinsame Bestand beträgt 100 Einheiten. Beim anschließenden Split kann der Spieler etwa 70 Einheiten der einen und 30 der anderen Flotte zuweisen, sofern eventuelle Kapazitätsgrenzen dies zulassen.
 
 **Vorschlag zur Treibstoffgewinnung:** Schiffe könnten geeignete Rohstoffe aus ihrer normalen Fracht für Treibstoff verwenden. Welche Rohstoffe geeignet sind, wie die Umwandlung erfolgt und ob der Spieler sie ausdrücklich beauftragt, bleibt offen. Der Rettungsweg für ein Schiff ohne geeignete Fracht ist gesondert zu klären.
 
