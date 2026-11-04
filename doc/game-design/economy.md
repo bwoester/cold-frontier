@@ -300,7 +300,9 @@ Produktion und Verbrauch auf einem Planeten wirken unmittelbar auf dessen Rohsto
 
 **Bestätigte Einstiegsregel:** Ein Entladevorgang aus dem Orbit dauert 15 Minuten. Am Ende geht die Fracht je Ressourcentyp bis zur dann freien Lagerkapazität in den Zielpool über. Der Überschuss verfällt. Ein Audit-Ereignis erfasst den Abschlusszeitpunkt, Transport und Ziel sowie je Ressourcentyp die übernommene und die verfallene Menge.
 
-**Nach erfolgreicher Entladung:** Bei einem reinen Lieferauftrag bleibt der Transporter im Zielorbit und wartet auf Anweisungen. Hat der Spieler im Lieferauftrag einen Rückflug oder Weiterflug angegeben, folgt dieser auf die erfolgreiche Entladung. Wann die Flugvoraussetzungen für diese Strecke geprüft werden und wie das Schiff bei fehlendem Treibstoff reagiert, bleibt offen.
+**Nach erfolgreicher Entladung:** Bei einem reinen Lieferauftrag bleibt der Transporter im Zielorbit und wartet auf Anweisungen. Hat der Spieler im Lieferauftrag einen Rückflug oder Weiterflug angegeben, folgt dieser auf die erfolgreiche Entladung. Der Treibstoff für alle im Auftrag vorgesehenen Flugabschnitte wird beim ersten Abflug geladen. Das gilt auch für einen geplanten Rückflug oder eine Route mit mehreren Stopps.
+
+**Treibstoff für wartende Flotten:** Hat eine Flotte nur den Hinflug eingeplant und reicht ihr verbleibender Treibstoff für den nächsten Flug nicht aus, braucht sie Nachschub. Woher dieser kommt und wie die Übergabe im Orbit funktioniert, bleibt offen. Denkbar sind die Versorgung aus einer eigenen Kolonie und eine Lieferung durch ein anderes Schiff. Welche dieser Varianten Iteration 1 unterstützt, ist noch zu entscheiden.
 
 Allgemeine Ketten mehrerer Flottenaufträge bleiben eine spätere Idee. Die tatsächliche Fracht kann auch bei einer Abholung von der Planung abweichen. Wie Folgeaufträge damit umgehen, ist offen. Warenbesitz unterwegs, Handelsregeln, Credits-Transfers und Angriffe auf Konvois bleiben ebenfalls offen.
 
