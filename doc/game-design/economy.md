@@ -288,6 +288,10 @@ Gründungsflüge belegen unterwegs keinen Kolonieplatz. Bei Ankunft werden das K
 
 ## Handel und Transport
 
+**Ziel und erwarteter Empfänger:** Ein Versandauftrag bezeichnet das Ziel und hält den erwarteten Empfänger fest, bei einer Kolonie etwa ihren Besitzer bei Auftragserteilung. Bei Ankunft muss das Ziel weiterhin dem erwarteten Empfänger zugeordnet sein und die Entladung zulassen. Bei einem Besitzerwechsel beginnt die Entladung nicht. Das Schiff bleibt mit seiner Fracht im Orbit und wartet auf einen neuen Auftrag. Dieselbe Regel ist als Anforderung für spätere Ziele wie mobile Orbitalbasen vorgemerkt.
+
+**Offener Randfall:** Wechselt der Besitzer während der 15-minütigen Entladung, soll die Fracht ebenfalls nicht an den neuen Besitzer übergehen. Vorschlag für den Prüffall: Empfänger und Berechtigung unmittelbar vor der Übergabe erneut prüfen. Bei Abweichung bleibt die Fracht an Bord. Die Behandlung des unterbrochenen Entladevorgangs bleibt offen.
+
 **Versenden:** Beim wirksamen Versandauftrag wird die gewählte Fracht sofort aus dem Rohstoffpool des Startplaneten an Bord geladen. Ob danach eine eigene Startphase vor dem Abflug folgt und wie lange sie dauert, bleibt offen.
 
 **Abholen als spätere Idee:** Ein eigener Abholauftrag ist für die erste Iteration zurückgestellt. Für eine spätere Variante ist der Ablauf Landen, Aus- oder Einladen und erneuter Start zu prüfen. Dauer und Regeln dieser Phasen bleiben offen.
