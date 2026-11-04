@@ -306,7 +306,9 @@ Produktion und Verbrauch auf einem Planeten wirken unmittelbar auf dessen Rohsto
 
 **Vorschlag zur Flottenverwaltung im Orbit:** Flotten am selben Orbit werden separat aufgeführt. Der Spieler kann einzelne Schiffe oder eine ganze Flotte mit einer anderen Flotte zusammenlegen und Schiffe in eine neue Flotte abspalten. Für die erste Diskussion betrachten wir eigene, wartende Flotten im selben Orbit. Welche weiteren Flotten oder Auftragszustände dafür infrage kommen, bleibt offen.
 
-Für die Treibstoffversorgung ist zu entscheiden, ob Treibstoff einem Schiff oder der Flotte zugeordnet ist. Bei einem gemeinsamen Vorrat braucht die Aufteilung eine Regel dafür, welche Menge jede neue Flotte erhält. Bei Treibstoff je Schiff ist zu klären, ob und wie Schiffe innerhalb einer Flotte Treibstoff übergeben können. Prüffall: Ein Versorgungsschiff trifft auf ein gestrandetes Schiff. Das gestrandete Schiff soll nach einer möglichen Versorgung weiterfliegen können. Zusammenlegen und Aufteilen dürfen den vorhandenen Treibstoff weder vermehren noch doppelt zuordnen.
+**Bevorzugter Kandidat:** Ein gemeinsamer Treibstoffvorrat pro Flotte soll Mikromanagement vermeiden. Unterschiedliche Tankkapazitäten und Verbräuche einzelner Schiffstypen können weiterhin in die Berechnung der Flotte eingehen. Die genaue Berechnung bleibt offen.
+
+**Prüffall:** Ein Versorgungsschiff trifft auf ein gestrandetes Schiff. Nach Zusammenlegen und erneutem Aufteilen soll das versorgte Schiff genug Treibstoff für seinen nächsten Flug erhalten können. Die Aufteilung muss die Gesamttreibstoffmenge erhalten und die Tankkapazität jeder resultierenden Flotte einhalten. Ob die Menge automatisch verteilt oder vom Spieler gewählt wird, bleibt offen.
 
 **Vorschlag zur Treibstoffgewinnung:** Schiffe könnten geeignete Rohstoffe aus ihrer normalen Fracht für Treibstoff verwenden. Welche Rohstoffe geeignet sind, wie die Umwandlung erfolgt und ob der Spieler sie ausdrücklich beauftragt, bleibt offen. Der Rettungsweg für ein Schiff ohne geeignete Fracht ist gesondert zu klären.
 
