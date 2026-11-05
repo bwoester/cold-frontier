@@ -5,8 +5,11 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import de.bwoester.coldfrontier.data.*;
 import io.nats.client.*;
 import io.nats.client.api.KeyValueConfiguration;
-import io.nats.client.api.KeyValueStatus;
 import org.junit.jupiter.api.*;
+import org.testcontainers.containers.GenericContainer;
+import org.testcontainers.junit.jupiter.Container;
+import org.testcontainers.junit.jupiter.Testcontainers;
+import org.testcontainers.utility.DockerImageName;
 
 import java.io.IOException;
 import java.time.Duration;
@@ -17,20 +20,21 @@ import java.util.concurrent.atomic.AtomicReference;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-/**
- * Integration test for NatsValue that connects to a real NATS server.
- * 
- * Note: This test requires a running NATS server on localhost:4222.
- * If the server is not available, the tests will be skipped.
- */
-@Tag("external")
+@Tag("integration")
+@Testcontainers
 class NatsValueIntegrationTest {
 
+    private static final int NATS_PORT = 4222;
+
+    @Container
+    private static final GenericContainer<?> nats = new GenericContainer<>(
+            DockerImageName.parse("nats:2.14.9-alpine"))
+            .withCommand("-js")
+            .withExposedPorts(NATS_PORT);
+
     private static Connection natsConnection;
-    private static JetStreamManagement jsm;
     private static KeyValueManagement kvm;
-    private static long tick = 0;
-    
+
     private KeyValue keyValue;
     private NatsValue<TestData> natsValue;
     private String bucketName;
@@ -43,40 +47,24 @@ class NatsValueIntegrationTest {
     private EventFactory eventFactory;
 
     @BeforeAll
-    static void setupNats() {
-        try {
-            Options options = new Options.Builder()
-                    .server("nats://demo.nats.io:4222")
-                    .connectionTimeout(Duration.ofSeconds(5))
-                    .build();
-            
-            natsConnection = Nats.connect(options);
-            jsm = natsConnection.jetStreamManagement();
-            kvm = natsConnection.keyValueManagement();
-            
-        } catch (Exception e) {
-            // If we can't connect to NATS, mark the whole test class as disabled
-            Assumptions.assumeTrue(false, "NATS server not available at localhost:4222: " + e.getMessage());
-        }
+    static void setupNats() throws IOException, InterruptedException {
+        Options options = new Options.Builder()
+                .server("nats://%s:%d".formatted(nats.getHost(), nats.getMappedPort(NATS_PORT)))
+                .connectionTimeout(Duration.ofSeconds(5))
+                .build();
+        natsConnection = Nats.connect(options);
+        kvm = natsConnection.keyValueManagement();
     }
-    
+
     @AfterAll
-    static void tearDownNats() {
+    static void closeNatsConnection() throws InterruptedException {
         if (natsConnection != null) {
-            try {
-                natsConnection.close();
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-            }
+            natsConnection.close();
         }
     }
-    
+
     @BeforeEach
     void setUp() throws IOException, JetStreamApiException {
-        // Skip tests if NATS connection failed to establish
-        Assumptions.assumeTrue(natsConnection != null && natsConnection.getStatus() == Connection.Status.CONNECTED,
-                "NATS connection not available");
-        
         // Create a unique bucket name for this test run
         bucketName = "test-bucket-" + UUID.randomUUID();
         testKey = "test-key";
@@ -86,7 +74,7 @@ class NatsValueIntegrationTest {
                 .name(bucketName)
                 .build();
 
-        KeyValueStatus kvStatus = kvm.create(kvc);
+        kvm.create(kvc);
         keyValue = natsConnection.keyValue(bucketName);
         
         // Create serializer and event factory
@@ -94,22 +82,16 @@ class NatsValueIntegrationTest {
         objectMapper.registerModule(new JavaTimeModule());
         
         serializer = new JsonEventSerializer<>(objectMapper, TestData.class);
-        eventFactory = new EventFactory(() -> tick);
+        eventFactory = new EventFactory(() -> 0L);
         
         // Create the NatsValue instance to test
         natsValue = new NatsValue<>(keyValue, testKey, serializer, eventFactory);
     }
     
     @AfterEach
-    void tearDown() {
-        if (keyValue != null && natsConnection != null && natsConnection.getStatus() == Connection.Status.CONNECTED) {
-            try {
-                // Delete the test bucket
-                kvm.delete(bucketName);
-            } catch (IOException | JetStreamApiException e) {
-                // Just log this, don't fail the test
-                System.err.println("Error deleting KeyValue bucket: " + e.getMessage());
-            }
+    void deleteTestBucket() throws IOException, JetStreamApiException {
+        if (keyValue != null) {
+            kvm.delete(bucketName);
         }
     }
 
