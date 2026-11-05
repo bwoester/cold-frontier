@@ -21,6 +21,7 @@ dependencies {
     testImplementation(libs.junit.jupiter)
     testImplementation(libs.mockito.core)
     testImplementation(libs.mockito.junit.jupiter)
+    testImplementation(libs.testcontainers.junit.jupiter)
 
     testImplementation(libs.cucumber.java)
     testImplementation(libs.cucumber.junit.platform.engine)
@@ -60,12 +61,20 @@ tasks.withType<JavaCompile>().configureEach {
     options.compilerArgs.add("-parameters")
 }
 
-val excludeExternalTests = providers.gradleProperty("excludeExternalTests").isPresent
-
 tasks.named<Test>("test") {
     useJUnitPlatform {
-        if (excludeExternalTests) {
-            excludeTags("external")
-        }
+        excludeTags("integration")
     }
+}
+
+tasks.register<Test>("integrationTest") {
+    group = "verification"
+    description = "Runs integration tests against services started by Testcontainers."
+    testClassesDirs = sourceSets["test"].output.classesDirs
+    classpath = sourceSets["test"].runtimeClasspath
+    useJUnitPlatform {
+        includeEngines("junit-jupiter")
+        includeTags("integration")
+    }
+    shouldRunAfter(tasks.named("test"))
 }
