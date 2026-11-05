@@ -23,6 +23,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * Note: This test requires a running NATS server on localhost:4222.
  * If the server is not available, the tests will be skipped.
  */
+@Tag("external")
 class NatsValueIntegrationTest {
 
     private static Connection natsConnection;

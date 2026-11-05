@@ -13,9 +13,11 @@ Eine **Projektetappe** beschreibt einen prüfbaren Entwicklungsstand des gesamte
 
 ## Erster Zuschnitt für Etappe 1
 
-**Zur Diskussion.** Ein vorbereiteter Planet mit Wasserwerk, 12 Eis, ausreichend Energie und Platz für das erzeugte Wasser. Bei einer Beispielrate von 10 Wasser pro Stunde entstehen bis Minute 36 genau 6 Wasser. Dabei werden 12 Eis und 6 Energie verbraucht. Ab Minute 36 steht die Wasserproduktion still. Das Audit hält den fachlichen Zeitpunkt und den betroffenen Rohstoff fest. Siehe [S12 in der Wirtschaftsdoku](economy.md#s12--eisvorrat-endet-während-der-wasserproduktion).
+**Zur Diskussion.** Das [Gherkin-Szenario zur Wasserproduktion](scenarios/water-production.feature) beschreibt den Abnahmefall für Etappe 1. Die fachliche Regel und der Audit-Kontext stehen in [S12 in der Wirtschaftsdoku](economy.md#s12--eisvorrat-endet-während-der-wasserproduktion).
 
 Mit dieser Kette lassen sich Bestandsänderungen, ein Engpass und die Wirksamkeit eines Ereignisses gemeinsam prüfen. Anlagen und Startbestände kommen aus dem Szenario. Weitere Gebäude, Bevölkerungsdynamik und planetenübergreifende Mechaniken können danach hinzukommen. Zeiteinheit, Rundung und Fortschreibung bleiben offen.
+
+Für Feature-Dateien gilt die [Gherkin-Konvention](../gherkin-conventions.md).
 
 ## Mindmap zum Diskussionsstand
 
