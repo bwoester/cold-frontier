@@ -73,6 +73,7 @@ tasks.register<Test>("integrationTest") {
     testClassesDirs = sourceSets["test"].output.classesDirs
     classpath = sourceSets["test"].runtimeClasspath
     useJUnitPlatform {
+        includeEngines("junit-jupiter")
         includeTags("integration")
     }
     shouldRunAfter(tasks.named("test"))
