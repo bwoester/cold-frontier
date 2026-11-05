@@ -7,6 +7,8 @@ focus: true
 
 **Stand:** Fachliche Exploration mit einzelnen ausdrücklich bestätigten Regeln und Designrichtungen; keine vollständige akzeptierte Regelspezifikation.
 
+Den geplanten Entwicklungsumfang und den Diskussionsstand zeigt die [Übersicht der Projektetappen](project-stages.md). Die ersten Ausbaustufen auf dieser Seite beziehen sich jeweils auf die beschriebene Mechanik.
+
 ## Zielbild (Projektziel)
 
 Die Wirtschaft soll mehr als konstante Einkommensraten abbilden: Gebäude produzieren und verbrauchen Ressourcen, Engpässe beeinflussen andere Zweige, planetare Rohstoffvorkommen können sich erschöpfen. Spieler sollen Ursachen und Folgen nachvollziehen können.
@@ -252,11 +254,11 @@ Historische Anregung: [[icewars-references#Erfahrungsbericht – planetare Bauwa
 
 Für lagerpflichtige Ressourcen begrenzt die Kapazität den Vorrat. Bei vollem Lager geht zusätzliche Produktion verloren. Lager und Bunker können einem einzelnen Ressourcentyp oder mehreren Typen zugeordnet sein. Die Kapazität gilt für jeden unterstützten Typ separat. Ein Eis- und Wasserlager mit Kapazität 100 fasst gleichzeitig 100 Eis und 100 Wasser. Freier Eisplatz erhöht die Wasserkapazität nicht. Energie hat ein eigenes Lager. Bei Mehrstoffbunkern gilt die Schutzkapazität entsprechend je unterstütztem Ressourcentyp.
 
-Für Iteration 1 gilt vorläufig: Chemische Elemente und Energie haben jeweils eigene Lager. Eis und Wasser teilen sich ein Lagergebäude mit separater Kapazität je Rohstoff. Eisen, Stahl und VV4A können unbegrenzt auf der Planetenoberfläche lagern. Wohnraum begrenzt die Bevölkerung.
+Für die erste Ausbaustufe der Lager gilt vorläufig: Chemische Elemente und Energie haben jeweils eigene Lager. Eis und Wasser teilen sich ein Lagergebäude mit separater Kapazität je Rohstoff. Eisen, Stahl und VV4A können unbegrenzt auf der Planetenoberfläche lagern. Wohnraum begrenzt die Bevölkerung.
 
 **Anforderung an die Konfigurierbarkeit:** Ressourcentypen, ihre Lagerpflicht und die Beiträge von Gebäuden zu Lagerkapazität und Schutz sollen sich im Rahmen der unterstützten Regeln über Spieldaten konfigurieren lassen. Zusätzliche Rohstoffe und geänderte Zuordnungen sollen dadurch ohne Änderung der Simulationslogik möglich sein.
 
-**Bestätigte Regel für Iteration 1:** Bunker können auch Eisen, Stahl und VV4A bis zu einer festen Menge je Rohstoff schützen. Für diese unbegrenzt lagerbaren Rohstoffe tragen sie Schutzkapazität bei. Die Schutzmenge ist unabhängig von der Lagerkapazität.
+**Bestätigte Regel für die erste Ausbaustufe der Bunker:** Bunker können auch Eisen, Stahl und VV4A bis zu einer festen Menge je Rohstoff schützen. Für diese unbegrenzt lagerbaren Rohstoffe tragen sie Schutzkapazität bei. Die Schutzmenge ist unabhängig von der Lagerkapazität.
 
  Bei Kapazitätsverlust verfällt der Überbestand je lagerpflichtigem Ressourcentyp sofort. Verfallene Mengen stehen für eine anschließende Plünderung nicht zur Verfügung. Ob Bunker zerstörbar sind, bleibt offen. Die Anlieferung aus dem Orbit ist unter Handel und Transport geregelt.
 
@@ -272,7 +274,7 @@ Für Iteration 1 gilt vorläufig: Chemische Elemente und Energie haben jeweils e
 
 Gründungsflüge belegen unterwegs keinen Kolonieplatz. Bei Ankunft werden das Kolonielimit und die Verfügbarkeit des Ziels geprüft. Sobald eine Gründung beginnt, zählt sie bereits gegen das Limit. Ab diesem Zeitpunkt ist der Zielplanet exklusiv durch die laufende Gründung belegt. Auf demselben Planeten kann höchstens eine Gründung gleichzeitig laufen. Prüfung und Belegung müssen auch bei gleichzeitigen Ankünften zusammenwirken, sodass ein freier Platz höchstens einmal belegt wird. Die Gründung dauert eine gewisse Zeit. 15 Minuten sind ein vorläufiger Balancing-Wert. Kann das Schiff bei Ankunft nicht gründen, bleibt es unabhängig vom Treibstoffstand im Orbit und wartet auf einen neuen Auftrag des Spielers. Das gilt insbesondere bei blockiertem Ziel oder erreichtem Kolonielimit. Die verfügbaren Folgeaufträge bleiben offen.
 
-**Vorschlag zur Besatzung:** Der Bau eines Kolonieschiffs kostet eine feste Zahl Personen aus dem Bevölkerungsbestand des Bauplaneten, beispielsweise 20. Sie bilden die Besatzung und zählen bei der Gründung zur Startbevölkerung. Beim Abflug kann der Spieler zusätzlich Siedler mitnehmen. Nur diese zusätzlichen Siedler werden dann vom Startplaneten abgezogen. Die Besatzungsgröße ist ein Balancing-Beispiel. Besatzung und zusätzliche Siedler teilen sich die Personenkapazität des Schiffs. Die Wohnkapazität des Starthabitats entspricht in Iteration 1 dieser Gesamtkapazität. Beim Abflug bleibt die feste Besatzung an Bord. Der Spieler wählt nur die Zahl zusätzlicher Siedler. Ein Abflug ohne die erforderliche Besatzung ist ungültig. Bei beispielsweise 200 Plätzen und 20 Besatzungsmitgliedern sind 0 bis 180 zusätzliche Siedler zulässig. Was bei Bauabbruch mit der Besatzung geschieht, bleibt offen.
+**Vorschlag zur Besatzung:** Der Bau eines Kolonieschiffs kostet eine feste Zahl Personen aus dem Bevölkerungsbestand des Bauplaneten, beispielsweise 20. Sie bilden die Besatzung und zählen bei der Gründung zur Startbevölkerung. Beim Abflug kann der Spieler zusätzlich Siedler mitnehmen. Nur diese zusätzlichen Siedler werden dann vom Startplaneten abgezogen. Die Besatzungsgröße ist ein Balancing-Beispiel. Besatzung und zusätzliche Siedler teilen sich die Personenkapazität des Schiffs. Die Wohnkapazität des Starthabitats entspricht in der ersten Ausbaustufe der Kolonisation dieser Gesamtkapazität. Beim Abflug bleibt die feste Besatzung an Bord. Der Spieler wählt nur die Zahl zusätzlicher Siedler. Ein Abflug ohne die erforderliche Besatzung ist ungültig. Bei beispielsweise 200 Plätzen und 20 Besatzungsmitgliedern sind 0 bis 180 zusätzliche Siedler zulässig. Was bei Bauabbruch mit der Besatzung geschieht, bleibt offen.
 
 **Beladung beim Abflug:** Der Spieler wählt, wie viele Siedler und welche Baumaterialien das Kolonieschiff mitnimmt. Die Siedler stammen aus der freien Bevölkerung des Startplaneten, die Fracht aus seinem Rohstoffpool. Beim wirksamen Abflug gehen die gewählten Mengen an Bord und stehen am Startplaneten danach nicht mehr zur Verfügung. Bei erfolgreicher Gründung werden die mitgeführten Siedler zur Startbevölkerung und die Materialien zur einmaligen Startfracht der Kolonie. Wartet das Schiff im Orbit, bleiben Siedler und Fracht an Bord.
 
@@ -280,7 +282,7 @@ Gründungsflüge belegen unterwegs keinen Kolonieplatz. Bei Ankunft werden das K
 
 **Qualitätskriterium für Schiffstypen:** Frachtkapazität und anfängliche Lagerkapazitäten sollen so abgestimmt sein, dass die nutzbare Startfracht den vorgesehenen Koloniestart unterstützt. Die konkreten Kapazitäten je Schiffstyp bleiben Balancing-Werte.
 
-**Iteration 1:** Jede begonnene Gründung wird nach der Gründungsdauer erfolgreich abgeschlossen. Unterbrechungen oder Scheitern während des Aufbaus sowie die dadurch nötige Freigabe von Planet und Kolonieplatz sind spätere Ideen.
+**Erste Ausbaustufe der Kolonisation:** Jede begonnene Gründung wird nach der Gründungsdauer erfolgreich abgeschlossen. Unterbrechungen oder Scheitern während des Aufbaus sowie die dadurch nötige Freigabe von Planet und Kolonieplatz sind spätere Ideen.
 
 **Vorschlag:** Wenige Kolonieschiffstypen können sich in Reichweite und Startfracht unterscheiden. Eine Kopplung ihrer Kapazität an die Ausbaustufe des Zentrums bleibt offen.
 
@@ -292,9 +294,9 @@ Gründungsflüge belegen unterwegs keinen Kolonieplatz. Bei Ankunft werden das K
 
 **Prüfung beim Entladeabschluss:** Unmittelbar vor der Übergabe werden der erwartete Empfänger und die Entladeberechtigung erneut geprüft. Schlägt die Prüfung fehl, bleibt die gesamte Fracht an Bord. Das Schiff wartet im Orbit auf einen neuen Auftrag. Das Audit erfasst die gescheiterte Übergabe und ihren Grund.
 
-**Versenden:** Beim wirksamen Versandauftrag wird die gewählte Fracht sofort aus dem Rohstoffpool des Startplaneten an Bord geladen. In Iteration 1 fliegt das Schiff zum selben Spielzeitpunkt ab.
+**Versenden:** Beim wirksamen Versandauftrag wird die gewählte Fracht sofort aus dem Rohstoffpool des Startplaneten an Bord geladen. In der ersten Ausbaustufe des Versands fliegt das Schiff zum selben Spielzeitpunkt ab.
 
-**Abholen als spätere Idee:** Ein eigener Abholauftrag ist für die erste Iteration zurückgestellt. Für eine spätere Variante ist der Ablauf Landen, Aus- oder Einladen und erneuter Start zu prüfen. Dauer und Regeln dieser Phasen bleiben offen.
+**Abholen als spätere Idee:** Ein eigener Abholauftrag ist für eine spätere Ausbaustufe des Transports vorgesehen. Für eine spätere Variante ist der Ablauf Landen, Aus- oder Einladen und erneuter Start zu prüfen. Dauer und Regeln dieser Phasen bleiben offen.
 
 Produktion und Verbrauch auf einem Planeten wirken unmittelbar auf dessen Rohstoffpool. Transporte finden zwischen Planeten statt.
 
@@ -302,7 +304,7 @@ Produktion und Verbrauch auf einem Planeten wirken unmittelbar auf dessen Rohsto
 
 **Nach erfolgreicher Entladung:** Bei einem reinen Lieferauftrag bleibt der Transporter im Zielorbit und wartet auf Anweisungen. Hat der Spieler im Lieferauftrag einen Rückflug oder Weiterflug angegeben, folgt dieser auf die erfolgreiche Entladung. Der Treibstoff für alle im Auftrag vorgesehenen Flugabschnitte wird beim ersten Abflug geladen. Das gilt auch für einen geplanten Rückflug oder eine Route mit mehreren Stopps.
 
-**Treibstoff für wartende Flotten:** Auch an einem unbesiedelten oder fremden Planeten soll ein gestrandetes Schiff in Iteration 1 wieder flugfähig werden können. Welche Versorgung und Übergabe im Orbit dafür unterstützt wird, bleibt offen.
+**Treibstoff für wartende Flotten:** Auch an einem unbesiedelten oder fremden Planeten soll ein gestrandetes Schiff bereits in der ersten Ausbaustufe der Flottenlogistik wieder flugfähig werden können. Welche Versorgung und Übergabe im Orbit dafür unterstützt wird, bleibt offen.
 
 **Vorschlag zur Flottenverwaltung im Orbit:** Flotten am selben Orbit werden separat aufgeführt. Der Spieler kann einzelne Schiffe oder eine ganze Flotte mit einer anderen Flotte zusammenlegen und Schiffe in eine neue Flotte abspalten. Für die erste Diskussion betrachten wir eigene, wartende Flotten im selben Orbit. Welche weiteren Flotten oder Auftragszustände dafür infrage kommen, bleibt offen.
 
@@ -318,7 +320,7 @@ Produktion und Verbrauch auf einem Planeten wirken unmittelbar auf dessen Rohsto
 
 **Bestätigte Regel für Träger:** Die Flotte nutzt verfügbare Trägerkapazität automatisch so weit wie möglich für mitführbare Schiffe. Mitgeführte Schiffe verbrauchen keine eigenen Antriebsressourcen und ihre eigene Höchstgeschwindigkeit begrenzt das Flottentempo nicht. Verbrauch und erreichbares Tempo sind anhand der selbst fliegenden Schiffe und der Trägerbelegung zu bestimmen. Ob und wie die Belegung die Werte des Trägers verändert, bleibt offen.
 
-**Abflugprüfung je Abschnitt:** Vor jedem Abflug muss jedes selbst fliegende Schiff die Voraussetzungen des Abschnitts erfüllen. Kann ein Schiff eine Galaxie nicht aus eigener Kraft verlassen, kann es den Abschnitt an Bord eines dafür geeigneten Trägers mitfliegen. Bleibt ein für den Abschnitt ungeeignetes Schiff ohne Trägerplatz, darf die Flotte in dieser Zusammensetzung nicht abfliegen. In Iteration 1 hat jeder Trägertyp eine feste Zahl Plätze für geeignete Kleinschiffe. Jedes geeignete Schiff belegt genau einen Platz. Welche Schiffstypen als geeignet gelten, bleibt offen. Größenklassen und Schiffe, die mehrere Plätze belegen, können bei konkretem Bedarf später ergänzt werden.
+**Abflugprüfung je Abschnitt:** Vor jedem Abflug muss jedes selbst fliegende Schiff die Voraussetzungen des Abschnitts erfüllen. Kann ein Schiff eine Galaxie nicht aus eigener Kraft verlassen, kann es den Abschnitt an Bord eines dafür geeigneten Trägers mitfliegen. Bleibt ein für den Abschnitt ungeeignetes Schiff ohne Trägerplatz, darf die Flotte in dieser Zusammensetzung nicht abfliegen. In der ersten Ausbaustufe der Träger hat jeder Trägertyp eine feste Zahl Plätze für geeignete Kleinschiffe. Jedes geeignete Schiff belegt genau einen Platz. Welche Schiffstypen als geeignet gelten, bleibt offen. Größenklassen und Schiffe, die mehrere Plätze belegen, können bei konkretem Bedarf später ergänzt werden.
 
 **Automatische Trägerbelegung:** Das Spiel schlägt für den geplanten Flug eine gültige Belegung vor, sofern eine existiert. Vorrang haben Schiffe, die den Abschnitt nur an Bord eines Trägers zurücklegen können. Unter den gültigen Belegungen nutzt der Vorschlag die verfügbare Kapazität so weit wie möglich. Ist keine gültige Belegung möglich, bleibt der Abflug gesperrt.
 
@@ -455,7 +457,7 @@ Die [übergreifende Architekturfrage zur Auftragsreihenfolge](../architecture/co
 
 ### S17 – Zwei Spieler fliegen denselben Planeten an
 
-Spieler A beginnt auf einem freien Planeten mit der Gründung. Spieler B trifft während der Aufbauphase ein. Der Planet ist bereits belegt. B kann keine Gründung beginnen und wartet im Orbit auf einen neuen Auftrag. In Iteration 1 endet der Aufbau mit der erfolgreichen Gründung von A. Der Planet bleibt durch die fertige Kolonie belegt.
+Spieler A beginnt auf einem freien Planeten mit der Gründung. Spieler B trifft während der Aufbauphase ein. Der Planet ist bereits belegt. B kann keine Gründung beginnen und wartet im Orbit auf einen neuen Auftrag. In der ersten Ausbaustufe der Kolonisation endet der Aufbau mit der erfolgreichen Gründung von A. Der Planet bleibt durch die fertige Kolonie belegt.
 
 ### S18 – Bunkerschutz für unbegrenzt lagerbaren Stahl
 
