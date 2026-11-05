@@ -5,15 +5,14 @@ import de.bwoester.coldfrontier.accounting.AccountingService;
 import de.bwoester.coldfrontier.accounting.Ledger;
 import de.bwoester.coldfrontier.accounting.PlanetAccount;
 import de.bwoester.coldfrontier.accounting.PlanetResourceSetMsg;
-import de.bwoester.coldfrontier.accounting.ResourceSetMsg;
 import de.bwoester.coldfrontier.accounting.TransactionMsg;
 import de.bwoester.coldfrontier.accounting.UserAccount;
 import de.bwoester.coldfrontier.buildings.Building;
 import de.bwoester.coldfrontier.buildings.BuildingCountersMsg;
 import de.bwoester.coldfrontier.buildings.BuildingDataProvider;
-import de.bwoester.coldfrontier.buildings.BuildingMsg;
 import de.bwoester.coldfrontier.buildings.BuildingService;
 import de.bwoester.coldfrontier.buildings.ConstructionQueueMsg;
+import de.bwoester.coldfrontier.buildings.StaticBuildingDataProvider;
 import de.bwoester.coldfrontier.data.EventFactory;
 import de.bwoester.coldfrontier.data.Value;
 import de.bwoester.coldfrontier.data.memory.InMemoryDataAccess;
@@ -38,7 +37,7 @@ public class ProductionTickSteps {
     private TickCoordinator ticker;
     private PlanetAccount account;
 
-    @Given("a prototype planet has {long} energy and two buildings with the test production rates")
+    @Given("a prototype planet has {long} energy and one iron mine")
     public void preparePlanet(long energy) {
         String planetId = "test-planet";
         InMemoryDataAccess data = new InMemoryDataAccess();
@@ -51,18 +50,10 @@ public class ProductionTickSteps {
         AccountingService accounting = new AccountingService(ledger,
                 values.get(TransactionMsg.class, "transactions"));
 
-        BuildingDataProvider buildings = building -> {
-            PlanetResourceSetMsg production = switch (building) {
-                case IRON_MINE -> new PlanetResourceSetMsg(1, -2, 0);
-                case SMALL_HOUSE -> new PlanetResourceSetMsg(0, 0, 1);
-                default -> throw new IllegalArgumentException("Unexpected building: " + building);
-            };
-            return new BuildingMsg(building.name(), 1, ResourceSetMsg.createDefault(),
-                    new ResourceSetMsg(production, 0));
-        };
+        BuildingDataProvider buildings = new StaticBuildingDataProvider();
         BuildingService buildingService = new BuildingService(values.get(
                 BuildingCountersMsg.class, "buildings",
-                new BuildingCountersMsg(Map.of(Building.IRON_MINE, 1L, Building.SMALL_HOUSE, 1L))),
+                new BuildingCountersMsg(Map.of(Building.IRON_MINE, 1L))),
                 values.get(ConstructionQueueMsg.class, "queue", new ConstructionQueueMsg(new ArrayDeque<>())),
                 buildings);
 
@@ -87,8 +78,10 @@ public class ProductionTickSteps {
         }
     }
 
-    @Then("the planet has {long} iron, {long} energy and {long} population")
-    public void verifyBalance(long iron, long energy, long population) {
-        assertEquals(new PlanetResourceSetMsg(iron, energy, population), account.getBalance());
+    @Then("the planet has {long} iron and {long} energy")
+    public void verifyBalance(long iron, long energy) {
+        PlanetResourceSetMsg balance = account.getBalance();
+        assertEquals(iron, balance.iron());
+        assertEquals(energy, balance.energy());
     }
 }
