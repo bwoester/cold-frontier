@@ -318,7 +318,13 @@ Produktion und Verbrauch auf einem Planeten wirken unmittelbar auf dessen Rohsto
 
 **Bestätigte Regel für Träger:** Die Flotte nutzt verfügbare Trägerkapazität automatisch so weit wie möglich für mitführbare Schiffe. Mitgeführte Schiffe verbrauchen keine eigenen Antriebsressourcen und ihre eigene Höchstgeschwindigkeit begrenzt das Flottentempo nicht. Verbrauch und erreichbares Tempo sind anhand der selbst fliegenden Schiffe und der Trägerbelegung zu bestimmen. Ob und wie die Belegung die Werte des Trägers verändert, bleibt offen.
 
-**Abflugprüfung je Abschnitt:** Vor jedem Abflug muss jedes selbst fliegende Schiff die Voraussetzungen des Abschnitts erfüllen. Kann ein Schiff eine Galaxie nicht aus eigener Kraft verlassen, kann es den Abschnitt an Bord eines dafür geeigneten Trägers mitfliegen. Bleibt ein für den Abschnitt ungeeignetes Schiff ohne Trägerplatz, darf die Flotte in dieser Zusammensetzung nicht abfliegen. Die Auswahl bei mehreren möglichen Belegungen und die Eignung von Schiffen für Trägerplätze bleiben offen.
+**Abflugprüfung je Abschnitt:** Vor jedem Abflug muss jedes selbst fliegende Schiff die Voraussetzungen des Abschnitts erfüllen. Kann ein Schiff eine Galaxie nicht aus eigener Kraft verlassen, kann es den Abschnitt an Bord eines dafür geeigneten Trägers mitfliegen. Bleibt ein für den Abschnitt ungeeignetes Schiff ohne Trägerplatz, darf die Flotte in dieser Zusammensetzung nicht abfliegen. Welche Schiffe auf welche Trägerplätze passen, bleibt offen.
+
+**Automatische Trägerbelegung:** Das Spiel schlägt für den geplanten Flug eine gültige Belegung vor, sofern eine existiert. Vorrang haben Schiffe, die den Abschnitt nur an Bord eines Trägers zurücklegen können. Unter den gültigen Belegungen nutzt der Vorschlag die verfügbare Kapazität so weit wie möglich. Ist keine gültige Belegung möglich, bleibt der Abflug gesperrt.
+
+**Optionale Optimierung und manuelle Anpassung:** Der Spieler soll die vorgeschlagene Belegung bei Bedarf manuell anpassen können. Auch diese Belegung unterliegt der Abflugprüfung. Optimierungsziele wie kürzere Flugzeit oder geringerer Verbrauch können als gespeicherte Spielervorliebe oder als Ein-Klick-Aktion beim Versand angeboten werden. Standardziel, konkrete Bedienung und Einordnung in die Iterationen bleiben offen.
+
+**Prüffall:** Ein Träger hat einen freien Platz. Ein Jäger kann den Galaxiewechsel nur an Bord bewältigen, ein langsamer Frachter kann selbst fliegen. Das Spiel schlägt vor, den Jäger mitzunehmen. Eine manuelle Belegung mit dem Frachter wäre für diesen Flug ungültig.
 
 Allgemeine Ketten mehrerer Flottenaufträge bleiben eine spätere Idee. Die tatsächliche Fracht kann auch bei einer Abholung von der Planung abweichen. Wie Folgeaufträge damit umgehen, ist offen. Warenbesitz unterwegs, Handelsregeln, Credits-Transfers und Angriffe auf Konvois bleiben ebenfalls offen.
 
