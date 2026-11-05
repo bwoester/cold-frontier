@@ -1,6 +1,9 @@
 Feature: Production batches in the current ticker
-  This scenario characterizes the prototype for the Cucumber integration trial.
-  It records observed behavior and does not define a game rule.
+  Scope: Implementation detail (lib, current ticker).
+  Purpose: Verifies observed prototype behavior for the Cucumber integration trial.
+  Rationale: Rejecting all production when one input is missing follows from the
+  prototype's combined accounting transaction and has not been adopted as a game rule.
+
   In this fixture, the mine consumes 2 energy to produce 1 iron per tick.
   The house contributes 1 population per tick without consuming energy.
 

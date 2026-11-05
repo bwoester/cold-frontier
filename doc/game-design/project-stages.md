@@ -17,6 +17,8 @@ Eine **Projektetappe** beschreibt einen prüfbaren Entwicklungsstand des gesamte
 
 Mit dieser Kette lassen sich Bestandsänderungen, ein Engpass und die Wirksamkeit eines Ereignisses gemeinsam prüfen. Anlagen und Startbestände kommen aus dem Szenario. Weitere Gebäude, Bevölkerungsdynamik und planetenübergreifende Mechaniken können danach hinzukommen. Zeiteinheit, Rundung und Fortschreibung bleiben offen.
 
+Für Feature-Dateien gilt die [Gherkin-Konvention](../gherkin-conventions.md).
+
 ## Mindmap zum Diskussionsstand
 
 Die Äste folgen den Spielsystemen. Jeder Knoten nennt **Diskussionstiefe · Entscheidungsstand · frühesten geplanten Einsatz**. „Kernregeln“ und „Randfälle“ bezeichnen die bisherige Diskussionstiefe. Die Einstufungen sind eine Momentaufnahme der [Wirtschaftsdoku](economy.md) und der [Architekturfrage zur Auftragsreihenfolge](../architecture/command-ordering.md).

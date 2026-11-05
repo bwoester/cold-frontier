@@ -1,4 +1,8 @@
 Feature: Water production with a limited ice stockpile
+  Scope: Game behavior.
+  Purpose: Specifies proposed behavior for the first resource simulation stage.
+  Rationale: Stock changes and the effective time of ice depletion are gameplay
+  outcomes that should hold across simulation engine implementations.
 
   Scenario Outline: Water production stops when the ice stockpile runs out
     Given a planet starts at minute 0 with 12 units of ice and 0 units of water
