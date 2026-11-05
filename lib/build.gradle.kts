@@ -60,7 +60,12 @@ tasks.withType<JavaCompile>().configureEach {
     options.compilerArgs.add("-parameters")
 }
 
+val excludeExternalTests = providers.gradleProperty("excludeExternalTests").isPresent
+
 tasks.named<Test>("test") {
-    // Use JUnit Platform for unit tests.
-    useJUnitPlatform()
+    useJUnitPlatform {
+        if (excludeExternalTests) {
+            excludeTags("external")
+        }
+    }
 }
