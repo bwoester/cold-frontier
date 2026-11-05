@@ -18,9 +18,11 @@ import de.bwoester.coldfrontier.data.EventFactory;
 import de.bwoester.coldfrontier.data.Value;
 import de.bwoester.coldfrontier.data.memory.InMemoryDataAccess;
 import de.bwoester.coldfrontier.data.memory.InMemoryValueRepository;
+import de.bwoester.coldfrontier.input.InputQueueMsg;
 import de.bwoester.coldfrontier.input.InputService;
 import de.bwoester.coldfrontier.planet.Planet;
 import de.bwoester.coldfrontier.planet.PlanetMsg;
+import de.bwoester.coldfrontier.progress.ProgressMsg;
 import de.bwoester.coldfrontier.progress.ProgressService;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -29,7 +31,6 @@ import java.util.ArrayDeque;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.mock;
 
 class ProductionTickTest {
 
@@ -62,11 +63,18 @@ class ProductionTickTest {
                 values.get(ConstructionQueueMsg.class, "queue", new ConstructionQueueMsg(new ArrayDeque<>())),
                 buildings);
 
+        InputQueueMsg emptyInput = new InputQueueMsg(new ArrayDeque<>());
+        InputService input = new InputService(
+                values.get(InputQueueMsg.class, "new-input", emptyInput),
+                values.get(InputQueueMsg.class, "started-input", emptyInput),
+                values.get(InputQueueMsg.class, "finished-input", emptyInput),
+                values.get(InputQueueMsg.class, "failed-input", emptyInput));
+        ProgressService progress = new ProgressService(values.get(ProgressMsg.class, "progress"), buildings);
+
         TickCoordinator ticker = new TickCoordinator(values.get(Long.class, "tick", 0L));
         ticker.add(new Planet(values.get(PlanetMsg.class, "planet",
                 new PlanetMsg(planetId, null, null, null, null)),
-                mock(InputService.class), buildingService, accounting,
-                new ProductionService(buildings), mock(ProgressService.class)));
+                input, buildingService, accounting, new ProductionService(buildings), progress));
 
         if (advanceInStages) {
             ticker.advanceTo(1);
