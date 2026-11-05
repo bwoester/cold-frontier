@@ -24,25 +24,28 @@ import de.bwoester.coldfrontier.planet.Planet;
 import de.bwoester.coldfrontier.planet.PlanetMsg;
 import de.bwoester.coldfrontier.progress.ProgressMsg;
 import de.bwoester.coldfrontier.progress.ProgressService;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.ValueSource;
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 
 import java.util.ArrayDeque;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class ProductionTickTest {
+public class ProductionTickSteps {
 
-    @ParameterizedTest(name = "advance in stages: {0}")
-    @ValueSource(booleans = {false, true})
-    void rejectsTheEntireProductionBatchWhenEnergyIsInsufficient(boolean advanceInStages) {
+    private TickCoordinator ticker;
+    private PlanetAccount account;
+
+    @Given("a prototype planet has {long} energy and two buildings with the test production rates")
+    public void preparePlanet(long energy) {
         String planetId = "test-planet";
         InMemoryDataAccess data = new InMemoryDataAccess();
         InMemoryValueRepository values = new InMemoryValueRepository(data.getData(), new EventFactory(() -> 0L));
         Value<PlanetResourceSetMsg> balance = values.get(
-                PlanetResourceSetMsg.class, "balance", new PlanetResourceSetMsg(0, 2, 0));
-        PlanetAccount account = new PlanetAccount(balance);
+                PlanetResourceSetMsg.class, "balance", new PlanetResourceSetMsg(0, energy, 0));
+        account = new PlanetAccount(balance);
         Ledger ledger = new Ledger(new UserAccount(values.get(Long.class, "credits", 0L)),
                 Map.of(planetId, account));
         AccountingService accounting = new AccountingService(ledger,
@@ -71,19 +74,21 @@ class ProductionTickTest {
                 values.get(InputQueueMsg.class, "failed-input", emptyInput));
         ProgressService progress = new ProgressService(values.get(ProgressMsg.class, "progress"), buildings);
 
-        TickCoordinator ticker = new TickCoordinator(values.get(Long.class, "tick", 0L));
+        ticker = new TickCoordinator(values.get(Long.class, "tick", 0L));
         ticker.add(new Planet(values.get(PlanetMsg.class, "planet",
                 new PlanetMsg(planetId, null, null, null, null)),
                 input, buildingService, accounting, new ProductionService(buildings), progress));
+    }
 
-        if (advanceInStages) {
-            ticker.advanceTo(1);
-            assertEquals(new PlanetResourceSetMsg(1, 0, 1), account.getBalance());
+    @When("the ticker advances through ticks {string}")
+    public void advanceThroughTicks(String checkpoints) {
+        for (String checkpoint : checkpoints.split(",")) {
+            ticker.advanceTo(Long.parseLong(checkpoint.trim()));
         }
+    }
 
-        ticker.advanceTo(3);
-
-        // The energy shortage also blocks the house's independent output.
-        assertEquals(new PlanetResourceSetMsg(1, 0, 1), account.getBalance());
+    @Then("the planet has {long} iron, {long} energy and {long} population")
+    public void verifyBalance(long iron, long energy, long population) {
+        assertEquals(new PlanetResourceSetMsg(iron, energy, population), account.getBalance());
     }
 }
