@@ -312,7 +312,9 @@ Produktion und Verbrauch auf einem Planeten wirken unmittelbar auf dessen Rohsto
 
 **Wählbares Flugtempo:** Der Spieler wählt das Tempo für die Flotte und beeinflusst damit ihre Ankunftszeit. Langsameres Fliegen kann Antriebsressourcen sparen. Zulässige Geschwindigkeiten, Verbrauchskurven und eine mögliche Eingabe über die gewünschte Ankunftszeit bleiben offen.
 
-**Antrieb nach Schiffstyp:** Welche Ressource ein Schiff für den Antrieb verwendet, hängt von Schiffsklasse und Technologiestufe ab. Für frühe Feststoffbooster sind chemische Elemente vorgesehen. Spätere Schiffe können rein mit Energie fliegen. Hybridantriebe bleiben eine Idee. Offen ist, ob solche Antriebe beide Rohstoffe benötigen oder zwischen ihnen wechseln können und wie sich Tempo und Bedarf einer gemischten Flotte bestimmen.
+**Antrieb nach Schiffstyp:** Welche Ressource ein Schiff für den Antrieb verwendet, hängt von Schiffsklasse und Technologiestufe ab. Für frühe Feststoffbooster sind chemische Elemente vorgesehen. Spätere Schiffe können rein mit Energie fliegen. Hybridantriebe bleiben eine Idee. Offen ist, ob solche Antriebe beide Rohstoffe benötigen oder zwischen ihnen wechseln können.
+
+**Bestätigte Regel für gemischte Flotten:** Alle Schiffe einer Flotte fliegen im gewählten gemeinsamen Tempo. Das Schiff mit der niedrigsten Höchstgeschwindigkeit begrenzt die Auswahl. Der Antriebsbedarf aller Schiffe wird für das gewählte Tempo je Rohstoff addiert und aus dem gemeinsamen Frachtbestand gedeckt. Eine Flotte aus einem Frachter mit Feststoffboostern und einer rein elektrisch angetriebenen Eskorte benötigt somit chemische Elemente und Energie. Ist der Frachter langsamer als die Eskorte, begrenzt er das gemeinsame Tempo.
 
 Allgemeine Ketten mehrerer Flottenaufträge bleiben eine spätere Idee. Die tatsächliche Fracht kann auch bei einer Abholung von der Planung abweichen. Wie Folgeaufträge damit umgehen, ist offen. Warenbesitz unterwegs, Handelsregeln, Credits-Transfers und Angriffe auf Konvois bleiben ebenfalls offen.
 
