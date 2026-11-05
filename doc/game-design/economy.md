@@ -427,11 +427,11 @@ Eine orbitale Werft wird zerstört, während darin ein oder mehrere Schiffe ents
 
 **Bestätigte Regelrichtung (2026-11-03):** Spieler sehen Produktions- und Verbrauchsraten pro Stunde. Bei verfügbaren Inputs läuft die Produktion mit der durch die Betriebsbedingungen gegebenen Rate. Sobald ein notwendiger Input fehlt, sinkt die Leistung entsprechend. Bei leerem Eisvorrat und ohne Eisnachschub steht das Wasserwerk still und verbraucht keine Energie für die Wasserproduktion.
 
-**Prüfbeispiel:** Ein Wasserwerk produziert bei voller Leistung 10 Wasser pro Stunde. Es hat Zugriff auf 12 Eis, ausreichend Energie und Personal sowie Platz für das erzeugte Wasser. Eis kommt im Prüfzeitraum nicht hinzu. Andere Verbraucher greifen nicht auf diesen Eisvorrat zu. Das Werk erzeugt bis Minute 36 insgesamt 6 Wasser und verbraucht dabei 12 Eis und 6 Energie. Ab Minute 36 steht es still. Die zuvor für Wasserproduktion benötigte Energie ist ab dann für andere Verbraucher verfügbar, soweit die Versorgung und Verteilungsregeln dies erlauben.
+**Prüfbeispiel:** Das [Gherkin-Szenario zur Wasserproduktion](scenarios/water-production.feature) definiert die Ausgangswerte, die Fortschreibung und die erwarteten Bestände.
 
 Die Beispielraten dienen der Prüfung, die konkreten Gebäudeparameter bleiben offen. Die zeitliche Auflösung soll den Wechsel bei Erschöpfung des Vorrats abbilden. Zeiteinheit, Rundung und technische Fortschreibung bleiben offen.
 
-**Audit-Anforderung:** Beim Erschöpfen des Eisvorrats entsteht ein fachliches Ereignis mit dem wirksamen Spielzeitpunkt, der betroffenen Kolonie und dem Rohstoff. Für S12 liegt dieser Zeitpunkt bei Minute 36, auch wenn die Simulation das Ereignis später verarbeitet. Der Produktionsstopp des Wasserwerks, der Wegfall seines Energiebedarfs und tatsächlich ausgelöste Änderungen bei anderen Verbrauchern sollen sich im Audit auf dieses Ereignis zurückführen lassen. Eine mögliche Neuverteilung allein zählt noch nicht als eingetretene Änderung. Ereignisstruktur, Aufbewahrung und Persistenz bleiben Architekturfragen.
+**Audit-Anforderung:** Beim Erschöpfen des Eisvorrats entsteht ein fachliches Ereignis mit dem wirksamen Spielzeitpunkt, der betroffenen Kolonie und dem Rohstoff. Der im Szenario definierte Zeitpunkt gilt auch dann, wenn die Simulation das Ereignis später verarbeitet. Der Produktionsstopp des Wasserwerks, der Wegfall seines Energiebedarfs und tatsächlich ausgelöste Änderungen bei anderen Verbrauchern sollen sich im Audit auf dieses Ereignis zurückführen lassen. Eine mögliche Neuverteilung allein zählt noch nicht als eingetretene Änderung. Ereignisstruktur, Aufbewahrung und Persistenz bleiben Architekturfragen.
 
 ### S13 – Entladung bei begrenzter Lagerkapazität
 
