@@ -16,9 +16,9 @@ Für den [Wasserwerk-Abnahmefall](../game-design/scenarios/water-production.feat
 
 ### Einsatzstoffe für eine laufende Produktion
 
-Das Wasserwerk startet eine Einheit nur, wenn im Ressourcenpool mindestens 2 Eis und 1 Energie verfügbar sind. Beim Start gehen beide Einsatzstoffe aus dem Pool ins Wasserwerk über. Die Einheit bleibt bis zur Fertigstellung als laufende Produktion im Zustand erhalten. Bei Fertigstellung geht 1 ganze Einheit Wasser in den Pool über.
+Das Wasserwerk startet eine Einheit nur, wenn im Ressourcenpool mindestens 1 Eis und 2 Energie verfügbar sind. Beim Start gehen beide Einsatzstoffe aus dem Pool ins Wasserwerk über. Die Einheit bleibt bis zur Fertigstellung als laufende Produktion im Zustand erhalten. Bei Fertigstellung geht 1 ganze Einheit Wasser in den Pool über.
 
-- **Minute 30:** Die fünfte Einheit Wasser wird verfügbar. Das Werk entnimmt die letzten 2 Eis und 1 Energie für die sechste Einheit. Im Pool ist kein Eis mehr.
+- **Minute 30:** Die fünfte Einheit Wasser wird verfügbar. Das Werk entnimmt die letzte Einheit Eis und 2 Energie für die sechste Einheit. Im Pool ist kein Eis mehr.
 - **Minute 33:** Im Pool sind 5 Wasser und 0 Eis. Die sechste Einheit ist halb fertig.
 - **Minute 36:** Die sechste Einheit Wasser wird verfügbar. Das Werk kann wegen fehlenden Eises keine weitere Einheit starten. Zu diesem Zeitpunkt tritt das Erschöpfungsereignis ein.
 
