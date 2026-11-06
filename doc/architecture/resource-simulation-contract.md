@@ -14,7 +14,13 @@ Das Ergebnis enthält den fortgeschriebenen Zustand mit erreichter Spielzeit und
 
 Für den [Wasserwerk-Abnahmefall](../game-design/scenarios/water-production.feature) gehört das Erschöpfungsereignis zum Abschnitt, der Minute 36 erreicht. Ein Folgeabschnitt ab Minute 36 meldet es nicht erneut. Anlagen werden gemeinsam im Kontext der Kolonie fortgeschrieben. Der Aufrufer bestimmt weder Raten noch die Reihenfolge einzelner Anlagen.
 
-**Offene Spielregel.** Wann Einsatzstoffe für eine begonnene Produktion abgebucht oder reserviert werden, ist noch zu klären.
+### Einsatzstoffe für eine laufende Produktion
+
+**Vorschlag für das Wasserwerk in Etappe 1.** Das Werk startet eine Einheit nur, wenn 2 Eis und 1 Energie frei verfügbar sind. Beim Start bindet es diese Mengen für die laufende Einheit. Gebundene Einsatzstoffe zählen bis zur Fertigstellung zum Gesamtbestand, stehen anderen Verbrauchern aber nicht zur Verfügung. Bei der Fertigstellung werden die gebundenen Einsatzstoffe verbraucht und die ganze Einheit Wasser wird zugleich verfügbar.
+
+In Minute 33 stehen 5 Wasser zur Verfügung. Die sechste Einheit ist halb fertig. Die letzten 2 Eis und 1 Energie sind dafür gebunden. Der freie Eisbestand ist seit Beginn der sechsten Einheit in Minute 30 null. Erst in Minute 36 sinkt der gesamte Eisbestand auf null. Das Erschöpfungsereignis bezeichnet in diesem Szenario diesen Verbrauch der letzten Eisbestände. Ein anderer Verbraucher könnte bereits ab Minute 30 keinen freien Eisbestand mehr vorfinden.
+
+Diese Reservierung gilt als Vorschlag für das Wasserwerk im Abnahmefall. Was bei einem Abbruch mit gebundenen Einsatzstoffen geschieht und welche anderen Anlagen ihre Inputs laufend verbrauchen, bleibt offen.
 
 ## Zuständigkeiten bei weiteren Spielmechaniken
 
