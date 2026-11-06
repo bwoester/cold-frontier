@@ -35,6 +35,22 @@ Im Wasserwerk-Abnahmefall bezeichnet das Erschöpfungsereignis den Übergang von
 
 Ein Zeitpunkt kann bereits feststehen oder erst aus dem Fortschritt einer Mechanik folgen. Der voraussichtliche Abschluss eines Baus kann sich zum Beispiel durch einen wirtschaftlichen Engpass verschieben. Ein spontaner Spielerauftrag erhält eine wirksame Spielzeit nach den Regeln der Spielablaufsteuerung. Die Behandlung verspäteter und gleichzeitiger Aktionen bleibt Teil der [offenen Auftragsreihenfolge](command-ordering.md).
 
+## Phasenfolge des Tick-Prototyps
+
+Der [`TickCoordinator`](../../lib/src/main/java/de/bwoester/coldfrontier/TickCoordinator.java) erhöht zuerst den Tickzähler. Dann führt er jede Phase für alle registrierten Komponenten aus, bevor die nächste Phase beginnt. Die Reihenfolge dient als Ausgangspunkt für die Diskussion.
+
+1. Eingaben verarbeiten (`handleInput`)
+2. Ressourcen aktualisieren (`handleResourceUpdates`)
+3. Fertiggestellte Bauaufträge übernehmen (`handleFinishedUnits`)
+4. Wartende Aufträge starten (`handleQueuedUnits`)
+5. Bewegung verarbeiten (`handleMovement`)
+6. Konflikte auflösen (`handleConflicts`)
+7. Sichtbarkeit aktualisieren (`handleVisibilityUpdates`)
+8. Zustand speichern (`handlePersistence`)
+9. Aufräumen (`handleCleanup`)
+
+Für Lieferungen gibt es im Coordinator keine eigene Phase. Die Einordnung des Entladeabschlusses und seiner Gutschrift im Zielpool bleibt offen. Für den Wasserwerk-Grenzfall ist entscheidend, ob die Gutschrift zur selben Spielzeit bereits vor dem Startversuch der nächsten Wassereinheit verfügbar ist.
+
 ## Ereignisse aus der Wirtschaft
 
 Ein innerhalb der Wirtschaft behandelter Übergang kann als Ergebnis gemeldet werden. Im Wasserwerk-Szenario stoppt die Wirtschaft bei Eiserschöpfung den Betrieb selbst. Das Audit-Ereignis dokumentiert die wirksame Spielzeit.
