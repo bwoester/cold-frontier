@@ -28,7 +28,7 @@ Quellcode: [ResourceSetMsg](../../lib/src/main/java/de/bwoester/coldfrontier/acc
 
 ## Produktion und Abhängigkeiten
 
-**Bestätigtes Wasserrezept:** Für 1 Einheit Wasser werden 2 Einheiten Eis und 1 Einheit Energie verbraucht. Durchsatz und Teilbetrieb bleiben offen.
+**Bestätigtes Wasserrezept:** Für 1 Einheit Wasser werden 1 Einheit Eis und 2 Einheiten Energie verbraucht. Durchsatz und Teilbetrieb bleiben offen.
 
 **Code-Ist:** `ProductionService` summiert feste Produktionsvektoren je Gebäude; noch ohne Engpässe, verfügbare Ausgangsstoffe oder Modifikatoren. `IRON_MINE` ist als Beispiel mit positiver Eisen- und negativer Energieproduktion konfiguriert. Das ist **kein** endgültiges Balancing.
 
@@ -425,13 +425,13 @@ Eine orbitale Werft wird zerstört, während darin ein oder mehrere Schiffe ents
 
 ### S12 – Eisvorrat endet während der Wasserproduktion
 
-**Bestätigte Regelrichtung (2026-11-03):** Spieler sehen Produktions- und Verbrauchsraten pro Stunde. Bei verfügbaren Inputs läuft die Produktion mit der durch die Betriebsbedingungen gegebenen Rate. Sobald ein notwendiger Input fehlt, sinkt die Leistung entsprechend. Bei leerem Eisvorrat und ohne Eisnachschub steht das Wasserwerk still und verbraucht keine Energie für die Wasserproduktion.
+**Bestätigte Regelrichtung (2026-11-03):** Spieler sehen Produktions- und Verbrauchsraten pro Stunde. Bei verfügbaren Inputs läuft die Produktion mit der durch die Betriebsbedingungen gegebenen Rate. Sobald ein notwendiger Input fehlt, sinkt die Leistung entsprechend. Ist der Eisvorrat leer, kann das Wasserwerk keine weitere Einheit beginnen und entnimmt dafür keine Energie. Eine mit bereits entnommenen Einsatzstoffen begonnene Einheit wird fertiggestellt.
 
 **Prüfbeispiel:** Das [Gherkin-Szenario zur Wasserproduktion](scenarios/water-production.feature) definiert die Ausgangswerte, die Fortschreibung und die erwarteten Bestände.
 
 Die Beispielraten dienen der Prüfung, die konkreten Gebäudeparameter bleiben offen. Die zeitliche Auflösung soll den Wechsel bei Erschöpfung des Vorrats abbilden. Zeiteinheit, Rundung und technische Fortschreibung bleiben offen.
 
-**Audit-Anforderung:** Beim Erschöpfen des Eisvorrats entsteht ein fachliches Ereignis mit dem wirksamen Spielzeitpunkt, der betroffenen Kolonie und dem Rohstoff. Der im Szenario definierte Zeitpunkt gilt auch dann, wenn die Simulation das Ereignis später verarbeitet. Der Produktionsstopp des Wasserwerks, der Wegfall seines Energiebedarfs und tatsächlich ausgelöste Änderungen bei anderen Verbrauchern sollen sich im Audit auf dieses Ereignis zurückführen lassen. Eine mögliche Neuverteilung allein zählt noch nicht als eingetretene Änderung. Ereignisstruktur, Aufbewahrung und Persistenz bleiben Architekturfragen.
+**Audit-Anforderung:** Wenn das Wasserwerk nach Abschluss der laufenden Einheit wegen fehlenden Eises keine weitere Einheit beginnen kann, entsteht ein fachliches Ereignis mit dem wirksamen Spielzeitpunkt, der betroffenen Kolonie und dem Rohstoff. Der im Szenario definierte Zeitpunkt gilt auch dann, wenn die Simulation das Ereignis später verarbeitet. Der Produktionsstopp des Wasserwerks, der Wegfall seines Energiebedarfs und tatsächlich ausgelöste Änderungen bei anderen Verbrauchern sollen sich im Audit auf dieses Ereignis zurückführen lassen. Eine mögliche Neuverteilung allein zählt noch nicht als eingetretene Änderung. Ereignisstruktur, Aufbewahrung und Persistenz bleiben Architekturfragen.
 
 ### S13 – Entladung bei begrenzter Lagerkapazität
 
