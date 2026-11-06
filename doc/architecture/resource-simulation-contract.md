@@ -37,30 +37,33 @@ Ein Zeitpunkt kann bereits feststehen oder erst aus dem Fortschritt einer Mechan
 
 ## Phasenfolge des Tick-Prototyps
 
-Der [`TickCoordinator`](../../lib/src/main/java/de/bwoester/coldfrontier/TickCoordinator.java) erhöht zuerst den Tickzähler. Dann führt er jede Phase für alle registrierten Komponenten aus, bevor die nächste Phase beginnt. Die Reihenfolge dient als Ausgangspunkt für die Diskussion.
+Der [`TickCoordinator`](../../lib/src/main/java/de/bwoester/coldfrontier/TickCoordinator.java) erhöht zuerst den Tickzähler und führt dann jede Phase für alle registrierten Komponenten aus. Die Tabelle trennt die bestehende Reihenfolge von ihrer fachlichen Bewertung. Die Bewertungen sind Vorschläge.
 
-1. Eingaben verarbeiten (`handleInput`)
-2. Ressourcen aktualisieren (`handleResourceUpdates`)
-3. Fertiggestellte Bauaufträge übernehmen (`handleFinishedUnits`)
-4. Wartende Aufträge starten (`handleQueuedUnits`)
-5. Bewegung verarbeiten (`handleMovement`)
-6. Konflikte auflösen (`handleConflicts`)
-7. Sichtbarkeit aktualisieren (`handleVisibilityUpdates`)
-8. Zustand speichern (`handlePersistence`)
-9. Aufräumen (`handleCleanup`)
+| Nr. | Phase im Prototyp | Fachliche Begründung und offene Fragen |
+| ---: | --- | --- |
+| 1 | Eingaben (`handleInput`) | Ein definierter Zeitpunkt für Spieleraufträge legt fest, welchen Bestand sie sehen und welche Folgen die Wirtschaft anschließend berücksichtigt. Der frühe Platz vor der Ressourcenphase ist ein Vorschlag. |
+| 2 | Ressourcen (`handleResourceUpdates`) | Produktion und Verbrauch brauchen eine gemeinsame Reihenfolge gegenüber Aufträgen und anderen Bestandsänderungen. Fertigstellung einer Wassereinheit und Startversuch der nächsten können Teil desselben fachlichen Ablaufs bleiben. |
+| 3 | Fertigstellungen (`handleFinishedUnits`) | Im Prototyp werden fertige Gebäude nach der Ressourcenphase übernommen. Sie tragen damit frühestens im nächsten Tick zur Produktion bei. Das ist beobachtetes Verhalten, dessen Übernahme als Spielregel offen bleibt. |
+| 4 | Warteschlangen (`handleQueuedUnits`) | Nach einer Fertigstellung kann der frei gewordene Bauplatz direkt an den nächsten Auftrag gehen. Für dieselbe Bauwarteschlange genügt diese lokale Reihenfolge, solange keine andere Mechanik zwischen Fertigstellung und Nachrücken eingreifen muss. |
+| 5 | Bewegung (`handleMovement`) | Eine eigene Grenze ist begründet, falls Konflikte auf den nach der Bewegung erreichten Positionen beruhen sollen. Der Platz im Prototyp allein entscheidet noch keine Ankunfts- oder Abfangregeln. |
+| 6 | Konflikte (`handleConflicts`) | Die Auflösung kann auf den Ergebnissen der Bewegung aufbauen und Bestände oder Anlagen verändern. Welchen Vorrang Konflikte gegenüber anderen Änderungen derselben Spielzeit haben, braucht konkrete Prüffälle. |
+| 7 | Sichtbarkeit (`handleVisibilityUpdates`) | Eine fachliche Phase ist begründet, wenn Sichtbarkeit bestimmt, welche Aktionen zur selben Spielzeit zulässig sind. Für eine reine Anzeige genügt eine Ableitung aus dem Spielzustand. |
+| 8 | Persistenz (`handlePersistence`) | Technischer Schritt. Der Zeitpunkt einer Speicherung begründet für sich keine fachliche Vorrangregel. |
+| 9 | Aufräumen (`handleCleanup`) | Technische Bereinigung braucht keine fachliche Phase. Hat ein Ablauf spielwirksame Folgen, etwa das Ende eines Bonus, braucht er eine eigene Wirksamkeitsregel. |
 
-Für Lieferungen gibt es im Coordinator keine eigene Phase.
+### Wann eine eigene Phase sinnvoll ist
 
-### Vorschlag für die Eingabephase
+Eine fachliche Phase definiert, **welchen Zustand nachfolgende Spielregeln zur selben Spielzeit sehen**. Eine eigene Grenze ist sinnvoll, wenn die Reihenfolge zwischen Gruppen von Aktionen ein beobachtbares Ergebnis verändert und sich als gemeinsame Regel erklären lässt. Als Prüffall eignet sich ein Vergleich, bei dem vertauschte Schritte zu anderem Bestand, anderen zulässigen Aktionen oder anderen fachlichen Ereignissen führen.
 
-Ein Input ist ein Auftrag oder eine fällige Aktion, die laut Spielregel zu Beginn der betreffenden Spielzeit verarbeitet wird. Die Einordnung richtet sich nach dem Spielablauf und dem wirksamen Zeitpunkt.
+Die Zuständigkeit eines Services legt diese Reihenfolge nicht fest. Ein Ressourcenpool kann zur selben Spielzeit Fracht aufnehmen, Baukosten abgeben und Einsatzstoffe für die Produktion bereitstellen. Für Bestandsregeln bleibt dieselbe Kolonie zuständig. Würden wir zuerst sämtliche Planeten und dann sämtliche Flotten abarbeiten, würde die Reihenfolge der Services nebenbei entscheiden, ob frisch entladenes Eis noch für Bau und Produktion verfügbar ist. Eine lokale Abfolge innerhalb eines Bauauftrags oder Wasserwerks braucht erst dann eine eigene Phase, wenn eine andere Mechanik dazwischen einen fachlich relevanten Zustand sehen muss. Unabhängige Aktionen brauchen allein wegen ihrer Gleichzeitigkeit keine globale Reihenfolge.
 
-1. **System-Inputs:** Bereits fällige, vom Spiel angesetzte Aktionen, etwa der Abschluss einer Entladung. Dabei prüft die Kolonie die aktuelle Lagerkapazität und schreibt die übernommene Fracht gut.
-2. **User-Inputs:** Zu dieser Spielzeit wirksame Spieleraufträge, etwa einen Bau beauftragen. Sie werden gegen den Zustand nach den System-Inputs geprüft.
+### Vorschlag für fällige Aktionen und Spieleraufträge
 
-Danach folgt die Ressourcenphase. Endet eine Eis-Entladung in Minute 36 und stehen nach den Spieleraufträgen noch mindestens 1 Eis und 2 Energie zur Verfügung, kann das Wasserwerk nach Abschluss der sechsten Einheit direkt die siebte beginnen. Es entsteht kein Erschöpfungsereignis.
+Zu Beginn der Spielzeit werden fällige Aktionen verarbeitet, **deren Wirkung laut Spielregel bereits für Spieleraufträge verfügbar sein soll**. Der Entladeabschluss ist ein Kandidat. Der Transport bestimmt die Fracht zur Übernahme, die Kolonie prüft den Lagerplatz und schreibt die übernommene Menge gut. Danach werden Spieleraufträge gegen den aktualisierten Zustand geprüft. Ein fälliger Termin allein begründet keinen Vorrang.
 
-Die Schiffsankunft entsteht in der Bewegungsphase. Die Frachtgutschrift ist das Ergebnis des Entladeabschlusses. Auch das Erschöpfungsereignis ist ein Ergebnis seiner jeweiligen Phase. Ein Ergebnis wird nicht rückwirkend als Input desselben Ticks verarbeitet. Für mehrere konkurrierende Aktionen innerhalb derselben Gruppe bleibt die [Auftragsreihenfolge](command-ordering.md) offen.
+Die vorgeschlagene Reihenfolge für den Wasserwerk-Grenzfall ist **Entladeabschluss → Spieleraufträge → Ressourcenaktualisierung**. Endet eine Eis-Entladung in Minute 36 und stehen nach den Spieleraufträgen noch mindestens 1 Eis und 2 Energie zur Verfügung, kann das Wasserwerk nach Abschluss der sechsten Einheit direkt die siebte beginnen. Es entsteht kein Erschöpfungsereignis.
+
+Ein Ergebnis wird nicht rückwirkend als Eingabe derselben Spielzeit verarbeitet. Welche späteren Regeln das Ergebnis noch zur selben Spielzeit berücksichtigen, ergibt sich aus deren fachlicher Reihenfolge. Vorrang innerhalb einer Gruppe und Konflikte zwischen Entladung und Angriff bleiben Teil der [offenen Auftragsreihenfolge](command-ordering.md).
 
 ## Ereignisse aus der Wirtschaft
 
