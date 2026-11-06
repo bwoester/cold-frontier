@@ -16,11 +16,13 @@ Für den [Wasserwerk-Abnahmefall](../game-design/scenarios/water-production.feat
 
 ### Einsatzstoffe für eine laufende Produktion
 
-**Vorschlag für das Wasserwerk in Etappe 1.** Das Werk startet eine Einheit nur, wenn 2 Eis und 1 Energie frei verfügbar sind. Beim Start bindet es diese Mengen für die laufende Einheit. Gebundene Einsatzstoffe zählen bis zur Fertigstellung zum Gesamtbestand, stehen anderen Verbrauchern aber nicht zur Verfügung. Bei der Fertigstellung werden die gebundenen Einsatzstoffe verbraucht und die ganze Einheit Wasser wird zugleich verfügbar.
+Das Wasserwerk startet eine Einheit nur, wenn im Ressourcenpool mindestens 2 Eis und 1 Energie verfügbar sind. Beim Start gehen beide Einsatzstoffe aus dem Pool ins Wasserwerk über. Die Einheit bleibt bis zur Fertigstellung als laufende Produktion im Zustand erhalten. Bei Fertigstellung geht 1 ganze Einheit Wasser in den Pool über.
 
-In Minute 33 stehen 5 Wasser zur Verfügung. Die sechste Einheit ist halb fertig. Die letzten 2 Eis und 1 Energie sind dafür gebunden. Der freie Eisbestand ist seit Beginn der sechsten Einheit in Minute 30 null. Erst in Minute 36 sinkt der gesamte Eisbestand auf null. Das Erschöpfungsereignis bezeichnet in diesem Szenario diesen Verbrauch der letzten Eisbestände. Ein anderer Verbraucher könnte bereits ab Minute 30 keinen freien Eisbestand mehr vorfinden.
+- **Minute 30:** Die fünfte Einheit Wasser wird verfügbar. Das Werk entnimmt die letzten 2 Eis und 1 Energie für die sechste Einheit. Im Pool ist kein Eis mehr.
+- **Minute 33:** Im Pool sind 5 Wasser und 0 Eis. Die sechste Einheit ist halb fertig.
+- **Minute 36:** Die sechste Einheit Wasser wird verfügbar. Das Werk kann wegen fehlenden Eises keine weitere Einheit starten. Zu diesem Zeitpunkt tritt das Erschöpfungsereignis ein.
 
-Diese Reservierung gilt als Vorschlag für das Wasserwerk im Abnahmefall. Was bei einem Abbruch mit gebundenen Einsatzstoffen geschieht und welche anderen Anlagen ihre Inputs laufend verbrauchen, bleibt offen.
+Im Wasserwerk-Abnahmefall bezeichnet das Erschöpfungsereignis den Übergang von laufender Produktion zu fehlendem Eis für die nächste Einheit. Der Poolbestand erreicht null bereits bei der Entnahme in Minute 30. Was bei einem Abbruch mit den bereits entnommenen Einsatzstoffen geschieht, bleibt offen.
 
 ## Zuständigkeiten bei weiteren Spielmechaniken
 
