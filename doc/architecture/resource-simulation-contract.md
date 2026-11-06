@@ -57,13 +57,17 @@ Eine fachliche Phase definiert, **welchen Zustand nachfolgende Spielregeln zur s
 
 Die Zuständigkeit eines Services legt diese Reihenfolge nicht fest. Ein Ressourcenpool kann zur selben Spielzeit Fracht aufnehmen, Baukosten abgeben und Einsatzstoffe für die Produktion bereitstellen. Für Bestandsregeln bleibt dieselbe Kolonie zuständig. Würden wir zuerst sämtliche Planeten und dann sämtliche Flotten abarbeiten, würde die Reihenfolge der Services nebenbei entscheiden, ob frisch entladenes Eis noch für Bau und Produktion verfügbar ist. Eine lokale Abfolge innerhalb eines Bauauftrags oder Wasserwerks braucht erst dann eine eigene Phase, wenn eine andere Mechanik dazwischen einen fachlich relevanten Zustand sehen muss. Unabhängige Aktionen brauchen allein wegen ihrer Gleichzeitigkeit keine globale Reihenfolge.
 
-### Vorschlag für fällige Aktionen und Spieleraufträge
+### Vorschlag für Entladeabschluss und Gutschrift
 
-Zu Beginn der Spielzeit werden fällige Aktionen verarbeitet, **deren Wirkung laut Spielregel bereits für Spieleraufträge verfügbar sein soll**. Der Entladeabschluss ist ein Kandidat. Der Transport bestimmt die Fracht zur Übernahme, die Kolonie prüft den Lagerplatz und schreibt die übernommene Menge gut. Danach werden Spieleraufträge gegen den aktualisierten Zustand geprüft. Ein fälliger Termin allein begründet keinen Vorrang.
+Mit der Ankunft beginnt der Entladevorgang. Landeanflug, Andocken und Entladen bilden ein gemeinsames Zeitfenster. Fünf Minuten sind ein Diskussionswert für dieses Beispiel. Die [bisherige Einstiegsregel](../game-design/economy.md#s13--entladung-bei-begrenzter-lagerkapazität) verwendet 15 Minuten. Die Reihenfolgeregel ist von der Dauer unabhängig.
 
-Die vorgeschlagene Reihenfolge für den Wasserwerk-Grenzfall ist **Entladeabschluss → Spieleraufträge → Ressourcenaktualisierung**. Endet eine Eis-Entladung in Minute 36 und stehen nach den Spieleraufträgen noch mindestens 1 Eis und 2 Energie zur Verfügung, kann das Wasserwerk nach Abschluss der sechsten Einheit direkt die siebte beginnen. Es entsteht kein Erschöpfungsereignis.
+Solange der Vorgang läuft, können spätere Spielmechaniken ihn unterbrechen, etwa ein Angriff oder ein Abbruch. Beim erfolgreichen Abschluss steht die Übergabe fest. Eine spätere Aktion gegen den Transport kann sie nicht mehr verhindern. Die zur Übernahme bestimmte Fracht steht bis zur Gutschrift weder dem Schiff noch als frei verfügbarer Zielbestand zur Verfügung.
 
-Ein Ergebnis wird nicht rückwirkend als Eingabe derselben Spielzeit verarbeitet. Welche späteren Regeln das Ergebnis noch zur selben Spielzeit berücksichtigen, ergibt sich aus deren fachlicher Reihenfolge. Vorrang innerhalb einer Gruppe und Konflikte zwischen Entladung und Angriff bleiben Teil der [offenen Auftragsreihenfolge](command-ordering.md).
+**Vorschlag für die Tick-Grenze:** Angriffe und Abbrüche mit einer wirksamen Spielzeit vor dem Abschluss können die laufende Entladung noch stoppen. Bei exakt gleicher Spielzeit hat der Abschluss Vorrang. Beim Abschluss gelten die Prüfung des Empfängers und der Entladeberechtigung sowie die dann freie Lagerkapazität. Die übernommene und die verfallene Menge stehen damit fest. Der übernommene Anteil belegt bereits Lagerkapazität. Die Gutschrift macht ihn im nächsten Tick vor Spieleraufträgen und Ressourcenaktualisierung verfügbar. Sie prüft die Übergabe nicht erneut.
+
+Für das Wasserwerk zählt die Spielzeit der **Gutschrift**. Wird das Eis zu Beginn des Ticks gutgeschrieben, in dessen Ressourcenphase die sechste Wassereinheit fertig wird, kann das Werk bei ausreichenden Einsatzstoffen ohne Erschöpfungsereignis die siebte Einheit starten. Wird die Entladung erst in diesem Tick abgeschlossen, folgt die Gutschrift im nächsten Tick. Im ersten Tick kann das Wasserwerk mangels Eis noch kein weiteres Wasser starten, sofern kein anderes Eis verfügbar ist.
+
+Die Gutschrift ist eine fällige Aktion zu Beginn des Folgeticks. Die Schiffsankunft und der erfolgreiche Entladeabschluss sind Ergebnisse ihrer jeweiligen Spielmechanik. Für die Gutschrift ist keine eigene Transportphase festgelegt. Vorrang innerhalb einer Gruppe bleibt Teil der [offenen Auftragsreihenfolge](command-ordering.md).
 
 ## Ereignisse aus der Wirtschaft
 
