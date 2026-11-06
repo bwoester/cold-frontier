@@ -10,9 +10,11 @@ Die Ressourcensimulation schreibt die Wirtschaft einer vorbereiteten Kolonie mit
 
 Das Ergebnis enthält den fortgeschriebenen Zustand mit erreichter Spielzeit und die eingetretenen fachlichen Ereignisse mit wirksamer Spielzeit. Der Ergebniszustand dient als Ausgangslage für den nächsten Abschnitt. Ohne äußere Eingriffe ergeben direkte und gestückelte Fortschreibung denselben fachlichen Endzustand und dieselben Ereignisse über den gesamten Zeitraum.
 
-**Unabhängigkeit von Zwischenzeitpunkten.** Bei gleicher Ausgangslage und ohne äußere Eingriffe dürfen zusätzliche Zwischenabfragen oder Fortschreibungsabschnitte weder Ressourcen erzeugen noch vernichten. Bis zur gleichen Zielspielzeit stimmen Bestände, Produktion und Verbrauch sowie die fachlichen Ereignisse mit ihren wirksamen Spielzeiten überein. Mengenanteile dürfen durch die Aufteilung der Fortschreibung nicht verloren gehen. Welche Mengen zu einem Zwischenzeitpunkt verfügbar sind, bestimmt die jeweilige Spielregel. Die technische Zahlendarstellung, einschließlich einer möglichen Ganzzahlskala, bleibt offen.
+**Unabhängigkeit von Zwischenzeitpunkten.** Bei gleicher Ausgangslage und ohne äußere Eingriffe dürfen zusätzliche Zwischenabfragen oder Fortschreibungsabschnitte weder Ressourcen erzeugen noch vernichten. Bis zur gleichen Zielspielzeit stimmen Bestände, Produktion und Verbrauch sowie die fachlichen Ereignisse mit ihren wirksamen Spielzeiten überein. Mengenanteile dürfen durch die Aufteilung der Fortschreibung nicht verloren gehen. Produzierte Ressourcen werden erst als ganze Einheiten verfügbar. Bruchteile bleiben als Produktionsfortschritt im fortgeschriebenen Zustand erhalten. Die technische Zahlendarstellung, einschließlich einer möglichen Ganzzahlskala, bleibt offen.
 
 Für den [Wasserwerk-Abnahmefall](../game-design/scenarios/water-production.feature) gehört das Erschöpfungsereignis zum Abschnitt, der Minute 36 erreicht. Ein Folgeabschnitt ab Minute 36 meldet es nicht erneut. Anlagen werden gemeinsam im Kontext der Kolonie fortgeschrieben. Der Aufrufer bestimmt weder Raten noch die Reihenfolge einzelner Anlagen.
+
+**Offene Spielregel.** Wann Einsatzstoffe für eine begonnene Produktion abgebucht oder reserviert werden, ist noch zu klären.
 
 ## Zuständigkeiten bei weiteren Spielmechaniken
 
