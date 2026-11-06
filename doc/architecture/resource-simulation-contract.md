@@ -49,7 +49,18 @@ Der [`TickCoordinator`](../../lib/src/main/java/de/bwoester/coldfrontier/TickCoo
 8. Zustand speichern (`handlePersistence`)
 9. Aufräumen (`handleCleanup`)
 
-Für Lieferungen gibt es im Coordinator keine eigene Phase. Die Einordnung des Entladeabschlusses und seiner Gutschrift im Zielpool bleibt offen. Für den Wasserwerk-Grenzfall ist entscheidend, ob die Gutschrift zur selben Spielzeit bereits vor dem Startversuch der nächsten Wassereinheit verfügbar ist.
+Für Lieferungen gibt es im Coordinator keine eigene Phase.
+
+### Vorschlag für die Eingabephase
+
+Ein Input ist ein Auftrag oder eine fällige Aktion, die laut Spielregel zu Beginn der betreffenden Spielzeit verarbeitet wird. Die Einordnung richtet sich nach dem Spielablauf und dem wirksamen Zeitpunkt.
+
+1. **System-Inputs:** Bereits fällige, vom Spiel angesetzte Aktionen, etwa der Abschluss einer Entladung. Dabei prüft die Kolonie die aktuelle Lagerkapazität und schreibt die übernommene Fracht gut.
+2. **User-Inputs:** Zu dieser Spielzeit wirksame Spieleraufträge, etwa einen Bau beauftragen. Sie werden gegen den Zustand nach den System-Inputs geprüft.
+
+Danach folgt die Ressourcenphase. Endet eine Eis-Entladung in Minute 36 und stehen nach den Spieleraufträgen noch mindestens 1 Eis und 2 Energie zur Verfügung, kann das Wasserwerk nach Abschluss der sechsten Einheit direkt die siebte beginnen. Es entsteht kein Erschöpfungsereignis.
+
+Die Schiffsankunft entsteht in der Bewegungsphase. Die Frachtgutschrift ist das Ergebnis des Entladeabschlusses. Auch das Erschöpfungsereignis ist ein Ergebnis seiner jeweiligen Phase. Ein Ergebnis wird nicht rückwirkend als Input desselben Ticks verarbeitet. Für mehrere konkurrierende Aktionen innerhalb derselben Gruppe bleibt die [Auftragsreihenfolge](command-ordering.md) offen.
 
 ## Ereignisse aus der Wirtschaft
 
