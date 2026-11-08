@@ -128,8 +128,8 @@ Das widerspricht nicht der asymptotischen Annäherung bei konstantem P: Hier wir
 Für einen angenommenen Ausbauplan lässt sich S aus einer gewünschten relativen Dichte d* bei x* berechnen:
 
 $$
-\alpha=\frac{-\ln d_*}{J(x_*)},\qquad
-S=\frac{P_0T\,J(x_*)}{-\ln d_*}.
+\alpha=\frac{-\ln d_{\ast}}{J(x_{\ast})},\qquad
+S=\frac{P_0T\,J(x_{\ast})}{-\ln d_{\ast}}.
 $$
 
 Dies gilt hier für d₀ = 1, 0 < d* < 1 und positive Beanspruchung J(x*). Bei anderen Anfangsdichten tritt d*/d₀ in den Logarithmus ein. Nur ein Zielpunkt bestimmt α. **Zwei frei gewählte Zielpunkte sind nicht automatisch mit derselben Quelle und demselben Ausbauplan erreichbar:** Es muss gelten
