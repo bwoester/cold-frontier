@@ -188,6 +188,10 @@ Diese Skalierung hält den Ausbauplan relativ zur Runde fest. Sie behauptet nich
 
 Für die nächste Balancingrunde brauchen wir deshalb mindestens einen plausiblen Ausbaupfad mit Bauzeiten und einen Bedarfspfad. Zunächst Bandbreiten verwenden; Unsicherheit über Spielerverhalten nicht durch einen einzelnen scheinbar präzisen Minenzahlwert verdecken.
 
+## To-do: Charts für konkrete Balancing-Iterationen
+
+- [ ] Die Charts als separate Balancing-Auswertung für konkrete Gebäude- und Planetenwerte generieren, sobald wir diese Werte balancen oder eine erste Iteration mit Ad-hoc-Werten beginnen. Vorläufige Werte müssen dafür nicht vollständig abgestimmt sein; sie werden ausdrücklich als Annahmen gekennzeichnet. Je Iteration die verwendeten Gebäudeparameter (Förderleistung, Bauzeiten und Betriebsbedarf), Planetenparameter (Vorkommen und Dichte), Rundendauer und Ausbaupläne mitführen. Dichte, momentane Förderrate und kumulierte Förderung für mehrere Ausbauverläufe als eigene SVGs ausgeben. Die Parameterstände und Annahmen zusammen mit den Charts dokumentieren, damit sich die Ergebnisse reproduzieren und zwischen Iterationen vergleichen lassen. Dabei kleinteilig verteilte Fertigstellungen betrachten; die bisherigen großen Ausbaupakete dienen nur der Erklärung der Modellzusammenhänge.
+
 ## Reproduktion und geprüfter Umfang
 
 ```sh
