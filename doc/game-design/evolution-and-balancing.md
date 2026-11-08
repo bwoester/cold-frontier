@@ -144,7 +144,9 @@ Die vereinfachte Formel zusätzliche Investition / zusätzlicher stündlicher Ne
 
 Als grobe Orientierung gilt bei dauerhaft belegten, unabhängigen Bauplätzen: erwartete Fertigstellungen pro Stunde ungefähr Summe über Planeten von 1 / mittlerer Bauzeit. Das ist keine verlässliche Bedienlastprognose; Warteschlangen können Reaktionen bündeln, andere Mechaniken erzeugen zusätzliche Termine.
 
-**Bestehender Zielkonflikt:** Die [Warteschlangenaufschläge](economy.md#warteschlangenaufschlag-und-zusammenarbeit) verteuern Vorausplanung. Zu prüfen ist, ob der wachsende Verwaltungsumfang zusammen mit diesen Aufschlägen häufige Anwesenheit zu stark belohnt. Die bestehenden Regeln werden hier nicht geändert.
+**Klarstellung des Projektinhabers, 2026-11-08:** Die [Warteschlangenaufschläge](economy.md#warteschlangenaufschlag-und-zusammenarbeit) ergänzen das Entlastungsziel. Der Spieler „erkauft“ sich planbare Freizeit durch höhere Kosten: Er muss beispielsweise erst nach ungefähr sechs statt drei Stunden wieder einen Bau beauftragen. Das Beispiel beschreibt das Prinzip, keine feste Zeitgarantie; die vorhandenen Zeitaufschläge bleiben gültig. Zeitnahes manuelles Beauftragen belohnt aktive Spieler wirtschaftlich. Die Warteschlange erlaubt längere Abwesenheit und kann situativ genutzt werden, ohne sich dauerhaft auf eine Spielweise festzulegen. Die vorherige pauschale Einordnung als Zielkonflikt wird damit korrigiert.
+
+**Balancing-Frage:** Zu bestimmen ist der angemessene Preis dieser Flexibilität, einschließlich der bestehenden Verlängerung der Bauzeit. Die Wahl soll im vorgesehenen Spielverlauf praktisch nutzbar bleiben. Längere Einzelbauten verlängern den natürlichen Planungshorizont; Warteschlangen lassen den Spieler diesen zusätzlich nach eigener Lebenssituation erweitern.
 
 Zielwerte zu täglichem Zeitaufwand, Anwesenheitsrhythmus und Bauzeit je Evo sind offen. Für Vergleiche zunächst dieselben ausdrücklich angenommenen Anwesenheitsfenster verwenden; dauernde Anwesenheit nicht zum versteckten Standard machen.
 
@@ -155,6 +157,28 @@ Zielwerte zu täglichem Zeitaufwand, Anwesenheitsrhythmus und Bauzeit je Evo sin
 **Analyse:** Mehr Komponenten schaffen erst dann mehr taktische Tiefe, wenn sie andere Entscheidungen und Gegenmaßnahmen ermöglichen. Eine neue Komponente darf die bisherigen Rollen nicht unbeabsichtigt vollständig verdrängen. Bei vier Rollen lässt sich ein ausschließlich paarweises Sieg/Niederlage-System ohne Unentschieden nicht für jede Rolle auf gleich viele Siege und Niederlagen verteilen: Jede Rolle hat drei Gegner. Asymmetrien oder neutrale Begegnungen können bewusst sinnvoll sein.
 
 **Vorschlag zur Prüfung:** Eine Kontermatrix je Freischaltstand erstellen und Begegnungen bei vergleichbarem Ressourcenbudget betrachten. Danach Mischflotten, Verfügbarkeit, Nachschub und Einsatzbedingungen ergänzen, soweit deren Regeln feststehen. Eine gleichmäßige Matrix allein beweist kein ausgeglichenes Flottenspiel.
+
+### Späte Evolution und attraktive Konflikte
+
+**Einordnung des Projektinhabers, 2026-11-08:** In den bisher besprochenen historischen Evo-4/5-Schritten überwiegen größere und stärkere Schiffe. Planetare Abwehr ist eine mögliche weitere Mechanik, bislang kein hier gesicherter Quellenbefund. Die frühere pauschale Deutung als qualitative Entwicklungssprünge ist für diese Stufen zu weitgehend.
+
+**Hypothesen des Projektinhabers:** Schutzschilde könnten bei hohem Energiebedarf einen wirtschaftlichen Umbau erforderlich machen. Tarnflotten könnten militärische Vorteile schaffen und Konflikte attraktiver machen. Weder planetare Schilde noch ihr Energiebedarf oder konkrete Tarnwirkungen sind damit für Cold Frontier beschlossen oder historisch nachgewiesen.
+
+**Historischer Erfahrungsbericht:** Laut Erinnerung des Projektinhabers führten die Kosten von Konflikten in IceWars dazu, dass diese nicht ausgetragen wurden. Das ist eine Spielerfahrung, keine aus den Tech Trees oder Spieldaten nachgewiesene allgemeine Ursache.
+
+**Game-Design-Frage:** Welche lohnenden, begrenzten und verständlichen Konflikte sollen Spieler freiwillig austragen? Das Thema umfasst beide Seiten, einschließlich Verlusten, Wiederaufbau und Abwesenheit des Verteidigers. Es ist noch kein bestimmtes Kampfsystem beschlossen.
+
+**Analyse:** Größere Schiffe können vorhandene Entscheidungen lediglich skalieren. Schilde oder Tarnung führen erst dann qualitativ neue Entscheidungen ein, wenn Einsatz, Kosten, Grenzen und Gegenmaßnahmen neue Abwägungen erzeugen. Ein hoher Schildenergiebedarf könnte militärische Sicherheit gegen zivile Produktion stellen; bloß zusätzliche Kraftwerke zu bauen muss noch keine dauerhafte strategische Entscheidung sein.
+
+Tarnung allein löst das Kostenproblem nicht: Ein militärischer Vorteil kann das Risiko des Angreifers senken und zugleich Unsicherheit und Verluste des Verteidigers erhöhen. Attraktive Angriffe sind deshalb kein ausreichender Nachweis für attraktives Konfliktspiel insgesamt.
+
+**Vorschläge für die weitere Klärung, keine Regeln:**
+
+- Konfliktziele und erwarteten Nutzen benennen, etwa zeitweilige Vorteile, Zugang zu umkämpften Quellen oder begrenzte Beute.
+- Gesamtkosten je Seite betrachten: erwartete Verluste, Logistik, entgangene Produktion und Wiederaufbauzeit; Ressourcen zunächst getrennt ausweisen.
+- Kleine begrenzte Auseinandersetzungen und große Kriege getrennt bewerten. Verlustbegrenzung, Rückzug oder teilweise Rückgewinnung wären mögliche Stellschrauben, keine bereits gewählten Lösungen.
+- Prüfen, ob eine Niederlage interessante Folgeentscheidungen und eine realistische Erholung erlaubt. Kostensenkung und höhere Beute auf wiederholbare gegenseitige Begünstigung und Angriffe auf schwächere Spieler untersuchen.
+- Für Schilde und Tarnung zuerst konkrete Spielsituationen einschließlich Gegenmaßnahmen und Reaktionsmöglichkeiten beschreiben; erst danach Werte und Evo-Zuordnung bestimmen.
 
 ## 6. Abgleich mit den vorhandenen IceWars-Tech-Trees
 
@@ -170,7 +194,7 @@ Zielwerte zu täglichem Zeitaufwand, Anwesenheitsrhythmus und Bauzeit je Evo sin
 
 **Quellengrenzen:** Serie A und B bleiben getrennt. Grundlagen Terraformen steht in A1, aber in B3; FP und Voraussetzungen unterscheiden sich. Ein gemeinsamer Versionsstand ist ungeklärt. Der Name Hyperraumtransporter oder interstellares Kolonieschiff beweist für sich keinen Galaxiewechsel. Die Erinnerung des Projektinhabers ordnet INS-03A einer fortgeschrittenen, galaxieübergreifenden Entwicklungsstufe zu; die Matrix allein sichert deren genaue Freischaltung nicht.
 
-**Fazit des Abgleichs:** Die Quellen stützen die Idee qualitativer Entwicklungssprünge. Sie bestätigen weder unsere vorgeschlagene Evo-Reihenfolge noch konkrete Effizienzsteigerungen oder ein Schere-Stein-Papier-Kampfsystem. Produktions-, Verbrauchs- und Kampfwerte reichen für diese Nachweise nicht aus. Handels-, Zufriedenheits- und weitere nichtmilitärische Zweige sind noch systematischer auszuwerten.
+**Fazit des Abgleichs:** Die früheren Abschnitte liefern Anknüpfungspunkte für qualitative Entwicklungssprünge. Für Evo 4 und 5 belegen die ausgewählten Befunde zunächst vor allem fortgeschrittene Technologien und Einheiten; daraus folgt noch keine ausreichend neue Spielerfahrung. Sie bestätigen weder unsere vorgeschlagene Evo-Reihenfolge noch konkrete Effizienzsteigerungen oder ein Schere-Stein-Papier-Kampfsystem. Produktions-, Verbrauchs- und Kampfwerte reichen für diese Nachweise nicht aus. Handels-, Zufriedenheits- und weitere nichtmilitärische Zweige sind noch systematischer auszuwerten.
 
 ## 7. Nächste prüfbare Balancing-Szenarien
 
@@ -185,6 +209,8 @@ Die Erwartungen sind vorgeschlagene Prüfkriterien. Konkrete Zahlen und Grenzwer
 | Übergang Evo 1 zu Evo 2 | Verschiedene Ausbaufolgen und Anwesenheitsfenster | Erschöpfung verhindert den vorgesehenen Zugang zur zweiten Kolonie nicht unbeabsichtigt |
 | Wachsender Account | Eine gegenüber mehreren Kolonien, mit Flottenaufgaben | Längere Bauten senken oder begrenzen notwendige Eingriffe tatsächlich; Zielwerte offen |
 | Zufriedenheit und Steuerhöhe | Gleiche Bevölkerung und Versorgung, variierte Politik | Ertrag und Rückwirkungen sichtbar; keine ungewollt immer optimale Maximalsteuer |
+| Konfliktkosten und Wiederaufbau | Begrenzter Konflikt und Krieg; beide Seiten, verschiedene Kräfteverhältnisse und Anwesenheitsfenster | Nutzen, Verluste und Erholungsdauer sichtbar; Angreiferanreiz und Verteidigererlebnis gemeinsam bewerten |
+| Schilde und Tarnung als Hypothesen | Konkrete Einsätze mit und ohne neue Fähigkeit sowie mögliche Gegenmaßnahmen | Neue Abwägungen statt bloßer Zahlensteigerung; keine ungesicherte historische Wirkung unterstellen |
 | Neue Konterrolle | Begegnungen vor und nach Freischaltung, gleiche Budgets | Kein unbeabsichtigtes universelles Übergewicht; bisherige Rollen behalten den vorgesehenen Nutzen |
 
 ## 8. Geeignete Visualisierungen und erster Arbeitsschritt
