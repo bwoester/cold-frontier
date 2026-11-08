@@ -182,6 +182,10 @@ Tarnung allein löst das Kostenproblem nicht: Ein militärischer Vorteil kann da
 - Prüfen, ob eine Niederlage interessante Folgeentscheidungen und eine realistische Erholung erlaubt. Kostensenkung und höhere Beute auf wiederholbare gegenseitige Begünstigung und Angriffe auf schwächere Spieler untersuchen.
 - Für Schilde und Tarnung zuerst konkrete Spielsituationen einschließlich Gegenmaßnahmen und Reaktionsmöglichkeiten beschreiben; erst danach Werte und Evo-Zuordnung bestimmen.
 
+### Offene Referenzen für Einheitenwerte und Geleitschutz
+
+**Idee des Projektinhabers, 2026-11-08:** Lizenzrechtlich geeignete Einheitenwerte bestehender Spiele als Balancing-Ausgangspunkt untersuchen; Geschwindigkeit, Initiative, Angriff und Verteidigung sowie Vorteile für große Schiffe durch kleine Eskorten. [Recherche und offene Modellierungsfragen](ship-balancing-references.md) vergleichen FreeOrion, Wesnoth und Zero-K. Keine Datenübernahme oder Kampfregel beschlossen.
+
 ## 6. Abgleich mit den vorhandenen IceWars-Tech-Trees
 
 **Prüfstand dieser Seite:** Aktueller Repository-Stand auf main am 2026-11-08, Ausgangscommit 0cfbae3b091feb1f01a6622b949343f9968d83d4. Grundlage sind die dort bereits dokumentierten Auswertungen in [Forschungszuordnung](../sources/icewars-ship-research.md), [Quellenkatalog](../sources/icewars-catalog.md) und [IceWars-Referenzen](icewars-references.md). Die Originalgrafiken wurden für diese Seite nicht erneut vollständig gesichtet. Die folgende Auswahl ist deshalb kein vollständiger Mechanikenexport.
