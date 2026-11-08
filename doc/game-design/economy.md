@@ -50,7 +50,7 @@ Sinkende Rohstoffergiebigkeit soll den Aufwand zur Aufrechterhaltung der Versorg
 
 ### Kontinuierlicher Abbau zwischen Ereignissen
 
-Der am 2026-11-08 besprochene [kontinuierliche Ansatz zur Eisförderung](continuous-ice-extraction.md) dokumentiert die proportionale Abbaukurve, ihre Parameter und die direkte Berechnung längerer Abschnitte. Beispiele und Charts zeigen acht Stunden ohne Eingriff sowie einen anschließenden Minenausbau. Mindestergiebigkeit, Balancing und Einbindung in die vollständige Wirtschaft bleiben offen; die Dokumentation ist keine Festlegung des technischen Zeitmodells.
+Der am 2026-11-08 besprochene [kontinuierliche Ansatz zur Eisförderung](continuous-ice-extraction.md) dokumentiert die proportionale Abbaukurve, ihre Parameter und die direkte Berechnung längerer Abschnitte. Beispiele und Charts zeigen acht Stunden ohne Eingriff sowie einen anschließenden Minenausbau. Mindestergiebigkeit, Balancing und Einbindung in die vollständige Wirtschaft bleiben offen; die Dokumentation ist keine Festlegung des technischen Zeitmodells. Die [Langzeit- und Extremszenarien](extraction-balancing-scenarios.md) vergleichen große und kleine Vorkommen, Ausbaugeschwindigkeiten und idealisierten Kompensationsbedarf. Vorläufiges Balancingziel aus dem Gespräch vom 2026-11-08: Eisverlust ungefähr ab dem ersten Rundendrittel spürbar, ab dem zweiten Drittel strategisch problematisch; Eisenverlust könnte vernachlässigbar dimensioniert werden. Rundendauer, Ausbaupfade und messbare Wirkungskriterien sind noch offen.
 
 ### Mindestergiebigkeit und Überleben bei Abwesenheit
 

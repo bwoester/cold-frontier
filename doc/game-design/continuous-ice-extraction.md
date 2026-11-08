@@ -77,6 +77,63 @@ A ist die gesamte Förderung über den Zeitraum, also die Fläche unter der Kurv
 
 Für P = 0 bleibt das Vorkommen unverändert und die Förderung ist null. Für R₀ = 0 gilt dasselbe. Bei τ = 0 gibt es keinen neuen Abbau.
 
+## Allgemeine Form bei veränderlicher Förderkapazität
+
+**Allgemein innerhalb des proportionalen Modells**, nicht für jede denkbare Ressourcenmechanik: S bleibt fest, d = R/S, und die tatsächliche Rate ist q(t) = P(t) × d(t). Die Quelle hat in diesem Abschnitt keine zusätzlichen Zu- oder Abflüsse. Alle beteiligten Minen nutzen denselben Dichtefaktor. P(t) ≥ 0 beschreibt ihre Leistung bei voller Referenzergiebigkeit nach allen sonstigen Betriebsmodifikatoren; es ist **nicht** die durch die Dichte bereits reduzierte Rate q(t).
+
+Bei einem bekannten, über das betrachtete Intervall integrierbaren zeitlichen Verlauf P(t) gilt:
+
+$$
+\frac{dR}{dt}=-\frac{P(t)}{S}R(t),\qquad
+\boxed{R(t_1)=R(t_0)\exp\left(-\frac{1}{S}\int_{t_0}^{t_1}P(u)\,du\right)}.
+$$
+
+Daraus folgen d(t₁) = R(t₁)/S, q(t₁) = P(t₁)d(t₁) und A = R(t₀) − R(t₁). An Sprüngen von P gilt die Rate jeweils unmittelbar vor beziehungsweise nach dem Ereignis; das Vorkommen bleibt stetig, sofern das Ereignis selbst keine Menge verändert.
+
+| Ausdruck | Bedeutung | Einheit bei Stunden als Zeitmaß |
+| --- | --- | --- |
+| t₀, t₁ | Beginn und Ende des betrachteten Zeitraums | h |
+| u | Laufvariable im Integral; geht durch alle Zwischenzeitpunkte | h |
+| P(u) | Referenzleistung aller Minen zu diesem Zeitpunkt, ohne den Dichtemalus | Eis/h |
+| H = ∫ P(u) du | Kumulierte potenzielle Förderung bei relativer Dichte 1 | Eis |
+| H/S | Bisherige Förderbeanspruchung relativ zur Referenzmenge | Dimensionslos |
+
+Das Integral summiert **potenzielle**, nicht tatsächliche Förderung. Die tatsächliche Menge ist A; sie ist wegen der sinkenden Dichte im Allgemeinen kleiner als H. Die Formel enthält bereits die Rückkopplung: Abbau senkt R und d, dies senkt q, wodurch der weitere Abbau langsamer wird. **Der Dichteverlust allein erfordert weder neue Ereignisse pro Einheit noch numerische Sekundenschritte.**
+
+### Wann reicht die einfache Abschnittsformel?
+
+Bleibt P(u) = P während des Abschnitts konstant, wird das Integral zu P × (t₁ − t₀). Damit folgt exakt die vorherige Formel:
+
+$$
+R(t_1)=R(t_0)e^{-(P/S)(t_1-t_0)}.
+$$
+
+Konstant sein müssen S und P sowie das proportionale Gesetz. **Weder Dichte noch tatsächliche Förderrate müssen konstant bleiben.** Hinzu kommt: Kein übersprungener Übergang darf die zugrunde gelegten Bedingungen verändern. Die bekannte nächste Minenfertigstellung reicht als Grenze nur, wenn nicht vorher ein relevanter Engpass oder eine andere Änderung eintritt.
+
+Bei mehreren Bauabschlüssen ist P stückweise konstant. Dann ist das Integral eine Summe von Rechteckflächen:
+
+$$
+\int_{t_0}^{t_n}P(u)du=\sum_{i=0}^{n-1}P_i(t_{i+1}-t_i),\qquad
+R(t_n)=R(t_0)\exp\left(-\frac{1}{S}\sum_{i=0}^{n-1}P_i\Delta t_i\right).
+$$
+
+Dies entspricht dem Produkt der einfachen Abschnittsberechnungen. **Auch die Langzeitcharts können aus genau diesen Abschnitten entstehen.** Die Integralnotation erzwingt keinen gesonderten Integrator. Die Summe beschreibt den Endwert der Quelle; sie ersetzt nicht die Verarbeitung zwischenzeitlicher Lager-, Verbraucher- und Ereigniswirkungen.
+
+### Wann brauchen wir eine allgemeinere Auswertung?
+
+| Rahmenbedingung | Geeignete Berechnung | Einschränkung |
+| --- | --- | --- |
+| Konstantes P zwischen zwei Ereignissen, sinkende Dichte | Einfache Exponentialformel | Sinkende effektive Förderung ist vollständig enthalten. |
+| Minen kommen zu bekannten Zeiten hinzu oder fallen aus | Einfache Formel je Abschnitt; äquivalent Summe im Exponenten | Ereignisfolgen und andere Zustände weiterhin zu ihren wirksamen Zeiten berücksichtigen. |
+| Ein sonstiger Betriebsfaktor ändert P **kontinuierlich** innerhalb des Abschnitts | Integralform mit dem tatsächlichen Verlauf P(t), wenn analytisch integrierbar direkt auswerten | P nur am Beginn einzusetzen wäre eine Näherung. Eine Näherung benötigt explizite Fehlergrenzen. |
+| Bekanntes P(t), aber kein handhabbares direktes Integral | Numerische Integration von P(t) mit Fehlerkontrolle als möglicher Ansatz | Nicht automatisch ein Sekundenticker; Verfahren und Genauigkeitsziel sind offen. |
+| P hängt von gleichzeitig fortzuschreibender Bevölkerung, Energie oder anderen Zuständen ab | Gemeinsames gekoppeltes Modell lösen; gegebenenfalls weitere Abschnittsgrenzen | Die Integralform bleibt entlang der tatsächlichen Lösung eine Beziehung, liefert aber ohne bekannten Verlauf P(t) noch keine unabhängige Berechnung. |
+| Mindestförderung, nichtlineare Dichtewirkung, andere Quellen oder zusätzliche Zu-/Abflüsse | Geänderte Modellgleichung herleiten | Auch die angegebene Integralform ist dann im Allgemeinen keine ausreichende Lösung. |
+
+**Rechenbeispiel für kontinuierlich veränderliches P, keine Spielregel:** Ein Betriebsbonus lässt P während einer Zeitspanne T linear von P₀ auf 3P₀ steigen: P(t₀ + τ) = P₀(1 + 2τ/T). Dann ist H(τ) = P₀(τ + τ²/T). Über den ganzen Abschnitt gilt H(T) = 2P₀T. Mit S = R₀ = 50.000, P₀ = 2.000 Eis/h und T = 8 h verbleiben etwa **26.364,62 Eis**. Die Annahme eines unveränderten Anfangs-P ergäbe 36.307,45 Eis und wäre hier falsch. Ein mittleres P = H/T liefert den Quellen-Endwert korrekt, rekonstruiert allein aber weder die zeitliche Förderung noch frühere Schwellen oder die Endrate.
+
+Die [Langzeit- und Extremszenarien](extraction-balancing-scenarios.md) benutzen vorgegebene Ausbauereignisse und damit weiterhin ausschließlich die einfache Formel je Abschnitt. Die allgemeinere Darstellung dient dort der Erklärung, dem Vergleich und der Parametrisierung.
+
 ## Beispiel 1: Acht Stunden bis zum nächsten Bauabschluss
 
 **Nur Rechenwerte, kein Balancing:** S = 50.000 Eis, R₀ = 50.000 Eis, P = 2.000 Eis/h. Alle Betriebsbedingungen bleiben für acht Stunden erfüllt; keine Lagergrenze oder sonstige Wirkung verändert den Betrieb. Damit ist k = 0,04/h.
