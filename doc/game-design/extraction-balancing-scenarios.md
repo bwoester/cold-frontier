@@ -74,9 +74,35 @@ Beim Ausbaustopp wird bis 1/3 der mittlere Plan verfolgt. Die letzte Fertigstell
 | Schnell | 77,88 % | 31,14 % | 1,83 % | 0,366 |
 | Ausbaustopp | 81,19 % | 58,18 % | 41,69 % | 0,834 |
 
-**Befund:** Im schnellen Plan sinkt die Förderung am Rundenende trotz zwanzigfacher Referenzkapazität unter die Anfangsförderung. Der langsamere Ausbau liefert zu diesem Zeitpunkt mehr, obwohl er weniger Kapazität hat. Das sagt nichts darüber aus, welcher Spieler bis dahin insgesamt mehr gefördert oder wirtschaftlich mehr erreicht hat. Ein günstigerer Endwert ist kein automatischer Beleg für eine bessere Strategie.
+**Befund:** Im schnellen Plan sinkt die Förderung am Rundenende trotz zwanzigfacher Referenzkapazität unter die Anfangsförderung. Der langsamere Ausbau liefert zu diesem Zeitpunkt mehr, obwohl er weniger Kapazität hat. Die momentane Rate allein sagt nicht, welcher Spieler bis dahin insgesamt mehr gefördert oder wirtschaftlich mehr erreicht hat. Die kumulierte Förderung wird im folgenden Chart separat betrachtet. Ein günstigerer Endwert der Förderrate ist kein automatischer Beleg für eine bessere Strategie.
 
 Daraus folgt ein Balancingrisiko: Ein für den mittleren Plan passend dimensioniertes Vorkommen kann bei starkem Ausbau zu früh problematisch werden. Ob dies erwünschter Raubbau-Druck oder eine Bestrafung aktiver Spieler ist, muss über erreichbare Gegenmaßnahmen, Informationsqualität und konkrete Wirtschaftsverläufe bewertet werden. Eine vom Kalendertag allein bestimmte Verknappung wäre eine andere Mechanik als abbauabhängige Ergiebigkeit.
+
+### Kumulierte Förderung: Wie viel wurde insgesamt gewonnen?
+
+Die momentane Rate q beantwortet „Wie viel pro Stunde wird jetzt gefördert?“. Die kumulierte Menge A beantwortet „Wie viel wurde seit Rundenbeginn insgesamt aus der Quelle gewonnen?“. Unter denselben Annahmen wie in Szenario B gilt mit R₀ = S:
+
+$$
+A(t)=\int_0^t q(u)\,du=S-R(t),\qquad
+\frac{A(x)}{S}=1-e^{-\alpha J(x)}=1-d(x).
+$$
+
+Der Chart zeigt diese Menge über die ganze Runde für die vier unveränderten Ausbaupläne. Die linke Achse gibt den geförderten Anteil des ursprünglichen Vorkommens an. Die rechte Achse übersetzt exakt dieselben Kurven in Tausend Einheiten für das bereits verwendete **Skalierungsbeispiel S = 864.000 Einheiten** (T = 180 Tage, P₀ = 100 Einheiten/h, α = 0,5). Die Rundendauer ist weiterhin keine Festlegung.
+
+![Kumulierte Förderung über die Runde für langsamen, mittleren und schnellen Ausbau sowie Ausbaustopp](assets/ice-extraction/round-cumulative.svg)
+
+| Plan | Bis 1/3 gefördert, Anteil von S | Bis 2/3 gefördert, Anteil von S | Bis Rundenende gefördert, Anteil von S | Gesamtmenge bei Beispiel S = 864.000 |
+| --- | ---: | ---: | ---: | ---: |
+| Langsam | 17,10 % | 38,07 % | 60,84 % | 525.652,74 |
+| Mittel | 18,81 % | 50,75 % | 84,66 % | 731.501,31 |
+| Schnell | 22,12 % | 68,86 % | 98,17 % | 848.175,29 |
+| Ausbaustopp | 18,81 % | 41,82 % | 58,31 % | 503.831,21 |
+
+**Befund:** Der schnelle Ausbau führt in diesen Beispielen bei der Gesamtmenge, obwohl seine momentane Rate am Rundenende niedriger ist. Frühe Mehrförderung bleibt Teil des Gesamtertrags. Sinkt die spätere Rate, wächst die kumulierte Menge langsamer weiter; sie sinkt dadurch nicht. Am Minenbauabschluss bleibt A stetig, während sich ihre Steigung mit q ändern kann. An der Obergrenze S flacht die Kurve zunehmend ab: Dieses Grundmodell liefert aus einer einzelnen endlichen Quelle insgesamt höchstens deren ursprüngliche Menge.
+
+**Eigenschaft des Modells:** Bei gleichem S, gleichem Anfangsvorkommen und demselben proportionalen Gesetz wächst A mit der kumulierten Referenzförderung ∫P du. Hat ein Ausbauplan zu jedem Zeitpunkt mindestens so viel P wie ein anderer, kann er bei der kumulierten Bruttoförderung nicht zurückfallen. Genau so sind schneller, mittlerer und langsamer Plan hier geordnet. Der Ausbaustopp ist gegenüber dem langsamen Plan nicht durchgehend nach P geordnet; entsprechend können sich ihre kumulierten Kurven kreuzen. Eine niedrigere späte Förderrate ist also kein Widerspruch zu einer höheren Gesamtförderung. Bei anders verteilten Ausbauzeitpunkten entscheidet die bis dahin aufsummierte Referenzförderung, nicht die zuletzt vorhandene Kapazität.
+
+**Abgrenzung:** A ist Bruttoförderung aus der Quelle, weder Lagerbestand noch wirtschaftlicher Nettogewinn. Bereits verbrauchtes oder wegen Lagergrenzen verfallenes Material zählt zur geförderten Menge. Baukosten und verdrängte Bauzeit werden nicht abgezogen; sie gehören zur noch offenen Bewertung der Strategie. Ein Speicherbestand könnte fallen, obwohl A weiter steigt. Die Rangfolge ist außerdem keine Aussage für andere Fördergesetze, Mindestergiebigkeit oder mehrere neu erschlossene Quellen.
 
 ## Szenario C: Durchsatz trotz Verlust konstant halten
 
@@ -148,4 +174,4 @@ python -m pip install matplotlib
 python doc/game-design/tools/plot_extraction_scenarios.py
 ```
 
-Das [Hilfsskript](tools/plot_extraction_scenarios.py) erzeugt die drei SVG-Charts und lokale PNG-Vorschauen. Es prüft die Gleichheit von Integralform, Produkten der Abschnittsformeln und zusätzlich unterteilten Abschnitten für alle Ausbaupläne und Abbauintensitäten. Ein linearer zeitlicher Leistungsanstieg sowie die Kompensationsgleichung werden separat mathematisch geprüft. Keine Aussage über Laufzeit, Java-Engine oder die vollständige Wirtschaft ist damit getestet.
+Das [Hilfsskript](tools/plot_extraction_scenarios.py) erzeugt die vier SVG-Charts und lokale PNG-Vorschauen. Es prüft die Gleichheit von Integralform, Produkten der Abschnittsformeln und zusätzlich unterteilten Abschnitten für alle Ausbaupläne und Abbauintensitäten. Ein linearer zeitlicher Leistungsanstieg sowie die Kompensationsgleichung werden separat mathematisch geprüft. Die kumulierte Förderung wird zusätzlich gegen die Summe der exakten Abschnittsförderungen sowie auf Monotonie und Mengenbilanz geprüft. Keine Aussage über Laufzeit, Java-Engine oder die vollständige Wirtschaft ist damit getestet.

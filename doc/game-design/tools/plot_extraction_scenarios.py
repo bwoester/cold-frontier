@@ -103,6 +103,25 @@ for ax in axes:
     ax.legend(loc='best', fontsize=9, ncol=2)
 finish(fig, 'round-growth')
 
+# Cumulative extraction: gross source yield, independent of storage and consumption.
+EXAMPLE_SOURCE = 864000  # Illustrative S, not a game-balancing default.
+fig, ax = plt.subplots(figsize=(10, 6), constrained_layout=True)
+fig.suptitle('Insgesamt gefördert seit Rundenbeginn\nGleiche Quelle und Ausbaupläne wie zuvor; α = 0,5; R₀ = S')
+for (label, profile), color in zip(PROFILES.items(), COLORS):
+    cumulative = [-math.expm1(-.5 * exposure(profile, x)) for x in X]
+    ax.plot(X, [100*a for a in cumulative], label=label, color=color, linewidth=2.5)
+    ax.scatter([1], [100*cumulative[-1]], color=color, s=25, zorder=3, clip_on=False)
+ax.set(title='Kumulierte Menge bleibt hoch, auch wenn die spätere Förderrate sinkt',
+       ylabel='Geförderter Anteil des Startvorkommens [%]', ylim=(0, 102))
+round_axis(ax)
+ax.set_yticks([0, 20, 40, 60, 80, 100])
+right = ax.secondary_yaxis('right', functions=(
+    lambda pct: pct * EXAMPLE_SOURCE / 100000,
+    lambda thousands: thousands * 100000 / EXAMPLE_SOURCE))
+right.set_ylabel('Menge [Tsd. Einheiten] bei Beispiel S = 864.000')
+ax.legend(loc='upper left', fontsize=9)
+finish(fig, 'round-cumulative')
+
 fig, axes = plt.subplots(2, 1, figsize=(10, 8), constrained_layout=True)
 fig.suptitle('Idealisierte Kompensation: Durchsatz q = P₀ dauerhaft halten\nKontinuierlich frei anpassbare Kapazität; keine Bauzeiten oder Mindestergiebigkeit')
 for alpha, color in zip([.3, .9, 1.2], COLORS):
@@ -145,3 +164,24 @@ for alpha in [.001, .5, 4]:
 for label, profile in PROFILES.items():
     print(label, [round(state(profile, .5, x)[1], 9) for x in [1/3, 2/3, 1]], round(state(profile, .5, 1)[2], 9))
 print('Integralform, Abschnittsprodukte, Unterteilung und Kompensation geprüft.')
+
+# Compare cumulative source yield to summed exact per-section extraction.
+print('Kumulierte Förderung: Anteil von S bei 1/3, 2/3, Ende; Menge am Ende bei S=864000')
+for label, profile in PROFILES.items():
+    last = -1
+    for x in X:
+        cumulative = -math.expm1(-.5 * exposure(profile, x))
+        assert last <= cumulative <= 1
+        last = cumulative
+        remaining, total = 1.0, 0.0
+        for i, (start, m) in enumerate(profile):
+            end = profile[i+1][0] if i+1 < len(profile) else x
+            duration = max(0, min(end, x)-start)
+            amount = -remaining * math.expm1(-.5*m*duration)
+            total += amount
+            remaining -= amount
+        assert math.isclose(cumulative, total, rel_tol=1e-12, abs_tol=1e-14)
+        assert math.isclose(remaining+total, 1, abs_tol=1e-14)
+    amounts = [-math.expm1(-.5*exposure(profile, x)) for x in [1/3, 2/3, 1]]
+    print(label, [round(100*a, 6) for a in amounts], round(EXAMPLE_SOURCE*amounts[-1], 2))
+print('Kumulierte Menge gegen Abschnittssummen, Monotonie und Mengenbilanz geprüft.')
