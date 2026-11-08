@@ -99,6 +99,19 @@ IceWars ermöglichte laut Projektinhaber Spezialisierungen über Genetik, die un
 
 Laut Benjamin Wösters Erinnerung aus dem Projektgespräch vom 2026-11-03 tauchten Pinguine erst kurz vor Rundenende auf. Sie breiteten sich aus und vermehrten sich unkontrolliert. Als Vorboten der Apokalypse waren sie Teil des IceWars-Humors. Die Ressourcen-XML führt Pinguine unter ID 8. Ablauf und Wirkung stammen aus der Spielerinnerung. [Ressourcen-Zuordnung](../sources/icewars-ships.md#ressourcen-zuordnung)
 
+## Erfahrungsbericht – Raids und große Kriege
+
+**Quelle:** Benjamin Wöster, Projektgespräch vom 2026-11-08. Historische Spielerfahrung; Spielrunde und Version nicht zugeordnet, nicht unabhängig durch die vorhandenen Dateien verifiziert. Keine Übernahmeentscheidung für Cold Frontier.
+
+| Konfliktform | Erinnerter Ablauf und Folgen | Erinnerte Rolle im Spiel |
+| --- | --- | --- |
+| Raids | Verluste in begrenztem Umfang bei Verteidigungsanlagen sowie verteidigenden und angreifenden Schiffen. Bei einem Sieg konnte die angreifende Flotte bereits abgebaute, nicht durch Bunker geschützte Ressourcen auf dem Planeten stehlen. Zivile Gebäudezerstörung wird für diese Konfliktform nicht berichtet. | Kamen durchaus häufiger vor, waren aber kein Alltag. |
+| Große Kriege | Vernichtung großer Flotten und Bombardierung von Kolonien mit Gebäudezerstörung. Wiederaufbau erforderte relevante Ressourcen und Spielzeit. | Nach Einschätzung des Projektinhabers das größte Balancing-Problem von IceWars: Die Rückschläge griffen empfindlich in den langfristigen Aufbau ein. |
+
+Die zuvor pauschale Aussage, Konfliktkosten hätten Konflikte verhindert, ist damit auf große zerstörerische Kriege zu präzisieren. Raids waren ein tatsächlich genutzter Teil des Spiels. Verlustgrenzen, Beuteformel, Frachtbegrenzung und genaue Bombardierungsregeln sind nicht rekonstruiert.
+
+**Offene Designfrage für Cold Frontier:** Wie lassen sich weitreichende Kriege mit dem Wert langfristigen Aufbaus vereinbaren? Der Projektinhaber hat dafür noch keinen überzeugenden Kompensationsansatz. Eine Lösung ist nicht beschlossen. Siehe [Späte Evolution und Konflikte](evolution-and-balancing.md#späte-evolution-und-attraktive-konflikte).
+
 ## Mögliche Inspirationsfelder – ausdrücklich offen
 
 - Tiefer Technologiebaum und ungewöhnliche Gebäude
