@@ -78,3 +78,7 @@ Kann ein Übergang eine andere Mechanik zu einem früheren Zeitpunkt beeinflusse
 **Vorschlag für die spätere Erweiterung.** Ein Lauf kann an einem für die Koordination relevanten Übergang enden und den Zustand zu dieser erreichten Spielzeit liefern. Die Spielablaufsteuerung verarbeitet dort die Folge und setzt den Lauf fort. Die Bedeutung der erreichten Spielzeit und der Ereignisse muss eindeutig bleiben. Ob eine vorzeitige Rückgabe oder eine andere Form der Abstimmung geeigneter ist, wird am ersten konkreten Fall mit Rückwirkung entschieden.
 
 Offen bleiben die Reihenfolge bei gleichzeitigen Wirkungen, die Behandlung mehrstufiger Folgen zur selben Spielzeit und die Entscheidung, welche Übergänge eine Koordination erfordern. Etappe 1 braucht dafür weder eine allgemeine Ereignisschnittstelle noch die Festlegung eines technischen Zeitmodells.
+
+## Mathematische Vertiefung: Eisförderung
+
+Die [kontinuierliche Eisförderung](../game-design/continuous-ice-extraction.md) zeigt, wie ein proportionales Abbaumodell innerhalb eines gültigen Abschnitts direkt berechnet werden kann und warum dabei direkte und gestückelte Fortschreibung mathematisch übereinstimmen. Sie beschreibt zunächst die Quelle und die geförderte Menge. Lagerbestände, verfügbare ganze Einheiten, Engpässe und Rückwirkungen auf andere Mechaniken bleiben nach diesem Vertrag gemeinsam auszuwerten. Daraus folgt keine allgemeine Freigabe, bis zum nächsten äußeren Ereignis ohne Prüfung innerer Übergänge weiterzurechnen.

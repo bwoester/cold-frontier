@@ -10,6 +10,8 @@ Diese Dokumentation ist bewusst **ein wachsendes Arbeitsmodell**, kein fertiges 
 
 - [[game-design/overview|Spielmechaniken]] – Themenkarte und aktueller Erkenntnisstand.
 - [[game-design/economy|Planetare Wirtschaft]] – erster vertiefter Bereich mit Fragen und Beispielen.
+- [Kontinuierliche Eisförderung](game-design/continuous-ice-extraction.md) – Formeln, Parameter, Beispiele und Charts zur Fortschreibung zwischen Ereignissen.
+- [Abbau über eine Runde](game-design/extraction-balancing-scenarios.md) – Langzeitszenarien, Extremfälle und offene Balancing-Annahmen.
 - [[sources/icewars-catalog|Alte IceWars-Unterlagen – Fortschritt]] – Quelleninventar, Analyse, Dokumentation und Archivierung.
 - [[game-design/icewars-references|IceWars-Recherche]] – historische Inspiration, **keine** Cold-Frontier-Anforderungen.
 - [[architecture/current-state|Technischer Ist-Zustand]] – beobachteter Prototyp, keine Architekturentscheidung.
