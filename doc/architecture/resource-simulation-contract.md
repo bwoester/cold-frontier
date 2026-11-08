@@ -18,6 +18,8 @@ Für den [Wasserwerk-Abnahmefall](../game-design/scenarios/water-production.feat
 
 Das Wasserwerk startet eine Einheit nur, wenn im Ressourcenpool mindestens 1 Eis und 2 Energie verfügbar sind. Beim Start gehen beide Einsatzstoffe aus dem Pool ins Wasserwerk über. Die Einheit bleibt bis zur Fertigstellung als laufende Produktion im Zustand erhalten. Bei Fertigstellung geht 1 ganze Einheit Wasser in den Pool über.
 
+Fehlt auch nur ein Einsatzstoff, startet die nächste Einheit nicht und sämtliche Einsatzstoffe bleiben im Pool. Sobald dem Gebäude bei der Ressourcenaktualisierung alle benötigten Mengen zur Verfügung stehen, entnimmt es sie gemeinsam, schreibt sie der laufenden Produktion zu und startet automatisch. Die fertige Einheit wird nach ihrer regulären Produktionsdauer verfügbar. Der [Wiederanlauf-Prüffall](../game-design/scenarios/water-production-restart.feature) zeigt das am Energiemangel.
+
 - **Minute 0:** Der vorbereitete Pool enthält vor dem ersten Produktionsstart 6 Eis und 0 Wasser. Bei der Initialisierung entnimmt das Werk 1 Eis und 2 Energie und startet die erste Einheit. Der initialisierte Zustand zu Minute 0 enthält 5 Eis und 0 Wasser im Pool sowie die begonnene erste Einheit. Eine Fortschreibung zur bereits erreichten Spielzeit gibt diesen Zustand ohne neue Ereignisse zurück. Die erste Einheit wird in Minute 6 verfügbar.
 - **Minute 30:** Die fünfte Einheit Wasser wird verfügbar. Das Werk entnimmt die letzte Einheit Eis und 2 Energie für die sechste Einheit. Im Pool ist kein Eis mehr.
 - **Minute 33:** Im Pool sind 5 Wasser und 0 Eis. Die sechste Einheit ist halb fertig.
