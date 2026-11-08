@@ -11,6 +11,7 @@ type: game-design
 
 | Bereich | Heutiger Stand | Weiterführend |
 | --- | --- | --- |
+| Evolution / Balancing / Spielrhythmus | Projektziele und Evo-1–5-Vorschlag; ganzheitliche Gebäudeeffizienz, Bedienlast und historischer Abgleich in Klärung | [Evolution und Balancing](evolution-and-balancing.md) |
 | Planeten / Kolonisation | Projektziel; `Planet` im Prototyp | [[economy]] |
 | Ressourcen / Produktion / Engpässe | Projektziel und Teile im Code; **erste Vertiefung** | [[economy]] |
 | Gebäude / Bauaufträge | Gebäudearten, Queue und Progress im Code; Regeln offen | [[economy#Gebäude und Bau]] |
