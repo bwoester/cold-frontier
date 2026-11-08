@@ -28,6 +28,25 @@ $$
 
 Die Pläne sind stückweise konstant: Jeder Kapazitätssprung steht für angenommene Fertigstellungen oder Upgrades. Zwischen diesen Ereignissen berechnen wir den Abbau direkt mit der einfachen Abschnittsformel. Die Chart-Stützpunkte dienen nur der Darstellung. **Kapazitätsfaktor ist nicht automatisch Minenzahl:** Unterschiedliche Minentypen, Stufen und Technologien können ebenfalls zu m beitragen.
 
+## Leseschlüssel: Warum die Kurven deutliche Knicke zeigen
+
+**Darstellungsannahme, keine Ausbauprognose:** Die Pläne bündeln den gesamten Ausbau in nur drei großen Kapazitätsänderungen bei 1/4, 1/2 und 3/4 der Runde. Beim schnellen Plan steigt P/P₀ beispielsweise zur Rundenhälfte auf einen Schlag von 3 auf 8. Das steht für ein angenommenes Ausbaupaket; es bedeutet weder eine einzelne Mine mit dieser Wirkung noch, dass Spieler nur dreimal pro Runde bauen.
+
+| Dargestellte Größe | Wirkung einer solchen Fertigstellung |
+| --- | --- |
+| Referenzkapazität P | Springt auf den neu angenommenen Wert. |
+| Momentane Förderrate q | Springt ebenfalls, weil bei derselben verbleibenden Dichte mehr Kapazität arbeitet. Danach bremst der weitere Dichteverlust die Förderung wieder. |
+| Restvorkommen R und relative Dichte d | Bleiben stetig; ihre Abnahme wird unmittelbar nach dem Ausbau schneller. Die Kurven haben einen Knick, keinen Mengensprung. |
+| Kumulierte Förderung A | Bleibt stetig; nur die Steigung nimmt mit q sprunghaft zu. Bereits geförderte Mengen werden durch den Ausbau nicht rückwirkend erhöht. |
+
+Die gestrichelten senkrechten Linien markieren dagegen **Rundendrittel als Vergleichszeitpunkte**, keine Fertigstellungen. Die auffälligen Knicke liegen an den Viertelgrenzen der angenommenen Ausbaupakete.
+
+**Zweck der Visualisierung:** Sie soll die Zusammenhänge zwischen Ausbau, beschleunigtem Dichteverlust, späterer Förderrate und kumuliertem Gesamtertrag sichtbar machen. Szenario A variiert dafür die Quellengröße, Szenario B den Ausbauplan und Szenario C zeigt einen idealisierten Kompensationsbedarf. Die wenigen großen Änderungen machen diese Wirkungen erkennbar, überzeichnen aber die Größe einzelner Fertigstellungseffekte gegenüber einem kleinteiligen Ausbau. Auch Zeitpunkt und Bündelung beeinflussen den Abbau und Gesamtertrag; diese Pläne sind keine ergebnisgleiche Zusammenfassung eines bereits bekannten realen Bauverlaufs.
+
+**Arbeitshypothese des Projektinhabers (2026-11-08):** Bei angenommener Rundendauer von einem Jahr könnte ein Spieler ungefähr 50–100 Eisminen bauen, vermutlich eher am oberen Ende. Dies ist eine erste Einschätzung, keine aus dem Gebäudemodell hergeleitete Zahl und keine festgelegte Rundendauer. Verteilung auf Kolonien, Minentypen und Technologien sowie die Unterscheidung zwischen über die Runde gebauten und gleichzeitig betriebenen Minen bleiben zu klären. Diese Einschätzung ist in den vorhandenen Charts noch nicht als eigener Ausbauplan umgesetzt.
+
+Bei vielen verteilten Fertigstellungen wären mehr, meist kleinere Knicke zu erwarten. Vor allem bei gleichartigen Minen wird der relative Zuwachs einer einzelnen zusätzlichen Mine mit wachsendem Bestand kleiner. Neue Minentypen oder Technologien können weiterhin größere Änderungen verursachen. Wie viele Minen plausibel sind und wann sie fertig werden, lässt sich erst mit Gebäudeangebot, Förderleistung, Infrastrukturbedarf, konkurrierenden Bauvorhaben und Bauzeiten belastbarer bestimmen. Bis dahin zeigen die Charts hypothetische Modellreaktionen; sie belegen weder erreichbare Strategien noch die gewünschte Spielerwirkung.
+
 ## Szenario A: Sehr große, mittlere und sehr kleine Quelle
 
 Für alle drei Kurven gilt derselbe Ausbauplan:
@@ -88,6 +107,8 @@ A(t)=\int_0^t q(u)\,du=S-R(t),\qquad
 $$
 
 Der Chart zeigt diese Menge über die ganze Runde für die vier unveränderten Ausbaupläne. Die linke Achse gibt den geförderten Anteil des ursprünglichen Vorkommens an. Die rechte Achse übersetzt exakt dieselben Kurven in Tausend Einheiten für das bereits verwendete **Skalierungsbeispiel S = 864.000 Einheiten** (T = 180 Tage, P₀ = 100 Einheiten/h, α = 0,5). Die Rundendauer ist weiterhin keine Festlegung.
+
+**Lesehinweis:** Die Knicke bei 1/4, 1/2 und 3/4 stammen aus den grob gebündelten Ausbaupaketen. Die kumulierte Menge springt dort nicht; ihre Steigung ändert sich. Einzelne Minenfertigstellungen sind in diesen Plänen nicht aufgelöst.
 
 ![Kumulierte Förderung über die Runde für langsamen, mittleren und schnellen Ausbau sowie Ausbaustopp](assets/ice-extraction/round-cumulative.svg)
 
