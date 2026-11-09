@@ -34,6 +34,16 @@ Die Stufen sollen das bisher Gelernte erweitern und neue strategische Fragen er�
 
 **Wechselwirkung mit Erschöpfung:** Wird Kolonisation erst in Evo 2 zugänglich, muss die Startwirtschaft den vorgesehenen Weg dorthin trotz sinkender Ergiebigkeit tragen können. Bei unterschiedlich schneller Spielweise darf daraus keine unbeabsichtigte Entwicklungsfalle entstehen. Der [planetare Überlebensschutz](economy.md) allein garantiert noch keinen wirtschaftlichen Fortschritt.
 
+### Ressourcenwechsel und Schutz von Neueinsteigern
+
+**Idee des Projektinhabers:** Mit höheren Evo-Stufen verschiebt sich der Bedarf schrittweise zu neuen Rohstoffen. Frühe Vorräte sollen für weit fortgeschrittene Spieler als Raidbeute weniger interessant werden. Bestehende Kolonien, Gebäude und Produktionsketten sollen dabei ihren Nutzen behalten. Welche Ressourcen Cold Frontier aus IceWars übernimmt, bleibt offen. Nach Erinnerung des Projektinhabers stand VV4A in IceWars erst später zur Verfügung. Der [Quellenkatalog](../sources/icewars-catalog.md) belegt die Ressource im Export, aber hier keine genaue Freischaltstufe.
+
+**Vorschlag zur Prüfung:** Neue Ressourcen werden bei fortgeschrittenen Vorhaben zu einem zusätzlichen Engpass. Bestehende Grundstoffe bleiben etwa für Versorgung, Reparaturen oder als begrenzter Bestandteil neuer Produktionsketten relevant. Eine fortgeschrittene Kolonie kann sie effizient aus eigener Produktion beziehen. Ob alte Anlagen dazu weiterlaufen, aufgerüstet oder schrittweise umgestellt werden können, ist eine Balancing-Frage. Eine bestimmte Umrüstung oder ein automatischer Ressourcenwechsel ist nicht festgelegt.
+
+**Grenze des Ansatzes:** Geringerer Beutewert kann wirtschaftlich motivierte Raids seltener machen. Wenn frühe Rohstoffe in großen Mengen für neue Produktion nötig sind oder sich mit hohem Erlös verkaufen lassen, bleiben frühe Vorräte als Beute interessant. Der Ansatz schützt auch nicht vor Angriffen aus anderen Motiven. Ob zusätzliche Schutzregeln nötig sind, bleibt offen.
+
+**Prüfszenario:** Ein fortgeschrittener Spieler vergleicht unter denselben Bedingungen einen Raid auf eine frühe Kolonie mit Eigenproduktion, Handel und einem militärisch relevanten Ziel seiner Entwicklungsstufe. Beute, Flugzeit und Verlustrisiko gehen in den Vergleich ein. Auf der anderen Seite prüfen wir, ob die bereits errichteten Anlagen eines Spielers nach seinem eigenen Evo-Wechsel noch einen sinnvollen Beitrag leisten. Die früheren Rohstoffe dürfen wirtschaftlich nützlich bleiben, während der zusätzliche Ertrag eines Raids für fortgeschrittene Spieler sinkt.
+
 ## 2. Gebäudegenerationen als Versorgungssystem vergleichen
 
 ### Gewünschte Wirkung
@@ -181,6 +191,14 @@ Tarnung allein löst das Kostenproblem nicht: Ein militärischer Vorteil kann da
 - Kleine begrenzte Auseinandersetzungen und große Kriege getrennt bewerten. Verlustbegrenzung, Rückzug oder teilweise Rückgewinnung wären mögliche Stellschrauben, keine bereits gewählten Lösungen.
 - Prüfen, ob eine Niederlage interessante Folgeentscheidungen und eine realistische Erholung erlaubt. Kostensenkung und höhere Beute auf wiederholbare gegenseitige Begünstigung und Angriffe auf schwächere Spieler untersuchen.
 - Für Schilde und Tarnung zuerst konkrete Spielsituationen einschließlich Gegenmaßnahmen und Reaktionsmöglichkeiten beschreiben; erst danach Werte und Evo-Zuordnung bestimmen.
+
+### Sekundäre Basen als Ziele für Bombardierung
+
+**Idee des Projektinhabers:** Für Angriffe mit Gebäudeschaden kommen weniger permanente sekundäre Basen oder Außenposten als bevorzugte Ziele infrage. Ihr Aufbau und Wiederaufbau sollen überschaubare Spielzeit kosten. Die Zerstörung soll dennoch wirtschaftlich spürbar sein, damit Bomber einen lohnenden Auftrag haben. Langfristig ausgebaute Kolonien können damit gegenüber solchen Zielen an Bedeutung für Bombardierungen verlieren.
+
+**Vorschlag zur Prüfung:** Ein Außenposten sichert Zugang zu einem örtlichen Vorkommen. Sein Verlust unterbricht den Ertrag, bis der Spieler den Standort zurückgewinnt, Ersatz aufbaut oder eine andere Quelle erschließt. Damit kann der wirtschaftliche Schaden deutlich sein, obwohl die Basis selbst in überschaubarer Zeit ersetzt werden kann. Das Ziel muss auch für den Angreifer einen konkreten Wert haben, beispielsweise Zugang zum Standort. Bloßer Schaden beim Gegner bietet dafür nur situativ einen Anreiz.
+
+**Offen:** Ob Außenposten freiwillig in umkämpften Gebieten entstehen, wie Eroberung und Ersatz funktionieren und welche Ziele Bombardierungen erlauben, bleibt zu klären. Wiederholte Angriffe und die Abhängigkeit von einzelnen Außenposten sind getrennt vom Bauaufwand zu prüfen. Auch eine schnell ersetzbare Basis kann einen langfristigen Rückschlag verursachen, wenn ihr Ertrag unverzichtbar ist oder ihr Wiederaufbau dauerhaft blockiert wird.
 
 ## 6. Abgleich mit den vorhandenen IceWars-Tech-Trees
 
