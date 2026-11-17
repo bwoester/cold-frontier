@@ -15,7 +15,8 @@ jackson = "2.21.8"
 nats = "2.21.1"
 testcontainers = "2.0.5"
 quarkus = "3.40.1.2"
-quarkus-web-bundler = "1.8.1"
+quarkus-web-bundler = "3.0.0"
+web-bundler-native-plugin = "1.0.0"
 
 [libraries]
 commons-math3 = { module = "org.apache.commons:commons-math3", version.ref = "commons-math3" }
@@ -55,5 +56,6 @@ quarkus-web-bundler = { module = "io.quarkiverse.web-bundler:quarkus-web-bundler
 rest-assured = { module = "io.rest-assured:rest-assured" }
 
 [plugins]
+web-bundler-native = { id = "io.mvnpm.gradle.plugin.native-java-plugin", version.ref = "web-bundler-native-plugin" }
 lombok = { id = "io.freefair.lombok", version.ref = "lombok-plugin" }
 quarkus = { id = "io.quarkus", version.ref = "quarkus" }
