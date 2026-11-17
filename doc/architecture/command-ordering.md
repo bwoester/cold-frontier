@@ -2,26 +2,34 @@
 status: open
 type: architecture-notes
 ---
-# Auftragsreihenfolge und konkurrierende Aktionen
+<a name="auftragsreihenfolge-und-konkurrierende-aktionen"></a>
 
-Diese offene Architekturfrage betrifft das gesamte Spiel. Ein Spieler kann über mehrere Tabs oder Geräte handeln. Eingabe, Eingang am Server, Verarbeitung und Wirksamkeit in der Spielwelt können in unterschiedlichen Reihenfolgen liegen. Aus den Requests allein lässt sich keine gemeinsame Klickreihenfolge über alle Clients ableiten.
+# Command Ordering and Concurrent Actions
 
-## Anforderungen und offene Entscheidungen
+This open architecture question affects the entire game. A player can act through multiple tabs or devices. Input, server receipt, processing, and effective game time can occur in different orders. The requests alone cannot establish a common click order across all clients.
 
-- Festlegen, welche Eingabereihenfolge innerhalb eines Clients erhalten bleiben muss und welche Reihenfolge zwischen Clients verbindlich ist.
-- Für konkurrierende Aufträge mit demselben Spielzeitpunkt eine eindeutige und im Audit nachvollziehbare Vorrangentscheidung ermöglichen. Der fachliche Vorrang kann je Mechanik unterschiedlich sein.
-- Wiederholungen desselben Requests dürfen dieselbe Aktion höchstens einmal wirksam machen.
-- Gemeinsame Bestände und begrenzte Plätze müssen auch bei konkurrierenden Aktionen konsistent bleiben. Welche Aktionen eine gemeinsame Reihenfolge brauchen und wo unabhängige Verarbeitung möglich ist, bleibt offen.
+<a name="anforderungen-und-offene-entscheidungen"></a>
 
-## Anforderungen an das Audit
+## Requirements and Open Decisions
 
-Bei konkurrierenden Aktionen soll das Audit den wirksamen Spielzeitpunkt, die für die Entscheidung maßgebliche Reihenfolge und die angewandte Vorrangregel nachvollziehbar machen. Dazu gehören die betroffenen Aufträge und ihre Ergebnisse. Wenn ein Auftrag wegen eines Konflikts abgelehnt wird, soll der Grund erkennbar sein. Ein erneut gesendeter Request muss sich derselben Aktion zuordnen lassen. Ausgelöste Zustandsänderungen sollen auf den wirksamen Auftrag zurückführbar sein.
+- Determine which input order must be preserved within a client and which order takes precedence across clients.
+- Apply an unambiguous and auditable priority rule to competing commands with the same game time. The priority may differ by mechanic.
+- Retrying the same request must cause the action to take effect at most once.
+- Keep shared stocks and limited slots consistent under concurrent actions. Which actions require a common order and which can be processed independently remains open.
 
-Eingang am Server und Wirksamkeit in der Spielwelt sind unterschiedliche Zeitpunkte. Welche zusätzlichen Zeitpunkte erfasst werden, bleibt offen.
+<a name="anforderungen-an-das-audit"></a>
 
-## Prüffälle
+## Audit Requirements
 
-- [S3 – Zwei gleichzeitig konkurrierende Ausgaben](../game-design/economy.md#s3--zwei-gleichzeitig-konkurrierende-ausgaben) prüft konkurrierende Zugriffe auf denselben Bestand.
-- [S16 – Zwei Gründungsflüge bei einem freien Kolonieplatz](../game-design/economy.md#s16--zwei-gründungsflüge-bei-einem-freien-kolonieplatz) prüft Vorrang, Mehrfachbelegung und wiederholte Requests.
+For concurrent actions, the audit trail should show the effective game time, the order used to make the decision, and the priority rule applied. It should include the commands involved and their outcomes. If a command is rejected because of a conflict, the reason should be visible. A retried request must be traceable to the same action. Resulting state changes should be traceable to the command that took effect.
 
-Die verbindliche Reihenfolge, der Umgang mit verspäteten Requests und die technische Umsetzung sind offen.
+Server receipt and effectiveness in the game world occur at separate times. Which additional timestamps to record remains open.
+
+<a name="prüffälle"></a>
+
+## Test Cases
+
+- [S3 – Two Concurrent Spending Attempts](../game-design/economy.md#s3--two-concurrent-spending-attempts) checks competing access to the same stock.
+- [S16 – Two Colonization Flights with One Free Colony Slot](../game-design/economy.md#s16--two-colonization-flights-with-one-free-colony-slot) checks priority, double allocation, and retried requests.
+
+The binding order, handling of late requests, and technical implementation remain open.

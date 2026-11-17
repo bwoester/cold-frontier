@@ -8,20 +8,24 @@ guice = "7.0.0"
 junit-jupiter = "5.11.3"
 cucumber = "7.20.1"
 mockito = "5.17.0"
-lombok-plugin = "8.13.1"
+lombok-plugin = "9.8.2"
 slf4j-api = "2.0.17"
-logback-classic = "1.5.18"
-jackson = "2.16.1"
+logback-classic = "1.6.7"
+jackson = "2.21.8"
 nats = "2.21.1"
 testcontainers = "2.0.5"
-quarkus = "3.22.1"
-quarkus-web-bundler = "1.8.1"
+quarkus = "3.40.1.2"
+quarkus-web-bundler = "3.0.0"
+web-bundler-native-plugin = "1.0.0"
 
 [libraries]
 commons-math3 = { module = "org.apache.commons:commons-math3", version.ref = "commons-math3" }
 guava = { module = "com.google.guava:guava", version.ref = "guava" }
 guice = { module = "com.google.inject:guice", version.ref = "guice" }
-junit-jupiter = { module = "org.junit.jupiter:junit-jupiter", version.ref = "junit-jupiter" }
+junit-bom = { module = "org.junit:junit-bom", version.ref = "junit-jupiter" }
+junit-platform-suite = { module = "org.junit.platform:junit-platform-suite" }
+junit-platform-launcher = { module = "org.junit.platform:junit-platform-launcher" }
+junit-jupiter = { module = "org.junit.jupiter:junit-jupiter" }
 cucumber-java = { module = "io.cucumber:cucumber-java", version.ref = "cucumber" }
 cucumber-junit-platform-engine = { module = "io.cucumber:cucumber-junit-platform-engine", version.ref = "cucumber" }
 testcontainers-junit-jupiter = { module = "org.testcontainers:testcontainers-junit-jupiter", version.ref = "testcontainers" }
@@ -30,12 +34,15 @@ mockito-junit-jupiter = { module = "org.mockito:mockito-junit-jupiter", version.
 slf4j-api = { module = "org.slf4j:slf4j-api", version.ref = "slf4j-api" }
 logback-classic = { module = "ch.qos.logback:logback-classic", version.ref = "logback-classic" }
 
+# Independently selected for lib; no dependency on the Quarkus platform.
+jackson-bom = { module = "com.fasterxml.jackson:jackson-bom", version.ref = "jackson" }
+
 # Jackson dependencies
-jackson-core = { module = "com.fasterxml.jackson.core:jackson-core", version.ref = "jackson" }
-jackson-databind = { module = "com.fasterxml.jackson.core:jackson-databind", version.ref = "jackson" }
-jackson-annotations = { module = "com.fasterxml.jackson.core:jackson-annotations", version.ref = "jackson" }
-jackson-datatype-jsr310 = { module = "com.fasterxml.jackson.datatype:jackson-datatype-jsr310", version.ref = "jackson" }
-jackson-module-parameter-names = { module = "com.fasterxml.jackson.module:jackson-module-parameter-names", version.ref = "jackson" }
+jackson-core = { module = "com.fasterxml.jackson.core:jackson-core" }
+jackson-databind = { module = "com.fasterxml.jackson.core:jackson-databind" }
+jackson-annotations = { module = "com.fasterxml.jackson.core:jackson-annotations" }
+jackson-datatype-jsr310 = { module = "com.fasterxml.jackson.datatype:jackson-datatype-jsr310" }
+jackson-module-parameter-names = { module = "com.fasterxml.jackson.module:jackson-module-parameter-names" }
 
 # NATS JetStream dependencies
 nats-client = { module = "io.nats:jnats", version.ref = "nats" }
@@ -49,5 +56,6 @@ quarkus-web-bundler = { module = "io.quarkiverse.web-bundler:quarkus-web-bundler
 rest-assured = { module = "io.rest-assured:rest-assured" }
 
 [plugins]
+web-bundler-native = { id = "io.mvnpm.gradle.plugin.native-java-plugin", version.ref = "web-bundler-native-plugin" }
 lombok = { id = "io.freefair.lombok", version.ref = "lombok-plugin" }
 quarkus = { id = "io.quarkus", version.ref = "quarkus" }

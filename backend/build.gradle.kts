@@ -1,6 +1,7 @@
 plugins {
     java
     alias(libs.plugins.quarkus)
+    alias(libs.plugins.web.bundler.native)
 }
 
 repositories {

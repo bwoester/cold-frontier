@@ -1,6 +1,6 @@
 Feature: Water production with a limited ice stockpile
   Scope: Game behavior.
-  Purpose: Specifies proposed behavior for the first resource simulation stage.
+  Purpose: Specifies agreed behavior for the first resource simulation stage.
   Rationale: Stock changes and the effective time of ice depletion are gameplay
   outcomes that should hold across simulation engine implementations.
 
