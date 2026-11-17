@@ -207,8 +207,34 @@ Diese Fälle sind Prüfpunkte für noch zu beschließende Regeln, keine bereits 
 - **Korrekturfrist (Vorschlag):** Ein versehentlich erteilter Bauauftrag könnte innerhalb weniger Minuten ohne Verlust zurückgenommen werden. Eine solche Frist darf keinen zusätzlichen Schutz vor Plünderung eröffnen. Prüffall: Bau kurz vor einem Angriff einreihen, vor oder während des Angriffs zurücknehmen und die vollständige Erstattung erst nach dem Angriff erhalten. Auch wiederholtes Einreihen und Zurücknehmen ist zu prüfen. Dauer und genaue Spielregel bleiben offen.
 - **Ressourcenschutz:** Auch mit Verlust kann Einlagern in Bauaufträge lohnen, wenn die erwartete Rückzahlung höher ist als der nach einem Angriff verbleibende Bestand. Das ist eine zu prüfende Folgewirkung, kein bereits nachgewiesener Exploit einer fertigen Regel.
 - **Abbruch, Zwischenfall und Zerstörung unterscheiden:** Die Teilrückzahlung ist bisher für freiwilligen Bauabbruch festgehalten. Für Werftzerstörung gilt der Verlust laufender Schiffbauten gemäß S8. Erstattungen bei Zerstörung bleiben offen.
-- **Fortschritt:** Konkrete Auslöser für Verlangsamung, mögliche Rate null, Wiederaufnahme, Reihenfolge gleichzeitiger Ereignisse und das Wirksamwerden einer Fertigstellung sind offen.
+- **Fortschritt:** Konkrete Auslöser für Verlangsamung, mögliche Rate null, Wiederaufnahme und die Reihenfolge weiterer gleichzeitiger Ereignisse sind offen. Die zeitliche Grenze zwischen Bauabschluss und Produktion ist unter [Bauabschluss und Produktionsfortschritt](#bauabschluss-und-produktionsfortschritt) festgehalten.
 - **Bau-Frei-Minuten:** Historische Beschleunigungsmechanik separat in [[icewars-references#Erfahrungsbericht – Bau-Frei-Minuten]]; keine automatische Übernahme für Cold Frontier.
+
+### Bauabschluss und Produktionsfortschritt
+
+**Bestätigte Regeln (2026-11-17):**
+
+1. Bis zum wirksamen Fertigstellungszeitpunkt wird die Produktion mit den zuvor bestehenden Anlagen bestimmt. Die Baustelle liefert keinen Produktionsbeitrag.
+2. Zum Fertigstellungszeitpunkt wird das neue Gebäude als fertig berücksichtigt. Die Fertigstellung allein erzeugt keine Ressourcen und verändert die Produktion der vergangenen Bauzeit nicht rückwirkend.
+3. Für die anschließende Zeit kann das neue Gebäude entsprechend seinen Betriebsbedingungen produzieren. Es gibt keine zusätzliche, durch einen Tick oder einen Fortschreibungsaufruf begründete Wartezeit.
+
+Diese Abfolge legt fachliche Wirksamkeitsgrenzen fest, keine technischen Phasen, Tickdauer oder Berechnungsmethode. Andere gleichzeitig wirksame Aktionen und ihre Vorrangregeln sind damit nicht allgemein entschieden.
+
+**Raten und Verfügbarkeit:** Gebäudeproduktionsraten werden im Spiel pro Stunde angegeben. Diese Anzeigeeinheit legt weder die interne Zeiteinheit noch die Häufigkeit der Berechnung oder Gutschrift fest. Eine ganze produzierte Einheit wird verfügbar, sobald das Gebäude sie unter den tatsächlich wirksamen Betriebsbedingungen vollständig produziert hat. Eine pauschale Wartezeit, etwa eine Minute bis zur ersten Einheit, gilt nicht.
+
+**Produktionsfortschritt und Spieleraktionen:** Noch nicht zu einer ganzen Einheit vervollständigte Mengenanteile sind fachlich relevanter Produktionsfortschritt. Sie stehen dem Spieler noch nicht als ganze Ressourceneinheiten für Aktionen zur Verfügung, müssen aber für die weitere Produktion erhalten bleiben. Ob die Implementierung Bruchteile unmittelbar speichert oder den Fortschritt anderweitig verlustfrei repräsentiert, bleibt offen. Diese Regel entscheidet nicht über eine Zusammenlegung von Teilfortschritten verschiedener Gebäude.
+
+**Unabhängigkeit von Abfragen und Fortschreibungsabschnitten:** Bei gleicher Ausgangslage und denselben wirksamen Änderungen dürfen zusätzliche Zwischenabfragen oder kürzere Fortschreibungsabschnitte weder Produktion vernichten noch den Zeitpunkt der Verfügbarkeit ganzer Einheiten verzögern. Das gilt auch für eine Fortschreibung, die den Bauabschluss überschreitet: Das neue Gebäude trägt ausschließlich für die Zeit nach seiner Fertigstellung bei.
+
+**Prüfbeispiel ohne festgelegte Zeiteinheit:** Ein neu fertiggestelltes Gebäude beginnt ohne Produktionsfortschritt. Es ist durchgehend versorgt; Lagergrenzen und weitere Eingriffe spielen im Beispiel keine Rolle. Zwei aufeinanderfolgende Abschnitte liefern unter diesen Bedingungen jeweils eine halbe Einheit Produktionsfortschritt.
+
+| Prüfpunkt | Insgesamt produziert | Für Spieleraktionen verfügbar | Verbleibender Teilfortschritt |
+| --- | ---: | ---: | ---: |
+| Unmittelbar bei Fertigstellung | 0 | 0 | 0 |
+| Nach dem ersten Abschnitt | 0,5 | 0 | 0,5 |
+| Nach dem zweiten Abschnitt | 1 | 1 | 0 |
+
+Eine direkte Fortschreibung über beide Abschnitte muss denselben Zustand und denselben wirksamen Zeitpunkt der Verfügbarkeit ergeben. Eine erneute Auswertung der bereits erreichten Spielzeit erzeugt keine weitere Produktion. Die Abschnittsdauer ergibt sich im konkreten Test aus Rate und Betriebsbedingungen; sie ist keine allgemeine Spielregel.
 
 ### Verzögerter Abbruch und Verlust von Voraussetzungen
 
