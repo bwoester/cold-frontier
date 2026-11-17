@@ -207,8 +207,62 @@ Diese Fälle sind Prüfpunkte für noch zu beschließende Regeln, keine bereits 
 - **Korrekturfrist (Vorschlag):** Ein versehentlich erteilter Bauauftrag könnte innerhalb weniger Minuten ohne Verlust zurückgenommen werden. Eine solche Frist darf keinen zusätzlichen Schutz vor Plünderung eröffnen. Prüffall: Bau kurz vor einem Angriff einreihen, vor oder während des Angriffs zurücknehmen und die vollständige Erstattung erst nach dem Angriff erhalten. Auch wiederholtes Einreihen und Zurücknehmen ist zu prüfen. Dauer und genaue Spielregel bleiben offen.
 - **Ressourcenschutz:** Auch mit Verlust kann Einlagern in Bauaufträge lohnen, wenn die erwartete Rückzahlung höher ist als der nach einem Angriff verbleibende Bestand. Das ist eine zu prüfende Folgewirkung, kein bereits nachgewiesener Exploit einer fertigen Regel.
 - **Abbruch, Zwischenfall und Zerstörung unterscheiden:** Die Teilrückzahlung ist bisher für freiwilligen Bauabbruch festgehalten. Für Werftzerstörung gilt der Verlust laufender Schiffbauten gemäß S8. Erstattungen bei Zerstörung bleiben offen.
-- **Fortschritt:** Konkrete Auslöser für Verlangsamung, mögliche Rate null, Wiederaufnahme, Reihenfolge gleichzeitiger Ereignisse und das Wirksamwerden einer Fertigstellung sind offen.
+- **Fortschritt:** Konkrete Auslöser für Verlangsamung, mögliche Rate null, Wiederaufnahme und die Reihenfolge weiterer gleichzeitiger Ereignisse sind offen. Die zeitliche Grenze zwischen Bauabschluss und Produktion ist unter [Bauabschluss und Produktionsfortschritt](#bauabschluss-und-produktionsfortschritt) festgehalten.
 - **Bau-Frei-Minuten:** Historische Beschleunigungsmechanik separat in [[icewars-references#Erfahrungsbericht – Bau-Frei-Minuten]]; keine automatische Übernahme für Cold Frontier.
+
+### Bauabschluss und Produktionsfortschritt
+
+**Bestätigte Regeln (2026-11-17):**
+
+1. Bis zum wirksamen Fertigstellungszeitpunkt wird die Produktion mit den zuvor bestehenden Anlagen bestimmt. Die Baustelle liefert keinen Produktionsbeitrag.
+2. Zum Fertigstellungszeitpunkt wird das neue Gebäude als fertig berücksichtigt. Die Fertigstellung allein erzeugt keine Ressourcen und verändert die Produktion der vergangenen Bauzeit nicht rückwirkend.
+3. Für die anschließende Zeit kann das neue Gebäude entsprechend seinen Betriebsbedingungen produzieren. Es gibt keine zusätzliche, durch einen Tick oder einen Fortschreibungsaufruf begründete Wartezeit.
+
+Diese Abfolge legt fachliche Wirksamkeitsgrenzen fest, keine technischen Phasen, Tickdauer oder Berechnungsmethode. Andere gleichzeitig wirksame Aktionen und ihre Vorrangregeln sind damit nicht allgemein entschieden.
+
+**Raten und Verfügbarkeit:** Gebäudeproduktionsraten werden im Spiel pro Stunde angegeben. Diese Anzeigeeinheit legt weder die interne Zeiteinheit noch die Häufigkeit der Berechnung oder Gutschrift fest. Eine ganze produzierte Einheit wird verfügbar, sobald die dafür maßgebliche Produktionsmenge unter den tatsächlich wirksamen Betriebsbedingungen erreicht ist. Bei Förderung wird diese Menge je Kolonie und Ressource gemeinsam ermittelt (siehe unten). Eine pauschale Wartezeit, etwa eine Minute bis zur ersten Einheit, gilt nicht.
+
+**Produktionsfortschritt und Spieleraktionen:** Noch nicht zu einer ganzen Einheit vervollständigte Mengenanteile sind fachlich relevanter Produktionsfortschritt. Sie stehen dem Spieler noch nicht als ganze Ressourceneinheiten für Aktionen zur Verfügung, müssen aber für die weitere Produktion erhalten bleiben. Ob die Implementierung Bruchteile unmittelbar speichert oder den Fortschritt anderweitig verlustfrei repräsentiert, bleibt offen. Bei Förderung werden die Mengenanteile gemäß der folgenden Regel zusammengeführt. Für Verarbeitung gilt die gemeinsame Kapazität je Kolonie und Rezeptur (siehe unten).
+
+**Unabhängigkeit von Abfragen und Fortschreibungsabschnitten:** Bei gleicher Ausgangslage und denselben wirksamen Änderungen dürfen zusätzliche Zwischenabfragen oder kürzere Fortschreibungsabschnitte weder Produktion vernichten noch den Zeitpunkt der Verfügbarkeit ganzer Einheiten verzögern. Das gilt auch für eine Fortschreibung, die den Bauabschluss überschreitet: Das neue Gebäude trägt ausschließlich für die Zeit nach seiner Fertigstellung bei.
+
+**Prüfbeispiel ohne festgelegte Zeiteinheit:** Ein neu fertiggestelltes Gebäude beginnt ohne Produktionsfortschritt. Es ist durchgehend versorgt; Lagergrenzen und weitere Eingriffe spielen im Beispiel keine Rolle. Zwei aufeinanderfolgende Abschnitte liefern unter diesen Bedingungen jeweils eine halbe Einheit Produktionsfortschritt.
+
+| Prüfpunkt | Insgesamt produziert | Für Spieleraktionen verfügbar | Verbleibender Teilfortschritt |
+| --- | ---: | ---: | ---: |
+| Unmittelbar bei Fertigstellung | 0 | 0 | 0 |
+| Nach dem ersten Abschnitt | 0,5 | 0 | 0,5 |
+| Nach dem zweiten Abschnitt | 1 | 1 | 0 |
+
+Eine direkte Fortschreibung über beide Abschnitte muss denselben Zustand und denselben wirksamen Zeitpunkt der Verfügbarkeit ergeben. Eine erneute Auswertung der bereits erreichten Spielzeit erzeugt keine weitere Produktion. Die Abschnittsdauer ergibt sich im konkreten Test aus Rate und Betriebsbedingungen; sie ist keine allgemeine Spielregel.
+
+### Gemeinsame Förderung je Kolonie und Ressource
+
+**Bestätigte Regel (2026-11-17):** Fördermengen derselben Ressource werden innerhalb einer Kolonie einschließlich ihrer Bruchteile zusammengeführt. Ganze Einheiten dieser Gesamtmenge sind verfügbar; der verbleibende Bruchteil bleibt als gemeinsamer Förderfortschritt erhalten. Einzelne Minen müssen dafür keine eigene ganze Einheit fertigstellen. Verschiedene Ressourcen und verschiedene Kolonien werden nicht zusammengefasst.
+
+Jedes Gebäude trägt nur entsprechend seiner tatsächlichen Betriebszeit und Leistung bei. Ein Neubau erhöht die Förderung ab Fertigstellung und setzt bereits erzielten gemeinsamen Teilfortschritt nicht zurück. Gleiche Gesamtförderung unter gleichen Betriebsbedingungen führt unabhängig von der Aufteilung auf einzelne Gebäude zu gleichen verfügbaren Mengen und Restfortschritten. Unterschiedliche Engpässe oder Betriebsbedingungen dürfen dabei nicht durch bloße Summation von Nennraten übergangen werden.
+
+**Spielerlebnis:** Die Verfügbarkeit folgt der Gesamtförderung der Kolonie. Viele langsam fördernde Minen liefern gemeinsam regelmäßig nutzbare Einheiten, statt auf den Abschluss einzelner Minen warten zu müssen.
+
+Die [Gherkin-Szenarien zur gemeinsamen Förderung](scenarios/pooled-extraction.feature) prüfen explizit eine Mine mit 6 Eisen pro Stunde gegen zwei Minen mit je 3 Eisen pro Stunde, den Erhalt des gemeinsamen Rests und einen Neubau bei bereits vorhandenem Teilfortschritt. Alle Raten und Zeitpunkte sind Testwerte.
+
+### Gemeinsame Verarbeitung je Kolonie und Rezeptur
+
+**Bestätigte Regel (2026-11-17):** Gebäude mit derselben Rezeptur innerhalb einer Kolonie tragen mit ihrer unter den jeweiligen Betriebsbedingungen wirksamen Leistung zu einem gemeinsamen Verarbeitungsvorgang bei. Die Verarbeitung ist nicht an getrennte, je Gebäude vorfinanzierte Einheiten gebunden. Verschiedene Kolonien oder Rezepturen werden nicht zusammengefasst.
+
+Ein Vorgang für eine ganze Ausgabeeinheit beginnt, sobald alle Einsatzstoffe für diese Einheit und wirksame Verarbeitungskapazität vorhanden sind. Die Einsatzstoffe werden gemeinsam und genau einmal aus dem Pool entnommen und der laufenden gemeinsamen Produktion zugeordnet. Dafür genügt ein vollständiger Satz Einsatzstoffe, unabhängig von der Zahl beitragender Gebäude. Fehlt ein Bestandteil, erfolgt keine Teilentnahme und kein Start.
+
+Der bereits erzielte Teilfortschritt bleibt erhalten. Eine ganze Ausgabeeinheit wird verfügbar, sobald die gemeinsame Verarbeitung sie fertiggestellt hat. Anschließend startet die nächste Einheit bei vollständigen Einsatzstoffen und wirksamer Verarbeitungskapazität zum selben fachlichen Zeitpunkt, ohne zusätzliche Wartezeit. Zusätzliche Fortschreibungen dürfen weder Einsatzstoffe erneut abbuchen noch Fortschritt verlieren oder Ergebnisse doppelt gutschreiben. Eine begonnene Einheit benötigt keinen weiteren Satz Einsatzstoffe; der Mangel an Zutaten für die nächste Einheit verhindert ihren Abschluss nicht.
+
+**Zeitliche Wirkung eines Neubaus auf laufende Verarbeitung:** Bis zum wirksamen Bauabschluss zählt nur die bisherige Kapazität. Ab Fertigstellung trägt das neue Gebäude derselben Rezeptur auch zur verbleibenden Arbeit einer bereits begonnenen Einheit bei. Der bis dahin erreichte Fortschritt bleibt unverändert erhalten; es gibt weder rückwirkende Beschleunigung noch Neustart oder erneute Zutatenentnahme für diese Einheit. Bei konstanten Betriebsbedingungen ergibt sich die Restdauer aus der noch fehlenden Produktionsmenge und der anschließend wirksamen gemeinsamen Leistung.
+
+**Prüfbeispiel zum Kapazitätswechsel:** Ein Wasserwerk mit 10 Wasser/h startet in Minute 0 eine Einheit. Ein zweites mit ebenfalls 10 Wasser/h wird in Minute 3 fertig. Zu diesem Zeitpunkt sind 0,5 Wasser produziert, aber noch keine ganze Einheit verfügbar. Die verbleibenden 0,5 Wasser benötigen mit 20 Wasser/h weitere 1,5 Minuten; die Einheit ist in Minute 4,5 fertig. Insgesamt werden nur einmal 1 Eis und 2 Energie entnommen. Diese Zeitpunkte sind Testwerte, keine technische Zeitauflösung.
+
+Die Aussage, dass bei knappen Zutaten nur einzeln versorgte Gebäude produzieren, gilt damit nicht für Gebäude derselben Rezeptur. Andere Betriebsbedingungen bestimmen weiterhin die tatsächlich beitragende Leistung. Verschiedene Rezepte, die um dieselben Inputs konkurrieren, sowie die Gruppierung bei unterschiedlichen Rezeptwirkungsgraden bleiben gesondert zu klären.
+
+**Prüfbeispiel:** Zwei Wasserwerke mit jeweils 10 Wasser/h nutzen gemeinsam 20 Wasser/h. Mit genau 1 Eis und 2 Energie starten sie eine gemeinsame Wassereinheit, die nach 3 Minuten verfügbar ist. Insgesamt werden nur 1 Eis und 2 Energie entnommen. Ohne weiteren Nachschub beginnt keine zweite Einheit. Eine Anlage mit 20 Wasser/h liefert unter identischen Bedingungen denselben Verlauf. Die Zahlen sind Testparameter.
+
+Die [Gherkin-Szenarien zur gemeinsamen Verarbeitung](scenarios/pooled-processing.feature) prüfen knappe Einsatzstoffe, Teilfortschritt, geteilte Fortschreibung, unvollständige Rezepte, aufeinanderfolgende Einheiten und den Bauabschluss während laufender Verarbeitung. Die bisherigen Ein-Wasserwerk-Szenarien bleiben als Spezialfall gültig. Diese Regeln legen weder technische Einzelereignisse je Einheit noch eine Verarbeitungsschleife fest.
 
 ### Verzögerter Abbruch und Verlust von Voraussetzungen
 
