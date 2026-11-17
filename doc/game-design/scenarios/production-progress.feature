@@ -24,7 +24,7 @@ Feature: Production progress across updates and building completion
     Given the test mine is already completed and operational at minute 0
     When the simulation advances through minutes "<checkpoints>"
     Then at minute <target> the colony has exactly <available> whole units of iron available
-    And the test mine retains production progress of <progress> iron units
+    And the colony retains shared iron extraction progress of <progress> iron units
 
     Examples:
       | coverage | checkpoints                   | target | available | progress |
@@ -44,12 +44,12 @@ Feature: Production progress across updates and building completion
     Given the test mine is already completed and operational at minute 0
     When the simulation advances to minute 10
     Then at minute 10 the colony has exactly 0 whole units of iron available
-    And the test mine retains production progress of 0.5 iron units
+    And the colony retains shared iron extraction progress of 0.5 iron units
     When the simulation advances to minute 10
     Then the state is unchanged and the advance emits no events
     When the simulation advances to minute 20
     Then at minute 20 the colony has exactly 1 whole units of iron available
-    And the test mine retains production progress of 0 iron units
+    And the colony retains shared iron extraction progress of 0 iron units
     When the simulation advances to minute 20
     Then the state is unchanged and the advance emits no events
 
@@ -59,7 +59,7 @@ Feature: Production progress across updates and building completion
     And construction completes at minute 10 without further resource consumption
     When the simulation advances through minutes "<checkpoints>"
     Then at minute <target> the colony has exactly <available> whole units of iron available
-    And the test mine retains production progress of <progress> iron units
+    And the colony retains shared iron extraction progress of <progress> iron units
     And the test mine is "<status>"
 
     Examples:
