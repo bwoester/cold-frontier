@@ -2,27 +2,33 @@
 status: observed-prototype
 type: architecture-notes
 ---
-# Technischer Ist-Zustand (keine Soll-Architektur)
+<a name="technischer-ist-zustand-keine-soll-architektur"></a>
 
-Dieser Eintrag fasst **beobachteten Prototypcode** zusammen. Er ersetzt keinen Architekturentwurf und begründet keine Technologieentscheidung.
+# Current Technical State of the Prototype
 
-- `lib/`: Java-21-Library mit `TickCoordinator`, `TickComponent`, `Planet`, Services für Produktion, Gebäude, Baufortschritt, Buchungen und Inputs.
-- `TickCoordinator`: Ein globaler Tick führt Phasen über alle registrierten Komponenten aus (Input, Ressourcen, Gebäude, Bewegung, Konflikte, Sichtbarkeit, Persistenz, Cleanup).
-- `Planet`: orchestriert spezialisierte Services; Produktionsberechnung derzeit Summation von Gebäuderaten.
-- `Value<T>`: zustandsorientierter Zugriff; In-Memory- und NATS-KV-Implementierungen. Ein historisierter Wert ist **nicht automatisch** ein fachliches Domain Event.
-- `AccountingService`: prüft und verändert Spieler- und Planetenkonten; Mehrfachschreibvorgänge sind im gezeigten Ablauf nicht als gemeinsame Transaktion abgesichert.
-- `backend/`: Quarkus-Prototyp mit REST und OIDC-Abhängigkeiten.
-- `frontend/`: Vue-SPA; öffentliche und geschützte Seiten, Spielnavigation.
+This page summarizes **observed prototype code**. The target architecture and technology choices require their own decisions.
 
-## Bekannte Lücken / Diskussionspunkte
+- `lib/`: Java 21 library with `TickCoordinator`, `TickComponent`, `Planet`, and services for production, buildings, construction progress, accounting, and inputs.
+- `TickCoordinator`: A global tick runs phases across all registered components (input, resources, buildings, movement, conflicts, visibility, persistence, and cleanup).
+- `Planet`: Orchestrates specialized services. Production currently sums the rates of the buildings.
+- `Value<T>`: State-oriented access with in-memory and NATS KV implementations. A value with history does not automatically constitute a domain event.
+- `AccountingService`: Checks and updates player and planet accounts. Multiple writes in the observed flow are not protected by a shared transaction.
+- `backend/`: Quarkus prototype with REST and OIDC dependencies.
+- `frontend/`: Vue SPA with public and protected pages and game navigation.
 
-- Engpässe und Ressourcenerschöpfung nicht fachlich fertig spezifiziert.
-- Baufortschritt-/Tick-Zusammenspiel sowie konkurrierende Aufträge end-to-end prüfen.
-- Keine akzeptierte Entscheidung zu Event Sourcing, Zeitmodell, Datenbank, Messaging, RPC, Backend-Framework oder CSS-Ansatz.
-- Die framework-unabhängige fachliche Engine ist **Architekturziel**, aber die aktuelle `lib` enthält auch NATS-spezifische Abhängigkeiten.
+<a name="bekannte-lücken--diskussionspunkte"></a>
 
-## Verweise
+## Known Gaps and Discussion Points
 
-[[../game-design/economy|Planetare Wirtschaft]] · [[../notes|Frühere technische Überlegungen]]
+- The rules for bottlenecks and resource depletion are incomplete.
+- Verify the interaction between construction progress and ticks, as well as concurrent commands, end to end.
+- Event sourcing, the time model, database, messaging, RPC, backend framework, and CSS approach have no accepted decisions.
+- A framework-independent domain engine is an **architecture goal**. The current `lib` also has NATS-specific dependencies.
 
-Quellen: `lib/src/main/java/de/bwoester/coldfrontier/`, `backend/build.gradle.kts`, `frontend/package.json` (Repositorystand bei Erstellung dieses Dokuments).
+<a name="verweise"></a>
+
+## References
+
+[Planetary Economy](../game-design/economy.md) · [Earlier Technical Notes](../notes.md)
+
+Sources: `lib/src/main/java/de/bwoester/coldfrontier/`, `backend/build.gradle.kts`, `frontend/package.json` (repository state when this page was written).

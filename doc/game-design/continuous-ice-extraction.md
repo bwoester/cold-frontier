@@ -1,69 +1,79 @@
 ---
-status: in-klaerung
+status: under-discussion
 type: mathematical-model
 ---
-# Kontinuierliche Eisförderung zwischen Ereignissen
+<a name="kontinuierliche-eisförderung-zwischen-ereignissen"></a>
 
-**Stand: 2026-11-08.** Der Projektinhaber möchte den kontinuierlichen Verlauf als fachlich-mathematischen Ansatz dokumentiert und weiter berücksichtigt haben. Die folgenden Gleichungen sind eine Herleitung aus dem proportionalen Abbaumodell. Ihre Dokumentation legt weder das endgültige Balancing noch das Ausführungsverfahren der gesamten Simulation fest. Insbesondere ist die Mindestergiebigkeit von Eis noch nicht in diesem Grundmodell enthalten.
+# Continuous Ice Extraction Between Events
 
-## Motivation und Geltungsbereich
+**Status as of 2026-11-08.** The project owner wants the continuous evolution documented and considered as a mathematical model for the mechanic. The equations below follow from the proportional depletion model. Final balancing and the execution model of the full simulation remain open. In particular, this base model does not include a minimum ice yield.
 
-Eine große Mine kann im späteren Spiel etwa acht Stunden Bauzeit oder durch Modifikatoren noch mehr benötigen (Projektannahme, keine allgemeine Bauzeitregel). Bleiben die relevanten Bedingungen bis zum Abschluss unverändert und tritt auch innerhalb der Wirtschaft kein früherer relevanter Übergang ein, soll die Förderung dieses Abschnitts direkt berechenbar sein. Acht Stunden entsprechen 28.800 Sekunden: Für die hier beschriebene Abbaukurve reicht eine Auswertung statt 28.800 aufeinanderfolgenden Sekundenschritten.
+<a name="motivation-und-geltungsbereich"></a>
 
-Dabei bleibt die **Förderleistung nicht konstant**: Sie sinkt während des gesamten Abschnitts mit dem Restvorkommen. Konstant bleiben die Parameter, welche diese Entwicklung bestimmen. Ein bekannter Bauabschluss allein garantiert noch keinen acht Stunden langen störungsfreien Abschnitt; etwa ein Energiemangel kann früher eintreten.
+## Motivation and Scope
 
-Der Ansatz beschreibt zunächst **eine einzelne Quelle und die daraus geförderte Menge**. Eis im Boden ist nicht Eis im Lager. Verbrauch im Wasserwerk senkt den Lagerbestand, nicht direkt das unterirdische Vorkommen. Lagerzugänge, verfügbare ganze Einheiten, laufende Produktion und Verbraucher sind zusätzlich gemäß dem [fachlichen Simulationsvertrag](../architecture/resource-simulation-contract.md) zu behandeln.
+A large mine might take around eight hours to build later in the game, or longer with modifiers (a project assumption for this example). If the relevant conditions stay the same until completion and no earlier transition occurs within the economy, it should be possible to calculate extraction directly for that interval. Eight hours corresponds to 28,800 seconds. For the depletion curve described here, one evaluation replaces 28,800 successive one-second steps.
 
-## Ausgangspunkt: Tabelle und heutiger Modellvorschlag
+The **extraction rate falls** throughout the interval as the deposit shrinks. The parameters governing that change remain constant. A known completion time alone cannot guarantee an uninterrupted eight-hour interval. An energy shortage could occur sooner.
 
-Quelle ist das frühere eigene Redesign [RD-02 „Resourcenabbau“](https://docs.google.com/spreadsheets/d/1Wng7Wi-kAfF1JS_VECUQVXRTWIYlHXlCo7YKTTP_vnA/edit). Die am 2026-11-08 geprüften Zellen A1:G12 enthalten:
+The approach describes **one deposit and the quantity extracted from it**. Water production draws ice from storage. The underground deposit changes through extraction. Apply the [domain simulation contract](../architecture/resource-simulation-contract.md) to stock increases, available whole units, production in progress, and consumers.
 
-- 50.000 Einheiten Startvorkommen in A5;
-- 20 Einheiten Grundförderung je Mine und Tick in A8;
-- Restvorkommen als Startvorkommen minus bisherigem Abbau;
-- relative Dichte als Restvorkommen geteilt durch Startvorkommen;
-- Förderung als Grundförderung × Minenzahl × relative Dichte;
-- eine zusätzliche Mine alle zehn Ticks im Beispielszenario.
+<a name="ausgangspunkt-tabelle-und-heutiger-modellvorschlag"></a>
 
-Das ist kein Beleg für die historische IceWars-Formel und keine Festlegung heutiger Gebäudeparameter. Die Tabelle definiert hier keine physikalische Tickdauer. **20 Eis/Tick darf deshalb nicht ohne Annahme in 20 Eis/Sekunde oder 20 Eis/Stunde umgedeutet werden.** Die folgenden Stundenwerte sind eigens gewählte Rechenbeispiele. Der kontinuierliche Verlauf ist ein anderes mathematisches Modell als die bisherige Tick-Folge, keine exakt ergebnisgleiche Zusammenfassung dieser Folge.
+## Starting Point: Spreadsheet and Current Model Proposal
 
-## Parameter und abgeleitete Größen
+The source is the project's earlier redesign, [RD-02 “Resourcenabbau”](https://docs.google.com/spreadsheets/d/1Wng7Wi-kAfF1JS_VECUQVXRTWIYlHXlCo7YKTTP_vnA/edit). Cells A1:G12, reviewed on 2026-11-08, contain:
 
-Der Abschnitt beginnt bei Spielzeit $t_0$. Mit $\tau=t-t_0$ bezeichnen wir die seitdem verstrichene Zeit.
+- 50,000 units of initial deposit in A5;
+- 20 units of base extraction per mine and tick in A8;
+- remaining deposit as the initial deposit minus extraction to date;
+- relative density as the remaining deposit divided by the initial deposit;
+- extraction as base extraction × number of mines × relative density;
+- an additional mine every ten ticks in the example.
 
-| Symbol | Bedeutung | Einheit / Einschränkung |
+The spreadsheet documents the redesign. It establishes neither the original IceWars formula nor current building parameters. It gives no physical duration for a tick. **Converting 20 ice/tick to 20 ice/second or 20 ice/hour requires an assumption.** The hourly values below are chosen for illustration. The continuous curve is a different mathematical model from the discrete tick sequence and does not give identical results.
+
+<a name="parameter-und-abgeleitete-größen"></a>
+
+## Parameters and Derived Quantities
+
+The interval starts at game time $t_0$. Let $\tau=t-t_0$ be the elapsed time.
+
+| Symbol | Meaning | Unit or constraint |
 | --- | --- | --- |
-| $S$ | Feste Referenzmenge der Quelle; im Tabellenmodell das ursprüngliche Startvorkommen | Eis; $S>0$ |
-| $R_0$ | Restvorkommen zu Beginn **dieses** Abschnitts | Eis; $0\le R_0\le S$ |
-| $P$ | Zusammengefasste Förderleistung bei relativer Dichte 1, einschließlich der im Abschnitt konstanten Betriebsmodifikatoren | Eis/h; $P\ge0$ |
-| $\tau$ | Dauer seit Abschnittsbeginn | h; $\tau\ge0$ |
-| $k=P/S$ | Relative Abnahmekonstante | 1/h |
-| $R(\tau)$ | Restvorkommen nach dieser Dauer | Eis |
-| $d(\tau)=R(\tau)/S$ | Relative Dichte beziehungsweise Ergiebigkeitsfaktor | Dimensionslos; 0 bis 1 |
-| $q(\tau)=P\,d(\tau)$ | Momentane tatsächliche Förderrate | Eis/h |
-| $A(\tau)=R_0-R(\tau)$ | Während dieses Abschnitts geförderte Menge | Eis |
+| $S$ | Fixed reference quantity of the deposit, equal to the original deposit in the spreadsheet model | ice; $S>0$ |
+| $R_0$ | Remaining deposit at the beginning of **this** interval | ice; $0\le R_0\le S$ |
+| $P$ | Combined extraction capacity at relative density 1, including operating modifiers that are constant in the interval | ice/h; $P\ge0$ |
+| $\tau$ | Time since the start of the interval | h; $\tau\ge0$ |
+| $k=P/S$ | Relative decay constant | 1/h |
+| $R(\tau)$ | Deposit remaining after that time | ice |
+| $d(\tau)=R(\tau)/S$ | Relative density or yield factor | Dimensionless; 0 to 1 |
+| $q(\tau)=P\,d(\tau)$ | Instantaneous actual extraction rate | ice/h |
+| $A(\tau)=R_0-R(\tau)$ | Quantity extracted during this interval | ice |
 
-**S bleibt beim nächsten Ereignis unverändert.** Nur R₀ wird auf das dann verbleibende Vorkommen gesetzt. Würde S ebenfalls auf den neuen Rest gesetzt, würde die relative Dichte bei jedem Ereignis wieder auf 1 springen.
+**S stays fixed across events.** Update only R₀ to the quantity then remaining. Resetting S to that amount would reset relative density to 1 at each event.
 
-P ist nicht die tatsächliche aktuelle Förderung: Bei P = 2.000 Eis/h und relativer Dichte 0,6 beträgt diese nur 1.200 Eis/h. Verschiedene Minentypen auf derselben Quelle können in P addiert werden, sofern sie denselben Dichtefaktor nutzen und ihre übrigen Leistungsparameter konstant sind. Quellen mit anderen Parametern werden zunächst getrennt behandelt.
+At P = 2,000 ice/h and a relative density of 0.6, the actual rate is 1,200 ice/h. Different mine types on the same deposit can contribute to the same P if they share a density factor and their other output parameters stay constant. Deposits with different parameters are treated separately for now.
 
-**Relative und absolute Dichte unterscheiden:** d = 1 bedeutet die volle Referenzergiebigkeit dieses Modells, nicht 100 Prozent absoluten Eisanteil eines Planeten. Soll eine absolute Anfangsdichte von beispielsweise 30 Prozent abgebildet werden, braucht es eine ausdrückliche Zuordnung zu Referenzmenge und Förderleistung. Diese ist noch keine beschlossene Spielregel.
+**Relative and absolute density.** Here d = 1 means full reference yield, regardless of the planet's absolute ice content. To represent a starting absolute density such as 30%, explicitly relate it to the reference quantity and extraction capacity. That relationship remains open.
 
-## Herleitung und direkte Berechnung
+<a name="herleitung-und-direkte-berechnung"></a>
 
-Der Abbau entspricht der tatsächlichen Förderung. Je weniger Eis verbleibt, desto geringer wird diese Förderung:
+## Derivation and Direct Calculation
+
+The deposit falls at the actual extraction rate. As the deposit shrinks, that rate decreases:
 
 $$
 \frac{dR}{d\tau}=-q(\tau)=-P\frac{R(\tau)}{S}=-kR(\tau).
 $$
 
-Die Lösung mit Anfangswert R₀ ist eine exponentielle Abnahme:
+The solution with initial value R₀ is exponential decay:
 
 $$
 \boxed{R(\tau)=R_0\,e^{-k\tau}=R_0\,e^{-\frac{P}{S}\tau}}.
 $$
 
-Daraus folgen direkt:
+This gives:
 
 $$
 d(\tau)=\frac{R_0}{S}e^{-k\tau},\qquad
@@ -71,171 +81,191 @@ q(\tau)=P\frac{R_0}{S}e^{-k\tau},\qquad
 \boxed{A(\tau)=R_0\left(1-e^{-k\tau}\right)}.
 $$
 
-Der Exponent ist dimensionslos: (Eis/h) / Eis × h. Bei Zeitangaben in Sekunden muss P in Eis/s umgerechnet werden oder die Dauer durch 3.600 geteilt werden.
+The exponent is dimensionless: (ice/h) / ice × h. If time is given in seconds, convert P to ice/s or divide the duration by 3,600.
 
-A ist die gesamte Förderung über den Zeitraum, also die Fläche unter der Kurve q. Weder Anfangsrate × Dauer noch Endrate × Dauer bildet diese Fläche korrekt ab. Die Bilanz lautet immer R(τ) + A(τ) = R₀.
+A is the total extraction over the interval, the area under the q curve. Multiplying the duration by either the initial rate or the final rate gives the wrong area. The balance is always R(τ) + A(τ) = R₀.
 
-Für P = 0 bleibt das Vorkommen unverändert und die Förderung ist null. Für R₀ = 0 gilt dasselbe. Bei τ = 0 gibt es keinen neuen Abbau.
+At P = 0 the deposit is unchanged and extraction is zero. The same holds at R₀ = 0. At τ = 0 no additional extraction has occurred.
 
-## Allgemeine Form bei veränderlicher Förderkapazität
+<a name="allgemeine-form-bei-veränderlicher-förderkapazität"></a>
 
-**Allgemein innerhalb des proportionalen Modells**, nicht für jede denkbare Ressourcenmechanik: S bleibt fest, d = R/S, und die tatsächliche Rate ist q(t) = P(t) × d(t). Die Quelle hat in diesem Abschnitt keine zusätzlichen Zu- oder Abflüsse. Alle beteiligten Minen nutzen denselben Dichtefaktor. P(t) ≥ 0 beschreibt ihre Leistung bei voller Referenzergiebigkeit nach allen sonstigen Betriebsmodifikatoren; es ist **nicht** die durch die Dichte bereits reduzierte Rate q(t).
+## General Form for Variable Extraction Capacity
 
-Bei einem bekannten, über das betrachtete Intervall integrierbaren zeitlichen Verlauf P(t) gilt:
+Within the proportional model, S is fixed, d = R/S, and the actual rate is q(t) = P(t) × d(t). There are no other inflows to or outflows from the deposit during the interval. All mines share the same density factor. P(t) ≥ 0 is their capacity at full reference yield after all other operating modifiers, before applying the density reduction that yields q(t).
+
+For a known P(t) that is integrable over the interval:
 
 $$
 \frac{dR}{dt}=-\frac{P(t)}{S}R(t),\qquad
 \boxed{R(t_1)=R(t_0)\exp\left(-\frac{1}{S}\int_{t_0}^{t_1}P(u)\,du\right)}.
 $$
 
-Daraus folgen d(t₁) = R(t₁)/S, q(t₁) = P(t₁)d(t₁) und A = R(t₀) − R(t₁). An Sprüngen von P gilt die Rate jeweils unmittelbar vor beziehungsweise nach dem Ereignis; das Vorkommen bleibt stetig, sofern das Ereignis selbst keine Menge verändert.
+This gives d(t₁) = R(t₁)/S, q(t₁) = P(t₁)d(t₁), and A = R(t₀) − R(t₁). At a jump in P, use the rate immediately before or after the event as appropriate. The deposit is continuous unless the event itself changes its quantity.
 
-| Ausdruck | Bedeutung | Einheit bei Stunden als Zeitmaß |
+| Expression | Meaning | Unit with time in hours |
 | --- | --- | --- |
-| t₀, t₁ | Beginn und Ende des betrachteten Zeitraums | h |
-| u | Laufvariable im Integral; geht durch alle Zwischenzeitpunkte | h |
-| P(u) | Referenzleistung aller Minen zu diesem Zeitpunkt, ohne den Dichtemalus | Eis/h |
-| H = ∫ P(u) du | Kumulierte potenzielle Förderung bei relativer Dichte 1 | Eis |
-| H/S | Bisherige Förderbeanspruchung relativ zur Referenzmenge | Dimensionslos |
+| t₀, t₁ | Start and end of the interval | h |
+| u | Integration variable spanning the interval | h |
+| P(u) | Reference capacity of all mines at that time, before adjusting for density | ice/h |
+| H = ∫ P(u) du | Cumulative potential extraction at relative density 1 | ice |
+| H/S | Cumulative extraction pressure relative to the reference deposit | Dimensionless |
 
-Das Integral summiert **potenzielle**, nicht tatsächliche Förderung. Die tatsächliche Menge ist A; sie ist wegen der sinkenden Dichte im Allgemeinen kleiner als H. Die Formel enthält bereits die Rückkopplung: Abbau senkt R und d, dies senkt q, wodurch der weitere Abbau langsamer wird. **Der Dichteverlust allein erfordert weder neue Ereignisse pro Einheit noch numerische Sekundenschritte.**
+The integral sums **potential extraction**. Actual extraction A is generally smaller than H because density declines. The equation includes the feedback: extraction reduces R and d, decreasing q and slowing further extraction. **Declining density alone requires neither events for individual units nor numerical one-second steps.**
 
-### Wann reicht die einfache Abschnittsformel?
+<a name="wann-reicht-die-einfache-abschnittsformel"></a>
 
-Bleibt P(u) = P während des Abschnitts konstant, wird das Integral zu P × (t₁ − t₀). Damit folgt exakt die vorherige Formel:
+### When Is the Simple Interval Formula Enough?
+
+If P(u) = P throughout the interval, the integral becomes P × (t₁ − t₀). This gives exactly the earlier formula:
 
 $$
 R(t_1)=R(t_0)e^{-(P/S)(t_1-t_0)}.
 $$
 
-Konstant sein müssen S und P sowie das proportionale Gesetz. **Weder Dichte noch tatsächliche Förderrate müssen konstant bleiben.** Hinzu kommt: Kein übersprungener Übergang darf die zugrunde gelegten Bedingungen verändern. Die bekannte nächste Minenfertigstellung reicht als Grenze nur, wenn nicht vorher ein relevanter Engpass oder eine andere Änderung eintritt.
+S, P, and the proportional law must remain constant. Density and the actual extraction rate may vary. No transition skipped within the interval may change the assumed conditions. The next scheduled mine completion is a valid boundary only if no relevant shortage or other change occurs sooner.
 
-Bei mehreren Bauabschlüssen ist P stückweise konstant. Dann ist das Integral eine Summe von Rechteckflächen:
+With several construction completions, P is piecewise constant. The integral is then the sum of rectangular areas:
 
 $$
 \int_{t_0}^{t_n}P(u)du=\sum_{i=0}^{n-1}P_i(t_{i+1}-t_i),\qquad
 R(t_n)=R(t_0)\exp\left(-\frac{1}{S}\sum_{i=0}^{n-1}P_i\Delta t_i\right).
 $$
 
-Dies entspricht dem Produkt der einfachen Abschnittsberechnungen. **Auch die Langzeitcharts können aus genau diesen Abschnitten entstehen.** Die Integralnotation erzwingt keinen gesonderten Integrator. Die Summe beschreibt den Endwert der Quelle; sie ersetzt nicht die Verarbeitung zwischenzeitlicher Lager-, Verbraucher- und Ereigniswirkungen.
+This equals the product of the simple interval calculations. **The long-term charts can use exactly these intervals.** The integral notation does not require a separate integrator. The sum gives the final deposit, and storage, consumer, and event effects during the interval still need processing.
 
-### Wann brauchen wir eine allgemeinere Auswertung?
+<a name="wann-brauchen-wir-eine-allgemeinere-auswertung"></a>
 
-| Rahmenbedingung | Geeignete Berechnung | Einschränkung |
+### When Do We Need a More General Calculation?
+
+| Condition | Suitable calculation | Limitation |
 | --- | --- | --- |
-| Konstantes P zwischen zwei Ereignissen, sinkende Dichte | Einfache Exponentialformel | Sinkende effektive Förderung ist vollständig enthalten. |
-| Minen kommen zu bekannten Zeiten hinzu oder fallen aus | Einfache Formel je Abschnitt; äquivalent Summe im Exponenten | Ereignisfolgen und andere Zustände weiterhin zu ihren wirksamen Zeiten berücksichtigen. |
-| Ein sonstiger Betriebsfaktor ändert P **kontinuierlich** innerhalb des Abschnitts | Integralform mit dem tatsächlichen Verlauf P(t), wenn analytisch integrierbar direkt auswerten | P nur am Beginn einzusetzen wäre eine Näherung. Eine Näherung benötigt explizite Fehlergrenzen. |
-| Bekanntes P(t), aber kein handhabbares direktes Integral | Numerische Integration von P(t) mit Fehlerkontrolle als möglicher Ansatz | Nicht automatisch ein Sekundenticker; Verfahren und Genauigkeitsziel sind offen. |
-| P hängt von gleichzeitig fortzuschreibender Bevölkerung, Energie oder anderen Zuständen ab | Gemeinsames gekoppeltes Modell lösen; gegebenenfalls weitere Abschnittsgrenzen | Die Integralform bleibt entlang der tatsächlichen Lösung eine Beziehung, liefert aber ohne bekannten Verlauf P(t) noch keine unabhängige Berechnung. |
-| Mindestförderung, nichtlineare Dichtewirkung, andere Quellen oder zusätzliche Zu-/Abflüsse | Geänderte Modellgleichung herleiten | Auch die angegebene Integralform ist dann im Allgemeinen keine ausreichende Lösung. |
+| Constant P between two events, with declining density | Simple exponential formula | Includes the decline in effective extraction. |
+| Mines are added or lost at known times | Simple formula per interval, equivalent to a sum in the exponent | Account for event consequences and other states at their effective times. |
+| Another operating factor changes P **continuously** within the interval | Integral with the actual P(t), evaluated directly if analytically integrable | Using only the starting P is an approximation and needs explicit error bounds. |
+| Known P(t) without a tractable direct integral | Numerical integration of P(t) with error control is one option | Method, accuracy, and step sizes remain open. |
+| P depends on population, energy, or other states advancing at the same time | Solve a coupled model, potentially with more interval boundaries | The integral relation holds along the actual solution. It cannot give an independent result without the actual P(t). |
+| Minimum yield, nonlinear density effect, other deposits, or additional inflows or outflows | Derive the modified model equation | The given integral is generally insufficient in these cases. |
 
-**Rechenbeispiel für kontinuierlich veränderliches P, keine Spielregel:** Ein Betriebsbonus lässt P während einer Zeitspanne T linear von P₀ auf 3P₀ steigen: P(t₀ + τ) = P₀(1 + 2τ/T). Dann ist H(τ) = P₀(τ + τ²/T). Über den ganzen Abschnitt gilt H(T) = 2P₀T. Mit S = R₀ = 50.000, P₀ = 2.000 Eis/h und T = 8 h verbleiben etwa **26.364,62 Eis**. Die Annahme eines unveränderten Anfangs-P ergäbe 36.307,45 Eis und wäre hier falsch. Ein mittleres P = H/T liefert den Quellen-Endwert korrekt, rekonstruiert allein aber weder die zeitliche Förderung noch frühere Schwellen oder die Endrate.
+**Illustrative calculation with continuously varying P.** An operating bonus makes P rise linearly from P₀ to 3P₀ over a time T: P(t₀ + τ) = P₀(1 + 2τ/T). Then H(τ) = P₀(τ + τ²/T), and over the whole interval H(T) = 2P₀T. With S = R₀ = 50,000, P₀ = 2,000 ice/h, and T = 8 h, about **26,364.62 ice** remain. Holding P at its initial value would incorrectly give 36,307.45 ice. The average P = H/T reproduces the final deposit but cannot alone reconstruct extraction over time, earlier thresholds, or the final rate.
 
-Die [Langzeit- und Extremszenarien](extraction-balancing-scenarios.md) benutzen vorgegebene Ausbauereignisse und damit weiterhin ausschließlich die einfache Formel je Abschnitt. Die allgemeinere Darstellung dient dort der Erklärung, dem Vergleich und der Parametrisierung.
+The [long-term and extreme scenarios](extraction-balancing-scenarios.md) use predefined expansion events and therefore still use only the simple formula per interval. The general form helps explain, compare, and parameterize them.
 
-## Beispiel 1: Acht Stunden bis zum nächsten Bauabschluss
+<a name="beispiel-1-acht-stunden-bis-zum-nächsten-bauabschluss"></a>
 
-**Nur Rechenwerte, kein Balancing:** S = 50.000 Eis, R₀ = 50.000 Eis, P = 2.000 Eis/h. Alle Betriebsbedingungen bleiben für acht Stunden erfüllt; keine Lagergrenze oder sonstige Wirkung verändert den Betrieb. Damit ist k = 0,04/h.
+## Example 1: Eight Hours Until the Next Construction Completion
+
+**Illustrative values.** S = 50,000 ice, R₀ = 50,000 ice, P = 2,000 ice/h. All operating conditions hold for eight hours, and no storage limit or other effect changes operation. Thus k = 0.04/h.
 
 $$
-R(8)=50.000\,e^{-0{,}04\cdot8}\approx36.307{,}45\text{ Eis}.
+R(8)=50{,}000\,e^{-0.04\cdot8}\approx36{,}307.45\text{ ice}.
 $$
 
-In den acht Stunden werden **13.692,55 Eis** gefördert. Die Förderrate sinkt dabei von 2.000 auf **1.452,30 Eis/h**.
+In eight hours, the mines extract **13,692.55 ice**. The rate falls from 2,000 to **1,452.30 ice/h**.
 
-| Dauer | Restvorkommen [Eis] | Relative Dichte | Momentane Förderung [Eis/h] | Im Abschnitt gefördert [Eis] |
+| Duration | Remaining deposit [ice] | Relative density | Instantaneous extraction [ice/h] | Extracted in the interval [ice] |
 | ---: | ---: | ---: | ---: | ---: |
-| 0 h | 50.000,00 | 100,00 % | 2.000,00 | 0,00 |
-| 1 h | 48.039,47 | 96,08 % | 1.921,58 | 1.960,53 |
-| 4 h | 42.607,19 | 85,21 % | 1.704,29 | 7.392,81 |
-| 8 h | 36.307,45 | 72,61 % | 1.452,30 | 13.692,55 |
-| 12 h, falls weiterhin unverändert | 30.939,17 | 61,88 % | 1.237,57 | 19.060,83 |
+| 0 h | 50,000.00 | 100.00% | 2,000.00 | 0.00 |
+| 1 h | 48,039.47 | 96.08% | 1,921.58 | 1,960.53 |
+| 4 h | 42,607.19 | 85.21% | 1,704.29 | 7,392.81 |
+| 8 h | 36,307.45 | 72.61% | 1,452.30 | 13,692.55 |
+| 12 h, if conditions hold | 30,939.17 | 61.88% | 1,237.57 | 19,060.83 |
 
-![Restvorkommen, relative Dichte, momentane Förderung und geförderte Menge über acht Stunden](assets/ice-extraction/eight-hours.svg)
+![Remaining deposit, relative density, instantaneous rate, and total extraction over eight hours](assets/ice-extraction/eight-hours.svg)
 
-Restvorkommen und Förderrate sinken. Die insgesamt geförderte Menge steigt weiter, aber immer langsamer. Mit fälschlich konstanter Anfangsrate kämen 16.000 Eis heraus: **2.307,45 Eis zu viel**, rund 16,85 Prozent über dem kontinuierlichen Ergebnis. Dieser Fehler ist von der viel kleineren Abweichung einer fein aufgelösten Tick-Näherung zu unterscheiden.
+The remaining deposit and extraction rate fall. Total extraction continues to grow at a slowing rate. Incorrectly holding the initial rate constant would give 16,000 ice, **2,307.45 ice too much** or about 16.85% above the continuous result. A fine-grained tick approximation has a much smaller error.
 
-## Beispiel 2: Welche Parameter verändern den Verlauf?
+<a name="beispiel-2-welche-parameter-verändern-den-verlauf"></a>
 
-![Einfluss von Minenleistung, Referenzvorkommen und Restvorkommen am Abschnittsbeginn](assets/ice-extraction/parameters.svg)
+## Example 2: Which Parameters Change the Curve?
 
-- **P erhöhen:** Mehr Förderkapazität liefert anfangs mehr Eis, senkt aber auch die Dichte schneller. Bei S = R₀ = 50.000 Eis verbleiben nach acht Stunden für P = 1.000 / 2.000 / 4.000 Eis/h etwa 85,21 / 72,61 / 52,73 Prozent relative Dichte.
-- **S erhöhen:** Bei gleichem P und gleicher anfänglicher relativer Dichte nimmt die Ergiebigkeit langsamer ab. Im mittleren Chart wird deshalb R₀ gemeinsam mit S verändert. Eine größere Referenzmenge ist ein anderes Vorkommen, kein Zurücksetzen nach einem Ereignis.
-- **R₀ verringern, S festhalten:** Ein bereits ausgebeutetes Vorkommen beginnt den Abschnitt mit geringerer Förderung. Bei S = 50.000 und P = 2.000 Eis/h beginnen die Kurven für R₀/S = 1 / 0,6 / 0,3 bei 2.000 / 1.200 / 600 Eis/h. Die relative Abnahmegeschwindigkeit k bleibt gleich.
+![Effect of mining capacity, reference deposit, and remaining deposit at the start of the interval](assets/ice-extraction/parameters.svg)
 
-## Beispiel 3: Nach acht Stunden wird die neue Mine fertig
+- **Increase P.** More capacity yields more ice initially and reduces density faster. With S = R₀ = 50,000 ice, at P = 1,000 / 2,000 / 4,000 ice/h the relative density after eight hours is about 85.21% / 72.61% / 52.73%.
+- **Increase S.** With the same P and starting relative density, yield falls more slowly. The middle chart therefore changes R₀ along with S. A larger reference quantity describes a different deposit. An event leaves it fixed.
+- **Reduce R₀ and keep S fixed.** A partially depleted deposit starts the interval at a lower rate. At S = 50,000 and P = 2,000 ice/h, the curves for R₀/S = 1 / 0.6 / 0.3 start at 2,000 / 1,200 / 600 ice/h. The relative decay constant k stays the same.
 
-Für die Illustration verdoppelt der Abschluss P von 2.000 auf 4.000 Eis/h. **Beispielannahme:** Die zusätzliche Leistung wirkt unmittelbar nach dem Abschluss. Dies legt noch keine allgemeine Phasenregel für Fertigstellungen fest.
+<a name="beispiel-3-nach-acht-stunden-wird-die-neue-mine-fertig"></a>
 
-1. Abschnitt [0 h, 8 h]: Berechnung mit S = 50.000, R₀ = 50.000, P = 2.000.
-2. Abschluss bei 8 h: Restvorkommen 36.307,45 Eis übernehmen, P auf 4.000 setzen; S bleibt 50.000.
-3. Abschnitt [8 h, 16 h]: Dieselbe Formel mit dem neuen R₀ und P auswerten.
+## Example 3: A New Mine Completes After Eight Hours
 
-Unmittelbar vor dem Abschluss beträgt die Förderung 1.452,30 Eis/h, unmittelbar danach 2.904,60 Eis/h. Das Vorkommen und die bereits geförderte Menge springen dabei nicht. Nach insgesamt 16 Stunden verbleiben **19.144,64 Eis**; insgesamt wurden **30.855,36 Eis** gefördert. Davon entfallen 17.162,81 Eis auf den zweiten Abschnitt.
+For this example, the completion doubles P from 2,000 to 4,000 ice/h. **Assumption for the example.** The extra capacity applies immediately after completion. General processing phases for completions remain open.
 
-![Zwei Abschnitte mit Bauabschluss: stetiges Vorkommen und Fördermenge, sprunghafte Förderleistung](assets/ice-extraction/construction-event.svg)
+1. Interval [0 h, 8 h]: calculate with S = 50,000, R₀ = 50,000, and P = 2,000.
+2. Completion at 8 h: carry forward the remaining 36,307.45 ice and set P to 4,000. S remains 50,000.
+3. Interval [8 h, 16 h]: evaluate the same formula with the new R₀ and P.
 
-Die Kurven werden nur für die Darstellung dicht abgetastet. Für die beiden Endzustände reichen zwei direkte Abschnittsberechnungen; die Chart-Stützpunkte sind keine erforderlichen Simulationsticks.
+Immediately before completion the rate is 1,452.30 ice/h. It rises to 2,904.60 ice/h immediately afterward. The deposit and cumulative extraction remain continuous. After 16 hours, **19,144.64 ice** remain and **30,855.36 ice** have been extracted, of which 17,162.81 ice came from the second interval.
 
-## Direkte und gestückelte Fortschreibung
+![Two intervals separated by construction completion. Deposit and cumulative extraction stay continuous while the rate jumps.](assets/ice-extraction/construction-event.svg)
 
-Ohne Parameteränderung muss das Ergebnis unabhängig von zusätzlichen Zwischenabfragen sein:
+The curves use closely spaced points for display. Two direct interval calculations give the two final states. Simulation ticks do not have to match the chart's sampling points.
+
+<a name="direkte-und-gestückelte-fortschreibung"></a>
+
+## Direct and Segmented Advancement
+
+If parameters stay fixed, additional intermediate queries must leave the result unchanged:
 
 $$
 R_0e^{-k(a+b)}=\left(R_0e^{-ka}\right)e^{-kb}.
 $$
 
-Acht Stunden am Stück, drei plus fünf Stunden oder 28.800 Abschnitte zu je einer Sekunde beschreiben denselben mathematischen Verlauf. Die geförderten Teilmengen summieren sich zum Gesamtabbau. Damit passt das Modell zur [Unabhängigkeit von Zwischenzeitpunkten](../architecture/resource-simulation-contract.md#etappe-1). Die technische Zahlendarstellung braucht dennoch definierte Toleranzen; mathematische Gleichheit ist nicht automatisch bitweise Gleichheit unterschiedlicher Rechenfolgen.
+Eight hours at once, three plus five hours, and 28,800 intervals of one second describe the same mathematical curve. The quantities extracted in each interval add up to total extraction. This matches the [requirement for independence from intermediate timestamps](../architecture/resource-simulation-contract.md#stage-1). Numeric representations still need defined tolerances. Different operation orders can be mathematically equal without being bitwise equal.
 
-Die Tabelle verwendet stattdessen für unverändertes P pro Tick:
+For unchanged P per tick, the spreadsheet uses:
 
 $$
 R_n=R_0\left(1-\frac{P_{\mathrm{Tick}}}{S}\right)^n.
 $$
 
-Das ist ebenfalls direkt auswertbar, bleibt aber ein diskretes Modell. Für eine Näherung des kontinuierlichen Modells mit Schrittdauer h gilt P_Tick = P × h. Mit kleinerem h nähert sich diese Folge der Exponentialkurve. Eine Umstellung benötigt deshalb ausdrücklich gewählte Modellsemantik statt einer stillen Änderung der Ergebnisse.
+This discrete model also has a direct formula. To approximate the continuous model with step size h, use P_Tick = P × h. Smaller h brings the sequence closer to the exponential curve. Changing models requires an explicit decision about which behavior is intended.
 
-## Abschnittsgrenzen, Schwellen und offene Spielregeln
+<a name="abschnittsgrenzen-schwellen-und-offene-spielregeln"></a>
 
-Die Formel gilt, solange das proportionale Abbaugesetz und seine Parameter gelten. Eine neue Mine, Forschung, ein Bonusende, Stilllegung oder ein wirksamer Versorgungsmangel kann einen neuen Abschnitt erfordern. Eine ohnehin bekannte Zeit bis zum Bauabschluss darf **nicht** über einen früheren wirtschaftlichen Übergang hinweg ausgewertet werden, der die beteiligten Bedingungen verändert.
+## Interval Boundaries, Thresholds, and Open Rules
 
-Für eine positive Restvorkommensschwelle R* kann ihr Zeitpunkt ebenfalls direkt bestimmt werden (P > 0 und 0 < R* < R₀):
+The formula applies while the proportional law and its parameters hold. A new mine, research, an expired bonus, shutdown, or an effective shortage may require a new interval. Even with a known construction completion time, an earlier economic transition that changes conditions must end the interval.
+
+For a positive deposit threshold R*, its time can be computed directly when P > 0 and 0 < R* < R₀:
 
 $$
 \tau_* = \frac{S}{P}\ln\left(\frac{R_0}{R_*}\right).
 $$
 
-Das erlaubt etwa, eine später definierte Ergiebigkeitsschwelle rechtzeitig als Abschnittsgrenze zu berücksichtigen. **Beispiel, keine Spielregel:** Bei S = R₀ = 50.000 und P = 2.000 Eis/h wird R* = 25.000 nach etwa 17,33 h erreicht. Eine echte Förderschwelle von 50 Prozent wäre nur bei entsprechender Definition der relativen Dichte dieselbe Schwelle.
+This lets the simulation use a future yield threshold as an interval boundary. **Example.** With S = R₀ = 50,000 and P = 2,000 ice/h, the deposit reaches R* = 25,000 after about 17.33 h. This corresponds to a 50% extraction threshold only if relative density is defined accordingly.
 
-| Grenze | Was die Grundformel leistet | Was zusätzlich festzulegen ist |
+| Boundary | What the base formula gives | What remains to define |
 | --- | --- | --- |
-| Mindestergiebigkeit von Eis | Verlauf oberhalb einer später definierten Grenze und deren Erreichungszeit | Positive Mindestförderung ist Designrichtung. Wie danach weiter gefördert wird und woher das Eis stammt, ist offen. Ein endliches Vorkommen plus unbegrenzte dauerhafte Entnahme wäre keine geschlossene Mengenbilanz. |
-| Vollständige Erschöpfung | R nähert sich für P > 0 null an | Null wird mathematisch nie in endlicher Zeit erreicht. Kein Erschöpfungsereignis oder Abschalten allein aus dieser Formel ableiten. Numerischer Unterlauf ist keine Spielregel. |
-| Volles Lager / Verfall | Geförderte Gesamtmenge | Das bestehende Verfallsprinzip für nicht lagerbare Überproduktion ist zu berücksichtigen. Ob und wie Lagerzustand den Minenbetrieb beeinflusst, muss explizit sein. Förderung ist nicht automatisch Lagerzuwachs. |
-| Energie, Personal und weitere Inputs | Konstante Betriebsmodifikatoren können in P eingehen | Bei veränderlicher Versorgung gilt die einfache Exponentialform mit konstantem P nicht unmittelbar. Engpasszeitpunkt und Rückwirkungen brauchen das gemeinsame Wirtschaftsmodell. |
-| Ganze verfügbare Einheiten | Kontinuierlicher Abbau und Mengenanteile | Verfügbarkeitszeitpunkte und erhaltene Bruchteile gemäß Simulationsvertrag bestimmen; nicht erst am Abschnittsende alle Förderung verfügbar machen. |
-| Andere Mechaniken | Direkter Abbau innerhalb eines gültigen Abschnitts | Relevante Wirkungen mit wirksamer Spielzeit koordinieren. Nicht alle Zwischenereignisse müssen automatisch globale Stopps oder Audit-Ereignisse werden. |
+| Minimum ice yield | Curve above a future threshold and the time it is reached | Positive minimum yield is a design direction. How extraction continues and where the ice comes from are open. A finite deposit and unlimited extraction cannot balance indefinitely. |
+| Complete depletion | R approaches zero for P > 0 | Zero is never reached in finite time. The formula alone cannot determine a depletion event or shutdown. Numerical underflow has no gameplay meaning. |
+| Full storage / overflow | Total quantity extracted | Apply the existing rule for losing excess production. Define whether and how storage affects mine operation. Extraction can exceed the increase in stock. |
+| Energy, labor, and other inputs | Constant operating modifiers can be included in P | The constant-P exponential does not apply directly if supply changes. The shared economic model must determine the timing and feedback of shortages. |
+| Available whole units | Continuous extraction and fractional quantities | Use the simulation contract for availability times and retained fractions. Units can become available before the interval ends. |
+| Other mechanics | Direct extraction within a valid interval | Coordinate relevant effects at their effective game time. Only relevant transitions need to become global boundaries or audit events. |
 
-Auch bei unverändertem Minenparameter P können nachgelagerte Betriebe Zwischenübergänge haben. Die Möglichkeit, den Abbau in einem Ausdruck zu berechnen, bedeutet deshalb nicht, die gesamte planetare Wirtschaft ohne weitere Prüfung bis zum nächsten äußeren Ereignis fortschreiben zu können.
+Downstream facilities can have intermediate transitions even when P stays constant. Calculating extraction in one expression does not justify advancing the whole planetary economy to the next external event without checking for those transitions.
 
-## Numerik, Überprüfung und Reproduktion
+<a name="numerik-überprüfung-und-reproduktion"></a>
 
-Für kleine kτ ist die Differenz 1 − exp(−kτ) numerisch ungünstig. Eine spätere Implementierung kann die Förderung stabil als `A = -R0 * expm1(-k * duration)` auswerten. Intern bleiben Mengenanteile erhalten; nur die Anzeige rundet. Zahlendarstellung, Zeitquantisierung und Regeln zur Reproduzierbarkeit sind weiter Architekturfragen.
+## Numerics, Verification, and Reproduction
 
-Die Charts und Beispielwerte lassen sich mit [plot_ice_extraction.py](tools/plot_ice_extraction.py) reproduzieren:
+For small kτ, 1 − exp(−kτ) is numerically unstable. A future implementation can compute extraction stably as `A = -R0 * expm1(-k * duration)`. Preserve fractions internally and round for display only. Numeric representation, time quantization, and reproducibility remain architecture questions.
+
+Reproduce the charts and example values with [plot_ice_extraction.py](tools/plot_ice_extraction.py):
 
 ```sh
 python -m pip install matplotlib
 python doc/game-design/tools/plot_ice_extraction.py
 ```
 
-Das Hilfsskript gehört zur Dokumentation und fügt dem Spiel keine Python-Abhängigkeit hinzu. Es erzeugt SVGs für diese Seite und PNGs zur lokalen Sichtprüfung. Die SVGs werden versioniert; die PNGs sind reproduzierbare lokale Vorschauen.
+The documentation script adds no Python dependency to the game. It generates SVGs for this page and PNGs for local inspection. SVGs are versioned. PNGs are reproducible local previews.
 
-Bei Erstellung wurden Mengenbilanz, Nullförderung, leeres Vorkommen sowie direkte und gestückelte Fortschreibung (3 h + 5 h und 28.800 Einsekundenabschnitte) numerisch geprüft. Dies prüft die Modellrechnungen, **nicht** die bisherige Java-Simulationsimplementierung oder die vollständige Wirtschaftskette.
+At the time of writing, numerical checks covered quantity balance, zero output, an empty deposit, and direct versus segmented advancement (3 h + 5 h and 28,800 one-second intervals). These checks cover the mathematical model. The Java simulation and full economy chain are outside their scope.
 
-## Konsequenz für die weitere Modellierung
+<a name="konsequenz-für-die-weitere-modellierung"></a>
 
-Der kontinuierliche Ansatz ist dokumentiert und soll bei der Ausarbeitung der Ressourcensimulation berücksichtigt werden. Die Beispiele zeigen eine Möglichkeit, längere Abschnitte ohne sekündliche Abbauberechnung auszuwerten. Das ist kein gemessener Leistungsnachweis für die gesamte Engine und keine Entscheidung für Lazy Evaluation, einen Scheduler oder ein Framework.
+## Implications for Further Modeling
 
-Nächste fachliche Klärung: Wie wird das proportionale Modell mit der positiven Mindestergiebigkeit verbunden, ohne Vorkommen, Ergiebigkeit und dauerhaft verfügbare Quellen zu vermischen? Danach ist das Zusammenspiel mit Lager, Energieversorgung und der Einheitenverfügbarkeit an konkreten Szenarien zu prüfen.
+The continuous approach should be considered when refining the resource simulation. The examples show how to evaluate long intervals without calculating depletion every second. They provide no performance measurement for the whole engine and leave lazy evaluation, scheduling, and frameworks open.
+
+The next question is how to combine the proportional model with a positive minimum yield while keeping deposit size, yield, and lasting supplies distinct. Then test its interaction with storage, energy supply, and availability of whole units in concrete scenarios.

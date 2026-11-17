@@ -1,122 +1,146 @@
 ---
-status: in-bearbeitung
+status: in-progress
 type: source-catalog
 ---
-# IceWars-Unterlagen – Quellenkatalog und Fortschritt
+<a name="icewars-unterlagen--quellenkatalog-und-fortschritt"></a>
 
-**Inventar zuletzt geprüft:** 2026-11-01. Ausgangspunkt: [Google-Drive-Ordner IceWars](https://drive.google.com/drive/folders/0B_fvsE93Ci4dTTlvWEFnYkZXYTQ).
+# IceWars Materials – Source Catalog and Progress
 
-Ziel ist, frühere Arbeit nachvollziehbar im Repository zu bewahren und fachlich auszuwerten. Eine Erwähnung im Gespräch oder ein Drive-Link ist noch keine abgeschlossene Übernahme. Historische IceWars-Daten, Community-Inhalte und frühere eigene Redesign-Entwürfe behalten jeweils ihre Herkunft; daraus folgt keine heutige Spielregel.
+**Inventory last checked.** 2026-11-01. Starting point: [IceWars Google Drive folder](https://drive.google.com/drive/folders/0B_fvsE93Ci4dTTlvWEFnYkZXYTQ).
 
-## Fortschritt lesen und pflegen
+The aim is to preserve and analyze earlier work in the repository with traceable origins. A mention in conversation or a Drive link is only a starting point. Historical IceWars data, community material, and earlier project redesigns retain their individual provenance. Current rules require separate decisions.
 
-Analyse, Dokumentation und Archivierung werden unabhängig erfasst:
+<a name="fortschritt-lesen-und-pflegen"></a>
 
-| Achse | Status und Bedeutung |
+## Reading and Updating Progress
+
+Track analysis, documentation, and archiving independently:
+
+| Area | Status and meaning |
 | --- | --- |
-| Analyse | **Offen:** Inhalt nicht geprüft. **Gesichtet:** Überblick, keine systematische Auswertung. **Teilweise:** einzelne Aspekte untersucht. **Gelesen:** Inhalt bzw. Datenstruktur gelesen, fachliche Fragen können offenbleiben. **Abgeschlossen:** alle relevanten Inhalte ausgewertet oder begründet ausgeschlossen. |
-| Dokumentation | **Inventar:** nur erfasst. **Kurzbefund:** erste Erkenntnisse hier festgehalten. **Teilübernahme:** ausgewählte Inhalte zusätzlich in Fachseiten übernommen. **Abgeschlossen:** relevante Inhalte mit Herkunft und offenen Fragen im Repo dokumentiert. |
-| Archiv im Repo | **Offen:** keine eigenständige Quellenkopie im Repo. **Teilweise:** nur Teile gesichert. **Gesichert:** Original oder geeigneter Export mit Herkunft und Integritätsprüfung im Repo. **Entfällt:** begründeter Ausschluss, gemeinsam festgehalten. |
+| Analysis | **Open:** Content unreviewed. **Skimmed:** Overview only. **Partial:** Selected aspects analyzed. **Read:** Content or data structure read, with domain questions potentially open. **Complete:** All relevant content analyzed or excluded with a rationale. |
+| Documentation | **Listed:** Inventory only. **Initial findings:** Findings recorded here. **Partially incorporated:** Selected content also documented in topic pages. **Complete:** Relevant content documented in the repository with provenance and open questions. |
+| Repository archive | **Open:** No standalone copy in the repository. **Partial:** Only some material archived. **Archived:** Original or suitable export stored with provenance and an integrity check. **Excluded:** Rationale agreed and recorded. |
 
-**Aktueller Stand:** 23 Dateien inventarisiert; noch keine Quelle als vollständig ausgewertet, vollständig dokumentiert oder im Repo archiviert abgeschlossen. Ausgewählte Inhalte aus Tech Tree und Abbau-Tabelle sind bereits fachlich dokumentiert. Die Ressourcen-Zuordnung und alle 64 Einträge der Schiffkosten-XML sind im [Einheitenkatalog](icewars-ships.md) rekonstruiert; die [Forschungsmatrix](icewars-ship-research.md) dokumentiert 38 namensbasierte Grafikbezüge und 26 offene Zuordnungen. Ein gemeinsamer Versionsstand bleibt ungeklärt. Die nachfolgende Tabelle ist die maßgebliche Einzelübersicht; keine pauschale Prozentzahl aus der Anzahl geöffneter Dateien ableiten.
+**Current status.** 23 files inventoried. No source has been marked as fully analyzed, fully documented, or archived in the repository. Selected Tech Tree and extraction spreadsheet findings are documented. The [unit catalog](icewars-ships.md) reconstructs the resource mapping and all 64 entries of the ship cost XML. The [research matrix](icewars-ship-research.md) records 38 name-based diagram matches and 26 open matches. A common game version remains unclear. Use the table below to track individual sources.
 
-Bei jeder weiteren Bearbeitung die betroffenen Zeilen, Ergebnislinks und nächsten Schritte aktualisieren. Neue Dateien ergänzen, bestehende IDs nicht neu vergeben. Eine Entscheidung, eine Quelle auszuschließen, ebenfalls begründen; nicht stillschweigend aus dem Inventar entfernen.
+As work continues, update the affected rows, result links, and next steps. Add newly found files without reassigning existing IDs. Record the reason for excluding a source and keep it in the inventory.
 
-## Inventar
+<a name="inventar"></a>
 
-„Drive geändert“ ist das Metadatum der Ablage, **kein Beleg für Entstehungsdatum, IceWars-Runde oder Spielversion**. IDs IW/RD/UNK dienen der Quellenzuordnung, nicht als Requirement-IDs.
+## Inventory
 
-| ID | Quelle | Drive geändert | Herkunft / Einordnung | Analyse | Dokumentation | Archiv im Repo | Befund / Restarbeit |
+“Drive modified” is storage metadata. Creation date, IceWars round, and game version require separate evidence. IW, RD, and UNK identify sources.
+
+| ID | Source | Drive modified | Origin | Analysis | Documentation | Repository archive | Findings and remaining work |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| IW-01 | [ressourcen.xml](https://drive.google.com/file/d/0B_fvsE93Ci4daTh6cGsxanI1WkE/view?usp=drivesdk&resourcekey=0-S3HkE-OC7qvI07N4srsFrw) | 2014-05-04 | Offiziell laut Projektinhaber | Gelesen | Teilübernahme | Offen | Alle zehn Ressourcen im [Einheitenkatalog](icewars-ships.md) zugeordnet; Semantik und Spielversion offen. |
-| IW-02 | [handelskurse.xml](https://drive.google.com/file/d/0B_fvsE93Ci4deVZ5VS13S2sySFE/view?usp=drivesdk&resourcekey=0-swFV1uninjMyWosCxJ9Waw) | 2014-05-04 | Offiziell laut Projektinhaber | Gelesen | Kurzbefund | Offen | Preise, Freigaben und Gebühren gelesen; dynamische Preisbildung und Exportkontext offen. |
-| IW-03 | [schiffkosten.xml](https://drive.google.com/file/d/0B_fvsE93Ci4dNXJwbzZhTzRZTkk/view?usp=drivesdk&resourcekey=0--Tbgj_pN3P0ugV2nN92V-w) | 2014-05-04 | Offiziell laut Projektinhaber | Gelesen | Teilübernahme | Offen | [Alle 64 Einträge mit Kosten](icewars-ships.md); [Forschungsmatrix](icewars-ship-research.md) für alle IDs, davon 38 mit Grafikbezug. Feldsemantik und gemeinsamer Versionsstand offen. |
-| IW-04 | [evo0.png](https://drive.google.com/file/d/0B_fvsE93Ci4dT2VjMVd6MlVRT0k/view?usp=drivesdk&resourcekey=0-Dxq6yH-vU9HLRohWXEvArA) | 2025-04-04 | Community-Referenz | Gesichtet | Kurzbefund | Offen | Starttechnologien sichtbar; Zuordnung zu einer der Serien und Spielversion offen. |
-| IW-05 | [evo1.png](https://drive.google.com/file/d/0B_fvsE93Ci4dUmNOTkxwc29xSlE/view?usp=drivesdk&resourcekey=0-ITGyOHLZgh_DzJeyJltNew) | 2014-05-04 | Community-Referenz | Teilweise | Teilübernahme | Offen | Serie A1: lesbare lokale Einheitenbezüge und Terraforming-Gebäudefeld separat in der [Forschungszuordnung](icewars-ship-research.md). Übrige Mechaniken offen. |
-| IW-06 | [evo2.png](https://drive.google.com/file/d/0B_fvsE93Ci4dRzFsTm0xbWNEcDQ/view?usp=drivesdk&resourcekey=0-hfGxGwfNyOfGAVKs9zaJkg) | 2014-05-04 | Community-Referenz | Teilweise | Teilübernahme | Offen | Serie A2: zusätzliche Zuordnung Artefaktsammelbasis Alpha samt vorgelagerter Forschung/Gebäudefeldern; siehe [Forschungszuordnung](icewars-ship-research.md). |
-| IW-07 | [evo3.png](https://drive.google.com/file/d/0B_fvsE93Ci4dY3JJNFRFX2xoZWc/view?usp=drivesdk&resourcekey=0-sOXrVuud9bXeHwKrecNJHA) | 2014-05-04 | Community-Referenz | Gesichtet | Inventar | Offen | Nur Übersichtssichtung; niedrige Auflösung (312 × 229). |
-| IW-08 | [evo4.png](https://drive.google.com/file/d/0B_fvsE93Ci4dWFMzcWh1bXlDTDA/view?usp=drivesdk&resourcekey=0-1kEbHJt01bbODLLEy21Ucw) | 2014-05-04 | Community-Referenz | Gesichtet | Inventar | Offen | Nur Übersichtssichtung; niedrige Auflösung (350 × 194). |
-| IW-09 | [evo5.png](https://drive.google.com/file/d/0B_fvsE93Ci4dV29RcmJqaFRNajA/view?usp=drivesdk&resourcekey=0-Px8-FqBb5FC1xM527GqxhQ) | 2014-05-04 | Community-Referenz | Gesichtet | Inventar | Offen | Nur Übersichtssichtung; niedrige Auflösung (388 × 232). |
-| IW-10 | [evo7.png](https://drive.google.com/file/d/0B_fvsE93Ci4dR1ptSnpONHBGbFE/view?usp=drivesdk&resourcekey=0-v9PUKhrXQL3adwwkq4xWeg) | 2014-05-04 | Community-Referenz | Gesichtet | Inventar | Offen | Nur Übersichtssichtung; niedrige Auflösung (372 × 298). |
-| IW-11 | [IceWars-Techtree-Evo1.png](https://drive.google.com/file/d/1yt-JLQm8b-CSgF6wfcE693S_PHFz6i_q/view?usp=drivesdk) | 2025-04-04 | Community-Referenz | Teilweise | Teilübernahme | Offen | Serie B1: Einheiten-Knoten und Voraussetzungen in der [Forschungsmatrix](icewars-ship-research.md). Große Eismine bereits dokumentiert; übrige Mechaniken nicht vollständig ausgewertet. |
-| IW-12 | [IceWars-Techtree-Evo2.png](https://drive.google.com/file/d/10j0oA_e1vozl-W2JMRedfr8BU6yID_Bh/view?usp=drivesdk) | 2025-04-04 | Community-Referenz | Teilweise | Teilübernahme | Offen | Serie B2: Einheiten-Knoten, Forschungs-/Zusatzfelder und ausgewählte Gebäudewege in der [Forschungsmatrix](icewars-ship-research.md). Atombomber/SDI Gatling nicht mit XML-Namen gleichgesetzt. |
-| IW-13 | [IceWars-Techtree-Evo3.png](https://drive.google.com/file/d/1S-C77ux_m7YuEm88GJ6I2x7VAx5zSrgV/view?usp=drivesdk) | 2025-04-04 | Community-Referenz | Teilweise | Teilübernahme | Offen | Serie B3: Einheiten-Knoten, Voraussetzungen und Terraforming-Abweichung in der [Forschungsmatrix](icewars-ship-research.md). |
-| IW-14 | [IceWars-Techtree-Evo4.png](https://drive.google.com/file/d/1Tzu_CmrF-Bi_YUVVNtj2ZATInYKacSHr/view?usp=drivesdk) | 2025-04-04 | Community-Referenz | Teilweise | Teilübernahme | Offen | Serie B4: Einheiten-Knoten einschließlich evoübergreifender Zusatzfelder in der [Forschungsmatrix](icewars-ship-research.md). Übrige Mechaniken offen. |
-| IW-15 | [IceWars-Techtree-Evo5.png](https://drive.google.com/file/d/1tQWofJMO0Z-jJ2WgiDTjqYixuLYhlkeQ/view?usp=drivesdk) | 2025-04-04 | Community-Referenz | Teilweise | Teilübernahme | Offen | Serie B5: Einheiten-Knoten und Tarn-/Dreadnought-Forschung in der [Forschungsmatrix](icewars-ship-research.md). Übrige Mechaniken offen. |
-| RD-01 | [Konzepte](https://docs.google.com/document/d/1XXbbTBkpdvmSU3to5JmIk_GzDSzgKtdaphDi_HYdyhc/edit?usp=drivesdk) | 2014-05-04 | Früheres eigenes Redesign | Gelesen | Kurzbefund | Offen | Aktionen, Bedingungen, Jobs und Produktions-Snapshots; Herkunft und damaliger Lazy-Ansatz im Abschnitt „Einordnung RD-01“ erläutert. Historischer Ansatz, kein heutiges Zielbild. Heutige Kosten-/Abbruchregeln und offene Bedingungen in [Planetare Wirtschaft](../game-design/economy.md#kosten-abbruch-und-fortschritt). |
-| RD-02 | [Resourcenabbau](https://docs.google.com/spreadsheets/d/1Wng7Wi-kAfF1JS_VECUQVXRTWIYlHXlCo7YKTTP_vnA/edit?usp=drivesdk) | 2019-05-12 | Früheres eigenes Redesign | Teilweise | Teilübernahme | Offen | Werte und Textnotizen gelesen; Zusammenhang in [IceWars-Referenzen](../game-design/icewars-references.md) dokumentiert. Formeln A1:G12 am 2026-11-08 geprüft; [kontinuierliches Folgemodell mit Charts](../game-design/continuous-ice-extraction.md) dokumentiert. Übrige Originalformeln und Originaldiagramme noch nicht vollständig geprüft. |
-| RD-03 | [playground.tgz](https://drive.google.com/file/d/1BGT6Cq-pUFM8UY9cia4jy66uxmA8gx6h/view?usp=drivesdk) | 2025-03-27 | Früheres eigenes Redesign | Teilweise | Kurzbefund | Offen | Archiv inventarisiert, Java-Quellen/Tests und Notizen gelesen; nicht ausgeführt oder vollständig mit heutigem Code verglichen. |
-| RD-04 | [ResourceTicker.html](https://drive.google.com/file/d/0B_fvsE93Ci4dMHpZTTZCcDNuREk/view?usp=drivesdk&resourcekey=0-aCErT4THs21_y2WUeYJi_w) | 2016-02-15 | Früheres eigenes Redesign | Gelesen | Kurzbefund | Offen | Eingebettetes Diagramm dekodiert: Resource und Stock, noch kein ausgearbeitetes Tick-Modell. |
-| RD-05 | [conceptual data model](https://drive.google.com/file/d/0B_fvsE93Ci4dWDBlbEVJdWlCOE0/view?usp=drivesdk&resourcekey=0-K_u1VRuU_DWa1SOkguML_Q) | 2016-02-11 | Früheres eigenes Redesign | Gelesen | Kurzbefund | Offen | Diagramm dekodiert: Universe, CelestialBody, Outpost, Ressourcen- und Gebäude-Beziehungen. |
-| UNK-01 | [Untitled Diagram.html](https://drive.google.com/file/d/0B_fvsE93Ci4db0V6aWQxQzdGZG8/view?usp=drivesdk&resourcekey=0-XlrNEArQl1ZLYW22yfk4Kg) | 2016-02-11 | Zuordnung offen | Gelesen | Kurzbefund | Offen | Diagramm dekodiert: Lager, Personal, Wartung, Vertrieb; Zusammenhang mit dem Redesign unklar. |
-| UNK-02 | [Unbenanntes Diagramm.html](https://drive.google.com/file/d/0B_fvsE93Ci4dUU5jVVpmdGxFZkk/view?usp=drivesdk&resourcekey=0-r27WaWVat1kELFDExBZHwQ) | 2016-01-26 | Zuordnung offen | Gelesen | Kurzbefund | Offen | Diagramm dekodiert: lediglich „Button Text“; möglicher Platzhalter, noch nicht ausgeschlossen. |
-| UNK-03 | [paroScan-open-compare](https://drive.google.com/file/d/0B_fvsE93Ci4dZERzNGQtbkllck0/view?usp=drivesdk&resourcekey=0-oXNzNLpneJK2M69juFQJyQ) | 2015-11-19 | Zuordnung offen | Offen | Inventar | Offen | Nur Dateimetadaten bekannt; Inhalt und Projektbezug noch nicht geprüft. |
+| IW-01 | [ressourcen.xml](https://drive.google.com/file/d/0B_fvsE93Ci4daTh6cGsxanI1WkE/view?usp=drivesdk&resourcekey=0-S3HkE-OC7qvI07N4srsFrw) | 2014-05-04 | Official, per project owner | Read | Partially incorporated | Open | All ten resources mapped in the [unit catalog](icewars-ships.md). Semantics and game version remain open. |
+| IW-02 | [handelskurse.xml](https://drive.google.com/file/d/0B_fvsE93Ci4deVZ5VS13S2sySFE/view?usp=drivesdk&resourcekey=0-swFV1uninjMyWosCxJ9Waw) | 2014-05-04 | Official, per project owner | Read | Initial findings | Open | Prices, availability flags, and fees reviewed. Dynamic pricing and export context remain open. |
+| IW-03 | [schiffkosten.xml](https://drive.google.com/file/d/0B_fvsE93Ci4dNXJwbzZhTzRZTkk/view?usp=drivesdk&resourcekey=0--Tbgj_pN3P0ugV2nN92V-w) | 2014-05-04 | Official, per project owner | Read | Partially incorporated | Open | [All 64 entries with costs](icewars-ships.md). The [research matrix](icewars-ship-research.md) covers all IDs, including 38 with diagram matches. Field semantics and common version remain open. |
+| IW-04 | [evo0.png](https://drive.google.com/file/d/0B_fvsE93Ci4dT2VjMVd6MlVRT0k/view?usp=drivesdk&resourcekey=0-Dxq6yH-vU9HLRohWXEvArA) | 2025-04-04 | Community reference | Skimmed | Initial findings | Open | Starting technologies are visible. Series assignment and game version remain unknown. |
+| IW-05 | [evo1.png](https://drive.google.com/file/d/0B_fvsE93Ci4dUmNOTkxwc29xSlE/view?usp=drivesdk&resourcekey=0-ITGyOHLZgh_DzJeyJltNew) | 2014-05-04 | Community reference | Partial | Partially incorporated | Open | Series A1. Readable unit links and the terraforming building field are documented separately in the [research mapping](icewars-ship-research.md). Other mechanics remain open. |
+| IW-06 | [evo2.png](https://drive.google.com/file/d/0B_fvsE93Ci4dRzFsTm0xbWNEcDQ/view?usp=drivesdk&resourcekey=0-hfGxGwfNyOfGAVKs9zaJkg) | 2014-05-04 | Community reference | Partial | Partially incorporated | Open | Series A2. Additional match for Artefaktsammelbasis Alpha, including earlier research and building fields. See the [research mapping](icewars-ship-research.md). |
+| IW-07 | [evo3.png](https://drive.google.com/file/d/0B_fvsE93Ci4dY3JJNFRFX2xoZWc/view?usp=drivesdk&resourcekey=0-sOXrVuud9bXeHwKrecNJHA) | 2014-05-04 | Community reference | Skimmed | Listed | Open | Overview only. Low resolution (312 × 229). |
+| IW-08 | [evo4.png](https://drive.google.com/file/d/0B_fvsE93Ci4dWFMzcWh1bXlDTDA/view?usp=drivesdk&resourcekey=0-1kEbHJt01bbODLLEy21Ucw) | 2014-05-04 | Community reference | Skimmed | Listed | Open | Overview only. Low resolution (350 × 194). |
+| IW-09 | [evo5.png](https://drive.google.com/file/d/0B_fvsE93Ci4dV29RcmJqaFRNajA/view?usp=drivesdk&resourcekey=0-Px8-FqBb5FC1xM527GqxhQ) | 2014-05-04 | Community reference | Skimmed | Listed | Open | Overview only. Low resolution (388 × 232). |
+| IW-10 | [evo7.png](https://drive.google.com/file/d/0B_fvsE93Ci4dR1ptSnpONHBGbFE/view?usp=drivesdk&resourcekey=0-v9PUKhrXQL3adwwkq4xWeg) | 2014-05-04 | Community reference | Skimmed | Listed | Open | Overview only. Low resolution (372 × 298). |
+| IW-11 | [IceWars-Techtree-Evo1.png](https://drive.google.com/file/d/1yt-JLQm8b-CSgF6wfcE693S_PHFz6i_q/view?usp=drivesdk) | 2025-04-04 | Community reference | Partial | Partially incorporated | Open | Series B1. Unit nodes and prerequisites in the [research matrix](icewars-ship-research.md). The large ice mine is documented. Other mechanics have yet to be fully reviewed. |
+| IW-12 | [IceWars-Techtree-Evo2.png](https://drive.google.com/file/d/10j0oA_e1vozl-W2JMRedfr8BU6yID_Bh/view?usp=drivesdk) | 2025-04-04 | Community reference | Partial | Partially incorporated | Open | Series B2. Unit nodes, research and extra fields, and selected building paths in the [research matrix](icewars-ship-research.md). Matches between Atombomber or SDI Gatling and XML names remain unconfirmed. |
+| IW-13 | [IceWars-Techtree-Evo3.png](https://drive.google.com/file/d/1S-C77ux_m7YuEm88GJ6I2x7VAx5zSrgV/view?usp=drivesdk) | 2025-04-04 | Community reference | Partial | Partially incorporated | Open | Series B3. Unit nodes, prerequisites, and the terraforming discrepancy in the [research matrix](icewars-ship-research.md). |
+| IW-14 | [IceWars-Techtree-Evo4.png](https://drive.google.com/file/d/1Tzu_CmrF-Bi_YUVVNtj2ZATInYKacSHr/view?usp=drivesdk) | 2025-04-04 | Community reference | Partial | Partially incorporated | Open | Series B4. Unit nodes including cross-Evo extra fields in the [research matrix](icewars-ship-research.md). Other mechanics remain open. |
+| IW-15 | [IceWars-Techtree-Evo5.png](https://drive.google.com/file/d/1tQWofJMO0Z-jJ2WgiDTjqYixuLYhlkeQ/view?usp=drivesdk) | 2025-04-04 | Community reference | Partial | Partially incorporated | Open | Series B5. Unit nodes and cloaking and dreadnought research in the [research matrix](icewars-ship-research.md). Other mechanics remain open. |
+| RD-01 | [Konzepte](https://docs.google.com/document/d/1XXbbTBkpdvmSU3to5JmIk_GzDSzgKtdaphDi_HYdyhc/edit?usp=drivesdk) | 2014-05-04 | Earlier project redesign | Read | Initial findings | Open | Actions, conditions, jobs, and production snapshots. The RD-01 context section explains its origin and historical lazy approach. For current cost and cancellation rules and open conditions, see [Planetary Economy](../game-design/economy.md#costs-cancellation-and-progress). |
+| RD-02 | [Resourcenabbau](https://docs.google.com/spreadsheets/d/1Wng7Wi-kAfF1JS_VECUQVXRTWIYlHXlCo7YKTTP_vnA/edit?usp=drivesdk) | 2019-05-12 | Earlier project redesign | Partial | Partially incorporated | Open | Values and text notes reviewed. Context in [IceWars References](../game-design/icewars-references.md). Formulas A1:G12 checked on 2026-11-08. The [continuous follow-up model with charts](../game-design/continuous-ice-extraction.md) is documented. Other original formulas and charts have yet to be fully checked. |
+| RD-03 | [playground.tgz](https://drive.google.com/file/d/1BGT6Cq-pUFM8UY9cia4jy66uxmA8gx6h/view?usp=drivesdk) | 2025-03-27 | Earlier project redesign | Partial | Initial findings | Open | Archive inventoried and Java sources, tests, and notes reviewed. Execution and a full comparison with current code are pending. |
+| RD-04 | [ResourceTicker.html](https://drive.google.com/file/d/0B_fvsE93Ci4dMHpZTTZCcDNuREk/view?usp=drivesdk&resourcekey=0-aCErT4THs21_y2WUeYJi_w) | 2016-02-15 | Earlier project redesign | Read | Initial findings | Open | Embedded diagram decoded. It shows Resource and Stock. The tick model is undeveloped. |
+| RD-05 | [conceptual data model](https://drive.google.com/file/d/0B_fvsE93Ci4dWDBlbEVJdWlCOE0/view?usp=drivesdk&resourcekey=0-K_u1VRuU_DWa1SOkguML_Q) | 2016-02-11 | Earlier project redesign | Read | Initial findings | Open | Diagram decoded. It shows Universe, CelestialBody, Outpost, and relationships for resources and buildings. |
+| UNK-01 | [Untitled Diagram.html](https://drive.google.com/file/d/0B_fvsE93Ci4db0V6aWQxQzdGZG8/view?usp=drivesdk&resourcekey=0-XlrNEArQl1ZLYW22yfk4Kg) | 2016-02-11 | Origin unclear | Read | Initial findings | Open | Diagram decoded. It shows storage, staffing, maintenance, and sales. Its relationship to the redesign is unclear. |
+| UNK-02 | [Unbenanntes Diagramm.html](https://drive.google.com/file/d/0B_fvsE93Ci4dUU5jVVpmdGxFZkk/view?usp=drivesdk&resourcekey=0-r27WaWVat1kELFDExBZHwQ) | 2016-01-26 | Origin unclear | Read | Initial findings | Open | Diagram decoded. It contains only “Button Text” and may be a placeholder. Exclusion remains open. |
+| UNK-03 | [paroScan-open-compare](https://drive.google.com/file/d/0B_fvsE93Ci4dZERzNGQtbkllck0/view?usp=drivesdk&resourcekey=0-oXNzNLpneJK2M69juFQJyQ) | 2015-11-19 | Origin unclear | Open | Listed | Open | Only metadata is known. Content and project relevance still need review. |
 
-### Ordner und Lücken
+<a name="ordner-und-lücken"></a>
 
-- [draw.io](https://drive.google.com/drive/folders/0B_fvsE93Ci4dfi1IWWM3MzRsMVhkS0ZtSTZ1cHBlUzEzRUpuVmxDSGcydl9kRGpOQVl1SXc): fünf Dateien, einzeln oben erfasst.
-- [gemini](https://drive.google.com/drive/folders/1xyivG5bBuNi5ibefhrOucLlELtWfMyXm): Connector lieferte am Prüfdatum keine Dateien; deshalb keine inhaltliche Auswertung möglich.
-- Ältere benannte Tech-Tree-Reihe: Evo 1–5 und 7 vorhanden; Evo 6 fehlt. Die andere Reihe umfasst Evo 1–5; die Zuordnung der separat benannten Evo-0-Datei bleibt offen.
-- Metadaten belegen weder die Autorenschaft der Community-Grafiken noch die ursprünglichen offiziellen XML-Endpunkte. Diese Herkunft ist weiter zu präzisieren.
+### Folders and Gaps
 
-## Bisherige Befunde
+- [draw.io](https://drive.google.com/drive/folders/0B_fvsE93Ci4dfi1IWWM3MzRsMVhkS0ZtSTZ1cHBlUzEzRUpuVmxDSGcydl9kRGpOQVl1SXc) contains five files, listed individually above.
+- The connector returned no files for [gemini](https://drive.google.com/drive/folders/1xyivG5bBuNi5ibefhrOucLlELtWfMyXm) on the review date, so there was nothing to analyze.
+- The older named Tech Tree series contains Evo 1–5 and 7, with Evo 6 missing. The other series covers Evo 1–5. The separately named Evo 0 file remains unassigned.
+- Metadata alone does not establish authorship of community diagrams or the original official XML endpoints. Both need further verification.
 
-### Offizielle XMLs laut Projektinhaber (IW-01 bis IW-03)
+<a name="bisherige-befunde"></a>
 
-Originale sind XML mit deklarierter ISO-8859-1-Kodierung. Die Dateiausgabe des Connectors ergänzte teilweise irreführend „.xsl“; Inhalt und ursprünglichen Dateinamen bei einer Archivierung getrennt prüfen.
+## Findings to Date
 
-- **IW-01:** Ressourcen-IDs: 1 Eisen, 2 Stahl, 3 VV4A, 4 Eis, 5 chem. Elemente, 6 Wasser, 7 Energie, 8 Pinguine, 10 Credits, 11 Bevölkerung. Die gemeinsame Struktur belegt keine gemeinsame Lager-, Verbrauchs- oder Besitzsemantik. Produktionsrezepte fehlen.
-- **IW-02:** Zehn Ressourcen-Einträge mit An-/Verkaufspreisen und Handelsfreigabe. Aktiv markiert sind IDs 1–7; nicht aktiv sind 8, 10 und 11. Gebührenfelder: 4 Prozent, einmalig 100, Mindestmenge 100. Anwendung und Perspektive der Gebühren-/Preisfelder sind noch zu klären. Interner Aktualisierungszeitpunkt: 2014-05-04 10:00:01 UTC. Keine belegte Preisbildungsformel.
-- **IW-03:** 64 Einträge, darunter Lebensformen; Kostenvektoren, Dauer, Kategorie und baubar. 56 Einträge mit baubar=1, acht mit baubar=0. Kategorien: Lebensformen (2), Sonden (3), Zivile Schiffe (22), Jäger (6), Bomber (4), Korvetten (5), Zerstörer (5), Kreuzer (6), Schlachtschiffe (4), Dreadnoughts (5), Spezielle Schiffe (2). Interner Aktualisierungszeitpunkt: 2014-05-03 22:00:01 UTC. Bedeutung von baubar (global oder accountabhängig) und Einheit der Dauer nicht gesichert. Die [vollständige Einheitenliste](icewars-ships.md) ist jetzt mit allen Nichtnull-Kosten, Dauer und baubar in Markdown übertragen. Die ID-Hypothese zeigt Gegenbeispiele; [Forschungszuordnungen](icewars-ship-research.md) liegen jetzt für 38 Einträge vor, bei 26 fehlen belastbare Belege.
+<a name="offizielle-xmls-laut-projektinhaber-iw-01-bis-iw-03"></a>
 
-### Community-Tech-Trees (IW-04 bis IW-15)
+### Official XMLs According to the Project Owner (IW-01 to IW-03)
 
-Die beiden Darstellungsreihen nicht zu einem vermeintlich einheitlichen Regelwerk verschmelzen. „Grundlagen Terraformen“ steht in IW-05 (evo1.png) mit 30.000 FP, in IW-13 (IceWars-Techtree-Evo3.png) mit 500.000 FP. Unterschiede sind belegt; genaue Versionszuordnung offen.
+The originals declare ISO-8859-1 encoding. The connector sometimes appended a misleading “.xsl” to the output. Check content and original filenames independently when archiving.
 
-IW-11 zeigt die große Eismine unter Robotik, aber keine Förderwerte. IW-13 unterscheidet in der Legende Forschungspunkte, Ressourcen-, Forschungs- und Gebäudevoraussetzungen sowie Evolution und evoübergreifende Freischaltungen. Die [Forschungszuordnung](icewars-ship-research.md) dokumentiert die Einheiten-Knoten der Serie B1–B5, ausgewählte Befunde der älteren A1/A2 und die Auflösungs-/Versionsgrenzen der übrigen Grafiken. Die restlichen Mechaniken der Tech Trees sind weiterhin nicht vollständig ausgewertet.
+- **IW-01:** Resource IDs are 1 iron, 2 steel, 3 VV4A, 4 ice, 5 chemical elements, 6 water, 7 energy, 8 penguins, 10 credits, and 11 population. Sharing a data structure leaves storage, consumption, and ownership semantics open. Production recipes are absent.
+- **IW-02:** Ten resource entries with buy and sell prices and a trading availability flag. IDs 1–7 are enabled. IDs 8, 10, and 11 are inactive. Fee fields show 4 percent, a one-time 100, and a minimum quantity of 100. How to apply the fees and whose perspective the fees and prices use remain open. The internal update timestamp is 2014-05-04 10:00:01 UTC. No pricing formula is evidenced.
+- **IW-03:** 64 entries including life forms, with cost vectors, duration, category, and `baubar`. 56 entries have `baubar=1` and eight have `baubar=0`. Categories are life forms (2), probes (3), civilian ships (22), fighters (6), bombers (4), corvettes (5), destroyers (5), cruisers (6), battleships (4), dreadnoughts (5), and special ships (2). The internal update timestamp is 2014-05-03 22:00:01 UTC. Whether `baubar` is global or account-specific and the unit of duration remain unknown. The [complete unit list](icewars-ships.md) records all nonzero costs, duration, and `baubar` in Markdown. The ID hypothesis has counterexamples. [Research mappings](icewars-ship-research.md) exist for 38 entries, and 26 lack reliable evidence.
 
-### Frühere eigene Entwürfe (RD-01 bis RD-05)
+<a name="community-tech-trees-iw-04-bis-iw-15"></a>
 
-- **RD-01, Konzepte:** Aktionen mit Start-, fortlaufenden und Abschlussbedingungen; Jobs mit positivem/negativem Abschluss und Client-Benachrichtigung; Ressourcenberechnung über Abschnitte konstanter Produktionsraten. Zeit als Ressource und Produktions-Snapshots sind damalige Lösungsideen, keine akzeptierten Architekturentscheidungen. Die damalige Semantik von Kostenabzug und Bedingungsprüfung bleibt im historischen Text unklar. Heutige Regeln zu Kostenabzug beim Baubeginn, anteiliger Rückzahlung bei freiwilligem Abbruch und Verlangsamung sind seit 2026-11-02 in [Planetare Wirtschaft](../game-design/economy.md#kosten-abbruch-und-fortschritt) dokumentiert; die übrigen Bedingungen bleiben offen.
-- **RD-02, Resourcenabbau:** Zahlenmodell mit 50.000 Startvorkommen, Grundförderung 20 je Mine/Tick und wachsender Minenzahl. Gelesene Werte entsprechen Minenzahl × Grundförderung × relativem Restvorkommen. Notiz: mehrere Vorkommensarten (u. a. tiefes Eis, Permafrost) und passende Minentypen; Raubbau-Effekt wiederholt sich über Entwicklungsstufen. Die anfängliche relative Dichte 1 ist nicht gleichbedeutend mit einer absoluten planetaren Eisdichte von 100 Prozent. Die Formeln A1:G12 wurden am 2026-11-08 geprüft und bestätigen diesen Zusammenhang. Das [kontinuierliche Folgemodell](../game-design/continuous-ice-extraction.md) ist eine heutige mathematische Herleitung, keine unveränderte Tabellenübernahme. Vollständige Arbeitsmappe, Originaldiagramme und Verhalten an einer Mindestdichte bleiben zu prüfen.
-- **RD-03, playground:** Java-Prototyp mit Stock, Production, Buildings und Construction sowie tickbezogenen Historien und Tests. Quellen rechnen noch schrittweise über Ticks; eine Historie belegt keine ereignisdiskrete Simulation. Bestände werden bei null begrenzt, während Energieengpässe und Erschöpfung noch TODOs sind. Enthaltene Build-Artefakte und Testberichte sind keine von uns ausgeführte Validierung. Notizen überschneiden sich mit [heutigen technischen Notizen](../notes.md); vollständiger Herkunfts-/Versionsvergleich steht aus.
-- **RD-04, ResourceTicker:** Diagrammfragment mit Resource (id, amount, field) und Stock (resources). Der Dateiname allein belegt keinen ausgearbeiteten Ressourcen-Ticker.
-- **RD-05, conceptual data model:** Universe, User, CelestialBody und Outpost; Himmelskörper- und Außenpostentypen; Beziehungen für Bestand, Produktion, Lagerkapazität, Gebäudekosten und Unterhalt. Enthält auch Zeit als Ressourcenkandidat. Begriffe und Kardinalitäten nicht ungeprüft als heutiges Domain-Modell übernehmen.
+### Community Tech Trees (IW-04 to IW-15)
 
-### Einordnung RD-01 – früherer Lazy-Ansatz und heutige Priorität
+Keep the two series distinct. “Grundlagen Terraformen” (terraforming basics) appears in IW-05 (evo1.png) with 30,000 research points and in IW-13 (IceWars-Techtree-Evo3.png) with 500,000. The discrepancies are documented and the exact versions remain open.
 
-**Quelle dieser Einordnung:** Benjamin Wöster, Projektgespräch vom 2026-11-01; ergänzende Erinnerung, nicht nachträglich als ursprünglicher Dokumentinhalt ausgegeben.
+IW-11 shows a large ice mine under robotics without output figures. The IW-13 legend distinguishes research points, resource, research, and building prerequisites, as well as evolution and cross-Evo unlocks. The [research mapping](icewars-ship-research.md) records unit nodes from B1–B5, selected findings from the older A1 and A2, and the resolution and version limits of the other diagrams. The rest of the Tech Tree mechanics have yet to be fully reviewed.
 
-- **Herkunft, nach Erinnerung:** „Konzepte“ stammt vermutlich aus einer früheren PHP-Iteration. Diese Zuordnung ist plausibel laut Projektinhaber, aber nicht unabhängig nachgewiesen. Der Entwurf ist nicht automatisch der Vorläufer oder die Architektur des späteren Java-Prototyps RD-03.
-- **Damals beabsichtigt:** Spieleraktionen als Jobs in einer Datenbank persistieren. Ein Framework sollte zeitabhängige Ereignisse, etwa geplante Gebäudefertigstellungen, samt Ergebnissen verwalten. Erst bei Requests sollten alle berührten Objekte (z. B. Planeten) anhand ausstehender oder gespeicherter Ereignisse bis zum aktuellen Zeitpunkt fortgeschrieben werden.
-- **Ziel:** Kein fortlaufender Ticker oder sonstiger dauerhaft laufender Simulationsprozess; Logik möglichst nur bei Benutzeranfragen ausführen. Ressourceneinsparung war eine Erwartung, kein belegtes Messergebnis.
-- **Begriff:** „Lazy Evaluation“ bezeichnet in dieser Diskussion diese bedarfsweise Zustandsfortschreibung. Daraus folgt weder Event Sourcing noch eine bereits gewählte ereignisdiskrete Engine.
-- **Erfahrene Schwierigkeit:** Vorab berechnete Fertigstellungszeitpunkte können durch später eintretende Engpässe wie Wassermangel und Arbeitskräfteverlust ungültig werden. Abhängige Termine müssten gegebenenfalls angepasst werden. Ripple-Effekte und schwierige Fehlersuche wurden als wesentliche Risiken wahrgenommen; ein nachgewiesener katastrophaler Produktionsfehler wird damit nicht behauptet.
-- **Heutige Priorität:** Verständlichkeit, Nachvollziehbarkeit und Beherrschbarkeit sind dem Projektinhaber wichtiger als technische Raffinesse oder erhoffte Einsparungen dieses Ansatzes. Der damalige Entwurf bleibt historische Arbeit; seine grundlegenden Begriffe und Randfälle können weiterhin nützlich sein.
-- **Keine neue Zeitmodell-Entscheidung:** Weder Lazy-Fortschreibung generell verworfen noch globale Ticks, Echtzeitverarbeitung aller Objekte oder ein bestimmtes Framework beschlossen. Die Qualitätspriorität steht in [der Wissensbasis](../README.md).
+<a name="frühere-eigene-entwürfe-rd-01-bis-rd-05"></a>
 
-**Technische Einordnung als Analyse:** Ein geplanter Fertigstellungstermin ist bei veränderlichen Produktionsbedingungen eine Prognose. Ein bereits eingetretenes fachliches Ereignis ist eine Tatsache. Beides getrennt zu modellieren kann die Nachvollziehbarkeit verbessern, löst aber die Abhängigkeiten zwischen Objekten nicht automatisch. Dieser Hinweis ist keine übernommene Architekturentscheidung.
+### Earlier Project Designs (RD-01 to RD-05)
 
-### Noch unklar zugeordnete Dateien (UNK-01 bis UNK-03)
+- **RD-01, Konzepte:** Actions with start, ongoing, and completion conditions. Jobs with success or failure results and client notification. Resource calculations over intervals of constant production rates. Time as a resource and production snapshots were ideas from that design. Cost deduction and condition checks remain unclear in the original text. Since 2026-11-02, [Planetary Economy](../game-design/economy.md#costs-cancellation-and-progress) has documented the current rules cited here for cost deduction at construction start, partial refunds on voluntary cancellation, and slowdown. Other conditions remain open.
+- **RD-02, Resourcenabbau:** Model with an initial deposit of 50,000, base extraction of 20 per mine per tick, and a growing number of mines. Values follow mine count × base extraction × relative remaining deposit. Notes describe multiple deposit types, including deep ice and permafrost, with corresponding mines and recurring overexploitation at successive stages. Initial relative density of 1 does not imply 100% absolute planetary ice density. The A1:G12 formulas were checked on 2026-11-08 and confirm this relationship. The [continuous follow-up model](../game-design/continuous-ice-extraction.md) derives a new mathematical curve. The full workbook, original charts, and behavior at a minimum density still need review.
+- **RD-03, playground:** Java prototype with Stock, Production, Buildings, and Construction, plus tick-based history and tests. The code advances step by step over ticks. Tracking history alone does not establish discrete-event simulation. Stocks are bounded at zero, while energy shortages and depletion remain TODOs. Included build artifacts and test reports document prior execution. Notes overlap the [current technical notes](../notes.md). A full comparison of origin and versions remains pending.
+- **RD-04, ResourceTicker:** Diagram fragment with Resource (id, amount, field) and Stock (resources). A developed resource ticker remains unverified.
+- **RD-05, conceptual data model:** Universe, User, CelestialBody, and Outpost, plus celestial body and outpost types and relationships for stock, production, storage capacity, construction costs, and upkeep. Includes time as a candidate resource. Review terms and cardinalities before adopting them into the current domain model.
 
-UNK-01 enthält Abteilungen und Aufgaben zu Lager, Personal, Wartung und Vertrieb; der Projektbezug ist offen. UNK-02 enthält nur „Button Text“. UNK-03 wurde noch nicht inhaltlich geöffnet. Kein Ausschluss ist damit bereits entschieden.
+<a name="einordnung-rd-01--früherer-lazy-ansatz-und-heutige-priorität"></a>
 
-## Ergebnisse und heutige Entscheidungen
+### RD-01 Context – Earlier Lazy Approach and Current Priority
 
-- [Forschungszuordnung aller XML-Einheiten](icewars-ship-research.md): direkte Forschung, FP, Zusatzfelder, ausgewählte indirekte Gebäudeanforderungen und explizite Unsicherheiten. 37 Zuordnungen in B1–B5, eine zusätzliche in A2; keine Cold-Frontier-Regeln.
+**Source for this assessment.** Benjamin Wöster, project discussion on 2026-11-01. This recollection supplements the original document.
 
-- [Rekonstruierter Einheitenkatalog](icewars-ships.md): vollständige Extraktion von IW-03 mit Ressourcen aus IW-01, Quellen-Prüfsummen und Prüfung der ID-/Tier-Hypothese. Technische Extraktion abgeschlossen; historische Einordnung und Quellenarchivierung noch offen.
+- **Recalled origin.** “Konzepte” probably comes from an earlier PHP iteration. The project owner considers the match plausible and independent confirmation is pending. Its relationship to the later RD-03 Java prototype remains unverified.
+- **Intent at the time.** Persist player actions as jobs in a database. Have a framework manage timed events such as scheduled building completions and their results. On a request, advance all affected objects, such as planets, to the current time using pending or stored events.
+- **Goal.** Run simulation logic on user requests as far as possible and avoid a constantly running ticker or simulation process. Resource savings were expected but not measured.
+- **Terminology.** “Lazy evaluation” in this discussion refers to advancing state on demand. Event sourcing and the choice of a discrete-event engine are separate decisions.
+- **Difficulty experienced.** Later shortages such as lack of water and labor can invalidate predicted completion times, requiring adjustments to dependent schedules. Ripple effects and debugging difficulty were perceived risks. No catastrophic production failure is claimed.
+- **Current priority.** The project owner values clarity, traceability, and manageability above technical complexity or hoped-for savings. The old design is historical work whose concepts and edge cases may still be relevant.
+- **Time model status.** On-demand advancement, global ticks, real-time processing of all objects, and framework selection remain open. See the [knowledge base](../README.md) for the quality priority.
 
-- [IceWars-Referenzen](../game-design/icewars-references.md): ausgewählte Quellenbefunde und Benjamins ausdrücklich gekennzeichneter Erfahrungsbericht vom 2026-11-01. Der Erfahrungsbericht ist eine zusätzliche Quelle außerhalb des Drive-Dateiinventars.
-- [Planetare Wirtschaft](../game-design/economy.md): bestätigte Designrichtung zu sinkender Ergiebigkeit, begrenzter Baukapazität, Quellenwechsel und Überleben bei Abwesenheit; konkrete Regeln und Balancing bleiben offen.
+**Technical analysis.** A scheduled completion under changing production conditions is a forecast. A domain event that has occurred is a fact. Separate representations can improve traceability. Dependencies between objects still need to be handled. This is analysis and remains open as an architectural choice.
 
-**Nicht gleichsetzen:** Quelle archiviert ≠ Quelle verstanden ≠ Idee übernommen. Auch verworfene frühere Ideen können als historische Arbeit aufbewahrt werden.
+<a name="noch-unklar-zugeordnete-dateien-unk-01-bis-unk-03"></a>
 
-## Nächste Arbeitsschritte
+### Files of Uncertain Origin (UNK-01 to UNK-03)
 
-1. **Quellen sichern:** Originaldateien beziehungsweise geeignete Exporte im Repo archivieren. Als Zielstruktur ist `doc/sources/icewars/` vorgesehen: getrennte Unterordner für offizielle Daten, Community-Material und eigene frühere Entwürfe. Diese Ordner und Quellenkopien sind noch nicht angelegt.
-2. **Herkunft erhalten:** Pro Quellenkopie ID, Drive-Datei-ID/Link, Abrufdatum, ursprünglichen Namen, Version soweit bekannt und SHA-256 festhalten. Konvertierte Fassungen als solche kennzeichnen. Eigene Texte zusätzlich als Markdown lesbar machen; Tabellenformeln und Diagrammstruktur erhalten.
-3. **Gemeinsam auswerten:** Zunächst RD-01 (Aktionen/Bedingungen) und RD-02 (Abbau-Modell) vertiefen; danach Datenmodell und Tech Trees. Pro Thema Befund, alte Idee, heutige Entscheidung und offene Frage unterscheiden.
-4. **Abschluss prüfen:** Relevante Inhalte dokumentiert oder begründet ausgeschlossen, Ergebnislinks gesetzt und Quellenarchivierung separat nachgewiesen. Erst dann die jeweilige Achse auf abgeschlossen beziehungsweise gesichert setzen.
+UNK-01 shows departments and tasks for storage, staffing, maintenance, and sales. Its relation to the project remains open. UNK-02 only contains “Button Text”. UNK-03 has yet to be opened for review. Excluding any of them remains undecided.
 
-Die Reihenfolge ist ein Arbeitsvorschlag, keine neue Game-Design- oder Architekturentscheidung.
+<a name="ergebnisse-und-heutige-entscheidungen"></a>
+
+## Results and Current Decisions
+
+- [Research mapping for all XML units](icewars-ship-research.md) documents direct research, research points, extra fields, selected indirect building requirements, and explicit uncertainties. It lists 37 matches in B1–B5 and one additional in A2. Cold Frontier rules are decided separately.
+
+- The [reconstructed unit catalog](icewars-ships.md) extracts all of IW-03 with resources from IW-01, source checksums, and a test of the ID and tier hypothesis. Technical extraction is complete. Historical interpretation and source archiving remain open.
+
+- [IceWars references](../game-design/icewars-references.md) record selected findings and Benjamin's explicitly identified recollections from 2026-11-01. These are an additional source outside the Drive inventory.
+- [Planetary Economy](../game-design/economy.md) records the confirmed directions for declining yield, scarce construction capacity, switching deposits, and survival during absence, with concrete rules and balancing open.
+
+An archived source can still require analysis. Ideas can be adopted independently, and discarded ideas can be preserved for historical context.
+
+<a name="nächste-arbeitsschritte"></a>
+
+## Next Steps
+
+1. **Archive sources.** Save originals or suitable exports in the repository. The planned structure under `doc/sources/icewars/` uses separate subdirectories for official data, community material, and earlier project designs. The directories and copies are still pending.
+2. **Preserve provenance.** Record the source ID, Drive ID or link, retrieval date, original name, known version, and SHA-256 per copy. Mark converted versions. Make project-authored texts readable in Markdown while retaining spreadsheet formulas and diagram structure.
+3. **Analyze together.** First examine RD-01 actions and conditions and the RD-02 extraction model in depth, then the data model and Tech Trees. Identify findings, earlier ideas, current decisions, and open questions for each.
+4. **Verify completion.** Document relevant content or explain its exclusion, add links to results, and verify archiving separately. Then mark the relevant area complete or archived.
+
+This is a proposed order of work. Design and architectural decisions remain separate.

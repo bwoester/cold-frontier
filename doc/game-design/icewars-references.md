@@ -2,128 +2,154 @@
 status: research
 type: source-notes
 ---
-# IceWars – historische Inspiration (keine Soll-Spezifikation)
+<a name="icewars--historische-inspiration-keine-soll-spezifikation"></a>
 
-Die folgenden Informationen stammen aus historischen Webquellen, bereitgestellten Unterlagen und einem ausdrücklich gekennzeichneten Erfahrungsbericht zum ursprünglichen IceWars. Sie beschreiben nicht automatisch Regeln für Cold Frontier. Zahlen oder Spielmechaniken können sich zwischen IceWars-Runden verändert haben.
+# IceWars – Historical Inspiration
 
-Das Inventar der bereitgestellten Unterlagen sowie der Fortschritt von Analyse, Dokumentation und Archivierung stehen im [[sources/icewars-catalog|Quellenkatalog]].
+The following information comes from historical web sources, supplied materials, and an explicitly identified player's recollections of the original IceWars. Its numbers and mechanics may have changed between IceWars rounds. Cold Frontier's rules are decided separately.
 
-## Belastbare Orientierung
+The [source catalog](../sources/icewars-catalog.md) lists the supplied materials and tracks analysis, documentation, and archiving.
 
-- Besiedeln von Planeten, Ressourcenkonkurrenz, Schiffe, Forschung und komplexere Bau-/Technologieoptionen gehörten zur Selbstbeschreibung. Der Humor und die Selbstironie waren ausdrücklich Teil der Spielidentität. [GamesSphere – Spielbeschreibung](https://www.gamessphere.de/games/icewars)
-- Der Spielbetrieb war rundenbasiert (in der Übersicht: rund 9–12 Monate je Runde), während das Spiel in Echtzeit lief. **Das legt kein Tick-Modell für Cold Frontier fest.** [GamesSphere – Überblick](https://www.gamessphere.de/games/icewars)
-- 2009 wurden unter anderem Forschungsabläufe geändert, Aliens und Piraten als NPCs sowie Quests angekündigt. [GamesSphere – Rundenneustart](https://gamessphere.de/games/icewars/news/2480_rundenneustart_mit_neuen_features)
-- 2008 gab es eigene Einsteiger-Galaxien mit Schutzmechaniken. [GamesSphere – Neueinsteiger](https://gamessphere.de/games/icewars/news/1577_neueinsteiger_in_zukunft_mit_mehr_schutz)
-- 2010 wurde eine Aufrüstung vorhandener Schiffe mit Forschungsvoraussetzungen, Baukosten und zeitabhängigen Modifikatoren beschrieben. [GamesSphere – Schiffsupgrades](https://gamessphere.de/games/icewars/news/3565_pimp_my_shuttle_-_aus_alt_mach_neu)
-- Zur neunten Runde 2009 meldete das IceWars-Team **mehrere tausend teilnehmende Spieler**. Die ursprünglich vermutete Größenordnung unter 1.000 ist daher keine belastbare historische Grenze. [GamesSphere – Rundenstart](https://gamessphere.de/games/icewars/news/2510_erfolgreicher_start_in_die_neunte_runde)
+<a name="belastbare-orientierung"></a>
 
-## Erfahrungsbericht – Eisförderung und Ausbaukonkurrenz
+## Documented Background
 
-**Quelle:** Benjamin Wöster, Projektgespräch vom 2026-11-01. Historische Spielerfahrung; nicht unabhängig durch die bereitgestellten XMLs verifiziert. Spielrunde beziehungsweise Version noch nicht zugeordnet.
+- The game described itself in terms of colonizing planets, competing for resources, ships, research, and increasingly complex construction and technology options. Humor and self-mockery were explicitly part of its identity. [GamesSphere – Game Description](https://www.gamessphere.de/games/icewars)
+- The game ran in real time, with rounds of about 9–12 months according to the overview. Cold Frontier's tick model remains open. [GamesSphere – Overview](https://www.gamessphere.de/games/icewars)
+- Changes to research, aliens and pirates as NPCs, and quests were among the features announced in 2009. [GamesSphere – Round Restart](https://gamessphere.de/games/icewars/news/2480_rundenneustart_mit_neuen_features)
+- In 2008, new players had their own galaxies with protection mechanisms. [GamesSphere – New Players](https://gamessphere.de/games/icewars/news/1577_neueinsteiger_in_zukunft_mit_mehr_schutz)
+- In 2010, an upgrade system for existing ships was described with research prerequisites, construction costs, and time-dependent modifiers. [GamesSphere – Ship Upgrades](https://gamessphere.de/games/icewars/news/3565_pimp_my_shuttle_-_aus_alt_mach_neu)
+- For the ninth round in 2009, the IceWars team reported **several thousand participating players**, exceeding the initial estimate of fewer than 1,000. [GamesSphere – Round Start](https://gamessphere.de/games/icewars/news/2510_erfolgreicher_start_in_die_neunte_runde)
 
-- Sinkende Ergiebigkeit betraf laut Erfahrungsbericht nur Eis. Die Eisdichte bestimmte proportional die Förderleistung: Bei 15 Prozent Dichte förderte dieselbe Minenausstattung halb so viel wie bei 30 Prozent.
-- Die Dichte sank auf gewöhnlichen Planeten nicht unter 5 Prozent, auf speziellen Eisplaneten nicht unter 15 Prozent. Auch an dieser Grenze blieb Förderung möglich.
-- Die Startdichte des Startplaneten lag **nach unsicherer Erinnerung** bei 30 Prozent; nicht als gesicherter Wert verwenden.
-- Der Effekt war über Monate kaum spürbar. Beim Eintreten deutlicher Versorgungsprobleme verfügten Spieler bereits über hunderte Eisminen. Weitere Minen, Raubzüge und die Wahl eines Eisplaneten als nächste Kolonie waren typische Reaktionen.
-- Eine Vervielfachung der Minenzahl hätte Monate gedauert und den Bau anderer Gebäude für Forschung, Militär und Wirtschaft verdrängt. Die Bauzeit war deshalb ein wesentlicher Engpass.
-- Nach persönlicher Beobachtung kolonisierten auch gut organisierte Spieler selten mehr als sechs Planeten; von sieben oder acht wurde berichtet, Anfänger kamen teilweise auf vier. Das ist keine belegte harte Spielgrenze.
+<a name="erfahrungsbericht--eisförderung-und-ausbaukonkurrenz"></a>
 
-**Ergänzende Quellen, getrennt behandeln:**
+## Player Recollection – Ice Extraction and Competing Construction Priorities
 
-- [Evo-1-Tech-Tree](https://drive.google.com/file/d/1yt-JLQm8b-CSgF6wfcE693S_PHFz6i_q/view): Community-Grafik mit großer Eismine unter „Robotik“; enthält keine Förderwerte.
-- [Resourcenabbau](https://docs.google.com/spreadsheets/d/1Wng7Wi-kAfF1JS_VECUQVXRTWIYlHXlCo7YKTTP_vnA/edit): eigener früherer Modellierungsversuch, **kein Beleg für die damalige IceWars-Formel**. Die gelesenen Zahlen bilden Förderung proportional zum relativen Restvorkommen ab; die anfängliche Dichte 1 ist nicht ohne Weiteres eine absolute planetare Eisdichte von 100 Prozent.
+**Source.** Benjamin Wöster, project discussion on 2026-11-01. Player recollection without independent confirmation in the supplied XML files. The round or version remains unknown.
 
-Die daraus entwickelte Cold-Frontier-Designrichtung und das Schutzziel für Abwesenheit stehen in [[economy#Sinkende Ergiebigkeit und Zeit als Ressource]]. Historische Zahlen werden dadurch nicht automatisch übernommen.
+- According to the recollection, declining yields affected only ice. Extraction was proportional to ice density. At 15% density the same mines yielded half as much as at 30%.
+- Density stayed at or above 5% on ordinary planets and 15% on special ice planets. Extraction remained possible at those floors.
+- The starting planet may have started at 30% density. The recollection is uncertain.
+- The effect was barely noticeable for months. Players already had hundreds of ice mines by the time shortages became pronounced. Typical responses included building more mines, raiding, and choosing an ice planet for the next colony.
+- Multiplying the number of mines would have taken months and displaced construction for research, the military, and the economy. Build time was therefore a major bottleneck.
+- In the player's experience, even well-organized players rarely colonized more than six planets. Seven or eight were reported, and some beginners reached four. A hard game limit is unproven.
 
-## Rekonstruierte historische Einheiten
+**Separate supporting sources:**
 
-Der [XML-Einheitenkatalog](../sources/icewars-ships.md) bewahrt alle 64 Export-Einträge mit Materialkosten, Dauer und baubar. Die [Forschungszuordnung](../sources/icewars-ship-research.md) ergänzt für jede ID einen Befund: 37 namensbasierte Zuordnungen in Serie B1–B5 und eine zusätzliche in A2, 26 ohne belastbaren Forschungsbeleg. Forschungsvorgänger, explizite Zusatzfelder, ausgewählte indirekte Gebäudeanforderungen und unbekannte Bauvoraussetzungen werden getrennt. Versions- und Namenskonflikte bleiben sichtbar.
+- The [Evo 1 Tech Tree](https://drive.google.com/file/d/1yt-JLQm8b-CSgF6wfcE693S_PHFz6i_q/view) is a community diagram showing a large ice mine under “Robotik” (robotics), without extraction values.
+- [Resourcenabbau](https://docs.google.com/spreadsheets/d/1Wng7Wi-kAfF1JS_VECUQVXRTWIYlHXlCo7YKTTP_vnA/edit) is an earlier redesign. The inspected values make extraction proportional to the relative remaining deposit. An initial density of 1 does not directly imply a planet with 100% absolute ice density. The spreadsheet does not establish the historical formula.
 
-**Nur historische Referenz:** Für Cold Frontier sind diese Einheiten Inspiration; weder Liste, Kosten noch Voraussetzungen gelten als beschlossene Spielregeln.
+The resulting Cold Frontier design direction and absence protection goal are in [[economy#Declining Yield and Time as a Resource|Declining Yield and Time as a Resource]]. The historical numbers remain reference material.
 
-## Erfahrungsbericht – Bau-Frei-Minuten
+<a name="rekonstruierte-historische-einheiten"></a>
 
-**Quelle:** Benjamin Wöster, Projektgespräch vom 2026-11-02. Historische Erinnerung an die BFM-Mechanik; nicht durch die bisher ausgewerteten Dateien unabhängig verifiziert. Keine Übernahmeentscheidung für Cold Frontier.
+## Reconstructed Historical Units
 
-- Bau-Frei-Minuten (BFM) dienten vor allem Späteinsteigern zum schnelleren Aufholen in einer fortgeschrittenen Runde.
-- Gebäudebauten ließen sich mit einem BFM-Guthaben beschleunigen. Die Differenz zur normalen Bauzeit wurde vom BFM-Konto abgezogen.
-- Nach unsicherer Erinnerung war eine Beschleunigung auf eine verbleibende beziehungsweise minimale Bauzeit von **5 oder 15 Minuten** möglich. Exakter Grenzwert und genaue Anwendung sind nicht gesichert.
-- Vergabe, Gültigkeit, Einsatzzeitpunkt, Rückzahlung bei Abbruch, Wechselwirkung mit Engpässen und Anwendbarkeit auf andere Auftragstypen sind offen.
-- Die Mechanik zeigt einen explizit geführten Beschleunigungsvorrat. Sie belegt nicht, dass normale vergehende Zeit wie ein lagerbarer Ressourcenbestand modelliert werden muss.
+The [XML unit catalog](../sources/icewars-ships.md) preserves all 64 export entries with material costs, duration, and `baubar`. The [research mapping](../sources/icewars-ship-research.md) records 37 name-based matches in series B1–B5, one in A2, and 26 units without reliable research evidence. It distinguishes direct research prerequisites, explicit extra fields, selected indirect building requirements, and unknown construction prerequisites. Version and naming conflicts remain visible.
 
-Heutige Baukosten- und Abbruchregeln stehen in [[economy#Kosten, Abbruch und Fortschritt]].
+**Historical reference.** Cold Frontier can draw inspiration from these units. The list, costs, and prerequisites have no confirmed status as game rules.
 
-## Erfahrungsbericht – planetare Bauwarteschlangen
+<a name="erfahrungsbericht--bau-frei-minuten"></a>
 
-**Quelle:** Benjamin Wöster, Projektgespräch vom 2026-11-02. Historische Erinnerung; nicht unabhängig durch die vorliegenden Dateien verifiziert. Diese Details sind noch keine Übernahmeentscheidung für Cold Frontier.
+## Player Recollection – Free Construction Minutes
 
-- Jeder Planet hatte eine eigene Bauwarteschlange.
-- Die Ressourcen wurden nach Erinnerung bereits beim Einreihen des Auftrags abgezogen, nicht erst beim tatsächlichen Arbeitsbeginn.
-- Das erste Gebäude wurde zu regulären Kosten und regulärer Bauzeit beauftragt; das zweite eingereihte Gebäude kostete **10 Prozent mehr Ressourcen und Zeit**.
-- Manuelles Beauftragen nach Leeren der Schlange vermied den Warteschlangenaufschlag. Vorausplanung war damit teurer, ermöglichte aber längere Abwesenheit ohne ständiges Einloggen.
-- Ein zusätzlicher Warteschlangenplatz war über später im Spiel verfügbare **Genetik-Optionen** erreichbar. Grundkapazität, genaue Option und Zahl möglicher Erweiterungen sind nicht gesichert.
-- Staffelung für weitere Positionen (z. B. gleicher Aufschlag, linear oder multiplikativ), Umfang der betroffenen Ressourcen und Rundung sind offen.
-- Ebenfalls offen: Blieb der beim Einreihen bestimmte Aufschlag beim Nachrücken bestehen? Wie wirkten sich Abbruch oder Umordnen auf Kosten und Zeit anderer Aufträge aus? Galt die teilweise Rückzahlung auch für noch nicht begonnene Aufträge?
+**Source.** Benjamin Wöster, project discussion on 2026-11-02. Recollection of BFM without independent confirmation in the files reviewed. Adoption for Cold Frontier remains open.
 
-**Analyse für die weitere Diskussion:** Der Aufschlag bewertet Abwesenheit und Komfort wirtschaftlich. Er gibt häufig aktiven Spielern neben früherer Reaktion auch einen Ressourcen- und Zeitvorteil. Für Cold Frontier wurde am 2026-11-02 das Beibehalten eines Warteschlangenaufschlags als Designrichtung bestätigt; konkrete Parameter sind weiterhin offen. Siehe [[economy#Warteschlangenaufschlag und Zusammenarbeit]].
+- Free construction minutes (Bau-Frei-Minuten, BFM) mainly helped late entrants catch up in an advanced round.
+- Players could use a BFM balance to speed up building construction. The difference from normal build time was deducted from that balance.
+- The player tentatively recalls that builds could be shortened to a remaining or minimum time of **5 or 15 minutes**. The exact floor and usage are uncertain.
+- Awarding, expiry, time of use, refunds on cancellation, interactions with shortages, and use for other order types remain open.
+- BFM shows a tracked balance for acceleration. How to model ordinary elapsed time remains a separate question.
 
-## Erfahrungsbericht – Sitter-Login
+Current construction cost and cancellation rules are in [[economy#Costs, Cancellation, and Progress|Costs, Cancellation, and Progress]].
 
-**Quelle:** Benjamin Wöster, Projektgespräch vom 2026-11-02. Historische Erinnerung; nicht unabhängig anhand der bereitgestellten Dateien verifiziert.
+<a name="erfahrungsbericht--planetare-bauwarteschlangen"></a>
 
-- Ein spezieller Sitter-Login erlaubte anderen Spielern, bestimmte Handlungen im betreuten Account auszuführen.
-- Die Rechte waren auf Handlungen innerhalb des betreuten Accounts beschränkt. Handlungen, die eine Interaktion mit anderen Spielern dargestellt hätten, waren nach Erinnerung nicht möglich.
-- Dies erleichterte die Betreuung bei Abwesenheit und belohnte Zusammenarbeit und Koordination, auch im Zusammenhang mit Bauwarteschlangen.
-- **Einordnung des Projektinhabers:** Durch diese Beschränkung sollte Missbrauch durch eine Person mit mehreren sich gegenseitig unterstützenden Accounts verhindert werden.
-- **Beleggrenze / Analyse:** Die konkrete Berechtigungsliste und Durchsetzung sind nicht dokumentiert. Aus dem Ausschluss direkter Spielerinteraktionen lässt sich kein vollständiger Nachweis gegen jede Form von Mehrfachaccount-Nutzung oder indirekter Begünstigung ableiten. Die behauptete vollständige Ausschließbarkeit wird daher nicht als gesicherte historische Tatsache übernommen.
-- Offen bleiben unter anderem zulässige Bau-/Forschungsaktionen, Sichtbarkeit von Accountinformationen, Verwaltung der Sitter-Rechte und Einschränkungen je betreutem Account. Keine dieser Detailregeln wird erfunden.
+## Player Recollection – Planetary Construction Queues
 
-Mögliche Bedeutung für Cold Frontier: [[economy#Warteschlangenaufschlag und Zusammenarbeit]]. Ein Sitter-System ist damit noch nicht konkret beschlossen.
+**Source.** Benjamin Wöster, project discussion on 2026-11-02. The available files have not independently confirmed the recollection. Adoption for Cold Frontier remains open.
 
-## Erfahrungsbericht – Spezialisierungen über Genetik
+- Each planet had its own construction queue.
+- The player recalls having resources deducted when the order was queued, before work started.
+- The first building used normal cost and time. The second queued building cost **10% more resources and time**.
+- Submitting manually after the queue emptied avoided the surcharge. Planning ahead cost more and allowed longer absences without frequent logins.
+- Later **genetics options** could add a waiting slot. Base capacity, the exact option, and the number of upgrades remain uncertain.
+- Surcharges for later positions (equal, linear, or multiplicative), which resources they affected, and rounding remain open.
+- Did an order keep its surcharge when it moved up? How did cancellation or reordering affect other costs and times? Did unstarted orders also receive partial refunds? These details remain open.
 
-**Quelle:** Benjamin Wöster, Projektgespräch vom 2026-11-02. Historische Erinnerung, nicht unabhängig durch die ausgewerteten Dateien verifiziert.
+**Analysis.** The surcharge gives absence and convenience an economic value. Frequent players can act sooner and save resources and time. On 2026-11-02 Cold Frontier confirmed retaining a surcharge as a design direction. Parameters remain open. See [[economy#Queue Surcharges and Collaboration|Queue Surcharges and Collaboration]].
 
-IceWars ermöglichte laut Projektinhaber Spezialisierungen über Genetik, die unterschiedliche Rollen und Zusammenarbeit zwischen Spielern begünstigten. Konkrete Optionen, Wirkungen, Kosten und Wechselmöglichkeiten sind noch nicht rekonstruiert. Die für Cold Frontier genannten Profile Ressourcenabbau, Schiffbau und Handelswesen sind heutige Ideen; sie werden nicht als belegte damalige Genetik-Optionen ausgegeben.
+<a name="erfahrungsbericht--sitter-login"></a>
 
-## Erfahrungsbericht – Galaxien und Kolonisationsreichweite
+## Player Recollection – Sitter Login
 
-**Quelle:** Benjamin Wöster, Projektgespräch vom 2026-11-03.
+**Source.** Benjamin Wöster, project discussion on 2026-11-02. Historical recollection without independent confirmation from the supplied files.
 
-- Sonnensysteme umfassten nach Erinnerung ungefähr 1 bis 15 Planeten. Flüge zwischen Sonnensystemen derselben Galaxie waren grundsätzlich mit allen Schiffstypen möglich. An auf ein einziges Sonnensystem beschränkte Schiffe erinnert sich der Projektinhaber nicht.
-- Galaxiewechsel erforderten besondere Forschung und dafür geeignete Schiffstypen. Das INS-03A gehört nach Erinnerung zu dieser fortgeschrittenen Entwicklungsstufe. Der Name „Systemkolonieschiff“ des KISS-01 belegt für sich keine Beschränkung auf ein Sonnensystem.
-- Jede vierte Galaxie war nach Erinnerung eine Chaosgalaxie. Dort gab es extreme Planeten mit hohen, oft auf einen Rohstoff konzentrierten Vorkommen sowie Anomalien wie Zeitverkrümmungen und Antimateriewirbel. Eine Wirkung der Anomalien auf das Spielgeschehen ist nicht erinnert.
-- **Inspiration für Cold Frontier:** Chaosgalaxien mit extremen Vorkommen und Anomalien als erzählerische Elemente. Platzierung und Vorkommensregeln sind offen. Für Anomalien ist derzeit keine Simulationswirkung vorgesehen.
+- A dedicated sitter login allowed other players to take certain actions in the account they looked after.
+- According to the recollection, permissions covered actions inside that account and prevented interactions with other players.
+- This made it easier to cover absences and rewarded collaboration and coordination, including through construction queues.
+- **Project owner's interpretation.** The restriction aimed to prevent one person from using multiple accounts to benefit one another.
+- **Evidence and analysis.** The exact permissions and enforcement are undocumented. Blocking direct interactions alone cannot establish that the system prevented every kind of multi-account use or indirect benefit.
+- Permitted construction and research, visibility of account information, permission management, and restrictions per account remain open.
 
-## Erfahrungsbericht – Pinguine am Rundenende
+Possible relevance for Cold Frontier is described in [[economy#Queue Surcharges and Collaboration|Queue Surcharges and Collaboration]]. A sitter system remains open.
 
-Laut Benjamin Wösters Erinnerung aus dem Projektgespräch vom 2026-11-03 tauchten Pinguine erst kurz vor Rundenende auf. Sie breiteten sich aus und vermehrten sich unkontrolliert. Als Vorboten der Apokalypse waren sie Teil des IceWars-Humors. Die Ressourcen-XML führt Pinguine unter ID 8. Ablauf und Wirkung stammen aus der Spielerinnerung. [Ressourcen-Zuordnung](../sources/icewars-ships.md#ressourcen-zuordnung)
+<a name="erfahrungsbericht--spezialisierungen-über-genetik"></a>
 
-## Erfahrungsbericht – Raids und große Kriege
+## Player Recollection – Specialization Through Genetics
 
-**Quelle:** Benjamin Wöster, Projektgespräch vom 2026-11-08. Historische Spielerfahrung; Spielrunde und Version nicht zugeordnet, nicht unabhängig durch die vorhandenen Dateien verifiziert. Keine Übernahmeentscheidung für Cold Frontier.
+**Source.** Benjamin Wöster, project discussion on 2026-11-02. Historical recollection without independent confirmation in the files reviewed.
 
-| Konfliktform | Erinnerter Ablauf und Folgen | Erinnerte Rolle im Spiel |
+The project owner recalls that genetics supported specializations, encouraging distinct roles and collaboration between players. Specific options, effects, costs, and switching rules remain unreconstructed. Extraction, shipbuilding, and trade profiles are current Cold Frontier ideas. The historical options are unverified.
+
+<a name="erfahrungsbericht--galaxien-und-kolonisationsreichweite"></a>
+
+## Player Recollection – Galaxies and Colonization Range
+
+**Source.** Benjamin Wöster, project discussion on 2026-11-03.
+
+- Solar systems reportedly had about 1 to 15 planets. In principle every ship type could travel between systems within a galaxy. The project owner does not recall ships confined to a single solar system.
+- Crossing galaxies required specialized research and suitable ships. The INS-03A is remembered as part of this advanced stage. The KISS-01 name “Systemkolonieschiff” alone does not establish a single-system limit.
+- The player recalls every fourth galaxy being a chaos galaxy. They had extreme planets with large deposits often concentrated in one resource, plus anomalies such as time distortions and antimatter vortices. The player does not recall whether anomalies affected gameplay.
+- **Inspiration for Cold Frontier.** Chaos galaxies with extreme deposits and anomalies as narrative elements. Placement and deposit rules remain open. Anomalies currently have no planned simulation effect.
+
+<a name="erfahrungsbericht--pinguine-am-rundenende"></a>
+
+## Player Recollection – End-of-Round Penguins
+
+In the 2026-11-03 project discussion, Benjamin Wöster recalled penguins appearing shortly before the round ended. They spread and multiplied uncontrollably. As harbingers of the apocalypse they were part of IceWars humor. The resource XML lists penguins under ID 8. Timing and effects come from recollection. [Resource Mapping](../sources/icewars-ships.md#resource-mapping)
+
+<a name="erfahrungsbericht--raids-und-große-kriege"></a>
+
+## Player Recollection – Raids and Large Wars
+
+**Source.** Benjamin Wöster, project discussion on 2026-11-08. Round and version are unknown, and the available files have not independently verified this recollection. Adoption for Cold Frontier remains open.
+
+| Conflict | Recalled conduct and effects | Recalled role in the game |
 | --- | --- | --- |
-| Raids | Verluste in begrenztem Umfang bei Verteidigungsanlagen sowie verteidigenden und angreifenden Schiffen. Bei einem Sieg konnte die angreifende Flotte bereits abgebaute, nicht durch Bunker geschützte Ressourcen auf dem Planeten stehlen. Zivile Gebäudezerstörung wird für diese Konfliktform nicht berichtet. | Kamen durchaus häufiger vor, waren aber kein Alltag. |
-| Große Kriege | Vernichtung großer Flotten und Bombardierung von Kolonien mit Gebäudezerstörung. Wiederaufbau erforderte relevante Ressourcen und Spielzeit. | Nach Einschätzung des Projektinhabers das größte Balancing-Problem von IceWars: Die Rückschläge griffen empfindlich in den langfristigen Aufbau ein. |
+| Raids | Limited losses of defensive installations and defending and attacking ships. A victorious attacking fleet could steal already extracted planetary resources that bunkers did not protect. The account does not mention destruction of civilian buildings during raids. | Occurred more often, though they were not an everyday event. |
+| Large wars | Large fleets were destroyed and colonies bombarded, destroying buildings. Rebuilding consumed significant resources and game time. | The project owner recalls this as the largest balancing problem in IceWars because it substantially set back long-term development. |
 
-Die zuvor pauschale Aussage, Konfliktkosten hätten Konflikte verhindert, ist damit auf große zerstörerische Kriege zu präzisieren. Raids waren ein tatsächlich genutzter Teil des Spiels. Verlustgrenzen, Beuteformel, Frachtbegrenzung und genaue Bombardierungsregeln sind nicht rekonstruiert.
+The earlier blanket statement that costs prevented conflicts applies more specifically to large destructive wars. Raids were an established part of play. Loss limits, loot formulas, cargo limits, and bombardment rules remain unreconstructed.
 
-**Offene Designfrage für Cold Frontier:** Wie lassen sich weitreichende Kriege mit dem Wert langfristigen Aufbaus vereinbaren? Der Projektinhaber hat dafür noch keinen überzeugenden Kompensationsansatz. Eine Lösung ist nicht beschlossen. Siehe [Späte Evolution und Konflikte](evolution-and-balancing.md#späte-evolution-und-attraktive-konflikte).
+**Open design question for Cold Frontier.** How can far-reaching wars coexist with the value of long-term development? The project owner has yet to find a satisfactory way to compensate for those losses. See [Late Evolution and Conflicts](evolution-and-balancing.md#late-evolution-and-appealing-conflicts).
 
-## Mögliche Inspirationsfelder – ausdrücklich offen
+<a name="mögliche-inspirationsfelder--ausdrücklich-offen"></a>
 
-- Tiefer Technologiebaum und ungewöhnliche Gebäude
-- Wirtschaftliche Nebenwirkungen von Bevölkerungs-/Sozialmechaniken
-- Diplomatie, Gemeinschaft und Allianzen
-- Asymmetrische Schiffe, Piraten, Quests und Events
-- Humor über Berater, Ereignistexte und Spielmechaniken
+## Potential Areas of Inspiration
 
-## Noch zu recherchieren
+- A deep technology tree and unusual buildings
+- Economic side effects of population and social mechanics
+- Diplomacy, communities, and alliances
+- Asymmetric ships, pirates, quests, and events
+- Humor through advisors, event text, and mechanics
 
-- Rohstoffliste einschließlich VV4A in der bereitgestellten Ressourcen-XML gelesen; siehe [[sources/icewars-catalog#Offizielle XMLs laut Projektinhaber (IW-01 bis IW-03)]]. Ursprünglichen Endpunkt und Spielversion weiter klären; Produktionsketten sind daraus noch nicht belegt.
-- Weitere Gebäude- und Forschungsabhängigkeiten: Einheiten-Zuordnungen teilweise rekonstruiert; vollständige transitive Ketten, konkrete Bauwerften und fehlende/unleserliche späte Tech-Tree-Seiten bleiben offen
-- Bau-, Transport- und Kampfregeln je Spielversion
+<a name="noch-zu-recherchieren"></a>
 
-**Quellenkritik:** Ähnliche Spiele (beispielsweise XWars oder GalaxyWars) nicht als Beleg für IceWars verwenden.
+## Research Still Open
+
+- The supplied resource XML includes VV4A. See [[sources/icewars-catalog#Official XMLs According to the Project Owner (IW-01 to IW-03)|Official XMLs According to the Project Owner]]. Confirm the original endpoint and game version. The XML does not establish production chains.
+- Further building and research dependencies. Some unit mappings are reconstructed. Complete transitive chains, shipyards required for construction, and missing or unreadable later Tech Tree pages remain open.
+- Construction, transport, and combat rules by game version.
+
+**Source criteria.** Similar games such as XWars and GalaxyWars are separate sources and cannot establish IceWars rules.

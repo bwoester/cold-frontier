@@ -1,36 +1,44 @@
 ---
-status: in-klaerung
+status: under-discussion
 type: game-design
 ---
-# Spielmechaniken – Übersicht
+<a name="spielmechaniken--übersicht"></a>
 
-> [!important] Quellenlage
-> Diese Karte sammelt **Bereiche und Ideen**, keine bereits entschiedenen Regeln. Status und Herkunft stehen bei den Themen. Für den Ist-Zustand siehe [[architecture/current-state]].
+# Game Mechanics Overview
 
-## Mechaniken
+> [!important] Evidence
+> This map collects **topics and ideas**. Each topic records its status and origin. See [Current Technical State](../architecture/current-state.md) for the prototype.
 
-| Bereich | Heutiger Stand | Weiterführend |
+<a name="mechaniken"></a>
+
+## Mechanics
+
+| Area | Current status | Further reading |
 | --- | --- | --- |
-| Evolution / Balancing / Spielrhythmus | Projektziele und Evo-1–5-Vorschlag; ganzheitliche Gebäudeeffizienz, Bedienlast und historischer Abgleich in Klärung | [Evolution und Balancing](evolution-and-balancing.md) |
-| Planeten / Kolonisation | Projektziel; `Planet` im Prototyp | [[economy]] |
-| Ressourcen / Produktion / Engpässe | Projektziel und Teile im Code; **erste Vertiefung** | [[economy]] |
-| Gebäude / Bauaufträge | Gebäudearten, Queue und Progress im Code; Regeln offen | [[economy#Gebäude und Bau]] |
-| Forschung / Technologien | Projektziel; historische IceWars-Inspiration | [[icewars-references]] |
-| Handel / Transport / Markt | Projektziel; Mechanik noch nicht spezifiziert | [[economy#Handel und Transport]] |
-| Flotten / Schiffe / Bewegungen | Projektziel; Tick-Phasen als Code-Ist/Notiz | [[architecture/current-state]] |
-| Kämpfe / Kriege | Projektziel; Mechanik noch nicht spezifiziert | [[icewars-references]] |
-| Sichtbarkeit / Sensorik | Phasen und TODOs in Code und Notizen | [[architecture/current-state]] |
-| Spielzeit / Ereignisse | Globaler phasenbasierter Ticker im Prototyp; Modell offen | [[architecture/current-state]] |
-| Berater / Narration / Humor | Vorhandene Figuren- und Ton-Dokumente | [[personas/overall-tone]], [[personas/interpersonal-dynamics]] |
-| Spieler / Allianzen / soziale Interaktion | Spieler vorhanden, Allianzen historisch belegt; Regeln offen | [[icewars-references]] |
+| Evolution / balancing / play rhythm | Project goals and an Evo 1–5 proposal. Overall building efficiency, interaction load, and comparison with IceWars are under discussion. | [Evolution and Balancing](evolution-and-balancing.md) |
+| Planets / colonization | Project goal. `Planet` exists in the prototype. | [Planetary Economy](economy.md) |
+| Resources / production / bottlenecks | Project goal with parts in the code. **First area explored in depth.** | [Planetary Economy](economy.md) |
+| Buildings / construction orders | Building types, the queue, and progress exist in code. Rules remain open. | [[economy#Buildings and Construction]] |
+| Research / technologies | Project goal with historical IceWars inspiration. | [IceWars References](icewars-references.md) |
+| Trade / transport / market | Project goal. The mechanic is still unspecified. | [[economy#Trade and Transport]] |
+| Fleets / ships / movement | Project goal. Tick phases appear in prototype code and notes. | [Current Technical State](../architecture/current-state.md) |
+| Battles / wars | Project goal. The mechanic is still unspecified. | [IceWars References](icewars-references.md) |
+| Visibility / sensors | Phases and TODOs in code and notes. | [Current Technical State](../architecture/current-state.md) |
+| Game time / events | Global phase-based tick coordinator in the prototype. The time model remains open. | [Current Technical State](../architecture/current-state.md) |
+| Advisors / narrative / humor | Existing character and tone documents. | [Narrative Tone](../personas/overall-tone.md), [Advisor Relationships](../personas/interpersonal-dynamics.md) |
+| Players / alliances / social interaction | Players are implemented and alliances are historically documented. Rules remain open. | [IceWars References](icewars-references.md) |
 
-## Bewusst nicht entschieden
+<a name="bewusst-nicht-entschieden"></a>
 
-- Globale oder lokale Ticks, ereignisdiskrete Berechnung oder Kombination?
-- Wo verlaufen Konsistenzgrenzen zwischen Planet, Spieler, Flotte und Markt?
-- Wie tief sollen Wirtschaftsketten und Ressourcenerschöpfung tatsächlich gehen?
-- Welche Spielmechaniken aus IceWars übernehmen wir, welche verändern wir bewusst?
+## Open Decisions
 
-## Erste zu untersuchende Geschichte
+- Global or local ticks, discrete-event simulation, or a combination?
+- Where are the consistency boundaries between a planet, player, fleet, and market?
+- How deep should production chains and resource depletion go?
+- Which IceWars mechanics should we adopt, and which should we deliberately change?
 
-Ein Spieler baut auf seinem Planeten eine Mine. Die Mine verbraucht Energie und fördert Eisen. Was geschieht, wenn Energie knapp wird oder das Eisenvorkommen zur Neige geht? Siehe [[economy#Erste Szenarien]].
+<a name="erste-zu-untersuchende-geschichte"></a>
+
+## First Story to Explore
+
+A player builds a mine on their planet. The mine consumes energy and extracts iron. What happens if energy becomes scarce or the iron deposit runs low? See [[economy#Initial Scenarios (Expected Values Where Defined)|Initial Scenarios]].
