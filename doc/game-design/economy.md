@@ -222,7 +222,7 @@ Diese Abfolge legt fachliche Wirksamkeitsgrenzen fest, keine technischen Phasen,
 
 **Raten und Verfügbarkeit:** Gebäudeproduktionsraten werden im Spiel pro Stunde angegeben. Diese Anzeigeeinheit legt weder die interne Zeiteinheit noch die Häufigkeit der Berechnung oder Gutschrift fest. Eine ganze produzierte Einheit wird verfügbar, sobald die dafür maßgebliche Produktionsmenge unter den tatsächlich wirksamen Betriebsbedingungen erreicht ist. Bei Förderung wird diese Menge je Kolonie und Ressource gemeinsam ermittelt (siehe unten). Eine pauschale Wartezeit, etwa eine Minute bis zur ersten Einheit, gilt nicht.
 
-**Produktionsfortschritt und Spieleraktionen:** Noch nicht zu einer ganzen Einheit vervollständigte Mengenanteile sind fachlich relevanter Produktionsfortschritt. Sie stehen dem Spieler noch nicht als ganze Ressourceneinheiten für Aktionen zur Verfügung, müssen aber für die weitere Produktion erhalten bleiben. Ob die Implementierung Bruchteile unmittelbar speichert oder den Fortschritt anderweitig verlustfrei repräsentiert, bleibt offen. Bei Förderung werden die Mengenanteile gemäß der folgenden Regel zusammengeführt. Die Zusammenführung bei verarbeitenden Gebäuden bleibt offen.
+**Produktionsfortschritt und Spieleraktionen:** Noch nicht zu einer ganzen Einheit vervollständigte Mengenanteile sind fachlich relevanter Produktionsfortschritt. Sie stehen dem Spieler noch nicht als ganze Ressourceneinheiten für Aktionen zur Verfügung, müssen aber für die weitere Produktion erhalten bleiben. Ob die Implementierung Bruchteile unmittelbar speichert oder den Fortschritt anderweitig verlustfrei repräsentiert, bleibt offen. Bei Förderung werden die Mengenanteile gemäß der folgenden Regel zusammengeführt. Für Verarbeitung gilt die gemeinsame Kapazität je Kolonie und Rezeptur (siehe unten).
 
 **Unabhängigkeit von Abfragen und Fortschreibungsabschnitten:** Bei gleicher Ausgangslage und denselben wirksamen Änderungen dürfen zusätzliche Zwischenabfragen oder kürzere Fortschreibungsabschnitte weder Produktion vernichten noch den Zeitpunkt der Verfügbarkeit ganzer Einheiten verzögern. Das gilt auch für eine Fortschreibung, die den Bauabschluss überschreitet: Das neue Gebäude trägt ausschließlich für die Zeit nach seiner Fertigstellung bei.
 
@@ -246,7 +246,19 @@ Jedes Gebäude trägt nur entsprechend seiner tatsächlichen Betriebszeit und Le
 
 Die [Gherkin-Szenarien zur gemeinsamen Förderung](scenarios/pooled-extraction.feature) prüfen explizit eine Mine mit 6 Eisen pro Stunde gegen zwei Minen mit je 3 Eisen pro Stunde, den Erhalt des gemeinsamen Rests und einen Neubau bei bereits vorhandenem Teilfortschritt. Alle Raten und Zeitpunkte sind Testwerte.
 
-**Abgrenzung zur Verarbeitung:** Die Zusammenführung gilt zunächst für Förderung. Ob und wie verarbeitende Gebäude ihre Teilfortschritte zusammenführen, ist offen. Die bisherigen Wasserwerk-Regeln zur gemeinsamen Entnahme aller Einsatzstoffe für eine begonnene Einheit werden dadurch nicht geändert.
+### Gemeinsame Verarbeitung je Kolonie und Rezeptur
+
+**Bestätigte Regel (2026-11-17):** Gebäude mit derselben Rezeptur innerhalb einer Kolonie tragen mit ihrer unter den jeweiligen Betriebsbedingungen wirksamen Leistung zu einem gemeinsamen Verarbeitungsvorgang bei. Die Verarbeitung ist nicht an getrennte, je Gebäude vorfinanzierte Einheiten gebunden. Verschiedene Kolonien oder Rezepturen werden nicht zusammengefasst.
+
+Ein Vorgang für eine ganze Ausgabeeinheit beginnt, sobald alle Einsatzstoffe für diese Einheit und wirksame Verarbeitungskapazität vorhanden sind. Die Einsatzstoffe werden gemeinsam und genau einmal aus dem Pool entnommen und der laufenden gemeinsamen Produktion zugeordnet. Dafür genügt ein vollständiger Satz Einsatzstoffe, unabhängig von der Zahl beitragender Gebäude. Fehlt ein Bestandteil, erfolgt keine Teilentnahme und kein Start.
+
+Der bereits erzielte Teilfortschritt bleibt erhalten. Eine ganze Ausgabeeinheit wird verfügbar, sobald die gemeinsame Verarbeitung sie fertiggestellt hat. Anschließend kann die nächste Einheit bei vollständigen Einsatzstoffen starten. Zusätzliche Fortschreibungen dürfen weder Einsatzstoffe erneut abbuchen noch Fortschritt verlieren oder Ergebnisse doppelt gutschreiben. Eine begonnene Einheit benötigt keinen weiteren Satz Einsatzstoffe; der Mangel an Zutaten für die nächste Einheit verhindert ihren Abschluss nicht.
+
+Die Aussage, dass bei knappen Zutaten nur einzeln versorgte Gebäude produzieren, gilt damit nicht für Gebäude derselben Rezeptur. Andere Betriebsbedingungen bestimmen weiterhin die tatsächlich beitragende Leistung. Verschiedene Rezepte, die um dieselben Inputs konkurrieren, sowie die Gruppierung bei unterschiedlichen Rezeptwirkungsgraden bleiben gesondert zu klären.
+
+**Prüfbeispiel:** Zwei Wasserwerke mit jeweils 10 Wasser/h nutzen gemeinsam 20 Wasser/h. Mit genau 1 Eis und 2 Energie starten sie eine gemeinsame Wassereinheit, die nach 3 Minuten verfügbar ist. Insgesamt werden nur 1 Eis und 2 Energie entnommen. Ohne weiteren Nachschub beginnt keine zweite Einheit. Eine Anlage mit 20 Wasser/h liefert unter identischen Bedingungen denselben Verlauf. Die Zahlen sind Testparameter.
+
+Die [Gherkin-Szenarien zur gemeinsamen Verarbeitung](scenarios/pooled-processing.feature) prüfen knappe Einsatzstoffe, Teilfortschritt, geteilte Fortschreibung und unvollständige Rezepte. Die bisherigen Ein-Wasserwerk-Szenarien bleiben als Spezialfall gültig. Diese Regeln legen weder technische Einzelereignisse je Einheit noch eine Verarbeitungsschleife fest.
 
 ### Verzögerter Abbruch und Verlust von Voraussetzungen
 
