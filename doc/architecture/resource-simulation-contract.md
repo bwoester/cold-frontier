@@ -14,6 +14,12 @@ Das Ergebnis enthält den fortgeschriebenen Zustand mit erreichter Spielzeit und
 
 Für den [Wasserwerk-Abnahmefall](../game-design/scenarios/water-production.feature) gehört das Erschöpfungsereignis zum Abschnitt, der Minute 36 erreicht. Ein Folgeabschnitt ab Minute 36 meldet es nicht erneut. Anlagen werden gemeinsam im Kontext der Kolonie fortgeschrieben. Der Aufrufer bestimmt weder Raten noch die Reihenfolge einzelner Anlagen.
 
+### Bauabschluss, Mengenanteile und Verfügbarkeit
+
+Die [bestätigten fachlichen Regeln zu Bauabschluss und Produktionsfortschritt](../game-design/economy.md#bauabschluss-und-produktionsfortschritt) gelten unabhängig von der Engine. Eine Fortschreibung über den Bauabschluss berücksichtigt die zuvor vorhandenen Anlagen bis zur Fertigstellung und das neue Gebäude für die anschließende Zeit unter seinen Betriebsbedingungen. Der Bauabschluss selbst erzeugt keine Ressourceneinheit. Eine technische Verarbeitung in Phasen darf weder rückwirkende Produktion noch eine zusätzliche Wartezeit verursachen.
+
+Das Ergebnis muss neben verfügbaren ganzen Einheiten den noch nicht verfügbaren Produktionsfortschritt erhalten oder verlustfrei rekonstruierbar machen. Zwei Abschnitte mit jeweils einer halben Einheit Fortschritt ergeben zusammen eine verfügbare Einheit; zwischenzeitliche Auswertungen dürfen diesen Zeitpunkt nicht verschieben. Das legt weder ein Zahlenformat noch ein Speicherlayout fest. Die Anzeige von Raten pro Stunde ist keine Vorgabe für interne Zeitauflösung oder Fortschreibungsintervalle.
+
 ### Einsatzstoffe für eine laufende Produktion
 
 Das Wasserwerk startet eine Einheit nur, wenn im Ressourcenpool mindestens 1 Eis und 2 Energie verfügbar sind. Beim Start gehen beide Einsatzstoffe aus dem Pool ins Wasserwerk über. Die Einheit bleibt bis zur Fertigstellung als laufende Produktion im Zustand erhalten. Bei Fertigstellung geht 1 ganze Einheit Wasser in den Pool über.
@@ -45,7 +51,7 @@ Der [`TickCoordinator`](../../lib/src/main/java/de/bwoester/coldfrontier/TickCoo
 | ---: | --- | --- |
 | 1 | Eingaben (`handleInput`) | Ein definierter Zeitpunkt für Spieleraufträge legt fest, welchen Bestand sie sehen und welche Folgen die Wirtschaft anschließend berücksichtigt. Der frühe Platz vor der Ressourcenphase ist ein Vorschlag. |
 | 2 | Ressourcen (`handleResourceUpdates`) | Produktion und Verbrauch brauchen eine gemeinsame Reihenfolge gegenüber Aufträgen und anderen Bestandsänderungen. Fertigstellung einer Wassereinheit und Startversuch der nächsten können Teil desselben fachlichen Ablaufs bleiben. |
-| 3 | Fertigstellungen (`handleFinishedUnits`) | Im Prototyp werden fertige Gebäude nach der Ressourcenphase übernommen. Sie tragen damit frühestens im nächsten Tick zur Produktion bei. Das ist beobachtetes Verhalten, dessen Übernahme als Spielregel offen bleibt. |
+| 3 | Fertigstellungen (`handleFinishedUnits`) | Im Prototyp werden fertige Gebäude nach der Ressourcenphase übernommen. Sie tragen damit frühestens im nächsten Tick zur Produktion bei. Das beschreibt die Implementierung, keine fachliche Wartezeit. Maßgeblich ist die [zeitliche Grenze am Bauabschluss](../game-design/economy.md#bauabschluss-und-produktionsfortschritt). Ob die Implementierung diese erfüllt, hängt auch davon ab, welchem Zeitintervall die Ressourcenphase und welchem Zeitpunkt die Fertigstellung zugeordnet sind. |
 | 4 | Warteschlangen (`handleQueuedUnits`) | Nach einer Fertigstellung kann der frei gewordene Bauplatz direkt an den nächsten Auftrag gehen. Für dieselbe Bauwarteschlange genügt diese lokale Reihenfolge, solange keine andere Mechanik zwischen Fertigstellung und Nachrücken eingreifen muss. |
 | 5 | Bewegung (`handleMovement`) | Eine eigene Grenze ist begründet, falls Konflikte auf den nach der Bewegung erreichten Positionen beruhen sollen. Der Platz im Prototyp allein entscheidet noch keine Ankunfts- oder Abfangregeln. |
 | 6 | Konflikte (`handleConflicts`) | Die Auflösung kann auf den Ergebnissen der Bewegung aufbauen und Bestände oder Anlagen verändern. Welchen Vorrang Konflikte gegenüber anderen Änderungen derselben Spielzeit haben, braucht konkrete Prüffälle. |
