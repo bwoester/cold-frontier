@@ -220,9 +220,9 @@ Diese Fälle sind Prüfpunkte für noch zu beschließende Regeln, keine bereits 
 
 Diese Abfolge legt fachliche Wirksamkeitsgrenzen fest, keine technischen Phasen, Tickdauer oder Berechnungsmethode. Andere gleichzeitig wirksame Aktionen und ihre Vorrangregeln sind damit nicht allgemein entschieden.
 
-**Raten und Verfügbarkeit:** Gebäudeproduktionsraten werden im Spiel pro Stunde angegeben. Diese Anzeigeeinheit legt weder die interne Zeiteinheit noch die Häufigkeit der Berechnung oder Gutschrift fest. Eine ganze produzierte Einheit wird verfügbar, sobald das Gebäude sie unter den tatsächlich wirksamen Betriebsbedingungen vollständig produziert hat. Eine pauschale Wartezeit, etwa eine Minute bis zur ersten Einheit, gilt nicht.
+**Raten und Verfügbarkeit:** Gebäudeproduktionsraten werden im Spiel pro Stunde angegeben. Diese Anzeigeeinheit legt weder die interne Zeiteinheit noch die Häufigkeit der Berechnung oder Gutschrift fest. Eine ganze produzierte Einheit wird verfügbar, sobald die dafür maßgebliche Produktionsmenge unter den tatsächlich wirksamen Betriebsbedingungen erreicht ist. Bei Förderung wird diese Menge je Kolonie und Ressource gemeinsam ermittelt (siehe unten). Eine pauschale Wartezeit, etwa eine Minute bis zur ersten Einheit, gilt nicht.
 
-**Produktionsfortschritt und Spieleraktionen:** Noch nicht zu einer ganzen Einheit vervollständigte Mengenanteile sind fachlich relevanter Produktionsfortschritt. Sie stehen dem Spieler noch nicht als ganze Ressourceneinheiten für Aktionen zur Verfügung, müssen aber für die weitere Produktion erhalten bleiben. Ob die Implementierung Bruchteile unmittelbar speichert oder den Fortschritt anderweitig verlustfrei repräsentiert, bleibt offen. Diese Regel entscheidet nicht über eine Zusammenlegung von Teilfortschritten verschiedener Gebäude.
+**Produktionsfortschritt und Spieleraktionen:** Noch nicht zu einer ganzen Einheit vervollständigte Mengenanteile sind fachlich relevanter Produktionsfortschritt. Sie stehen dem Spieler noch nicht als ganze Ressourceneinheiten für Aktionen zur Verfügung, müssen aber für die weitere Produktion erhalten bleiben. Ob die Implementierung Bruchteile unmittelbar speichert oder den Fortschritt anderweitig verlustfrei repräsentiert, bleibt offen. Bei Förderung werden die Mengenanteile gemäß der folgenden Regel zusammengeführt. Die Zusammenführung bei verarbeitenden Gebäuden bleibt offen.
 
 **Unabhängigkeit von Abfragen und Fortschreibungsabschnitten:** Bei gleicher Ausgangslage und denselben wirksamen Änderungen dürfen zusätzliche Zwischenabfragen oder kürzere Fortschreibungsabschnitte weder Produktion vernichten noch den Zeitpunkt der Verfügbarkeit ganzer Einheiten verzögern. Das gilt auch für eine Fortschreibung, die den Bauabschluss überschreitet: Das neue Gebäude trägt ausschließlich für die Zeit nach seiner Fertigstellung bei.
 
@@ -235,6 +235,18 @@ Diese Abfolge legt fachliche Wirksamkeitsgrenzen fest, keine technischen Phasen,
 | Nach dem zweiten Abschnitt | 1 | 1 | 0 |
 
 Eine direkte Fortschreibung über beide Abschnitte muss denselben Zustand und denselben wirksamen Zeitpunkt der Verfügbarkeit ergeben. Eine erneute Auswertung der bereits erreichten Spielzeit erzeugt keine weitere Produktion. Die Abschnittsdauer ergibt sich im konkreten Test aus Rate und Betriebsbedingungen; sie ist keine allgemeine Spielregel.
+
+### Gemeinsame Förderung je Kolonie und Ressource
+
+**Bestätigte Regel (2026-11-17):** Fördermengen derselben Ressource werden innerhalb einer Kolonie einschließlich ihrer Bruchteile zusammengeführt. Ganze Einheiten dieser Gesamtmenge sind verfügbar; der verbleibende Bruchteil bleibt als gemeinsamer Förderfortschritt erhalten. Einzelne Minen müssen dafür keine eigene ganze Einheit fertigstellen. Verschiedene Ressourcen und verschiedene Kolonien werden nicht zusammengefasst.
+
+Jedes Gebäude trägt nur entsprechend seiner tatsächlichen Betriebszeit und Leistung bei. Ein Neubau erhöht die Förderung ab Fertigstellung und setzt bereits erzielten gemeinsamen Teilfortschritt nicht zurück. Gleiche Gesamtförderung unter gleichen Betriebsbedingungen führt unabhängig von der Aufteilung auf einzelne Gebäude zu gleichen verfügbaren Mengen und Restfortschritten. Unterschiedliche Engpässe oder Betriebsbedingungen dürfen dabei nicht durch bloße Summation von Nennraten übergangen werden.
+
+**Spielerlebnis:** Die Verfügbarkeit folgt der Gesamtförderung der Kolonie. Viele langsam fördernde Minen liefern gemeinsam regelmäßig nutzbare Einheiten, statt auf den Abschluss einzelner Minen warten zu müssen.
+
+Die [Gherkin-Szenarien zur gemeinsamen Förderung](scenarios/pooled-extraction.feature) prüfen explizit eine Mine mit 6 Eisen pro Stunde gegen zwei Minen mit je 3 Eisen pro Stunde, den Erhalt des gemeinsamen Rests und einen Neubau bei bereits vorhandenem Teilfortschritt. Alle Raten und Zeitpunkte sind Testwerte.
+
+**Abgrenzung zur Verarbeitung:** Die Zusammenführung gilt zunächst für Förderung. Ob und wie verarbeitende Gebäude ihre Teilfortschritte zusammenführen, ist offen. Die bisherigen Wasserwerk-Regeln zur gemeinsamen Entnahme aller Einsatzstoffe für eine begonnene Einheit werden dadurch nicht geändert.
 
 ### Verzögerter Abbruch und Verlust von Voraussetzungen
 
