@@ -3,7 +3,7 @@ Feature: Production progress across updates and building completion
   Purpose: Specifies agreed production behavior using explicit examples.
   Rationale: Available resources and retained production progress must not depend
   on the engine or the frequency of updates. See economy.md, section
-  "Bauabschluss und Produktionsfortschritt".
+  "Construction Completion and Production Progress".
   Rates and times below are test parameters, not general building balance values.
   These scenarios are specifications; engine step bindings are not provided yet.
   Each coverage label names the behavior checked by that row and is included in

@@ -1,202 +1,226 @@
 ---
-status: in-klaerung
+status: under-discussion
 type: balancing-exploration
 ---
-# Ressourcenabbau über eine Runde: Szenarien und Extremfälle
+<a name="ressourcenabbau-über-eine-runde-szenarien-und-extremfälle"></a>
 
-**Stand: 2026-11-08.** Vom Projektinhaber gewünschte Exploration, kein beschlossenes Balancing. Für Eisen soll der Förderverlust möglicherweise praktisch vernachlässigbar bleiben. Für Eis ist die gewünschte Richtung: ungefähr ab dem ersten Rundendrittel spürbar, ab dem zweiten Drittel ein echtes strategisches Problem. Dies sind vorläufige zeitliche Zielmarken; was „spürbar“ und „Problem“ konkret bedeutet, bleibt zu operationalisieren.
+# Resource Extraction Over a Round: Scenarios and Extreme Cases
 
-Die [mathematische Grundlage](continuous-ice-extraction.md) erklärt Parameter, allgemeine Integralform und einfache Abschnittsformel. Hier untersuchen wir, welche Kurven dieses Modell unter unterschiedlichen Annahmen erzeugt. Es ist keine Simulation der gesamten Wirtschaft und keine Prognose realen Spielerverhaltens.
+**Status as of 2026-11-08.** The project owner requested this exploration. Balancing remains open. For iron, the loss of yield might remain negligible in practice. For ice, the desired direction is for the loss to become noticeable around the first third of the round and a genuine strategic problem around the second third. These timing targets are preliminary. What counts as “noticeable” or a “problem” still needs measurable criteria.
 
-## Vergleichsrahmen ohne vorweggenommene Rundendauer
+The [mathematical model](continuous-ice-extraction.md) explains the parameters, general integral form, and simple interval formula. Here we explore how the curves respond to different assumptions. The charts model extraction only and make no prediction about actual player behavior.
 
-Wir normieren die Zeit als x = t/T. T ist eine noch festzulegende Rundendauer; die Quelle startet für diese Beispiele bei R₀ = S und d₀ = 1. Alle Minen nutzen diese Quelle, sind versorgt und können ihre Förderkapazität einsetzen. Eine Mindestergiebigkeit, alternative Quellen und Lager-/Verbraucherrückwirkungen sind in den Charts **nicht** enthalten. Gerade die Kurven nahe null zeigen daher die Grenzen des Grundmodells und kein akzeptiertes Verhalten des Spiels.
+<a name="vergleichsrahmen-ohne-vorweggenommene-rundendauer"></a>
 
-| Größe | Bedeutung |
+## Comparison Without a Fixed Round Length
+
+Normalize time as x = t/T for a round length T still to be defined. For these examples, the deposit starts at R₀ = S and d₀ = 1. All mines use this deposit, are supplied, and can use their extraction capacity. The charts omit minimum yield, alternative deposits, and feedback from storage and consumers. Curves near zero illustrate where the base model falls short of the intended game behavior.
+
+| Quantity | Meaning |
 | --- | --- |
-| x = t/T | Verstrichener Anteil der Runde, 0 bis 1 |
-| P₀ | Anfangskapazität bei voller Referenzergiebigkeit, beispielsweise in Eis/h |
-| m(x) = P(t)/P₀ | Ausbauverlauf als Vielfaches dieser Kapazität |
-| α = P₀T/S | Dimensionslose Abbauintensität; großes S bedeutet kleines α |
-| J(x) = ∫₀ˣ m(v) dv | Dimensionslose kumulierte Referenzförderung |
+| x = t/T | Elapsed fraction of the round, 0 to 1 |
+| P₀ | Initial capacity at full reference yield, for example in ice/h |
+| m(x) = P(t)/P₀ | Expansion path as a multiple of that capacity |
+| α = P₀T/S | Dimensionless extraction intensity. Larger S means smaller α. |
+| J(x) = ∫₀ˣ m(v) dv | Dimensionless cumulative reference extraction |
 
-Damit gilt für die vorgegebenen Ausbaupläne:
+For the predefined expansion plans:
 
 $$
 d(x)=e^{-\alpha J(x)},\qquad \frac{q(x)}{P_0}=m(x)e^{-\alpha J(x)}.
 $$
 
-Die Pläne sind stückweise konstant: Jeder Kapazitätssprung steht für angenommene Fertigstellungen oder Upgrades. Zwischen diesen Ereignissen berechnen wir den Abbau direkt mit der einfachen Abschnittsformel. Die Chart-Stützpunkte dienen nur der Darstellung. **Kapazitätsfaktor ist nicht automatisch Minenzahl:** Unterschiedliche Minentypen, Stufen und Technologien können ebenfalls zu m beitragen.
+Plans are piecewise constant. Each jump in capacity represents assumed completions or upgrades. Between events, compute extraction directly with the simple interval formula. Sampling points serve only the charts. **The capacity multiplier can include mine types, levels, and technologies** as well as mine count.
 
-## Leseschlüssel: Warum die Kurven deutliche Knicke zeigen
+<a name="leseschlüssel-warum-die-kurven-deutliche-knicke-zeigen"></a>
 
-**Darstellungsannahme, keine Ausbauprognose:** Die Pläne bündeln den gesamten Ausbau in nur drei großen Kapazitätsänderungen bei 1/4, 1/2 und 3/4 der Runde. Beim schnellen Plan steigt P/P₀ beispielsweise zur Rundenhälfte auf einen Schlag von 3 auf 8. Das steht für ein angenommenes Ausbaupaket; es bedeutet weder eine einzelne Mine mit dieser Wirkung noch, dass Spieler nur dreimal pro Runde bauen.
+## Reading the Charts: Why the Curves Have Pronounced Kinks
 
-| Dargestellte Größe | Wirkung einer solchen Fertigstellung |
+**Plotting assumption.** The plans group all expansion into three large capacity changes at 1/4, 1/2, and 3/4 of the round. In the fast plan, for example, P/P₀ rises from 3 to 8 at mid-round. This represents an assumed batch of expansions. Actual players could build more often, in smaller increments.
+
+| Quantity shown | Effect of a completion |
 | --- | --- |
-| Referenzkapazität P | Springt auf den neu angenommenen Wert. |
-| Momentane Förderrate q | Springt ebenfalls, weil bei derselben verbleibenden Dichte mehr Kapazität arbeitet. Danach bremst der weitere Dichteverlust die Förderung wieder. |
-| Restvorkommen R und relative Dichte d | Bleiben stetig; ihre Abnahme wird unmittelbar nach dem Ausbau schneller. Die Kurven haben einen Knick, keinen Mengensprung. |
-| Kumulierte Förderung A | Bleibt stetig; nur die Steigung nimmt mit q sprunghaft zu. Bereits geförderte Mengen werden durch den Ausbau nicht rückwirkend erhöht. |
+| Reference capacity P | Jumps to the newly assumed value. |
+| Instantaneous extraction rate q | Also jumps because more capacity operates at the same remaining density. Further density loss then slows extraction again. |
+| Remaining deposit R and relative density d | Remain continuous and decline faster immediately after the expansion. The slopes change without jumps in quantity. |
+| Cumulative extraction A | Remains continuous. Its slope rises abruptly with q. Expansion leaves quantities already extracted intact. |
 
-Die gestrichelten senkrechten Linien markieren dagegen **Rundendrittel als Vergleichszeitpunkte**, keine Fertigstellungen. Die auffälligen Knicke liegen an den Viertelgrenzen der angenommenen Ausbaupakete.
+The vertical dashed lines mark **thirds of the round as comparison points**. The pronounced kinks lie at the quarter boundaries of the assumed expansions.
 
-**Zweck der Visualisierung:** Sie soll die Zusammenhänge zwischen Ausbau, beschleunigtem Dichteverlust, späterer Förderrate und kumuliertem Gesamtertrag sichtbar machen. Szenario A variiert dafür die Quellengröße, Szenario B den Ausbauplan und Szenario C zeigt einen idealisierten Kompensationsbedarf. Die wenigen großen Änderungen machen diese Wirkungen erkennbar, überzeichnen aber die Größe einzelner Fertigstellungseffekte gegenüber einem kleinteiligen Ausbau. Auch Zeitpunkt und Bündelung beeinflussen den Abbau und Gesamtertrag; diese Pläne sind keine ergebnisgleiche Zusammenfassung eines bereits bekannten realen Bauverlaufs.
+**Purpose of the charts.** Show how expansion, faster density decline, later extraction rates, and cumulative output interact. Scenario A varies deposit size, B varies expansion plans, and C shows idealized compensation. A few large changes make the effects visible and exaggerate individual completions compared with gradual expansion. Timing and grouping also affect depletion and total yield, so the plans do not reproduce a known sequence of actual construction.
 
-**Arbeitshypothese des Projektinhabers (2026-11-08):** Bei angenommener Rundendauer von einem Jahr könnte ein Spieler ungefähr 50–100 Eisminen bauen, vermutlich eher am oberen Ende. Dies ist eine erste Einschätzung, keine aus dem Gebäudemodell hergeleitete Zahl und keine festgelegte Rundendauer. Verteilung auf Kolonien, Minentypen und Technologien sowie die Unterscheidung zwischen über die Runde gebauten und gleichzeitig betriebenen Minen bleiben zu klären. Diese Einschätzung ist in den vorhandenen Charts noch nicht als eigener Ausbauplan umgesetzt.
+**Project owner's working hypothesis (2026-11-08).** In an assumed one-year round, a player might build around 50–100 ice mines, probably toward the high end. This preliminary estimate is independent of the building model, and round length remains open. Distribution across colonies, mine types, and technologies remains open, as does the distinction between mines built over a round and mines operating at the same time. The current charts have no expansion plan based on this estimate.
 
-Bei vielen verteilten Fertigstellungen wären mehr, meist kleinere Knicke zu erwarten. Vor allem bei gleichartigen Minen wird der relative Zuwachs einer einzelnen zusätzlichen Mine mit wachsendem Bestand kleiner. Neue Minentypen oder Technologien können weiterhin größere Änderungen verursachen. Wie viele Minen plausibel sind und wann sie fertig werden, lässt sich erst mit Gebäudeangebot, Förderleistung, Infrastrukturbedarf, konkurrierenden Bauvorhaben und Bauzeiten belastbarer bestimmen. Bis dahin zeigen die Charts hypothetische Modellreaktionen; sie belegen weder erreichbare Strategien noch die gewünschte Spielerwirkung.
+Many staggered completions would create more and usually smaller kinks. For similar mines, an extra mine's relative contribution falls as the installed base grows. New mine types or technologies can still have larger effects. Plausible mine counts and timing depend on available buildings, output, infrastructure requirements, competing construction, and build times. For now, the charts show hypothetical model responses. Feasible strategies and the intended player experience still need validation.
 
-## Szenario A: Sehr große, mittlere und sehr kleine Quelle
+<a name="szenario-a-sehr-große-mittlere-und-sehr-kleine-quelle"></a>
 
-Für alle drei Kurven gilt derselbe Ausbauplan:
+## Scenario A: Very Large, Medium, and Very Small Deposits
 
-| Rundenanteil | 0 bis 1/4 | 1/4 bis 1/2 | 1/2 bis 3/4 | 3/4 bis Ende |
+All three curves use the same expansion plan:
+
+| Fraction of the round | 0 to 1/4 | 1/4 to 1/2 | 1/2 to 3/4 | 3/4 to end |
 | --- | ---: | ---: | ---: | ---: |
 | m = P/P₀ | 1 | 2 | 4 | 8 |
 
-Die Ereignisse liegen bewusst in Vierteln, während die Vergleichsmarken in Dritteln liegen. Die Zielzeitpunkte ergeben sich also nicht aus einem dort gesetzten Kapazitätssprung.
+The capacity changes are deliberately at quarter boundaries and the comparison markers at thirds, so the target times do not coincide with a capacity jump.
 
-![Sehr große bis sehr kleine Quelle: Effizienz, tatsächliche Förderung und Detail des kaum merklichen Verlusts](assets/ice-extraction/round-extremes.svg)
+![Very large to very small deposits, showing efficiency, actual extraction, and detail of the barely visible loss](assets/ice-extraction/round-extremes.svg)
 
-| Hypothetische Parametrisierung | α | Dichte bei 1/3 | Dichte bei 2/3 | Dichte am Ende |
+| Hypothetical parameters | α | Density at 1/3 | Density at 2/3 | Final density |
 | --- | ---: | ---: | ---: | ---: |
-| Große Quelle; möglicher Eisen-Vergleich | 0,001 | 99,96 % | 99,86 % | 99,63 % |
-| Mittlere Quelle; Eis-Untersuchung | 0,5 | 81,19 % | 49,25 % | 15,34 % |
-| Kleine Quelle; zu frühe starke Verknappung | 4 | 18,89 % | 0,35 % | 0,000031 % |
+| Large deposit, possible iron comparison | 0.001 | 99.96% | 99.86% | 99.63% |
+| Medium deposit, ice example | 0.5 | 81.19% | 49.25% | 15.34% |
+| Small deposit, severe scarcity too early | 4 | 18.89% | 0.35% | 0.000031% |
 
-Im mittleren Beispiel steigt der rechnerische Kapazitätsbedarf für denselben Durchsatz gegenüber einer unverminderten Quelle auf etwa **Faktor 1,23 bei einem Drittel**, **2,03 bei zwei Dritteln** und **6,52 am Ende**. Das sind jeweils 1/d am betrachteten Zustand: ein momentaner Vergleich, kein bereits simulierter Kompensationsausbau. Zusätzlicher tatsächlicher Ausbau würde den späteren Dichteverlauf wiederum ändern.
+In the middle example, matching the throughput of an undepleted deposit takes around **1.23 times the capacity at one-third**, **2.03 times at two-thirds**, and **6.52 times at the end**. These are instantaneous comparisons using 1/d at each point. Adding actual capacity would itself change later density.
 
-**Interpretation:** Das Modell kann einen fast unsichtbaren Verlust für eine große Quelle und einen zunehmend relevanten Effizienzverlust für Eis erzeugen. Der Kurvenverlauf ist aber noch kein Nachweis für die gewünschte Spielerwirkung. Tatsächliche Förderung kann dank Ausbau steigen, während die Effizienz fällt. Für einen Versorgungsmangel braucht es zusätzlich einen Bedarfspfad und die Entwicklung der Vorräte.
+**Interpretation.** The model can produce a nearly invisible yield loss for a large deposit and an increasingly important efficiency loss for ice. The intended player experience still needs testing. Actual extraction can increase through expansion even as efficiency falls. A shortage also depends on demand and the evolution of stocks.
 
-Beim großen Vorkommen liegt der Verlust in diesem Ausbauplan am Ende unter 0,4 Prozentpunkten. „Praktisch vernachlässigbar“ muss später gegen Anzeigeauflösung und tatsächliche wirtschaftliche Wirkung geprüft werden. Bei stärkerem Ausbau ist derselbe Wert nicht garantiert. Bei der kleinen Quelle führt das Grundmodell fast zu null; die geplante Mindestergiebigkeit muss diesen Bereich später anders behandeln.
+With the large deposit and this plan, the final loss is below 0.4 percentage points. Evaluate whether that is negligible against display resolution and economic impact. Higher expansion can raise the loss. For the small deposit, the base model approaches zero, a region the planned minimum yield will need to handle differently.
 
-## Szenario B: Gleiche Quelle, verschiedene Ausbaupläne
+<a name="szenario-b-gleiche-quelle-verschiedene-ausbaupläne"></a>
 
-Alle Kurven verwenden α = 0,5. Nur der vorgegebene Ausbau wird verändert:
+## Scenario B: Same Deposit, Different Expansion Plans
 
-| Plan | Erstes Viertel | Zweites Viertel | Drittes Viertel | Letztes Viertel |
+All curves use α = 0.5 and vary only the predefined expansion:
+
+| Plan | First quarter | Second quarter | Third quarter | Last quarter |
 | --- | ---: | ---: | ---: | ---: |
-| Langsam | 1 | 1,5 | 2 | 3 |
-| Mittel | 1 | 2 | 4 | 8 |
-| Schnell | 1 | 3 | 8 | 20 |
-| Ausbaustopp ab 1/3 | 1 | 2 | 2 | 2 |
+| Slow | 1 | 1.5 | 2 | 3 |
+| Medium | 1 | 2 | 4 | 8 |
+| Fast | 1 | 3 | 8 | 20 |
+| Stop expanding at 1/3 | 1 | 2 | 2 | 2 |
 
-Beim Ausbaustopp wird bis 1/3 der mittlere Plan verfolgt. Die letzte Fertigstellung war bei 1/4; danach werden die ab 1/2 geplanten Ausbauten nicht mehr umgesetzt. Bereits betriebene Minen laufen weiter. Dies modelliert einen Ausbaustopp, keine Stilllegung und keine vollständige Abwesenheitssimulation.
+The stopped plan follows the medium plan until 1/3. The last completion was at 1/4. Expansion scheduled from 1/2 onward does not occur. Existing mines keep running. Broader effects of player absence and mine shutdowns are outside this scenario.
 
-![Ausbaupläne mit ihren Auswirkungen auf Dichte und tatsächliche Förderung](assets/ice-extraction/round-growth.svg)
+![Expansion plans and their effects on density and actual extraction](assets/ice-extraction/round-growth.svg)
 
-| Plan | Dichte bei 1/3 | Dichte bei 2/3 | Dichte am Ende | Förderung am Ende in P₀ |
+| Plan | Density at 1/3 | Density at 2/3 | Final density | Final extraction in units of P₀ |
 | --- | ---: | ---: | ---: | ---: |
-| Langsam | 82,90 % | 61,93 % | 39,16 % | 1,175 |
-| Mittel | 81,19 % | 49,25 % | 15,34 % | 1,227 |
-| Schnell | 77,88 % | 31,14 % | 1,83 % | 0,366 |
-| Ausbaustopp | 81,19 % | 58,18 % | 41,69 % | 0,834 |
+| Slow | 82.90% | 61.93% | 39.16% | 1.175 |
+| Medium | 81.19% | 49.25% | 15.34% | 1.227 |
+| Fast | 77.88% | 31.14% | 1.83% | 0.366 |
+| Stop expanding | 81.19% | 58.18% | 41.69% | 0.834 |
 
-**Befund:** Im schnellen Plan sinkt die Förderung am Rundenende trotz zwanzigfacher Referenzkapazität unter die Anfangsförderung. Der langsamere Ausbau liefert zu diesem Zeitpunkt mehr, obwohl er weniger Kapazität hat. Die momentane Rate allein sagt nicht, welcher Spieler bis dahin insgesamt mehr gefördert oder wirtschaftlich mehr erreicht hat. Die kumulierte Förderung wird im folgenden Chart separat betrachtet. Ein günstigerer Endwert der Förderrate ist kein automatischer Beleg für eine bessere Strategie.
+**Observation.** The fast plan ends below its initial extraction rate despite twenty times the reference capacity. Slower expansion yields more at that point despite having less capacity. The instantaneous rate alone does not establish which player extracted more in total or developed a stronger economy. The next chart compares cumulative extraction. A better final rate alone does not establish a better strategy.
 
-Daraus folgt ein Balancingrisiko: Ein für den mittleren Plan passend dimensioniertes Vorkommen kann bei starkem Ausbau zu früh problematisch werden. Ob dies erwünschter Raubbau-Druck oder eine Bestrafung aktiver Spieler ist, muss über erreichbare Gegenmaßnahmen, Informationsqualität und konkrete Wirtschaftsverläufe bewertet werden. Eine vom Kalendertag allein bestimmte Verknappung wäre eine andere Mechanik als abbauabhängige Ergiebigkeit.
+A deposit sized for the medium plan could become a problem too early under fast expansion. Whether this rewards restraint or penalizes active players depends on reachable responses, quality of information, and actual economic trajectories. Scarcity tied only to the calendar would behave differently from extraction-driven depletion.
 
-### Kumulierte Förderung: Wie viel wurde insgesamt gewonnen?
+<a name="kumulierte-förderung-wie-viel-wurde-insgesamt-gewonnen"></a>
 
-Die momentane Rate q beantwortet „Wie viel pro Stunde wird jetzt gefördert?“. Die kumulierte Menge A beantwortet „Wie viel wurde seit Rundenbeginn insgesamt aus der Quelle gewonnen?“. Unter denselben Annahmen wie in Szenario B gilt mit R₀ = S:
+### Cumulative Extraction: How Much Has Been Extracted in Total?
+
+The instantaneous rate q gives current extraction per hour. Cumulative A gives total extraction from the deposit since the start of the round. With the assumptions in scenario B and R₀ = S:
 
 $$
 A(t)=\int_0^t q(u)\,du=S-R(t),\qquad
 \frac{A(x)}{S}=1-e^{-\alpha J(x)}=1-d(x).
 $$
 
-Der Chart zeigt diese Menge über die ganze Runde für die vier unveränderten Ausbaupläne. Die linke Achse gibt den geförderten Anteil des ursprünglichen Vorkommens an. Die rechte Achse übersetzt exakt dieselben Kurven in Tausend Einheiten für das bereits verwendete **Skalierungsbeispiel S = 864.000 Einheiten** (T = 180 Tage, P₀ = 100 Einheiten/h, α = 0,5). Die Rundendauer ist weiterhin keine Festlegung.
+The chart shows the amount over a whole round for the same four expansion plans. The left axis gives the extracted share of the original deposit. The right axis expresses the same curves in thousands of units for the **scaling example S = 864,000 units** (T = 180 days, P₀ = 100 units/h, α = 0.5). Round length remains open.
 
-**Lesehinweis:** Die Knicke bei 1/4, 1/2 und 3/4 stammen aus den grob gebündelten Ausbaupaketen. Die kumulierte Menge springt dort nicht; ihre Steigung ändert sich. Einzelne Minenfertigstellungen sind in diesen Plänen nicht aufgelöst.
+**Reading the chart.** Kinks at 1/4, 1/2, and 3/4 come from the grouped expansions. The slope changes while the cumulative quantity stays continuous. Individual mine completions are not resolved.
 
-![Kumulierte Förderung über die Runde für langsamen, mittleren und schnellen Ausbau sowie Ausbaustopp](assets/ice-extraction/round-cumulative.svg)
+![Cumulative extraction over the round under slow, medium, and fast expansion and an expansion stop](assets/ice-extraction/round-cumulative.svg)
 
-| Plan | Bis 1/3 gefördert, Anteil von S | Bis 2/3 gefördert, Anteil von S | Bis Rundenende gefördert, Anteil von S | Gesamtmenge bei Beispiel S = 864.000 |
+| Plan | Extracted by 1/3, share of S | Extracted by 2/3, share of S | Extracted by round end, share of S | Total for example S = 864,000 |
 | --- | ---: | ---: | ---: | ---: |
-| Langsam | 17,10 % | 38,07 % | 60,84 % | 525.652,74 |
-| Mittel | 18,81 % | 50,75 % | 84,66 % | 731.501,31 |
-| Schnell | 22,12 % | 68,86 % | 98,17 % | 848.175,29 |
-| Ausbaustopp | 18,81 % | 41,82 % | 58,31 % | 503.831,21 |
+| Slow | 17.10% | 38.07% | 60.84% | 525,652.74 |
+| Medium | 18.81% | 50.75% | 84.66% | 731,501.31 |
+| Fast | 22.12% | 68.86% | 98.17% | 848,175.29 |
+| Stop expanding | 18.81% | 41.82% | 58.31% | 503,831.21 |
 
-**Befund:** Der schnelle Ausbau führt in diesen Beispielen bei der Gesamtmenge, obwohl seine momentane Rate am Rundenende niedriger ist. Frühe Mehrförderung bleibt Teil des Gesamtertrags. Sinkt die spätere Rate, wächst die kumulierte Menge langsamer weiter; sie sinkt dadurch nicht. Am Minenbauabschluss bleibt A stetig, während sich ihre Steigung mit q ändern kann. An der Obergrenze S flacht die Kurve zunehmend ab: Dieses Grundmodell liefert aus einer einzelnen endlichen Quelle insgesamt höchstens deren ursprüngliche Menge.
+**Observation.** Fast expansion leads in total quantity despite a lower instantaneous rate at round end. Extra early extraction remains in the total. A declining rate slows cumulative growth without decreasing the total. At mine completion A stays continuous while its slope can change with q. The curve flattens as it approaches S. This base model yields at most the initial quantity from one finite deposit.
 
-**Eigenschaft des Modells:** Bei gleichem S, gleichem Anfangsvorkommen und demselben proportionalen Gesetz wächst A mit der kumulierten Referenzförderung ∫P du. Hat ein Ausbauplan zu jedem Zeitpunkt mindestens so viel P wie ein anderer, kann er bei der kumulierten Bruttoförderung nicht zurückfallen. Genau so sind schneller, mittlerer und langsamer Plan hier geordnet. Der Ausbaustopp ist gegenüber dem langsamen Plan nicht durchgehend nach P geordnet; entsprechend können sich ihre kumulierten Kurven kreuzen. Eine niedrigere späte Förderrate ist also kein Widerspruch zu einer höheren Gesamtförderung. Bei anders verteilten Ausbauzeitpunkten entscheidet die bis dahin aufsummierte Referenzförderung, nicht die zuletzt vorhandene Kapazität.
+**Model property.** Given the same S, initial deposit, and proportional law, A increases with cumulative reference extraction ∫P du. If one plan always has at least as much P as another, its gross cumulative extraction cannot fall behind. The fast, medium, and slow plans are ordered that way here. The stopped and slow plans are not consistently ordered by P, so their cumulative curves can cross. A lower late rate can therefore coexist with higher total extraction. If expansion timings differ, cumulative capacity up to the point of comparison determines the outcome.
 
-**Abgrenzung:** A ist Bruttoförderung aus der Quelle, weder Lagerbestand noch wirtschaftlicher Nettogewinn. Bereits verbrauchtes oder wegen Lagergrenzen verfallenes Material zählt zur geförderten Menge. Baukosten und verdrängte Bauzeit werden nicht abgezogen; sie gehören zur noch offenen Bewertung der Strategie. Ein Speicherbestand könnte fallen, obwohl A weiter steigt. Die Rangfolge ist außerdem keine Aussage für andere Fördergesetze, Mindestergiebigkeit oder mehrere neu erschlossene Quellen.
+**Scope.** A is gross extraction from the deposit. Consumed resources and losses due to storage limits count toward it. Construction costs and displaced build time are not deducted and belong to a separate strategy evaluation. Stocks can fall as A rises. Different extraction laws, minimum yields, or additional deposits may change the ranking.
 
-## Szenario C: Durchsatz trotz Verlust konstant halten
+<a name="szenario-c-durchsatz-trotz-verlust-konstant-halten"></a>
 
-Ein weiterer Extremfall fragt: Wie viel Kapazität wäre nötig, um q = P₀ unverändert zu liefern? Für diese Gedankenrechnung darf der Spieler Kapazität jederzeit kontinuierlich und ohne Kosten oder Bauzeit anpassen. Dies ist eine idealisierte Anforderungskurve, kein umsetzbarer Bauplan.
+## Scenario C: Maintaining Throughput as Yield Declines
 
-Solange der Durchsatz vollständig gedeckt wird und keine Mindestergiebigkeit greift, gilt:
+This extreme case asks how much capacity would maintain q = P₀. In the calculation, the player can change capacity continuously, without costs or construction time. The curve describes an idealized capacity requirement.
+
+As long as throughput is fully maintained and no minimum yield applies:
 
 $$
 R(t)=S-P_0t,\qquad d(x)=1-\alpha x,\qquad
-\frac{P_{\mathrm{erforderlich}}(x)}{P_0}=\frac{1}{1-\alpha x},\quad \alpha x<1.
+\frac{P_{\mathrm{required}}(x)}{P_0}=\frac{1}{1-\alpha x},\quad \alpha x<1.
 $$
 
-![Idealisierter Kompensationsbedarf: lineare Dichteabnahme und immer steiler steigende Kapazität](assets/ice-extraction/round-compensation.svg)
+![Idealized compensation requirement, with linear density decline and increasingly steep growth in required capacity](assets/ice-extraction/round-compensation.svg)
 
-Bei α = 0,9 braucht man zur Hälfte der Runde Faktor 1,82, bei zwei Dritteln Faktor 2,5 und am Ende Faktor 10 an Kapazität. Bei α = 1,2 wäre die endliche Quelle bei x = 5/6 aufgebraucht, wenn der Durchsatz bis dahin gehalten werden könnte. Schon davor wächst die nötige Kapazität unbegrenzt; ein realer Ausbau stößt früher an Grenzen. Der Chart zeigt den Kapazitätsbedarf nur bis Faktor 12 und setzt die Lösung jenseits der Erschöpfungsgrenze nicht fort.
+For α = 0.9, the required capacity multipliers are 1.82 at mid-round, 2.5 at two-thirds, and 10 at round end. For α = 1.2, the finite deposit would run out at x = 5/6 if throughput could be maintained that long. Required capacity grows without bound before that point, and real expansion would hit its limits sooner. The chart caps the display at factor 12 and stops at the depletion boundary.
 
-Das widerspricht nicht der asymptotischen Annäherung bei konstantem P: Hier wird P gerade ständig erhöht und würde gegen unendlich gehen. Die idealisierte Annahme ist am Grenzzeitpunkt nicht mehr erfüllbar.
+The asymptotic curve for constant P uses a different capacity path. Here P rises continuously and tends to infinity. The assumption cannot be met at the boundary.
 
-**Offene Verbindung zum Spiel:** Minentypen, Baukosten, Technologien und Bauzeiten bestimmen, welche Kapazität erreichbar ist und wie viel Bauzeit sie verdrängt. Man kann aus diesen Charts weder die Zahl notwendiger Minen noch die verlorene Forschungs- oder Militärentwicklung ablesen. Steigender tatsächlicher Bedarf würde den Kompensationsdruck zusätzlich verändern.
+**Connection to gameplay.** Mine types, costs, technologies, and build times determine attainable capacity and displaced construction time. Deriving mine counts or lost research or military development requires those inputs. Growing demand would also change the pressure to compensate.
 
-## Aus Zielmarken Parameter ableiten
+<a name="aus-zielmarken-parameter-ableiten"></a>
 
-Für einen angenommenen Ausbauplan lässt sich S aus einer gewünschten relativen Dichte d* bei x* berechnen:
+## Deriving Parameters from Targets
+
+For an assumed expansion plan, derive S from a desired relative density d* at x*:
 
 $$
 \alpha=\frac{-\ln d_{\ast}}{J(x_{\ast})},\qquad
 S=\frac{P_0T\,J(x_{\ast})}{-\ln d_{\ast}}.
 $$
 
-Dies gilt hier für d₀ = 1, 0 < d* < 1 und positive Beanspruchung J(x*). Bei anderen Anfangsdichten tritt d*/d₀ in den Logarithmus ein. Nur ein Zielpunkt bestimmt α. **Zwei frei gewählte Zielpunkte sind nicht automatisch mit derselben Quelle und demselben Ausbauplan erreichbar:** Es muss gelten
+This applies to d₀ = 1, 0 < d* < 1, and positive J(x*). With a different initial density use d*/d₀ in the logarithm. A single target fixes α. Two chosen targets can be met by the same deposit and expansion plan only if:
 
 $$
 \frac{-\ln d_1}{J(x_1)}=\frac{-\ln d_2}{J(x_2)}.
 $$
 
-Beispielsweise wären 80 Prozent Dichte bei einem Drittel und 50 Prozent bei zwei Dritteln im mittleren Plan keine exakt zusammenpassenden Vorgaben: Sie erfordern α ≈ 0,536 beziehungsweise α ≈ 0,489. Das Vergleichsbeispiel α = 0,5 liegt nahe beiden Werten. Die Prozentzahlen sind Illustrationen, keine bereits beschlossenen Bedeutungen von „spürbar“ und „Problem“.
+For example, the medium plan needs α ≈ 0.536 for 80% density at one-third and α ≈ 0.489 for 50% at two-thirds. The comparison value α = 0.5 is close to both. These percentages illustrate the calculation. The meaning of “noticeable” and “problem” remains open.
 
-### Übertragung in reale Tage: reine Skalierungsbeispiele
+<a name="übertragung-in-reale-tage-reine-skalierungsbeispiele"></a>
 
-Mit dem gleichen normierten Ausbauplan und α = 0,5 ergeben sich bei der willkürlich gesetzten Anfangskapazität P₀ = 100 Einheiten/h:
+### Conversion to Real Days: Scaling Examples
 
-| Angenommene Rundendauer T | Erstes Drittel | Zweites Drittel | Referenzmenge S |
+With the same normalized expansion plan and α = 0.5, choosing an illustrative starting capacity of P₀ = 100 units/h gives:
+
+| Assumed round length T | One-third | Two-thirds | Reference quantity S |
 | --- | ---: | ---: | ---: |
-| 90 Tage | Tag 30 | Tag 60 | 432.000 Einheiten |
-| 180 Tage | Tag 60 | Tag 120 | 864.000 Einheiten |
-| 360 Tage | Tag 120 | Tag 240 | 1.728.000 Einheiten |
+| 90 days | Day 30 | Day 60 | 432,000 units |
+| 180 days | Day 60 | Day 120 | 864,000 units |
+| 360 days | Day 120 | Day 240 | 1,728,000 units |
 
-Diese Skalierung hält den Ausbauplan relativ zur Runde fest. Sie behauptet nicht, dass Spieler in einer halb so langen Runde dieselben Technologien und Minen erreichen. Bei unveränderten realen Bauzeiten ist der Ausbauplan neu zu bestimmen. S ist weiterhin die feste Quellenreferenz, keine nach jedem Ausbau neu gesetzte Menge.
+Scaling fixes the expansion plan relative to the round. If absolute build times stay the same, recalculate the expansion plan for each round length to see what players could build. S stays fixed across expansions.
 
-## Noch zu klärende Balancing-Annahmen
+<a name="noch-zu-klärende-balancing-annahmen"></a>
 
-| Frage | Warum sie den Verlauf verändert |
+## Open Balancing Assumptions
+
+| Question | Why it changes the curve |
 | --- | --- |
-| Wie lange dauert eine Runde, und was bedeutet Rundenende? | Bestimmt die absolute Zeitskala und das angestrebte Tempo. |
-| Wie entwickeln sich Minentypen, Technologien und Bauzeiten? | Bestimmt den plausiblen Kapazitätspfad statt frei gewählter Sprünge. |
-| Wie viel Kapazität bauen langsame, mittlere und sehr aktive Spieler? | Bestimmt die Bandbreite, für die das Balancing funktionieren muss. |
-| Wie entwickeln sich Eis-/Wasserbedarf und Vorräte? | Erst damit werden tatsächliche Versorgungslücken und Warnzeiten sichtbar. |
-| Wann werden andere Quellen erschlossen, und wie wirkt die Mindestergiebigkeit? | Bestimmt Gegenmaßnahmen und den späteren Kurvenast. |
-| Gelten Ziele für Rundenalter oder Kolonie-/Spieleralter? | Späteinsteiger und neue Kolonien dürfen nicht versehentlich dem falschen Zeithorizont zugeordnet werden. |
+| How long is a round, and what happens at its end? | Determines the absolute time scale and intended pace. |
+| How do mine types, technologies, and build times develop? | Determines a plausible capacity path in place of arbitrary jumps. |
+| How much capacity do slow, moderate, and highly active players build? | Determines the range that balancing must cover. |
+| How do ice and water demand and stocks evolve? | Reveals actual supply gaps and warning times. |
+| When do players reach other deposits, and how does minimum yield work? | Determines available responses and the later part of the curve. |
+| Do targets apply to round age or colony or player age? | Late entrants and new colonies need the correct reference time. |
 
-**Vorschlag für überprüfbare Wirkungskriterien:** Ab ungefähr 1/3 muss Kompensation einen merklichen Anteil der verfügbaren Bauzeit beanspruchen. Ab ungefähr 2/3 wird ohne Quellenwechsel oder erheblichen Verzicht auf andere Entwicklung ein Versorgungsdefizit absehbar. Schwellen, Vorwarnzeit und erfasste Spielertypen sind gemeinsam festzulegen. Die Charts allein bestätigen diese Wirkung noch nicht.
+**Proposed measurable criteria.** From around one-third, maintaining output takes a noticeable share of available construction time. From around two-thirds, a shortage is foreseeable unless the player changes sources or substantially reduces investment elsewhere. Define thresholds, warning time, and player types together. The charts alone cannot verify these effects.
 
-Für die nächste Balancingrunde brauchen wir deshalb mindestens einen plausiblen Ausbaupfad mit Bauzeiten und einen Bedarfspfad. Zunächst Bandbreiten verwenden; Unsicherheit über Spielerverhalten nicht durch einen einzelnen scheinbar präzisen Minenzahlwert verdecken.
+The next balancing iteration needs at least one plausible expansion path with build times and one demand path. Start with ranges so uncertainty in player behavior stays visible.
 
-## To-do: Charts für konkrete Balancing-Iterationen
+<a name="to-do-charts-für-konkrete-balancing-iterationen"></a>
 
-- [ ] Die Charts als separate Balancing-Auswertung für konkrete Gebäude- und Planetenwerte generieren, sobald wir diese Werte balancen oder eine erste Iteration mit Ad-hoc-Werten beginnen. Vorläufige Werte müssen dafür nicht vollständig abgestimmt sein; sie werden ausdrücklich als Annahmen gekennzeichnet. Je Iteration die verwendeten Gebäudeparameter (Förderleistung, Bauzeiten und Betriebsbedarf), Planetenparameter (Vorkommen und Dichte), Rundendauer und Ausbaupläne mitführen. Dichte, momentane Förderrate und kumulierte Förderung für mehrere Ausbauverläufe als eigene SVGs ausgeben. Die Parameterstände und Annahmen zusammen mit den Charts dokumentieren, damit sich die Ergebnisse reproduzieren und zwischen Iterationen vergleichen lassen. Dabei kleinteilig verteilte Fertigstellungen betrachten; die bisherigen großen Ausbaupakete dienen nur der Erklärung der Modellzusammenhänge.
+## To-Do: Charts for Specific Balancing Iterations
 
-## Reproduktion und geprüfter Umfang
+- [ ] Generate separate balancing charts for concrete building and planet values when balancing them or starting a first iteration with ad hoc values. Preliminary values can be used if explicitly marked as assumptions. Record building parameters (extraction capacity, build times, and operating needs), planet parameters (deposits and density), round length, and expansion plans per iteration. Produce separate SVGs for density, instantaneous extraction rate, and cumulative extraction across several expansion paths. Record parameter versions and assumptions next to the charts so results can be reproduced and compared across iterations. Model staggered completions at a finer scale. The existing large expansion batches illustrate the relationships in the model.
+
+<a name="reproduktion-und-geprüfter-umfang"></a>
+
+## Reproduction and Verification Scope
 
 ```sh
 python -m pip install matplotlib
 python doc/game-design/tools/plot_extraction_scenarios.py
 ```
 
-Das [Hilfsskript](tools/plot_extraction_scenarios.py) erzeugt die vier SVG-Charts und lokale PNG-Vorschauen. Es prüft die Gleichheit von Integralform, Produkten der Abschnittsformeln und zusätzlich unterteilten Abschnitten für alle Ausbaupläne und Abbauintensitäten. Ein linearer zeitlicher Leistungsanstieg sowie die Kompensationsgleichung werden separat mathematisch geprüft. Die kumulierte Förderung wird zusätzlich gegen die Summe der exakten Abschnittsförderungen sowie auf Monotonie und Mengenbilanz geprüft. Keine Aussage über Laufzeit, Java-Engine oder die vollständige Wirtschaft ist damit getestet.
+The [script](tools/plot_extraction_scenarios.py) generates the four SVGs and local PNG previews. It checks that the integral, products of interval formulas, and further subdivisions agree for all expansion plans and intensities. It checks a linear increase in capacity and the compensation equation separately. It also verifies cumulative extraction against the sum of exact interval yields and checks monotonicity and material balance. Runtime performance, the Java engine, and the full economy are outside these checks.

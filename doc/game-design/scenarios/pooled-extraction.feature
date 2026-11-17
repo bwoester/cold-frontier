@@ -3,7 +3,7 @@ Feature: Pooled extraction within a colony
   Purpose: Specifies agreed pooling of fractional extraction across mines.
   Rationale: Whole resource availability follows the colony's combined extraction,
   not completion of a whole unit by each mine. See economy.md, section
-  "Gemeinsame Förderung je Kolonie und Ressource".
+  "Pooled Extraction per Colony and Resource".
   All quantities and times are test parameters. Step bindings are not yet provided.
 
   Background:

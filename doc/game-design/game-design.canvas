@@ -3,7 +3,7 @@
     {
       "id": "root",
       "type": "text",
-      "text": "# Cold Frontier\nSpielmechaniken – explorative Landkarte\n**Karten sind keine beschlossenen Requirements.**",
+      "text": "# Cold Frontier\nGame mechanics map\n**The map shows topics under exploration.**",
       "x": 0,
       "y": 0,
       "width": 350,
@@ -39,7 +39,7 @@
     {
       "id": "planet",
       "type": "text",
-      "text": "## Planeten & Kolonisation\nProjektziel · Fachregeln offen",
+      "text": "## Planets & Colonization\nProject goal · rules open",
       "x": -440,
       "y": 515,
       "width": 310,
@@ -48,7 +48,7 @@
     {
       "id": "fleet",
       "type": "text",
-      "text": "## Flotten & Konflikte\nProjektziel · Fachregeln offen",
+      "text": "## Fleets & Conflict\nProject goal · rules open",
       "x": -90,
       "y": 515,
       "width": 310,
@@ -57,7 +57,7 @@
     {
       "id": "research",
       "type": "text",
-      "text": "## Forschung & Technologien\nProjektziel · Fachregeln offen",
+      "text": "## Research & Technology\nProject goal · rules open",
       "x": 260,
       "y": 515,
       "width": 310,

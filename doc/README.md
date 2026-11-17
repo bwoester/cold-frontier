@@ -1,38 +1,48 @@
-# Cold Frontier – Wissensbasis
+<a name="cold-frontier--wissensbasis"></a>
 
-Diese Dokumentation ist bewusst **ein wachsendes Arbeitsmodell**, kein fertiges Pflichtenheft und keine verbindliche Soll-Architektur.
+# Cold Frontier Knowledge Base
 
-## Einstieg in Obsidian
+This documentation is a **working model that evolves with the project**. It does not constitute a finished requirements specification or an agreed target architecture.
 
-Öffne das Repository (oder den Ordner `doc/`) als Obsidian-Vault. Einstieg: [[game-design/overview]] oder die visuelle Karte [[game-design/game-design.canvas]]. Interne Links beziehen sich auf Dateien in `doc/`.
+<a name="einstieg-in-obsidian"></a>
 
-## Bereiche
+## Getting Started in Obsidian
 
-- [[game-design/overview|Spielmechaniken]] – Themenkarte und aktueller Erkenntnisstand.
-- [[game-design/economy|Planetare Wirtschaft]] – erster vertiefter Bereich mit Fragen und Beispielen.
-- [Kontinuierliche Eisförderung](game-design/continuous-ice-extraction.md) – Formeln, Parameter, Beispiele und Charts zur Fortschreibung zwischen Ereignissen.
-- [Abbau über eine Runde](game-design/extraction-balancing-scenarios.md) – Langzeitszenarien, Extremfälle und offene Balancing-Annahmen.
-- [[sources/icewars-catalog|Alte IceWars-Unterlagen – Fortschritt]] – Quelleninventar, Analyse, Dokumentation und Archivierung.
-- [[game-design/icewars-references|IceWars-Recherche]] – historische Inspiration, **keine** Cold-Frontier-Anforderungen.
-- [[architecture/current-state|Technischer Ist-Zustand]] – beobachteter Prototyp, keine Architekturentscheidung.
-- [Auftragsreihenfolge und konkurrierende Aktionen](architecture/command-ordering.md) – offene Architekturfrage für das gesamte Spiel.
-- [[notes|Frühere technische Notizen]] – unveränderte Ideensammlung.
-- [[personas/overall-tone|Erzählton]] und [[personas/interpersonal-dynamics|Berater-Beziehungen]] – vorhandene Figurenkonzepte.
+Open the repository (or the `doc/` directory) as an Obsidian vault. Start with [Game Mechanics Overview](game-design/overview.md) or the visual map [Game Design Canvas](game-design/game-design.canvas). Internal links refer to files in `doc/`.
 
-## Qualitätspriorität
+<a name="bereiche"></a>
 
-**Vom Projektinhaber am 2026-11-01 klargestellt:** Das Simulationssystem soll einfach verständlich, nachvollziehbar und beherrschbar sein. Technische Raffinesse oder spekulative Ressourceneinsparungen rechtfertigen keine schwer nachvollziehbare Verarbeitung. Zeitmodell und Ausführungsstrategie werden anhand fachlicher Szenarien und realistischer Betriebsziele bewertet; weder globale Ticks noch Lazy-Fortschreibung sind damit beschlossen oder grundsätzlich ausgeschlossen. Die Erfahrungen aus dem früheren Lazy-Entwurf stehen im [[sources/icewars-catalog#Einordnung RD-01 – früherer Lazy-Ansatz und heutige Priorität|Quellenkatalog]].
+## Sections
 
-## Konventionen
+- [Game Mechanics](game-design/overview.md) – map of topics and current understanding.
+- [Planetary Economy](game-design/economy.md) – the first topic explored in depth, with questions and examples.
+- [Continuous Ice Extraction](game-design/continuous-ice-extraction.md) – formulas, parameters, examples, and charts for advancing the simulation between events.
+- [Extraction Over a Round](game-design/extraction-balancing-scenarios.md) – long-term scenarios, extreme cases, and open balancing assumptions.
+- [Historical IceWars Materials – Progress](sources/icewars-catalog.md) – source inventory, analysis, documentation, and archiving.
+- [IceWars Research](game-design/icewars-references.md) – historical inspiration rather than Cold Frontier requirements.
+- [Current Technical State](architecture/current-state.md) – observations of the prototype, with no architectural decision implied.
+- [Command Ordering and Concurrent Actions](architecture/command-ordering.md) – an open architecture question for the entire game.
+- [Earlier Technical Notes](notes.md) – the original collection of ideas.
+- [Narrative Tone](personas/overall-tone.md) and [Advisor Relationships](personas/interpersonal-dynamics.md) – existing character concepts.
 
-**Evidenzkennzeichnungen:** `Projektziel` (vom Projekt formuliert), `Code-Ist` (im Quellcode beobachtet), `IceWars-Quelle` (historische Anregung), `Vorschlag`, `Offene Frage`. Aus einem Code-Ist oder einer historischen Quelle folgt **keine** verbindliche Spielregel.
+<a name="qualitätspriorität"></a>
 
-**Reifegrad:** `Idee` → `In Klärung` → `Entschieden`. Ohne ausdrücklich getroffene Entscheidung bleibt eine Regel offen. ADRs und formale Requirement-IDs werden nur bei tatsächlichem Bedarf eingeführt.
+## Quality Priority
 
-**Arbeitsweise:** Von der Übersicht zu einer Mechanik navigieren; Spielziel, Regeln, Beispiele und Fragen dort in Markdown präzisieren. Canvas ist eine zusätzliche Sicht, nicht die zweite Wahrheit. Neue belastbare Erkenntnisse in den entsprechenden Markdown-Seiten festhalten. Änderungen via Git versionieren.
+**Clarified by the project owner on 2026-11-01.** The simulation should be easy to understand, trace, and manage. Technical sophistication or speculative resource savings do not justify hard-to-follow processing. Evaluate the time model and execution strategy against gameplay scenarios and realistic operational goals. Global ticks and lazy advancement both remain open options. The [[sources/icewars-catalog#RD-01 Context – Earlier Lazy Approach and Current Priority|source catalog]] records lessons from the earlier lazy design.
 
-**Quellenarbeit:** Nach Bearbeitung alter Unterlagen den [[sources/icewars-catalog|Quellenkatalog]] mit Ergebnislinks aktualisieren. Sichtung, fachliche Übernahme und Archivierung sind getrennte Fortschritte.
+<a name="konventionen"></a>
 
-**Zusammenarbeit im Git:** Kleine, überschaubare Änderungen dürfen direkt auf `main` erfolgen. Größere Änderungen zunächst gemeinsam abstimmen; Branch und Pull Request nach Umfang wählen. Beim Aktualisieren bestehender Dateien parallele Änderungen berücksichtigen.
+## Conventions
 
-**Nächster Fokus:** planetare Wirtschaft – Abhängigkeiten, Bestände, Energie und Ressourcenerschöpfung; danach Zeit- und Konkurrenzverhalten. 
+**Evidence labels.** `Project goal` (stated by the project), `Current code` (observed in source code), `IceWars source` (historical inspiration), `Proposal`, `Open question`. Observations of current code and historical sources do not establish binding game rules.
+
+**Maturity.** `Idea` → `Under discussion` → `Decided`. A rule remains open until explicitly decided. Introduce ADRs and formal requirement IDs when needed.
+
+**Workflow.** Navigate from the overview to a mechanic, then refine its gameplay goals, rules, examples, and questions in Markdown. The canvas provides a visual view of the Markdown documentation. Record new findings in the relevant Markdown pages and version changes with Git.
+
+**Working with sources.** After reviewing historical materials, update the [source catalog](sources/icewars-catalog.md) with links to the results. Review, adoption into the game design, and archiving are separate milestones.
+
+**Git collaboration.** Small, straightforward changes can go directly to `main`. Discuss larger changes together first and choose a branch and pull request according to their scope. Account for concurrent changes when updating existing files.
+
+**Next focus.** Planetary economy, including dependencies, stocks, energy, and resource depletion. Timing and concurrency follow.
