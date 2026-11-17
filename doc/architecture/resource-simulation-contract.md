@@ -20,6 +20,10 @@ Die [bestätigten fachlichen Regeln zu Bauabschluss und Produktionsfortschritt](
 
 Das Ergebnis muss neben verfügbaren ganzen Einheiten den noch nicht verfügbaren Produktionsfortschritt erhalten oder verlustfrei rekonstruierbar machen. Zwei Abschnitte mit jeweils einer halben Einheit Fortschritt ergeben zusammen eine verfügbare Einheit; zwischenzeitliche Auswertungen dürfen diesen Zeitpunkt nicht verschieben. Das legt weder ein Zahlenformat noch ein Speicherlayout fest. Die Anzeige von Raten pro Stunde ist keine Vorgabe für interne Zeitauflösung oder Fortschreibungsintervalle.
 
+### Gemeinsame Förderung
+
+Für Förderung gelten die [Regeln zur Zusammenführung je Kolonie und Ressource](../game-design/economy.md#gemeinsame-förderung-je-kolonie-und-ressource). Die verfügbaren ganzen Einheiten werden aus den zusammengeführten Fördermengen abgeleitet, nicht durch Abrunden je Gebäude. Der gemeinsame Rest bleibt auch bei Bauabschluss erhalten. Dies legt keine interne Aggregations- oder Speicherstruktur fest. Verarbeitung und ihre bisherigen Einsatzstoffregeln bleiben davon unberührt; eine Zusammenführung verarbeitender Anlagen ist noch zu klären.
+
 ### Einsatzstoffe für eine laufende Produktion
 
 Das Wasserwerk startet eine Einheit nur, wenn im Ressourcenpool mindestens 1 Eis und 2 Energie verfügbar sind. Beim Start gehen beide Einsatzstoffe aus dem Pool ins Wasserwerk über. Die Einheit bleibt bis zur Fertigstellung als laufende Produktion im Zustand erhalten. Bei Fertigstellung geht 1 ganze Einheit Wasser in den Pool über.
