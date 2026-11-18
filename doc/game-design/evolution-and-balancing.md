@@ -2,13 +2,9 @@
 status: under-discussion
 type: game-design
 ---
-<a name="evolution-gebäudeeffizienz-und-spielrhythmus"></a>
-
 # Evolution, Building Efficiency, and Play Rhythm
 
 **Status as of 2026-11-08.** Based on the project owner's ideas from that day's project discussion.
-
-<a name="herkunft-und-verbindlichkeit"></a>
 
 ## Origin and Decision Status
 
@@ -19,8 +15,6 @@ type: game-design
 - **Analysis and proposals.** The metrics, calculations, scenarios, and risks on this page. Specific building parameters, unlock rules, and timing targets remain open.
 
 Evolution here refers to player progression. [Project stages](project-stages.md) describe development of the game.
-
-<a name="1-evolution-als-einführung-neuer-entscheidungen"></a>
 
 ## 1. Evolution Introduces New Decisions
 
@@ -40,11 +34,19 @@ Stages should build on what players have learned and open new strategic question
 
 **Interaction with depletion.** If colonization unlocks in Evo 2, the starting economy must support the intended path despite declining yields. Different paces of play should not accidentally leave players unable to progress. [Planetary survival protection](economy.md) alone cannot guarantee economic progress.
 
-<a name="2-gebäudegenerationen-als-versorgungssystem-vergleichen"></a>
+### Resource Progression and Protection for New Players
+
+**Project owner's idea.** Demand gradually shifts toward new resources at higher Evo stages. Early stocks should become less attractive as raid loot for far more advanced players. Existing colonies, buildings, and production chains should retain their value. Which IceWars resources Cold Frontier will use remains open. The project owner recalls VV4A becoming available later in IceWars. The [source catalog](../sources/icewars-catalog.md) confirms that the resource was in the export. Its exact unlock stage remains unverified.
+
+**IceWars player recollection.** Iron and energy were processed into steel, and steel and energy into VV4A. The project owner recalls iron being widely available and less economically relevant late in the game. Limited processing throughput is one possible explanation. If existing iron stocks already keep steel production at capacity, additional iron speeds up neither steel nor VV4A production. Which capacities or other factors mattered in IceWars remains open.
+
+**Proposal to test.** New resources become an additional bottleneck for advanced projects. Existing basic materials remain relevant for purposes such as supply, repairs, or as a limited input to new production chains. An advanced colony can obtain them efficiently from its own production. Whether old facilities keep running, can be upgraded, or can be converted gradually is a balancing question. Conversion rules and any automatic resource transition remain open.
+
+**Limits of the approach.** Lower loot value can make economically motivated raids less frequent. Early resources can remain attractive as loot if extra units increase throughput, cover a foreseeable shortage, or sell for a high price. Large overall demand alone is insufficient if local extraction already covers the processing facilities' needs. Players may still attack for other reasons. Whether additional protection rules are needed remains open.
+
+**Test scenario.** Under the same conditions, an advanced player compares raiding an early colony with producing the resources locally, trading, and attacking a militarily relevant target at their own stage. The comparison includes loot, flight time, and risk of losses. Also check whether a player's existing facilities still make a meaningful contribution after that player advances to a new Evo stage. Earlier resources can remain economically useful while the additional gain from raiding for them falls for advanced players.
 
 ## 2. Compare Building Generations as Supply Systems
-
-<a name="gewünschte-wirkung"></a>
 
 ### Intended Effect
 
@@ -58,8 +60,6 @@ A new building type should be an attractive long-term investment even if it cost
 6. Other prerequisites specific to the scenario, such as storage upgrades.
 
 Apply the actual rules in [Planetary Economy](economy.md). For example, adding housing does not immediately create workers. Account for population growth and availability over time once their rules are defined.
-
-<a name="effizienz-und-amortisation-getrennt-messen"></a>
 
 ### Measure Efficiency and Payback Separately
 
@@ -78,8 +78,6 @@ Apply the actual rules in [Planetary Economy](economy.md). For example, adding h
 
 Higher initial investment can take longer to recover even with lower operating costs. When a deposit is near depletion or little game time remains, an older, cheaper generation may still be the better short-term choice. Evaluate whether the new generation is attractive over its intended horizon.
 
-<a name="freischaltung-und-bestehende-infrastruktur-fair-zurechnen"></a>
-
 ### Account for Unlocks and Existing Infrastructure
 
 Show two perspectives:
@@ -89,11 +87,7 @@ Show two perspectives:
 
 For an illustrative per-building comparison, allocate research costs across a stated number of new buildings. That quantity is an analysis assumption. Count the same research or shared infrastructure once on the full path. Existing spare capacity and the next required expansion have different marginal costs.
 
-<a name="3-schlankes-fachliches-balancing-modell"></a>
-
 ## 3. Lightweight Balancing Model
-
-<a name="datenmodell"></a>
 
 ### Data Model
 
@@ -106,8 +100,6 @@ For an illustrative per-building comparison, allocate research costs across a st
 - Starting stocks, existing buildings, spare capacity, and exhaustible deposits.
 
 Unlocks and ongoing supply are separate relationships. Whether a research building must keep operating for an unlocked mine to work would be a separate rule.
-
-<a name="stationäre-kapazitätsrechnung"></a>
 
 ### Steady-State Capacity Calculation
 
@@ -124,8 +116,6 @@ Include all required suppliers in x. Nonnegative net balances for required input
 The model exposes feedback, such as energy used by water plants supplying additional power plant workers. Count resources and workers only once. A resource flow cannot be both an additional external purchase and internal production.
 
 **Limits.** Integer building counts, construction queues, starting stocks, yield changes, and economic startup need more detail. An economy that balances on paper can still fail to start without reserves. Optimization is optional. A few hand-selected building combinations suffice for an initial comparison.
-
-<a name="zeitlicher-strategie-vergleich"></a>
 
 ### Compare Strategies Over Time
 
@@ -150,8 +140,6 @@ The simplified calculation of added investment divided by added hourly net benef
 
 **Track separately.** Cumulative gross extraction, cumulative usable net output, and available stocks. Internal consumption, construction spending, or overflow can leave little economic gain from high gross extraction. Add remaining deposits and installed capacity to the stock curves so their value is visible.
 
-<a name="4-bauzeit-als-entlastung-und-spielrhythmus"></a>
-
 ## 4. Construction Time and a Less Demanding Play Rhythm
 
 **Project goal.** As players acquire more planets and fleets, longer builds should leave room for other decisions. Duration helps determine how often players need to check in.
@@ -174,8 +162,6 @@ A rough estimate for permanently occupied, independent construction slots is the
 
 Targets for daily effort, check-in frequency, and build times by Evo remain open. For comparisons, use the same explicit activity windows and avoid assuming constant availability.
 
-<a name="5-einheiten-und-wachsende-konterkomplexität"></a>
-
 ## 5. Units and Increasing Counter Complexity
 
 **Project owner's proposal.** Expand an initial rock-paper-scissors system with fourth and fifth components. Unit roles and their Evo assignments remain open.
@@ -183,8 +169,6 @@ Targets for daily effort, check-in frequency, and build times by Evo remain open
 **Analysis.** Additional components create depth when they produce different decisions and responses. A new component should leave existing roles useful. With four roles and only pairwise wins or losses, each has three opponents, so each cannot have equal numbers of wins and losses. Asymmetry or neutral matchups can be intentional.
 
 **Proposed test.** Create a counter matrix for each unlock state and compare matchups with similar resource budgets. Add mixed fleets, availability, resupply, and deployment conditions as those rules become clear. An even matrix alone does not establish balanced fleet play.
-
-<a name="späte-evolution-und-attraktive-konflikte"></a>
 
 ### Late Evolution and Appealing Conflicts
 
@@ -210,13 +194,17 @@ Cloaking can reduce the attacker's risk while increasing uncertainty and losses 
 - Check whether defeat allows interesting follow-up decisions and credible recovery. Assess whether lower costs or higher loot enable repeated mutual gains or encourage attacks on weaker players.
 - Describe specific shield and cloaking situations, counters, and response opportunities before assigning values and Evo stages.
 
-<a name="offene-referenzen-für-einheitenwerte-und-geleitschutz"></a>
+### Secondary Bases as Bombardment Targets
+
+**Project owner's idea.** Less permanent secondary bases or outposts could be preferred targets for attacks that damage buildings. Building and rebuilding them should take a manageable amount of game time. Destroying them should still have a noticeable economic impact so bombers have a worthwhile mission. This could make long-established colonies less attractive targets for bombardment.
+
+**Proposal to test.** An outpost secures access to a local deposit. Losing it interrupts output until the player recaptures the site, builds a replacement, or develops another source. The economic impact can therefore be significant even when the base itself can be replaced in a manageable amount of time. The target should also offer the attacker a concrete benefit, such as access to the site. Inflicting damage alone provides an incentive only in some situations.
+
+**Open questions.** Do players choose whether to establish outposts in contested areas? How do capture and replacement work, and which targets can be bombarded? Test repeated attacks and dependence on individual outposts separately from the effort needed to build one. Even a quickly replaceable outpost can cause a lasting setback if its output is indispensable or reconstruction remains blocked.
 
 ### Open References for Unit Stats and Escorts
 
 **Project owner's idea, 2026-11-08.** Investigate suitably licensed stats from existing games for a balancing starting point, including speed, initiative, attack, defense, and protection for large ships from small escorts. [Research and open modeling questions](ship-balancing-references.md) compares FreeOrion, Wesnoth, and Zero-K. Data reuse and combat rules remain open.
-
-<a name="6-abgleich-mit-den-vorhandenen-icewars-tech-trees"></a>
 
 ## 6. Comparison with the Available IceWars Tech Trees
 
@@ -234,8 +222,6 @@ Cloaking can reduce the attacker's risk while increasing uncertainty and losses 
 
 **Findings.** Earlier stages suggest qualitative milestones. The selected Evo 4–5 evidence mainly shows advanced technology and units. It cannot establish a distinct player experience, validate our Evo sequence, or confirm efficiency gains or rock-paper-scissors combat. Production, consumption, and combat values are insufficient for such conclusions. Trade, satisfaction, and other nonmilitary branches need more systematic review.
 
-<a name="7-nächste-prüfbare-balancing-szenarien"></a>
-
 ## 7. Next Balancing Scenarios to Test
 
 The expectations are proposed checks. Define actual numbers and thresholds before automated acceptance testing.
@@ -252,8 +238,6 @@ The expectations are proposed checks. Define actual numbers and thresholds befor
 | Conflict costs and rebuilding | Limited conflict and war, both sides, different power balances and activity windows | Benefits, losses, and recovery time are visible. Evaluate attacker incentives and defender experience together. |
 | Shield and cloaking hypotheses | Specific deployments with and without the ability, along with possible counters | New trade-offs emerge. Do not assume unverified historical effects. |
 | New counter role | Matchups before and after unlocking at equal budgets | No unintentional universal advantage. Existing roles retain their intended uses. |
-
-<a name="8-geeignete-visualisierungen-und-erster-arbeitsschritt"></a>
 
 ## 8. Visualizations and First Step
 
