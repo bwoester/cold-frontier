@@ -8,7 +8,8 @@ Feature: Water production with a limited ice stockpile
     Given a planet is prepared with 6 units of ice and 0 units of water before production starts
     And its water plant produces 10 units of water per hour when fully supplied
     And each unit of water requires 1 unit of ice and 2 units of energy
-    And energy and water storage are sufficient
+    And the planet has 12 units of energy before production starts
+    And water storage has capacity for 100 units
     And no other processes change these stocks
     And the simulation is initialized at minute 0
 
