@@ -2,20 +2,16 @@
 status: research
 type: source-analysis
 ---
-<a name="icewars--rekonstruierter-einheitenkatalog"></a>
-
 # IceWars – Reconstructed Unit Catalog
 
 **Status as of 2026-11-01.** Historical XML data for inspiration. Cold Frontier rules are decided separately.
 
 **Research and buildings.** The [research mapping](icewars-ship-research.md) adds documented diagram matches or an explicit unknown status for all 64 IDs. XML costs and diagram prerequisites are from separate sources.
 
-<a name="quellen-und-aussagegrenzen"></a>
-
 ## Sources and Evidence Limits
 
-- **IW-01:** [ressourcen.xml](https://drive.google.com/file/d/0B_fvsE93Ci4daTh6cGsxanI1WkE/view) maps resource IDs to names.
-- **IW-03:** [schiffkosten.xml](https://drive.google.com/file/d/0B_fvsE93Ci4dNXJwbzZhTzRZTkk/view) contains 64 entries in eleven categories, with an internal update timestamp of 2014-05-03 22:00:01 UTC.
+- **IW-01:** [Resource Definitions XML](https://drive.google.com/file/d/0B_fvsE93Ci4daTh6cGsxanI1WkE/view) maps resource IDs to names.
+- **IW-03:** [Ship Costs XML](https://drive.google.com/file/d/0B_fvsE93Ci4dNXJwbzZhTzRZTkk/view) contains 64 entries in eleven categories, with an internal update timestamp of 2014-05-03 22:00:01 UTC.
 - The project owner identifies these as official sources. The original export endpoint, round, and any account context remain unknown.
 - The list covers the available export. Units from other IceWars versions may be missing. Life forms retain their own category.
 - Names and categories are preserved verbatim, including “Vendeta”, carrier assignments, and names that differ from the Tech Trees.
@@ -23,16 +19,12 @@ type: source-analysis
 - The XML lacks combat stats, transport capacity, research dependencies, and roles beyond names. The [separate research reconstruction](icewars-ship-research.md) identifies selected prerequisites from diagrams. Costs alone cannot establish tiers.
 - See the [source catalog and progress](icewars-catalog.md). The XML originals still need archiving in the repository.
 
-<a name="identifikation-der-ausgewerteten-dateien"></a>
-
 ### Identification of Reviewed Files
 
 | Source | Bytes | SHA-256 of retrieved original bytes |
 | --- | ---: | --- |
 | IW-01 | 819 | `e9716e8f4bc9f2d40ff64ac69d70c945f3177cff151ff047fd143f8006a9d448` |
 | IW-03 | 61004 | `9b6c6bfc309c6a5a44bb61c553c231267bd9f98ae9cf31b141e0e432a10bdbe7` |
-
-<a name="ressourcen-zuordnung"></a>
 
 ## Resource Mapping
 
@@ -49,13 +41,9 @@ type: source-analysis
 | 10 | Credits | Credits |
 | 11 | Bevölkerung | Population |
 
-<a name="einheiten-nach-xml-kategorie"></a>
-
 ## Units by XML Category
 
 Each category is sorted by numeric ID. Tiers remain unverified. Costs list all nonzero values, and unlisted resources are zero. Population and credits retain their raw costs. Consumption or reservation semantics remain unknown. Penguins cost zero in all 64 entries. Zero costs with `baubar=0` do not establish free ordinary construction.
-
-<a name="lebensformen-2"></a>
 
 ### Life Forms (2)
 
@@ -66,8 +54,6 @@ XML category: `Lebensformen`.
 | 83 | Eichhörnchen | 360 | 0 | Iron: 10; Steel: 10; VV4A: 5; Chemical elements: 5; Water: 2; Energy: 5 |
 | 84 | wilde Katze | 360 | 0 | Iron: 10; Steel: 10; VV4A: 5; Chemical elements: 5; Water: 2; Energy: 5 |
 
-<a name="sonden-3"></a>
-
 ### Probes (3)
 
 XML category: `Sonden`.
@@ -77,8 +63,6 @@ XML category: `Sonden`.
 | 13 | Sonde X11 | 360 | 1 | Steel: 10; Chemical elements: 25; Energy: 40 |
 | 24 | Terminus Sonde | 720 | 1 | Steel: 16; Ice: 10; Chemical elements: 50; Energy: 40; Population: 1 |
 | 64 | Sonde X13 | 900 | 1 | Steel: 25; VV4A: 5; Chemical elements: 100; Energy: 100 |
-
-<a name="zivile-schiffe-22"></a>
 
 ### Civilian Ships (22)
 
@@ -109,8 +93,6 @@ XML category: `Zivile Schiffe`.
 | 73 | Artefaktsammelbasis Beta | 172800 | 1 | Iron: 150,000; Steel: 175,000; VV4A: 28,000; Chemical elements: 90,000; Energy: 100,000; Population: 500 |
 | 76 | Settlers Delight | 0 | 0 | All resources: 0 |
 
-<a name="jäger-6"></a>
-
 ### Fighters (6)
 
 XML category: `Jäger`.
@@ -124,8 +106,6 @@ XML category: `Jäger`.
 | 32 | Downbringer | 5040 | 1 | Iron: 450; Steel: 1,200; VV4A: 750; Chemical elements: 800; Energy: 1,300; Population: 2 |
 | 33 | Nightcrawler | 4320 | 1 | Iron: 1,500; Steel: 1,300; VV4A: 250; Chemical elements: 1,000; Energy: 1,000; Population: 1 |
 
-<a name="bomber-4"></a>
-
 ### Bombers (4)
 
 XML category: `Bomber`.
@@ -136,8 +116,6 @@ XML category: `Bomber`.
 | 34 | Stormbringer | 10800 | 1 | Iron: 2,000; Steel: 2,100; VV4A: 1,200; Chemical elements: 1,000; Energy: 1,000; Population: 2 |
 | 35 | Nova | 12600 | 1 | Iron: 3,000; Steel: 2,800; VV4A: 1,800; Chemical elements: 1,500; Energy: 1,500; Population: 3 |
 | 36 | Nepomuk | 14400 | 1 | Iron: 4,000; Steel: 1,000; VV4A: 3,250; Chemical elements: 3,500; Energy: 4,000; Population: 5 |
-
-<a name="korvetten-5"></a>
 
 ### Corvettes (5)
 
@@ -151,8 +129,6 @@ XML category: `Korvetten`.
 | 38 | Gatling | 14400 | 1 | Steel: 3,400; VV4A: 850; Chemical elements: 2,500; Energy: 2,000; Population: 30 |
 | 39 | Eraser | 14400 | 1 | Steel: 2,300; VV4A: 870; Chemical elements: 4,000; Energy: 3,150; Population: 25 |
 
-<a name="zerstörer-5"></a>
-
 ### Destroyers (5)
 
 XML category: `Zerstörer`.
@@ -164,8 +140,6 @@ XML category: `Zerstörer`.
 | 41 | Vendeta | 21600 | 1 | Steel: 3,000; VV4A: 900; Chemical elements: 1,000; Energy: 2,800; Population: 50 |
 | 42 | Crawler | 30600 | 1 | Steel: 6,200; VV4A: 2,600; Ice: 50; Chemical elements: 4,500; Energy: 2,000; Credits: 500; Population: 75 |
 | 43 | Widowmaker | 28800 | 1 | Steel: 3,600; VV4A: 1,000; Chemical elements: 3,000; Energy: 3,350; Population: 80 |
-
-<a name="kreuzer-6"></a>
 
 ### Cruisers (6)
 
@@ -179,8 +153,6 @@ XML category: `Kreuzer`.
 | 47 | Sirius XPi | 72000 | 1 | Iron: 15,000; Steel: 19,250; VV4A: 6,150; Chemical elements: 12,300; Energy: 9,500; Population: 80 |
 | 53 | X12 (Carrier) | 86400 | 1 | Iron: 20,000; Steel: 5,800; VV4A: 4,565; Chemical elements: 8,000; Energy: 35,000; Credits: 1,500; Population: 150 |
 | 58 | TAG Vario Kreuzer | 64800 | 1 | Iron: 15,000; Steel: 17,000; VV4A: 5,890; Chemical elements: 11,000; Energy: 12,000; Population: 75 |
-
-<a name="schlachtschiffe-4"></a>
 
 ### Battleships (4)
 
@@ -203,8 +175,6 @@ XML category: `Schlachtschiffe`.
 | 52 | Tempest | 162000 | 1 | Iron: 50,000; Steel: 65,000; VV4A: 22,000; Chemical elements: 35,000; Energy: 59,000; Population: 750 |
 | 57 | Gargoil (Carrier) | 172800 | 1 | Iron: 55,000; Steel: 75,000; VV4A: 27,500; Chemical elements: 45,000; Energy: 50,000; Credits: 2,000; Population: 450 |
 
-<a name="spezielle-schiffe-2"></a>
-
 ### Special Ships (2)
 
 XML category: `Spezielle Schiffe`.
@@ -213,8 +183,6 @@ XML category: `Spezielle Schiffe`.
 | ---: | --- | ---: | ---: | --- |
 | 8 | Scout | 5040 | 1 | Iron: 100; Steel: 250; Chemical elements: 250; Energy: 500; Population: 5 |
 | 77 | Kampfhuhn | 0 | 0 | All resources: 0 |
-
-<a name="prüfung-der-hypothese-höhere-id-bedeutet-höherer-tier"></a>
 
 ## Testing the Hypothesis That Higher IDs Mean Higher Tiers
 
@@ -232,13 +200,9 @@ XML category: `Spezielle Schiffe`.
 | Kampfbasis 54 Alpha → 61 Beta → 67 Gamma | All used cost fields and duration increase. | Plausible family progression within the civilian category. |
 | Class 1 hyperspace transports 15 Gorgol 9 → 59 Kamel Z-98 → 70 Flughund | Steel 2,300 → 6,500 → 50,000, VV4A 0 → 1,200 → 15,000, and duration 36,000 → 43,200 → 86,400. | Plausible family progression. Capacity and performance are absent from the XML. |
 
-<a name="abgleich-mit-community-grafiken-andere-quelle"></a>
-
 ### Cross-Check with Community Diagrams
 
 [IW-11, Evo 1](https://drive.google.com/file/d/1yt-JLQm8b-CSgF6wfcE693S_PHFz6i_q/view) shows Lionheart and [IW-13, Evo 3](https://drive.google.com/file/d/1S-C77ux_m7YuEm88GJ6I2x7VAx5zSrgV/view) shows Hunter. Matched by name to the XML, this weighs against the assumed unlock order by ID (Hunter 14, Lionheart 27). A common version has yet to be established, so diagram costs stay separate from the XML table.
-
-<a name="weiteres-vorgehen"></a>
 
 ### Next Steps
 
@@ -246,8 +210,6 @@ XML category: `Spezielle Schiffe`.
 - Identify possible families by name and cost profile. A category can contain several progression paths.
 - Name-based [research and Evo mappings](icewars-ship-research.md) exist for 38 entries. 26 remain open. Keep source versions, direct research, indirect building requirements, and unknown construction requirements distinct. Complete transitive research chains remain unverified.
 - Avoid totaling iron, energy, credits, and population without weights. Resource progression and economic value are separate measures and are still incompletely documented.
-
-<a name="prüfung-der-extraktion"></a>
 
 ## Extraction Checks
 

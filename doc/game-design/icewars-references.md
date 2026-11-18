@@ -2,15 +2,11 @@
 status: research
 type: source-notes
 ---
-<a name="icewars--historische-inspiration-keine-soll-spezifikation"></a>
-
 # IceWars – Historical Inspiration
 
 The following information comes from historical web sources, supplied materials, and an explicitly identified player's recollections of the original IceWars. Its numbers and mechanics may have changed between IceWars rounds. Cold Frontier's rules are decided separately.
 
 The [source catalog](../sources/icewars-catalog.md) lists the supplied materials and tracks analysis, documentation, and archiving.
-
-<a name="belastbare-orientierung"></a>
 
 ## Documented Background
 
@@ -20,8 +16,6 @@ The [source catalog](../sources/icewars-catalog.md) lists the supplied materials
 - In 2008, new players had their own galaxies with protection mechanisms. [GamesSphere – New Players](https://gamessphere.de/games/icewars/news/1577_neueinsteiger_in_zukunft_mit_mehr_schutz)
 - In 2010, an upgrade system for existing ships was described with research prerequisites, construction costs, and time-dependent modifiers. [GamesSphere – Ship Upgrades](https://gamessphere.de/games/icewars/news/3565_pimp_my_shuttle_-_aus_alt_mach_neu)
 - For the ninth round in 2009, the IceWars team reported **several thousand participating players**, exceeding the initial estimate of fewer than 1,000. [GamesSphere – Round Start](https://gamessphere.de/games/icewars/news/2510_erfolgreicher_start_in_die_neunte_runde)
-
-<a name="erfahrungsbericht--eisförderung-und-ausbaukonkurrenz"></a>
 
 ## Player Recollection – Ice Extraction and Competing Construction Priorities
 
@@ -37,19 +31,15 @@ The [source catalog](../sources/icewars-catalog.md) lists the supplied materials
 **Separate supporting sources:**
 
 - The [Evo 1 Tech Tree](https://drive.google.com/file/d/1yt-JLQm8b-CSgF6wfcE693S_PHFz6i_q/view) is a community diagram showing a large ice mine under “Robotik” (robotics), without extraction values.
-- [Resourcenabbau](https://docs.google.com/spreadsheets/d/1Wng7Wi-kAfF1JS_VECUQVXRTWIYlHXlCo7YKTTP_vnA/edit) is an earlier redesign. The inspected values make extraction proportional to the relative remaining deposit. An initial density of 1 does not directly imply a planet with 100% absolute ice density. The spreadsheet does not establish the historical formula.
+- [Resource Extraction](https://docs.google.com/spreadsheets/d/1Wng7Wi-kAfF1JS_VECUQVXRTWIYlHXlCo7YKTTP_vnA/edit) is an earlier redesign. The inspected values make extraction proportional to the relative remaining deposit. An initial density of 1 does not directly imply a planet with 100% absolute ice density. The spreadsheet does not establish the historical formula.
 
 The resulting Cold Frontier design direction and absence protection goal are in [[economy#Declining Yield and Time as a Resource|Declining Yield and Time as a Resource]]. The historical numbers remain reference material.
-
-<a name="rekonstruierte-historische-einheiten"></a>
 
 ## Reconstructed Historical Units
 
 The [XML unit catalog](../sources/icewars-ships.md) preserves all 64 export entries with material costs, duration, and `baubar`. The [research mapping](../sources/icewars-ship-research.md) records 37 name-based matches in series B1–B5, one in A2, and 26 units without reliable research evidence. It distinguishes direct research prerequisites, explicit extra fields, selected indirect building requirements, and unknown construction prerequisites. Version and naming conflicts remain visible.
 
 **Historical reference.** Cold Frontier can draw inspiration from these units. The list, costs, and prerequisites have no confirmed status as game rules.
-
-<a name="erfahrungsbericht--bau-frei-minuten"></a>
 
 ## Player Recollection – Free Construction Minutes
 
@@ -62,8 +52,6 @@ The [XML unit catalog](../sources/icewars-ships.md) preserves all 64 export entr
 - BFM shows a tracked balance for acceleration. How to model ordinary elapsed time remains a separate question.
 
 Current construction cost and cancellation rules are in [[economy#Costs, Cancellation, and Progress|Costs, Cancellation, and Progress]].
-
-<a name="erfahrungsbericht--planetare-bauwarteschlangen"></a>
 
 ## Player Recollection – Planetary Construction Queues
 
@@ -79,8 +67,6 @@ Current construction cost and cancellation rules are in [[economy#Costs, Cancell
 
 **Analysis.** The surcharge gives absence and convenience an economic value. Frequent players can act sooner and save resources and time. On 2026-11-02 Cold Frontier confirmed retaining a surcharge as a design direction. Parameters remain open. See [[economy#Queue Surcharges and Collaboration|Queue Surcharges and Collaboration]].
 
-<a name="erfahrungsbericht--sitter-login"></a>
-
 ## Player Recollection – Sitter Login
 
 **Source.** Benjamin Wöster, project discussion on 2026-11-02. Historical recollection without independent confirmation from the supplied files.
@@ -94,15 +80,11 @@ Current construction cost and cancellation rules are in [[economy#Costs, Cancell
 
 Possible relevance for Cold Frontier is described in [[economy#Queue Surcharges and Collaboration|Queue Surcharges and Collaboration]]. A sitter system remains open.
 
-<a name="erfahrungsbericht--spezialisierungen-über-genetik"></a>
-
 ## Player Recollection – Specialization Through Genetics
 
 **Source.** Benjamin Wöster, project discussion on 2026-11-02. Historical recollection without independent confirmation in the files reviewed.
 
 The project owner recalls that genetics supported specializations, encouraging distinct roles and collaboration between players. Specific options, effects, costs, and switching rules remain unreconstructed. Extraction, shipbuilding, and trade profiles are current Cold Frontier ideas. The historical options are unverified.
-
-<a name="erfahrungsbericht--galaxien-und-kolonisationsreichweite"></a>
 
 ## Player Recollection – Galaxies and Colonization Range
 
@@ -113,13 +95,9 @@ The project owner recalls that genetics supported specializations, encouraging d
 - The player recalls every fourth galaxy being a chaos galaxy. They had extreme planets with large deposits often concentrated in one resource, plus anomalies such as time distortions and antimatter vortices. The player does not recall whether anomalies affected gameplay.
 - **Inspiration for Cold Frontier.** Chaos galaxies with extreme deposits and anomalies as narrative elements. Placement and deposit rules remain open. Anomalies currently have no planned simulation effect.
 
-<a name="erfahrungsbericht--pinguine-am-rundenende"></a>
-
 ## Player Recollection – End-of-Round Penguins
 
 In the 2026-11-03 project discussion, Benjamin Wöster recalled penguins appearing shortly before the round ended. They spread and multiplied uncontrollably. As harbingers of the apocalypse they were part of IceWars humor. The resource XML lists penguins under ID 8. Timing and effects come from recollection. [Resource Mapping](../sources/icewars-ships.md#resource-mapping)
-
-<a name="erfahrungsbericht--raids-und-große-kriege"></a>
 
 ## Player Recollection – Raids and Large Wars
 
@@ -134,8 +112,6 @@ The earlier blanket statement that costs prevented conflicts applies more specif
 
 **Open design question for Cold Frontier.** How can far-reaching wars coexist with the value of long-term development? The project owner has yet to find a satisfactory way to compensate for those losses. See [Late Evolution and Conflicts](evolution-and-balancing.md#late-evolution-and-appealing-conflicts).
 
-<a name="mögliche-inspirationsfelder--ausdrücklich-offen"></a>
-
 ## Potential Areas of Inspiration
 
 - A deep technology tree and unusual buildings
@@ -143,8 +119,6 @@ The earlier blanket statement that costs prevented conflicts applies more specif
 - Diplomacy, communities, and alliances
 - Asymmetric ships, pirates, quests, and events
 - Humor through advisors, event text, and mechanics
-
-<a name="noch-zu-recherchieren"></a>
 
 ## Research Still Open
 

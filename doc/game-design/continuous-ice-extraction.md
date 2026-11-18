@@ -2,13 +2,9 @@
 status: under-discussion
 type: mathematical-model
 ---
-<a name="kontinuierliche-eisförderung-zwischen-ereignissen"></a>
-
 # Continuous Ice Extraction Between Events
 
 **Status as of 2026-11-08.** The project owner wants the continuous evolution documented and considered as a mathematical model for the mechanic. The equations below follow from the proportional depletion model. Final balancing and the execution model of the full simulation remain open. In particular, this base model does not include a minimum ice yield.
-
-<a name="motivation-und-geltungsbereich"></a>
 
 ## Motivation and Scope
 
@@ -18,11 +14,9 @@ The **extraction rate falls** throughout the interval as the deposit shrinks. Th
 
 The approach describes **one deposit and the quantity extracted from it**. Water production draws ice from storage. The underground deposit changes through extraction. Apply the [domain simulation contract](../architecture/resource-simulation-contract.md) to stock increases, available whole units, production in progress, and consumers.
 
-<a name="ausgangspunkt-tabelle-und-heutiger-modellvorschlag"></a>
-
 ## Starting Point: Spreadsheet and Current Model Proposal
 
-The source is the project's earlier redesign, [RD-02 “Resourcenabbau”](https://docs.google.com/spreadsheets/d/1Wng7Wi-kAfF1JS_VECUQVXRTWIYlHXlCo7YKTTP_vnA/edit). Cells A1:G12, reviewed on 2026-11-08, contain:
+The source is the project's earlier redesign, [RD-02 “Resource Extraction”](https://docs.google.com/spreadsheets/d/1Wng7Wi-kAfF1JS_VECUQVXRTWIYlHXlCo7YKTTP_vnA/edit). Cells A1:G12, reviewed on 2026-11-08, contain:
 
 - 50,000 units of initial deposit in A5;
 - 20 units of base extraction per mine and tick in A8;
@@ -32,8 +26,6 @@ The source is the project's earlier redesign, [RD-02 “Resourcenabbau”](https
 - an additional mine every ten ticks in the example.
 
 The spreadsheet documents the redesign. It establishes neither the original IceWars formula nor current building parameters. It gives no physical duration for a tick. **Converting 20 ice/tick to 20 ice/second or 20 ice/hour requires an assumption.** The hourly values below are chosen for illustration. The continuous curve is a different mathematical model from the discrete tick sequence and does not give identical results.
-
-<a name="parameter-und-abgeleitete-größen"></a>
 
 ## Parameters and Derived Quantities
 
@@ -56,8 +48,6 @@ The interval starts at game time $t_0$. Let $\tau=t-t_0$ be the elapsed time.
 At P = 2,000 ice/h and a relative density of 0.6, the actual rate is 1,200 ice/h. Different mine types on the same deposit can contribute to the same P if they share a density factor and their other output parameters stay constant. Deposits with different parameters are treated separately for now.
 
 **Relative and absolute density.** Here d = 1 means full reference yield, regardless of the planet's absolute ice content. To represent a starting absolute density such as 30%, explicitly relate it to the reference quantity and extraction capacity. That relationship remains open.
-
-<a name="herleitung-und-direkte-berechnung"></a>
 
 ## Derivation and Direct Calculation
 
@@ -87,8 +77,6 @@ A is the total extraction over the interval, the area under the q curve. Multipl
 
 At P = 0 the deposit is unchanged and extraction is zero. The same holds at R₀ = 0. At τ = 0 no additional extraction has occurred.
 
-<a name="allgemeine-form-bei-veränderlicher-förderkapazität"></a>
-
 ## General Form for Variable Extraction Capacity
 
 Within the proportional model, S is fixed, d = R/S, and the actual rate is q(t) = P(t) × d(t). There are no other inflows to or outflows from the deposit during the interval. All mines share the same density factor. P(t) ≥ 0 is their capacity at full reference yield after all other operating modifiers, before applying the density reduction that yields q(t).
@@ -112,8 +100,6 @@ This gives d(t₁) = R(t₁)/S, q(t₁) = P(t₁)d(t₁), and A = R(t₀) − R(
 
 The integral sums **potential extraction**. Actual extraction A is generally smaller than H because density declines. The equation includes the feedback: extraction reduces R and d, decreasing q and slowing further extraction. **Declining density alone requires neither events for individual units nor numerical one-second steps.**
 
-<a name="wann-reicht-die-einfache-abschnittsformel"></a>
-
 ### When Is the Simple Interval Formula Enough?
 
 If P(u) = P throughout the interval, the integral becomes P × (t₁ − t₀). This gives exactly the earlier formula:
@@ -133,8 +119,6 @@ $$
 
 This equals the product of the simple interval calculations. **The long-term charts can use exactly these intervals.** The integral notation does not require a separate integrator. The sum gives the final deposit, and storage, consumer, and event effects during the interval still need processing.
 
-<a name="wann-brauchen-wir-eine-allgemeinere-auswertung"></a>
-
 ### When Do We Need a More General Calculation?
 
 | Condition | Suitable calculation | Limitation |
@@ -149,8 +133,6 @@ This equals the product of the simple interval calculations. **The long-term cha
 **Illustrative calculation with continuously varying P.** An operating bonus makes P rise linearly from P₀ to 3P₀ over a time T: P(t₀ + τ) = P₀(1 + 2τ/T). Then H(τ) = P₀(τ + τ²/T), and over the whole interval H(T) = 2P₀T. With S = R₀ = 50,000, P₀ = 2,000 ice/h, and T = 8 h, about **26,364.62 ice** remain. Holding P at its initial value would incorrectly give 36,307.45 ice. The average P = H/T reproduces the final deposit but cannot alone reconstruct extraction over time, earlier thresholds, or the final rate.
 
 The [long-term and extreme scenarios](extraction-balancing-scenarios.md) use predefined expansion events and therefore still use only the simple formula per interval. The general form helps explain, compare, and parameterize them.
-
-<a name="beispiel-1-acht-stunden-bis-zum-nächsten-bauabschluss"></a>
 
 ## Example 1: Eight Hours Until the Next Construction Completion
 
@@ -174,8 +156,6 @@ In eight hours, the mines extract **13,692.55 ice**. The rate falls from 2,000 t
 
 The remaining deposit and extraction rate fall. Total extraction continues to grow at a slowing rate. Incorrectly holding the initial rate constant would give 16,000 ice, **2,307.45 ice too much** or about 16.85% above the continuous result. A fine-grained tick approximation has a much smaller error.
 
-<a name="beispiel-2-welche-parameter-verändern-den-verlauf"></a>
-
 ## Example 2: Which Parameters Change the Curve?
 
 ![Effect of mining capacity, reference deposit, and remaining deposit at the start of the interval](assets/ice-extraction/parameters.svg)
@@ -183,8 +163,6 @@ The remaining deposit and extraction rate fall. Total extraction continues to gr
 - **Increase P.** More capacity yields more ice initially and reduces density faster. With S = R₀ = 50,000 ice, at P = 1,000 / 2,000 / 4,000 ice/h the relative density after eight hours is about 85.21% / 72.61% / 52.73%.
 - **Increase S.** With the same P and starting relative density, yield falls more slowly. The middle chart therefore changes R₀ along with S. A larger reference quantity describes a different deposit. An event leaves it fixed.
 - **Reduce R₀ and keep S fixed.** A partially depleted deposit starts the interval at a lower rate. At S = 50,000 and P = 2,000 ice/h, the curves for R₀/S = 1 / 0.6 / 0.3 start at 2,000 / 1,200 / 600 ice/h. The relative decay constant k stays the same.
-
-<a name="beispiel-3-nach-acht-stunden-wird-die-neue-mine-fertig"></a>
 
 ## Example 3: A New Mine Completes After Eight Hours
 
@@ -199,8 +177,6 @@ Immediately before completion the rate is 1,452.30 ice/h. It rises to 2,904.60 i
 ![Two intervals separated by construction completion. Deposit and cumulative extraction stay continuous while the rate jumps.](assets/ice-extraction/construction-event.svg)
 
 The curves use closely spaced points for display. Two direct interval calculations give the two final states. Simulation ticks do not have to match the chart's sampling points.
-
-<a name="direkte-und-gestückelte-fortschreibung"></a>
 
 ## Direct and Segmented Advancement
 
@@ -219,8 +195,6 @@ R_n=R_0\left(1-\frac{P_{\mathrm{Tick}}}{S}\right)^n.
 $$
 
 This discrete model also has a direct formula. To approximate the continuous model with step size h, use P_Tick = P × h. Smaller h brings the sequence closer to the exponential curve. Changing models requires an explicit decision about which behavior is intended.
-
-<a name="abschnittsgrenzen-schwellen-und-offene-spielregeln"></a>
 
 ## Interval Boundaries, Thresholds, and Open Rules
 
@@ -245,8 +219,6 @@ This lets the simulation use a future yield threshold as an interval boundary. *
 
 Downstream facilities can have intermediate transitions even when P stays constant. Calculating extraction in one expression does not justify advancing the whole planetary economy to the next external event without checking for those transitions.
 
-<a name="numerik-überprüfung-und-reproduktion"></a>
-
 ## Numerics, Verification, and Reproduction
 
 For small kτ, 1 − exp(−kτ) is numerically unstable. A future implementation can compute extraction stably as `A = -R0 * expm1(-k * duration)`. Preserve fractions internally and round for display only. Numeric representation, time quantization, and reproducibility remain architecture questions.
@@ -261,8 +233,6 @@ python doc/game-design/tools/plot_ice_extraction.py
 The documentation script adds no Python dependency to the game. It generates SVGs for this page and PNGs for local inspection. SVGs are versioned. PNGs are reproducible local previews.
 
 At the time of writing, numerical checks covered quantity balance, zero output, an empty deposit, and direct versus segmented advancement (3 h + 5 h and 28,800 one-second intervals). These checks cover the mathematical model. The Java simulation and full economy chain are outside their scope.
-
-<a name="konsequenz-für-die-weitere-modellierung"></a>
 
 ## Implications for Further Modeling
 

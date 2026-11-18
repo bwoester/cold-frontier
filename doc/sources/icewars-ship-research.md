@@ -2,13 +2,9 @@
 status: research
 type: source-analysis
 ---
-<a name="icewars--forschungszuordnung-der-historischen-einheiten"></a>
-
 # IceWars – Research Mapping for Historical Units
 
 **Status as of 2026-11-01.** Historical reconstruction. Cold Frontier can draw inspiration from the units and prerequisites. Its game rules are decided separately.
-
-<a name="umfang-und-quellen"></a>
 
 ## Scope and Sources
 
@@ -28,8 +24,6 @@ The [unit list with XML costs](icewars-ships.md) covers all 64 entries in the av
 
 Checksums for the reviewed older images: A1 `96ad4dbe3865ee26962171e27545869d182691151bf968949eeab97429a91c97`, A2 `84359733bdbec42629fc07221a275cdeced313f1c2a924f37e74fd6dfb8df649`. See the [source catalog](icewars-catalog.md) for inventory and progress.
 
-<a name="leseregeln-und-grenzen"></a>
-
 ## Conventions and Evidence Limits
 
 - **F:** Visible incoming arrows to the research node. **R:** Additional research explicitly marked in purple in the box. Multiple entries are shown together. Their AND/OR semantics have not been independently verified.
@@ -40,8 +34,6 @@ Checksums for the reviewed older images: A1 `96ad4dbe3865ee26962171e27545869d182
 - The diagrams contain no XML IDs. Matches use names and sometimes role labels. XML categories are retained, and a shared balancing version remains unverified. Source labels for ships, research, and buildings retain their original spelling for lookup.
 - **Open** indicates a lack of reliable evidence. A unit may still exist, have prerequisites, and be unlockable.
 - A name alone cannot establish required shipyards, local research, construction slots, or predecessor units.
-
-<a name="zuordnung-für-alle-64-xml-einträge"></a>
 
 ## Mapping for All 64 XML Entries
 
@@ -114,8 +106,6 @@ There are 37 name-based matches in B1–B5, one additional match in A2, and 26 X
 | 83 | Eichhörnchen | Open | Unverified | Cannot reliably reconstruct | No reliable research match in B1–B5 or the other readable sources. The export field `baubar=0` does not establish availability. |
 | 84 | wilde Katze | Open | Unverified | Cannot reliably reconstruct | No reliable research match in B1–B5 or the other readable sources. The export field `baubar=0` does not establish availability. |
 
-<a name="forschungsketten-und-gebäude"></a>
-
 ## Research Chains and Buildings
 
 Selected upstream prerequisites. Building abbreviations are kept as shown in the diagrams.
@@ -142,8 +132,6 @@ Selected upstream prerequisites. Building abbreviations are kept as shown in the
 
 **Shipyard unlocks and construction prerequisites.** Zeus has Größe macht doch was aus as a predecessor. The predecessor shows a DN Werft. The exact shipyard or level for building Zeus remains unverified.
 
-<a name="ältere-serie-a-eigenständige-befunde"></a>
-
 ## Separate Findings from the Older Series A
 
 Keep these findings separate from the B matrix. The selection covers only legible local relationships.
@@ -157,8 +145,6 @@ Keep these findings separate from the B matrix. The selection covers only legibl
 | Sheep (22), Hitman (44) | A2 | Unit nodes are visible, with references to Shark (Evo 3) and Succubus (Evo 4) | Prerequisites on the blurry later pages remain unverified. |
 | Atombomber, XML ID uncertain | A2 | A 40,000 FP node is visible. | A match with bürokratischer Formularbomber remains unverified. |
 
-<a name="namenskonflikte-und-zusätzliche-grafikobjekte"></a>
-
 ## Naming Conflicts and Additional Diagram Entries
 
 | Diagram finding | XML relationship | Treatment |
@@ -170,8 +156,6 @@ Keep these findings separate from the B matrix. The selection covers only legibl
 | B5: SilentSorrow (cloaked cruiser) | ID 45, Silent Sorrow | Plausible spelling or role variant. The diagram has no ID. |
 | B3/A1: Terraformer Alpha | ID 25, Terraformer Alpha | The names match. The research node alone leaves the unit unlock uncertain. |
 
-<a name="kosten-und-historische-verfügbarkeit"></a>
-
 ## Costs and Historical Availability
 
 - B1 lists 1,500 steel for Systrans and IW-03 lists 1,000. B1 lists 15 steel for Sonde X11 and the XML lists 10. Many values appear to differ by a factor of about 1.5. Rounding, modifiers, or version differences remain unclear, so there is no established conversion rule.
@@ -179,8 +163,6 @@ Keep these findings separate from the B matrix. The selection covers only legibl
 - `baubar=1` is an export field. Research nodes and `baubar` do not establish universal unlocks or account requirements. Event, NPC, or bonus roles for life forms and zero-cost or `baubar=0` entries remain unverified.
 - Weapon stats, speed, cargo, tank capacity, crew semantics, required shipyard levels, and upgradeability remain unverified.
 - Missing matches mostly concern later, special, or differently named entries. These units may still have existed historically.
-
-<a name="nachweisstand-und-offene-lücken"></a>
 
 ## Findings and Remaining Gaps
 

@@ -2,15 +2,11 @@
 status: under-discussion
 type: balancing-exploration
 ---
-<a name="ressourcenabbau-über-eine-runde-szenarien-und-extremfälle"></a>
-
 # Resource Extraction Over a Round: Scenarios and Extreme Cases
 
 **Status as of 2026-11-08.** The project owner requested this exploration. Balancing remains open. For iron, the loss of yield might remain negligible in practice. For ice, the desired direction is for the loss to become noticeable around the first third of the round and a genuine strategic problem around the second third. These timing targets are preliminary. What counts as “noticeable” or a “problem” still needs measurable criteria.
 
 The [mathematical model](continuous-ice-extraction.md) explains the parameters, general integral form, and simple interval formula. Here we explore how the curves respond to different assumptions. The charts model extraction only and make no prediction about actual player behavior.
-
-<a name="vergleichsrahmen-ohne-vorweggenommene-rundendauer"></a>
 
 ## Comparison Without a Fixed Round Length
 
@@ -32,8 +28,6 @@ $$
 
 Plans are piecewise constant. Each jump in capacity represents assumed completions or upgrades. Between events, compute extraction directly with the simple interval formula. Sampling points serve only the charts. **The capacity multiplier can include mine types, levels, and technologies** as well as mine count.
 
-<a name="leseschlüssel-warum-die-kurven-deutliche-knicke-zeigen"></a>
-
 ## Reading the Charts: Why the Curves Have Pronounced Kinks
 
 **Plotting assumption.** The plans group all expansion into three large capacity changes at 1/4, 1/2, and 3/4 of the round. In the fast plan, for example, P/P₀ rises from 3 to 8 at mid-round. This represents an assumed batch of expansions. Actual players could build more often, in smaller increments.
@@ -52,8 +46,6 @@ The vertical dashed lines mark **thirds of the round as comparison points**. The
 **Project owner's working hypothesis (2026-11-08).** In an assumed one-year round, a player might build around 50–100 ice mines, probably toward the high end. This preliminary estimate is independent of the building model, and round length remains open. Distribution across colonies, mine types, and technologies remains open, as does the distinction between mines built over a round and mines operating at the same time. The current charts have no expansion plan based on this estimate.
 
 Many staggered completions would create more and usually smaller kinks. For similar mines, an extra mine's relative contribution falls as the installed base grows. New mine types or technologies can still have larger effects. Plausible mine counts and timing depend on available buildings, output, infrastructure requirements, competing construction, and build times. For now, the charts show hypothetical model responses. Feasible strategies and the intended player experience still need validation.
-
-<a name="szenario-a-sehr-große-mittlere-und-sehr-kleine-quelle"></a>
 
 ## Scenario A: Very Large, Medium, and Very Small Deposits
 
@@ -78,8 +70,6 @@ In the middle example, matching the throughput of an undepleted deposit takes ar
 **Interpretation.** The model can produce a nearly invisible yield loss for a large deposit and an increasingly important efficiency loss for ice. The intended player experience still needs testing. Actual extraction can increase through expansion even as efficiency falls. A shortage also depends on demand and the evolution of stocks.
 
 With the large deposit and this plan, the final loss is below 0.4 percentage points. Evaluate whether that is negligible against display resolution and economic impact. Higher expansion can raise the loss. For the small deposit, the base model approaches zero, a region the planned minimum yield will need to handle differently.
-
-<a name="szenario-b-gleiche-quelle-verschiedene-ausbaupläne"></a>
 
 ## Scenario B: Same Deposit, Different Expansion Plans
 
@@ -106,8 +96,6 @@ The stopped plan follows the medium plan until 1/3. The last completion was at 1
 **Observation.** The fast plan ends below its initial extraction rate despite twenty times the reference capacity. Slower expansion yields more at that point despite having less capacity. The instantaneous rate alone does not establish which player extracted more in total or developed a stronger economy. The next chart compares cumulative extraction. A better final rate alone does not establish a better strategy.
 
 A deposit sized for the medium plan could become a problem too early under fast expansion. Whether this rewards restraint or penalizes active players depends on reachable responses, quality of information, and actual economic trajectories. Scarcity tied only to the calendar would behave differently from extraction-driven depletion.
-
-<a name="kumulierte-förderung-wie-viel-wurde-insgesamt-gewonnen"></a>
 
 ### Cumulative Extraction: How Much Has Been Extracted in Total?
 
@@ -137,8 +125,6 @@ The chart shows the amount over a whole round for the same four expansion plans.
 
 **Scope.** A is gross extraction from the deposit. Consumed resources and losses due to storage limits count toward it. Construction costs and displaced build time are not deducted and belong to a separate strategy evaluation. Stocks can fall as A rises. Different extraction laws, minimum yields, or additional deposits may change the ranking.
 
-<a name="szenario-c-durchsatz-trotz-verlust-konstant-halten"></a>
-
 ## Scenario C: Maintaining Throughput as Yield Declines
 
 This extreme case asks how much capacity would maintain q = P₀. In the calculation, the player can change capacity continuously, without costs or construction time. The curve describes an idealized capacity requirement.
@@ -158,8 +144,6 @@ The asymptotic curve for constant P uses a different capacity path. Here P rises
 
 **Connection to gameplay.** Mine types, costs, technologies, and build times determine attainable capacity and displaced construction time. Deriving mine counts or lost research or military development requires those inputs. Growing demand would also change the pressure to compensate.
 
-<a name="aus-zielmarken-parameter-ableiten"></a>
-
 ## Deriving Parameters from Targets
 
 For an assumed expansion plan, derive S from a desired relative density d* at x*:
@@ -177,8 +161,6 @@ $$
 
 For example, the medium plan needs α ≈ 0.536 for 80% density at one-third and α ≈ 0.489 for 50% at two-thirds. The comparison value α = 0.5 is close to both. These percentages illustrate the calculation. The meaning of “noticeable” and “problem” remains open.
 
-<a name="übertragung-in-reale-tage-reine-skalierungsbeispiele"></a>
-
 ### Conversion to Real Days: Scaling Examples
 
 With the same normalized expansion plan and α = 0.5, choosing an illustrative starting capacity of P₀ = 100 units/h gives:
@@ -190,8 +172,6 @@ With the same normalized expansion plan and α = 0.5, choosing an illustrative s
 | 360 days | Day 120 | Day 240 | 1,728,000 units |
 
 Scaling fixes the expansion plan relative to the round. If absolute build times stay the same, recalculate the expansion plan for each round length to see what players could build. S stays fixed across expansions.
-
-<a name="noch-zu-klärende-balancing-annahmen"></a>
 
 ## Open Balancing Assumptions
 
@@ -208,13 +188,9 @@ Scaling fixes the expansion plan relative to the round. If absolute build times 
 
 The next balancing iteration needs at least one plausible expansion path with build times and one demand path. Start with ranges so uncertainty in player behavior stays visible.
 
-<a name="to-do-charts-für-konkrete-balancing-iterationen"></a>
-
 ## To-Do: Charts for Specific Balancing Iterations
 
 - [ ] Generate separate balancing charts for concrete building and planet values when balancing them or starting a first iteration with ad hoc values. Preliminary values can be used if explicitly marked as assumptions. Record building parameters (extraction capacity, build times, and operating needs), planet parameters (deposits and density), round length, and expansion plans per iteration. Produce separate SVGs for density, instantaneous extraction rate, and cumulative extraction across several expansion paths. Record parameter versions and assumptions next to the charts so results can be reproduced and compared across iterations. Model staggered completions at a finer scale. The existing large expansion batches illustrate the relationships in the model.
-
-<a name="reproduktion-und-geprüfter-umfang"></a>
 
 ## Reproduction and Verification Scope
 

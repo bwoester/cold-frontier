@@ -1,16 +1,10 @@
-<a name="cold-frontier--wissensbasis"></a>
-
 # Cold Frontier Knowledge Base
 
 This documentation is a **working model that evolves with the project**. It does not constitute a finished requirements specification or an agreed target architecture.
 
-<a name="einstieg-in-obsidian"></a>
-
 ## Getting Started in Obsidian
 
 Open the repository (or the `doc/` directory) as an Obsidian vault. Start with [Game Mechanics Overview](game-design/overview.md) or the visual map [Game Design Canvas](game-design/game-design.canvas). Internal links refer to files in `doc/`.
-
-<a name="bereiche"></a>
 
 ## Sections
 
@@ -25,13 +19,9 @@ Open the repository (or the `doc/` directory) as an Obsidian vault. Start with [
 - [Earlier Technical Notes](notes.md) – the original collection of ideas.
 - [Narrative Tone](personas/overall-tone.md) and [Advisor Relationships](personas/interpersonal-dynamics.md) – existing character concepts.
 
-<a name="qualitätspriorität"></a>
-
 ## Quality Priority
 
 **Clarified by the project owner on 2026-11-01.** The simulation should be easy to understand, trace, and manage. Technical sophistication or speculative resource savings do not justify hard-to-follow processing. Evaluate the time model and execution strategy against gameplay scenarios and realistic operational goals. Global ticks and lazy advancement both remain open options. The [[sources/icewars-catalog#RD-01 Context – Earlier Lazy Approach and Current Priority|source catalog]] records lessons from the earlier lazy design.
-
-<a name="konventionen"></a>
 
 ## Conventions
 

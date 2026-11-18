@@ -2,21 +2,15 @@
 status: under-discussion
 type: game-design-research
 ---
-<a name="schiffbalancing--offene-referenzen-und-geleitschutz"></a>
-
 # Ship Balancing: Open References and Escorts
 
 **Status as of 2026-11-08.** Research proposal. Adoption of a combat system or external data remains open.
-
-<a name="ausgangsidee-und-gewünschte-eigenschaften"></a>
 
 ## Starting Idea and Desired Properties
 
 **Project owner's idea.** Use existing, well-balanced units from other games as a starting point if licensing and gameplay transfer permit it. Desired stats include speed, initiative, attack, and defense, potentially by ship or weapon class. Large ships could benefit from having enough small escorts.
 
 **Analysis.** An open dataset saves initial parameter work. Balance also depends on costs, availability, targeting, order, hit rules, movement, and consequences of losses. The candidates below are relevant references. Superiority or full balance has not been independently established.
-
-<a name="recherchebefunde"></a>
 
 ## Research Findings
 
@@ -30,15 +24,11 @@ type: game-design-research
 
 For each candidate, a complete unit dataset pinned to a commit and tested under Cold Frontier rules is still pending. The quality of any transferred balancing remains hypothetical. Older design pages and changelog entries may describe rules that have since changed.
 
-<a name="lizenz-und-herkunft-bei-einer-späteren-übernahme"></a>
-
 ## License and Provenance for Future Reuse
 
 The licenses specify conditions for reuse. FreeOrion's content license permits commercial adaptation under its terms, including attribution, linking to the license, identifying changes, and ShareAlike when distributing adaptations. Which parts of an actual integration constitute an adaptation would depend on the details.
 
 If data are reused, document source files and versions, attribution, license, changes, and dependencies. Macros and research modifiers can affect effective stats. Check GPL and content-license obligations against the actual material. The treatment of individual numbers and whole tables is a separate question, as is reuse of graphics, names, and descriptions.
-
-<a name="vor-wertevergleich-fachlich-klären"></a>
 
 ## Questions Before Comparing Stats
 
@@ -50,8 +40,6 @@ If data are reused, document source files and versions, attribution, license, ch
 - **Targeting and counters.** Which weapons can engage which opponents, and how are targets assigned within fleets?
 
 These questions guide selection of the stats that support the intended decisions. The full list remains open.
-
-<a name="geleitschutz-als-vorschlag"></a>
 
 ## Escort Protection Proposal
 
@@ -75,13 +63,9 @@ Apply no escort bonus when protection demand is zero. Within one area of effect,
 
 **Proposed scenarios.** Compare large units alone, with insufficient, suitable, or excess escorts, with escorts lost during battle, with many cheap unsuitable ships, and with several large ships sharing escorts. Use equal overall budgets against different enemy compositions. Escorts should help against their intended threats without becoming the best investment against every fleet.
 
-<a name="nächster-überschaubarer-schritt"></a>
-
 ## Next Step
 
 Once the general combat flow is clearer, choose one candidate and pin its version. Reconstruct three to five roles with full effective profiles and costs. Check them first under their original rules, then assess adaptations to Cold Frontier and escorts separately. Implementation remains an open decision.
-
-<a name="geprüfte-quellen"></a>
 
 ## Sources Reviewed
 

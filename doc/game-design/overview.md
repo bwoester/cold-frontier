@@ -2,14 +2,10 @@
 status: under-discussion
 type: game-design
 ---
-<a name="spielmechaniken--übersicht"></a>
-
 # Game Mechanics Overview
 
 > [!important] Evidence
 > This map collects **topics and ideas**. Each topic records its status and origin. See [Current Technical State](../architecture/current-state.md) for the prototype.
-
-<a name="mechaniken"></a>
 
 ## Mechanics
 
@@ -28,16 +24,12 @@ type: game-design
 | Advisors / narrative / humor | Existing character and tone documents. | [Narrative Tone](../personas/overall-tone.md), [Advisor Relationships](../personas/interpersonal-dynamics.md) |
 | Players / alliances / social interaction | Players are implemented and alliances are historically documented. Rules remain open. | [IceWars References](icewars-references.md) |
 
-<a name="bewusst-nicht-entschieden"></a>
-
 ## Open Decisions
 
 - Global or local ticks, discrete-event simulation, or a combination?
 - Where are the consistency boundaries between a planet, player, fleet, and market?
 - How deep should production chains and resource depletion go?
 - Which IceWars mechanics should we adopt, and which should we deliberately change?
-
-<a name="erste-zu-untersuchende-geschichte"></a>
 
 ## First Story to Explore
 

@@ -2,11 +2,7 @@
 status: proposed
 type: architecture-notes
 ---
-<a name="fachlicher-vertrag-der-ressourcensimulation"></a>
-
 # Domain Contract for Resource Simulation
-
-<a name="etappe-1"></a>
 
 ## Stage 1
 
@@ -18,21 +14,15 @@ The result contains the updated state and the game time reached, along with the 
 
 For the [water plant acceptance case](../game-design/scenarios/water-production.feature), the depletion event belongs to the interval that reaches minute 36. A subsequent interval starting at minute 36 does not report it again. Facilities advance together in the context of the colony. The caller does not specify rates or the order of individual facilities.
 
-<a name="bauabschluss-mengenanteile-und-verfügbarkeit"></a>
-
 ### Construction Completion, Fractions, and Availability
 
 The [confirmed rules for construction completion and production progress](../game-design/economy.md#construction-completion-and-production-progress) apply regardless of the engine. When advancement crosses construction completion, it accounts for the existing facilities up to completion and the new building after that, subject to its operating conditions. Completion itself creates no resource unit. Processing in phases must introduce neither retroactive production nor an additional delay.
 
 In addition to available whole units, the result must preserve unfinished production progress or allow it to be reconstructed without loss. Two intervals that each produce half a unit of progress yield one available unit together. Intermediate evaluations must not shift that time. This leaves numeric format and storage layout open. Showing rates per hour leaves internal time resolution and advancement intervals open.
 
-<a name="gemeinsame-förderung"></a>
-
 ### Pooled Extraction
 
 Extraction follows the [pooling rules per colony and resource](../game-design/economy.md#pooled-extraction-per-colony-and-resource). Derive available whole units from pooled extraction quantities before rounding any building's output. The shared remainder persists through construction completion. The internal aggregation and storage structures remain open. Processing also uses shared capacity per colony and recipe, as described below.
-
-<a name="einsatzstoffe-für-eine-laufende-produktion"></a>
 
 ### Inputs for a Unit in Progress
 
@@ -47,8 +37,6 @@ If any input is missing, the next unit does not start and all inputs remain in t
 
 In the acceptance case, the depletion event marks the transition from active production to insufficient ice for the next unit. The pool reaches zero when the last ice is withdrawn at minute 30. What happens to inputs already withdrawn if production is canceled remains open.
 
-<a name="zuständigkeiten-bei-weiteren-spielmechaniken"></a>
-
 ## Responsibilities When Adding Other Game Mechanics
 
 | Role | Responsibility | Boundary |
@@ -58,8 +46,6 @@ In the acceptance case, the depletion event marks the transition from active pro
 | Game flow coordination | Account for the next relevant change, advance affected states to its effective game time, apply actions and consequences in the order specified by the rules, then continue. | Production and combat rules belong to their respective mechanics. The existing Tick Coordinator could be a starting point for this role. Its phases do not yet establish priority rules for every case. |
 
 A time can be known in advance or follow from the progress of a mechanic. For example, the expected completion time of a construction order can shift because of an economic bottleneck. A spontaneous player command receives an effective game time under the rules for game flow coordination. Handling late and simultaneous actions remains part of the [open question on command ordering](command-ordering.md).
-
-<a name="phasenfolge-des-tick-prototyps"></a>
 
 ## Phase Order of the Tick Prototype
 
@@ -77,15 +63,11 @@ The [`TickCoordinator`](../../lib/src/main/java/de/bwoester/coldfrontier/TickCoo
 | 8 | Persistence (`handlePersistence`) | Technical step. Saving at a given point does not establish a gameplay priority rule by itself. |
 | 9 | Cleanup (`handleCleanup`) | Technical cleanup needs no domain phase. An expiry with a gameplay effect, such as the end of a bonus, needs a rule defining when it takes effect. |
 
-<a name="wann-eine-eigene-phase-sinnvoll-ist"></a>
-
 ### When a Separate Phase Makes Sense
 
 A domain phase defines **what state subsequent game rules see at the same game time**. A separate phase makes sense when ordering groups of actions changes an observable result and can be explained as a shared rule. A suitable test compares orderings that produce different stocks, permitted actions, or domain events.
 
 Service responsibilities alone do not establish this order. A resource pool can receive cargo, pay construction costs, and supply inputs for production at the same game time. The same colony remains responsible for its stock rules. Processing all planets before all fleets would implicitly let service order decide whether newly unloaded ice is available for construction and production at that time. A local sequence within a construction order or water plant needs its own phase only if another mechanic must see a relevant state in between. Independent actions at the same time need no global ordering solely because they are simultaneous.
-
-<a name="entladeabschluss-und-gutschrift"></a>
 
 ### Unloading Completion and Crediting Cargo
 
@@ -96,8 +78,6 @@ Game flow coordination processes the **due command to complete unloading** at th
 A cancellation effective before completion stops unloading. All cargo stays with the fleet. The originally scheduled completion does not credit any cargo. The effects of combat, ship destruction, and possible cargo losses during unloading remain open. Once completion has been processed successfully, a subsequent action against the transport cannot prevent the transfer. This includes an attack in a later phase at the same game time.
 
 If ice is credited at minute 36 and at least 1 ice and 2 energy remain after player commands, the water plant starts the seventh unit as soon as the sixth finishes. No ice depletion event occurs. The [unloading completion Gherkin scenarios](../game-design/scenarios/delivery-completion.feature) test the actions taking effect together. Ordering within a group remains part of the [open question on command ordering](command-ordering.md).
-
-<a name="ereignisse-aus-der-wirtschaft"></a>
 
 ## Events from the Economy
 
@@ -110,8 +90,6 @@ If a transition can affect another mechanic at an earlier time, game flow coordi
 **Proposal for a later extension.** A run can stop at a transition relevant to coordination and return the state at the game time reached. Game flow coordination processes the consequence at that time and resumes the run. The meaning of the reached game time and the events must remain unambiguous. The first concrete case involving feedback will help determine whether an early return or another coordination mechanism fits.
 
 Ordering simultaneous effects, handling chains of consequences at the same game time, and deciding which transitions require coordination all remain open. Stage 1 requires neither a general event interface nor a decision on the technical time model.
-
-<a name="mathematische-vertiefung-eisförderung"></a>
 
 ## Mathematics of Ice Extraction
 
