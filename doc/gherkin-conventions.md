@@ -40,3 +40,26 @@ other modifiers.
 Feature files without engine step bindings remain specifications, not evidence of
 passing automated acceptance tests. The existing engine's characterization tests
 do not establish compliance with these game behavior scenarios.
+
+## Engine bindings and observations
+
+Keep game behavior steps independent of engine classes through a small test-side
+interface and an adapter for each implementation. Define only the operations needed
+by the scenarios being bound. This is ordinary test code, not a custom framework
+or a cross-language protocol.
+
+Adapters translate fixture data, actions and observations. They must not implement
+missing production rules, fabricate audit events, suppress duplicates or silently
+round times. Time conversions must follow the engine's explicit game-time semantics.
+Fixture setup may provide pre-start stocks; automatic recipe withdrawal belongs to
+engine initialization.
+
+Assertions read actual engine state or history. Audit assertions inspect emitted
+domain events, not storage writes or events inferred from final balances. Compare
+the fields and effective times stated in the feature, preserving the distinction
+between events from the latest operation and the full scenario history. Collect
+results after the engine operation completes.
+
+Report missing bindings and unsupported behavior explicitly; pending or excluded
+scenarios are not passing acceptance tests. Failures in enabled acceptance cases
+must fail their test run.
