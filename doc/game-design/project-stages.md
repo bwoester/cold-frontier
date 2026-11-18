@@ -1,10 +1,6 @@
-<a name="projektetappen-und-designstand"></a>
-
 # Project Stages and Design Status
 
 A **project stage** describes a verifiable development milestone for the entire game. The **initial version of a mechanic** describes its simplest intended scope when introduced. Defining that scope leaves the introduction date open.
-
-<a name="reihenfolge"></a>
 
 ## Sequence
 
@@ -15,8 +11,6 @@ A **project stage** describes a verifiable development milestone for the entire 
 | 3 · Research | An initial research project changes the economy or unlocks a building. The gameplay stays on one planet. | Completing research has a visible effect on further development. |
 | 4 · Solar system and probes | Other planets become destinations. A probe gathers information about a target planet. | A probe provides information that can later help choose a colony site. |
 
-<a name="erster-zuschnitt-für-etappe-1"></a>
-
 ## Initial Scope for Stage 1
 
 **For discussion.** The [water production Gherkin scenario](scenarios/water-production.feature) describes the acceptance case for stage 1. The game rule and audit context are documented in [S12 in the economy documentation](economy.md#s12--ice-stock-runs-out-during-water-production).
@@ -24,8 +18,6 @@ A **project stage** describes a verifiable development milestone for the entire 
 This chain tests stock changes, a shortage, and the effective time of an event together. The facilities and initial stocks come from the scenario. More buildings, population dynamics, and mechanics spanning multiple planets can follow. The time unit, rounding, and advancement strategy remain open.
 
 Feature files follow the [Gherkin conventions](../gherkin-conventions.md).
-
-<a name="mindmap-zum-diskussionsstand"></a>
 
 ## Design Status Mind Map
 

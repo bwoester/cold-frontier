@@ -2,8 +2,6 @@
 status: observed-prototype
 type: architecture-notes
 ---
-<a name="technischer-ist-zustand-keine-soll-architektur"></a>
-
 # Current Technical State of the Prototype
 
 This page summarizes **observed prototype code**. The target architecture and technology choices require their own decisions.
@@ -16,16 +14,12 @@ This page summarizes **observed prototype code**. The target architecture and te
 - `backend/`: Quarkus prototype with REST and OIDC dependencies.
 - `frontend/`: Vue SPA with public and protected pages and game navigation.
 
-<a name="bekannte-lücken--diskussionspunkte"></a>
-
 ## Known Gaps and Discussion Points
 
 - The rules for bottlenecks and resource depletion are incomplete.
 - Verify the interaction between construction progress and ticks, as well as concurrent commands, end to end.
 - Event sourcing, the time model, database, messaging, RPC, backend framework, and CSS approach have no accepted decisions.
 - A framework-independent domain engine is an **architecture goal**. The current `lib` also has NATS-specific dependencies.
-
-<a name="verweise"></a>
 
 ## References
 

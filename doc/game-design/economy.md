@@ -3,21 +3,15 @@ status: under-discussion
 type: game-design
 focus: true
 ---
-<a name="planetare-wirtschaft"></a>
-
 # Planetary Economy
 
 **Status.** Design exploration with some explicitly confirmed rules and directions. A complete rules specification has yet to be accepted.
 
 The [project stages overview](project-stages.md) gives the planned development scope and discussion status. On this page, each initial version refers to the mechanic being described.
 
-<a name="zielbild-projektziel"></a>
-
 ## Target Experience (Project Goal)
 
 The economy should go beyond constant income rates. Buildings produce and consume resources, shortages affect other sectors, and planetary deposits can be depleted. Players should be able to trace causes and effects.
-
-<a name="bisher-beobachtete-unterscheidung-code-ist"></a>
 
 ## Distinctions Observed in the Current Code
 
@@ -32,8 +26,6 @@ The economy should go beyond constant income rates. Buildings produce and consum
 
 Source code: [ResourceSetMsg](../../lib/src/main/java/de/bwoester/coldfrontier/accounting/ResourceSetMsg.java), [PlanetResourceSetMsg](../../lib/src/main/java/de/bwoester/coldfrontier/accounting/PlanetResourceSetMsg.java), [MiningResourcesMsg](../../lib/src/main/java/de/bwoester/coldfrontier/planet/MiningResourcesMsg.java), [UserAccount](../../lib/src/main/java/de/bwoester/coldfrontier/accounting/UserAccount.java).
 
-<a name="produktion-und-abhängigkeiten"></a>
-
 ## Production and Dependencies
 
 **Confirmed water recipe.** Producing 1 unit of water consumes 1 unit of ice and 2 units of energy. Throughput and partial operation remain open.
@@ -41,8 +33,6 @@ Source code: [ResourceSetMsg](../../lib/src/main/java/de/bwoester/coldfrontier/a
 **Current code.** `ProductionService` sums fixed production vectors per building. It does not yet account for shortages, input availability, or modifiers. `IRON_MINE` is an example configured with positive iron production and negative energy production. These values are provisional.
 
 **To investigate.** Input and output recipes, simultaneous competing consumers, priorities, partial operation, storage eligibility, time resolution, rounding, saturation, and cascading shortages.
-
-<a name="sinkende-ergiebigkeit-und-zeit-als-ressource"></a>
 
 ## Declining Yield and Time as a Resource
 
@@ -58,13 +48,9 @@ Declining deposit yields should increase the effort required to maintain supply.
 - **Implication.** A positive minimum yield can still provide meaningful pressure to adapt. Building more mines may be technically possible while their build time and the development they displace make a new source strategically necessary.
 - **Open question.** How early do players notice the pressure, and which responses remain within reach? Avoid a downward spiral that players notice too late to recover from.
 
-<a name="kontinuierlicher-abbau-zwischen-ereignissen"></a>
-
 ### Continuous Extraction Between Events
 
 The [continuous ice extraction approach](continuous-ice-extraction.md) discussed on 2026-11-08 documents the proportional depletion curve, its parameters, and direct calculation over longer intervals. Examples and charts show eight hours without intervention and a subsequent mine expansion. Minimum yield, balancing, and integration with the full economy remain open, as does the technical time model. The [long-term and extreme scenarios](extraction-balancing-scenarios.md) compare large and small deposits, expansion rates, and idealized compensation requirements. The preliminary balancing target from the 2026-11-08 discussion is for ice depletion to become noticeable around one-third of the way through a round and strategically problematic around two-thirds. Iron depletion could be made negligible. Round duration, expansion paths, and measurable impact criteria remain open.
-
-<a name="mindestergiebigkeit-und-überleben-bei-abwesenheit"></a>
 
 ### Minimum Yield and Survival During Absence
 
@@ -77,8 +63,6 @@ Ice should therefore retain a positive minimum yield so extraction and, in princ
 **Still to demonstrate.** Positive ice density alone cannot guarantee a viable supply. Energy, labor, processing facilities, and allocation of scarce resources can still interrupt the chain. Determine how minimum supply can continue without manual intervention and whether a viable remaining population can stabilize. Specific protection mechanisms will follow from that work.
 
 **Open balancing questions.** Initial density, minimum density, extraction capacity, depletion curve, time until pressure becomes noticeable, and supply to a remaining population. Cold Frontier has yet to adopt the historical values of 5% and 15%.
-
-<a name="bevölkerung-wohnraum-und-wasserversorgung"></a>
 
 ## Population, Housing, and Water Supply
 
@@ -95,8 +79,6 @@ Ice should therefore retain a positive minimum yield so extraction and, in princ
 
 **Scope.** The protection goal concerns supply and leaves the confirmed housing cap in force. Whether it applies when all housing is lost, facilities are destroyed, or the planet suffers military annihilation is a separate open rule. The primary test case assumes positive housing capacity and existing supply facilities.
 
-<a name="rückkopplungsfall-wasserproduktion-braucht-arbeitskräfte"></a>
-
 ### Feedback Case: Water Production Needs Labor
 
 **Risk to evaluate in simulation.** A water shortage reduces population. A smaller population can mean fewer workers and lower ice or water production. Declining supply could then cause additional losses. Prioritization alone cannot guarantee stability when total supply capacity shrinks with the population.
@@ -110,8 +92,6 @@ Other options or combinations remain possible. Include labor demand for energy s
 
 **Domain test criteria to define.** What remaining population is viable? Can it sustain its basic needs indefinitely and grow again when conditions improve? A mathematically positive population that approaches zero or becomes unable to act because of rounding is insufficient. A numerical population floor or a free production bonus has yet to be decided.
 
-<a name="autonomes-starthabitat-vorschlag"></a>
-
 ### Autonomous Starting Habitat (Proposal)
 
 The colony ship becomes a durable, indestructible habitat when the colony is founded. For example, it provides housing for 200 and produces water and energy without external supply or labor. Both outputs enter the regular planetary economy. A small surplus could support initial development and rebuilding. Capacity and production rates are balancing candidates.
@@ -119,8 +99,6 @@ The colony ship becomes a durable, indestructible habitat when the colony is fou
 Survival protection requires other consumers to leave enough water for the protected population. S11 should therefore also test an empty stock, loss of other supply, and competing consumers. Whether energy accumulates depends on the open storage rules. Whether the output is enough to build the first buildings also depends on their other costs.
 
 The first construction materials arrive as a one-time shipment on the colony ship. The habitat produces none of those materials. The player sends additional supplies by transport. One proposal adds a small bunker to protect some stocks from attacks. Starting cargo, protection capacity, and regular production are separate quantities.
-
-<a name="vorrang-bei-wasserknappheit"></a>
 
 ### Priority During Water Shortages
 
@@ -130,13 +108,9 @@ A facility whose demand cannot be met experiences a shortage. Define its consequ
 
 **Test case for S11.** With 300 residents, an empty stock, and enough habitat production for 200, the population receives all available water. Another consumer receives none. Its specific response remains open.
 
-<a name="geplante-prüfung"></a>
-
 ### Planned Verification
 
 S9–S11 below are domain test specifications. Once production, consumption, labor, and population rules are defined, implement S11 in particular as an automated simulation regression test. **Documented, awaiting simulation.** The necessary formulas and protection mechanism remain open. An example implementation now would have to invent undecided game rules.
-
-<a name="bevölkerung-und-arbeitskräfte"></a>
 
 ## Population and Labor
 
@@ -149,8 +123,6 @@ S9–S11 below are domain test specifications. Once production, consumption, lab
 - Whether individual construction and research orders need ongoing staff or only their operating buildings do remains open.
 
 **Terms.** For population P and total ongoing building staffing demand D, the surplus is max(0, P − D) and the shortfall max(0, D − P). These figures describe demand and leave staffing order and productivity formulas open. With demand of 1,000 and 800 citizens, the shortfall is 200 workers.
-
-<a name="konstruktionskosten-laufender-verbrauch-und-personalbindung"></a>
 
 ### Construction Costs, Ongoing Consumption, and Staffing
 
@@ -173,8 +145,6 @@ S9–S11 below are domain test specifications. Once production, consumption, lab
 - Model fleet personnel separately or solely through population construction costs.
 - Reassign staff between the economy and fleet, and temporarily deactivate ships.
 - These options remain open. Crew management is outside the scope of the first economy model.
-
-<a name="verteilung-und-produktivität-bei-unterbesetzung"></a>
 
 ### Allocation and Productivity During Understaffing
 
@@ -211,13 +181,9 @@ Assess productivity curves and delayed effects independently of these control le
 
 These cases describe future checks for rules still to be decided.
 
-<a name="gebäude-und-bau"></a>
-
 ## Buildings and Construction
 
 **Current code.** The enum includes an iron mine, a solar cell, solar, coal, and nuclear power plants, a steelworks, an observatory, energy storage, housing, a bunker, a town center, a defense platform, and a shipyard. A construction queue and construction progress exist. The building list remains provisional.
-
-<a name="kosten-abbruch-und-fortschritt"></a>
 
 ### Costs, Cancellation, and Progress
 
@@ -243,8 +209,6 @@ These cases describe future checks for rules still to be decided.
 - **Cancellation, incidents, and destruction.** The partial refund applies to voluntary construction cancellation. Destroyed shipyards lose ships under construction per S8. Refunds after destruction remain open.
 - **Progress.** Specific slowdown triggers, a possible zero rate, resumption, and the order of other simultaneous events remain open. The timing boundary is documented under [Construction Completion and Production Progress](#construction-completion-and-production-progress).
 - **Free construction minutes.** The [[icewars-references#Player Recollection – Free Construction Minutes|historical acceleration mechanic]] is separate from the rules for Cold Frontier.
-
-<a name="bauabschluss-und-produktionsfortschritt"></a>
 
 ### Construction Completion and Production Progress
 
@@ -272,8 +236,6 @@ This sequence defines when the gameplay effects apply. Technical phases, tick du
 
 Advancing directly across both intervals must yield the same state and effective time of availability. Evaluating the same game time again creates no further production. The duration of each interval follows from the rate and operating conditions in the test and establishes no general rule.
 
-<a name="gemeinsame-förderung-je-kolonie-und-ressource"></a>
-
 ### Pooled Extraction per Colony and Resource
 
 **Confirmed rule (2026-11-17).** Pool all amounts of the same extracted resource within a colony, including fractions. Whole units of the total are available, and the remaining fraction is retained as shared extraction progress. Individual mines need not complete whole units. Keep resources and colonies separate.
@@ -283,8 +245,6 @@ Each building contributes according to its actual operating time and output. A n
 **Player experience.** Availability follows the colony's total extraction. Many slow mines together regularly yield usable units without waiting for individual mines to finish.
 
 The [pooled extraction Gherkin scenarios](scenarios/pooled-extraction.feature) explicitly compare one mine at 6 iron per hour with two mines at 3 iron per hour each. They also test retention of the shared remainder and completing a new mine when fractional progress already exists. All rates and times are test values.
-
-<a name="gemeinsame-verarbeitung-je-kolonie-und-rezeptur"></a>
 
 ### Pooled Processing per Colony and Recipe
 
@@ -304,8 +264,6 @@ With scarce inputs, buildings using the same recipe can all contribute to the po
 
 The [pooled processing Gherkin scenarios](scenarios/pooled-processing.feature) cover scarce inputs, fractional progress, segmented advancement, incomplete ingredients, consecutive units, and construction completion during processing. The existing single-plant scenarios remain valid special cases. Technical events for individual units and a processing loop remain implementation choices.
 
-<a name="verzögerter-abbruch-und-verlust-von-voraussetzungen"></a>
-
 ### Delayed Cancellation and Loss of Prerequisites
 
 **Clarified by the project owner on 2026-11-02:**
@@ -320,8 +278,6 @@ The [pooled processing Gherkin scenarios](scenarios/pooled-processing.feature) c
 **Proposed distinction.** Consider start prerequisites such as unlocks, operating conditions that affect progress, and the physical facility that carries out an order separately. Losing a research building can have different consequences from losing the shipyard where a ship is being built. Classify each prerequisite in the context of its mechanic. A general cancellation rule for all prerequisite losses remains open.
 
 **Additional check for blocked progress.** If delayed cancellation holds a construction slot until it completes, determine whether lack of power or staff can also slow cancellation. One proposal keeps voluntary cancellation available as a time-bounded way out. The rule remains open.
-
-<a name="warteschlangenaufschlag-und-zusammenarbeit"></a>
 
 ### Queue Surcharges and Collaboration
 
@@ -351,8 +307,6 @@ Historical inspiration: [[icewars-references#Player Recollection – Planetary C
 
 **Further open questions.** Which queue and concurrency rules apply to research and shipbuilding? Which prerequisites must hold only at the start, and which until completion?
 
-<a name="lager-und-bunker"></a>
-
 ## Storage and Bunkers
 
 **Confirmed rules.** Each colony has a shared resource pool. Storage facilities increase its capacity. Bunkers protect a fixed quantity per supported resource and can add storage capacity for resources that require storage. Stocks remain available for the colony's own spending. There is no transfer step.
@@ -373,8 +327,6 @@ When capacity is lost, discard excess stock immediately for each resource that r
 
 **Test case.** A colony ship should be affordable with the intended storage capacity. The required storage upgrade must itself be affordable from the stock available before it. At smaller storage levels, test whether bunker upgrades or combining storage buildings affects the milestone as intended.
 
-<a name="kolonisation"></a>
-
 ## Colonization
 
 **Confirmed rule.** The level of the colonization center determines how many colonies a player can found. The limit per level remains open.
@@ -394,8 +346,6 @@ Colonization flights occupy no colony slot en route. On arrival, check the colon
 **Proposal.** A small number of colony ship types could differ in range and starting cargo. Whether to tie their capacity to the colonization center level remains open.
 
 **Idea for later review.** A purpose-specific fleet order could combine destination, flight, and action on arrival. A dedicated mission system remains an open design idea.
-
-<a name="handel-und-transport"></a>
 
 ## Trade and Transport
 
@@ -439,19 +389,13 @@ Production and consumption on a planet directly affect its resource pool. Transp
 
 General chains of fleet orders remain an idea for later. Actual cargo can differ from the plan on pickup. How follow-up orders handle that remains open, as do ownership in transit, trade rules, credit transfers, and attacks on convoys.
 
-<a name="erste-szenarien-noch-ohne-erfundene-erwartungswerte"></a>
-
 ## Initial Scenarios (Expected Values Where Defined)
-
-<a name="s1--energieknappheit"></a>
 
 ### S1 – Energy Shortage
 
 **Given** two mines each need energy and the power plant supplies less than their combined demand.\
 **When** a production interval elapses.\
 **Then decide** how much energy each mine receives. Is supply proportional, prioritized, or is partial operation unavailable? What does the player see?
-
-<a name="s2--erschöpftes-vorkommen-offene-variante-für-andere-ressourcen"></a>
 
 ### S2 – Depleted Deposit (Open Variant for Other Resources)
 
@@ -461,15 +405,11 @@ For ice, the minimum yield direction and S5 apply.
 **When** it empties before the end of the production interval.\
 **Then decide** the exact depletion time, partial extraction, reopening, and effects on dependent facilities.
 
-<a name="s3--zwei-gleichzeitig-konkurrierende-ausgaben"></a>
-
 ### S3 – Two Concurrent Spending Attempts
 
 **Given** two construction orders need the same planetary resources.\
 **When** both arrive almost simultaneously.\
 **Then the candidate invariant is** that the same stock cannot be spent twice. Ordering, rejection, and player feedback remain open.
-
-<a name="s4--sinkende-ergiebigkeit-bindet-baukapazität"></a>
 
 ### S4 – Declining Yield Ties Up Construction Capacity
 
@@ -478,16 +418,12 @@ For ice, the minimum yield direction and S5 apply.
 **Then the design direction is** for expansion to take time and compete with other construction, and for alternative supplies to free up room for development.\
 **Still to determine** construction capacity, compensation time, attainable responses, and clear advance warnings. This assumes no particular queue model.
 
-<a name="s5--mindestergiebigkeit-bei-längerer-abwesenheit"></a>
-
 ### S5 – Minimum Yield During a Prolonged Absence
 
 **Given** a planet has a working ice and water supply and its player is absent for a long time.\
 **When** ice density reaches a positive floor and available stocks are consumed.\
 **Then the protection goal is** for the source to keep yielding some ice and continued water supply to sustain at least some of the population. Scarcity alone should not wipe out the account.\
 **Still to determine** duration, initial conditions, minimum supply, energy and workforce dependencies, consumer priorities, and behavior during shortages. The floor alone does not establish that the goal is met.
-
-<a name="s6--kostenabzug-und-freiwilliger-abbruch"></a>
 
 ### S6 – Cost Deduction and Voluntary Cancellation
 
@@ -498,8 +434,6 @@ For ice, the minimum yield direction and S5 apply.
 **Then** the order becomes “canceling”. Progress stops and it cannot start from the queue. Only when cancellation completes is the partial refund credited and the respective slot freed. If the previously expected completion falls within the cancellation phase, construction does not complete.
 **Still to determine** duration and its modifiers, fixed refund share, rounding, and treatment of different cost types.
 
-<a name="s7--beeinträchtigter-bau--oder-forschungsfortschritt"></a>
-
 ### S7 – Impaired Construction or Research Progress
 
 **Given** construction or research is in progress.\
@@ -507,15 +441,11 @@ For ice, the minimum yield direction and S5 apply.
 **Then the design direction is** for progress to slow. Slowdown alone has no agreed automatic failure rule.\
 **Still to determine** exact triggers, minimum rate, combined shortages, and recovery. Power and free population are initial candidates. The preliminary preference is to avoid a full stop that blocks account development. A minimum speed is not guaranteed yet.
 
-<a name="s8--werftzerstörung-während-des-schiffbaus"></a>
-
 ### S8 – Shipyard Destruction During Construction
 
 An orbital shipyard is destroyed while one or more ships are being built. Unfinished ships and their progress are lost. Treat waiting orders as voluntarily canceled. Refund a fixed share of the cost actually paid. When to credit the refund upon shipyard loss remains open. For ships already started, a partial refund under the same rule is an option under discussion alongside the loss of all costs. The ships and their progress are still lost. Rules for damage without destruction remain open.
 
 **Later idea from IceWars recollections.** Salvaging and reusing space debris could soften costly losses. Whether shipyards generate debris on destruction, how much, who can salvage it, and what materials are recovered remain open.
-
-<a name="s9--wohnraumverlust-begrenzt-bevölkerung"></a>
 
 ### S9 – Housing Loss Caps Population
 
@@ -524,8 +454,6 @@ An orbital shipyard is destroyed while one or more ships are being built. Unfini
 **Then** there are immediately 800 residents and 800 housing places.\
 **Cross-check.** If only 100 unused places are lost, 1,000 residents and 1,100 places remain. These are confirmed example values and leave planet size balancing open.
 
-<a name="s10--vorräte-überbrücken-ein-wasserdefizit"></a>
-
 ### S10 – Stocks Cover a Water Deficit
 
 **Given** water consumption exceeds production and stock still covers actual demand fully.\
@@ -533,8 +461,6 @@ An orbital shipyard is destroyed while one or more ships are being built. Unfini
 **Then** stocks fall by the deficit. The deficit alone does not reduce the population yet.\
 **When** available stock can no longer meet demand.\
 **Then** a water shortage can cause population decline. Timing, partial supply, and rate follow rules still to be defined.
-
-<a name="s11--überleben-trotz-wasser-arbeitskräfte-rückkopplung"></a>
 
 ### S11 – Survival Despite Water and Labor Feedback
 
@@ -556,8 +482,6 @@ An orbital shipyard is destroyed while one or more ships are being built. Unfini
 
 **Traceability for development and support.** When something goes wrong, the initial state, active rules, time steps or event sequence, labor allocation, and water balance must be reproducible. Event sourcing and storage of every intermediate state remain open.
 
-<a name="s12--eisvorrat-endet-während-der-wasserproduktion"></a>
-
 ### S12 – Ice Stock Runs Out During Water Production
 
 **Confirmed rule direction (2026-11-03).** Players see hourly production and consumption rates. With available inputs, production runs at the rate allowed by operating conditions. When a required input is missing, output falls accordingly. With no ice stock, the water plant cannot start another unit and withdraws no energy for it. A unit started with inputs already withdrawn still completes.
@@ -568,25 +492,17 @@ The example rates are test values. Building parameters remain open. The time res
 
 **Audit requirement.** If the water plant cannot start another unit after completion because ice is missing, a domain event records the effective game time, affected colony, and resource. The scenario's time applies even if the simulation processes the event later. The audit should trace the plant's shutdown, its removed energy demand, and actual changes in other consumers to this event. Possible reallocation alone is not an observed change. Event structure, retention, and persistence remain architecture questions.
 
-<a name="s13--entladung-bei-begrenzter-lagerkapazität"></a>
-
 ### S13 – Unloading with Limited Storage Capacity
 
 A transport unloads 30 ice from orbit. After 15 minutes the destination has 90 ice and capacity for 100. On completion, 10 ice enters the pool and 20 ice is lost. The transport retains none of the ice from the delivery. The audit event records both quantities. If stock changes during unloading, use free capacity at completion.
-
-<a name="s14--sofortiger-verfall-bei-kapazitätsverlust"></a>
 
 ### S14 – Immediate Loss When Capacity Drops
 
 A colony has 90 ice, capacity for 100, and bunker protection for 20 ice. If ordinary storage with capacity for 20 is lost, 10 ice is lost immediately. Of the remaining 80 ice, 20 stays protected. If a bunker with capacity for 20 can be destroyed and is lost, 10 ice is likewise lost immediately and the protection disappears. A subsequent raid can therefore loot up to 80 ice. The second variant assumes bunker loss. Whether the game allows it remains open.
 
-<a name="s15--wiederaufbau-mit-nachschub"></a>
-
 ### S15 – Rebuilding with Resupply
 
 After an attack, the habitat supplies the remaining population. The mine is destroyed and construction stock cannot pay for rebuilding it. Rebuilding requires a transport with the missing materials. After unloading, the usual construction prerequisites apply.
-
-<a name="s16--zwei-gründungsflüge-bei-einem-freien-kolonieplatz"></a>
 
 ### S16 – Two Colonization Flights with One Free Colony Slot
 
@@ -598,19 +514,13 @@ The [cross-cutting architecture question on command ordering](../architecture/co
 
 **Test case.** Two tabs send separate founding orders for one player. Both departures have the same game time and both arrivals have the same game time. Only one colony slot is free. Requests can arrive in any order and be retried. Once the ordering rule is defined, verify which command has priority, that the slot is occupied at most once, and that retrying does not launch an additional flight.
 
-<a name="s17--zwei-spieler-fliegen-denselben-planeten-an"></a>
-
 ### S17 – Two Players Approach the Same Planet
 
 Player A begins founding on a free planet. Player B arrives during the founding period. The planet is already occupied. B cannot start founding and waits in orbit for a new order. In the initial colonization rules, A finishes founding successfully. The finished colony keeps the planet occupied.
 
-<a name="s18--bunkerschutz-für-unbegrenzt-lagerbaren-stahl"></a>
-
 ### S18 – Bunker Protection for Steel with Unlimited Storage
 
 A colony holds 5,000 steel and has bunker protection for 1,000. At most 4,000 steel can be looted. If protection is lost, all 5,000 steel remains in stock and can be looted. The quantities are test values.
-
-<a name="offene-fachliche-fragen--zuerst-klären"></a>
 
 ## Open Domain Questions to Resolve First
 
@@ -620,8 +530,6 @@ A colony holds 5,000 steel and has bunker protection for 1,000. At most 4,000 st
 4. Which events change production rates?
 5. What amounts are protected by resource and level, and how are exhaustible deposits handled?
 6. What timing semantics do players expect for simultaneous actions?
-
-<a name="nächster-modellierungsschritt"></a>
 
 ## Next Modeling Step
 
