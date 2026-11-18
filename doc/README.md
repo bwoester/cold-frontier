@@ -14,7 +14,6 @@ Open the repository (or the `doc/` directory) as an Obsidian vault. Start with [
 - [Extraction Over a Round](game-design/extraction-balancing-scenarios.md) – long-term scenarios, extreme cases, and open balancing assumptions.
 - [Historical IceWars Materials – Progress](sources/icewars-catalog.md) – source inventory, analysis, documentation, and archiving.
 - [IceWars Research](game-design/icewars-references.md) – historical inspiration rather than Cold Frontier requirements.
-- [Simulation Acceptance Test Boundary](architecture/simulation-acceptance-boundary.md) – proposed test interface, two scenario mappings and verified prototype gaps.
 - [Current Technical State](architecture/current-state.md) – observations of the prototype, with no architectural decision implied.
 - [Command Ordering and Concurrent Actions](architecture/command-ordering.md) – an open architecture question for the entire game.
 - [Earlier Technical Notes](notes.md) – the original collection of ideas.
