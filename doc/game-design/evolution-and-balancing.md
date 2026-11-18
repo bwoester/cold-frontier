@@ -40,6 +40,7 @@ Stages should build on what players have learned and open new strategic question
 
 **Interaction with depletion.** If colonization unlocks in Evo 2, the starting economy must support the intended path despite declining yields. Different paces of play should not accidentally leave players unable to progress. [Planetary survival protection](economy.md) alone cannot guarantee economic progress.
 
+<!-- Preserve links to the original German heading. -->
 <a name="ressourcenwechsel-und-schutz-von-neueinsteigern"></a>
 
 ### Resource Progression and Protection for New Players
@@ -224,6 +225,7 @@ Cloaking can reduce the attacker's risk while increasing uncertainty and losses 
 - Check whether defeat allows interesting follow-up decisions and credible recovery. Assess whether lower costs or higher loot enable repeated mutual gains or encourage attacks on weaker players.
 - Describe specific shield and cloaking situations, counters, and response opportunities before assigning values and Evo stages.
 
+<!-- Preserve links to the original German heading. -->
 <a name="sekundäre-basen-als-ziele-für-bombardierung"></a>
 
 ### Secondary Bases as Bombardment Targets
