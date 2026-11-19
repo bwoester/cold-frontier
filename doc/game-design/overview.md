@@ -20,9 +20,15 @@ type: game-design
 | Fleets / ships / movement | Project goal. Tick phases appear in prototype code and notes. | [Current Technical State](../architecture/current-state.md) |
 | Battles / wars | Project goal. The mechanic is still unspecified. | [IceWars References](icewars-references.md) |
 | Visibility / sensors | Phases and TODOs in code and notes. | [Current Technical State](../architecture/current-state.md) |
-| Game time / events | Global phase-based tick coordinator in the prototype. The time model remains open. | [Current Technical State](../architecture/current-state.md) |
+| Game time / events | Global phase-based tick coordinator in the prototype. The time model remains open. Configurable round speed is a future idea. | [Round Speed](#round-speed), [Current Technical State](../architecture/current-state.md) |
 | Advisors / narrative / humor | Existing character and tone documents. | [Narrative Tone](../personas/overall-tone.md), [Advisor Relationships](../personas/interpersonal-dynamics.md) |
 | Players / alliances / social interaction | Players are implemented and alliances are historically documented. Rules remain open. | [IceWars References](icewars-references.md) |
+
+## Round Speed
+
+**Future idea.** A round could define how much game time elapses per unit of real time. At 4× speed, 15 real minutes would correspond to 60 game minutes. This could support speed rounds and clock-driven tests that use a controllable clock.
+
+Construction durations and production rates would still be expressed in game time. The speed factor would determine how quickly the round reaches a given point in game time. Each simulation engine would remain free to choose its own time resolution and advancement model.
 
 ## Open Decisions
 
