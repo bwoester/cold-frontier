@@ -96,6 +96,10 @@ public class Keys {
         public static String planet(String planetId) {
             return String.format("planet.planets.%s", planetId);
         }
+
+        public static String productionRemainder(String planetId) {
+            return String.format("planet.planets.%s.production-remainder", planetId);
+        }
     }
 
     // ------------------------------------------------------------------------

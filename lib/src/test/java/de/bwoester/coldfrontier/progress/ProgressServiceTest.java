@@ -106,7 +106,7 @@ class ProgressServiceTest {
         
         // When
         when(buildingDataProvider.getData(building)).thenReturn(buildingMsg);
-        when(buildingMsg.ticksToBuild()).thenReturn(10L);
+        when(buildingMsg.buildTimeSeconds()).thenReturn(10L);
         progressService.increaseProgress();
         
         // Then
@@ -121,7 +121,7 @@ class ProgressServiceTest {
         
         // When
         when(buildingDataProvider.getData(building)).thenReturn(buildingMsg);
-        when(buildingMsg.ticksToBuild()).thenReturn(10L);
+        when(buildingMsg.buildTimeSeconds()).thenReturn(10L);
         progressService.increaseProgress();
         
         // Then
@@ -214,7 +214,7 @@ class ProgressServiceTest {
         
         // Process 9 ticks (should reach 90% progress)
         when(buildingDataProvider.getData(building)).thenReturn(buildingMsg);
-        when(buildingMsg.ticksToBuild()).thenReturn(10L);
+        when(buildingMsg.buildTimeSeconds()).thenReturn(10L);
         for (int i = 0; i < 9; i++) {
             progressService.increaseProgress();
         }

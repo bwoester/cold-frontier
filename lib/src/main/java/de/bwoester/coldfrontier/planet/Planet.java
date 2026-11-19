@@ -15,6 +15,7 @@ import de.bwoester.coldfrontier.progress.ProgressService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+import java.time.Duration;
 import java.util.Collection;
 import java.util.Map;
 
@@ -30,6 +31,7 @@ public class Planet implements TickComponent {
     private final BuildingService buildingService;
     private final AccountingService accountingService;
     private final ProductionService productionService;
+    private final Value<ResourceSetMsg> productionRemainder;
     private final ProgressService progressService;
 
     @Override
@@ -65,17 +67,22 @@ public class Planet implements TickComponent {
     }
 
     @Override
-    public void handleResourceUpdates() {
-        BuildingCountersMsg planetBuildings = buildingService.getBuildings();
-        ResourceSetMsg planetProduction = productionService.calculateProduction(planetBuildings);
-        accountingService.executeTransaction(planetData.get().id(),
-                new TransactionMsg("Planet production", TransactionMsg.TransactionType.INCOME, planetProduction)
-        );
+    public void handleResourceUpdates(Duration elapsedGameTime) {
+        ResourceSetMsg previousRemainder = productionRemainder.get();
+        ProductionService.ProductionStep production = productionService.calculateProduction(
+                buildingService.getBuildings(), elapsedGameTime, previousRemainder);
+        TransactionMsg transaction = new TransactionMsg(
+                "Planet production", TransactionMsg.TransactionType.INCOME, production.wholeUnits());
+        if (accountingService.executeTransaction(planetData.get().id(), transaction)
+                && !production.remainder().equals(previousRemainder)) {
+            productionRemainder.set(production.remainder());
+        }
         // TODO deplete mined resources from planet
     }
 
     @Override
-    public void handleFinishedUnits() {
+    public void handleFinishedUnits(Duration elapsedGameTime) {
+        progressService.increaseProgress(elapsedGameTime);
         progressService.pollCompletedBuilding()
                 .ifPresent(i -> buildingService.addAll(new BuildingCountersMsg(Map.of(i, 1L))));
     }

@@ -5,6 +5,7 @@ import de.bwoester.coldfrontier.accounting.AccountingService;
 import de.bwoester.coldfrontier.accounting.Ledger;
 import de.bwoester.coldfrontier.accounting.PlanetAccount;
 import de.bwoester.coldfrontier.accounting.PlanetResourceSetMsg;
+import de.bwoester.coldfrontier.accounting.ResourceSetMsg;
 import de.bwoester.coldfrontier.accounting.TransactionMsg;
 import de.bwoester.coldfrontier.accounting.UserAccount;
 import de.bwoester.coldfrontier.buildings.Building;
@@ -23,22 +24,41 @@ import de.bwoester.coldfrontier.planet.Planet;
 import de.bwoester.coldfrontier.planet.PlanetMsg;
 import de.bwoester.coldfrontier.progress.ProgressMsg;
 import de.bwoester.coldfrontier.progress.ProgressService;
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
+import java.time.Duration;
 import java.util.ArrayDeque;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class ProductionTickSteps {
 
     private TickCoordinator ticker;
     private PlanetAccount account;
+    private BuildingService buildingService;
 
     @Given("a prototype planet has {long} energy and one iron mine")
     public void preparePlanet(long energy) {
+        preparePlanet(energy, Duration.ofSeconds(1), true);
+    }
+
+    @Given("a prototype planet has {long} energy and one iron mine at a tick duration of {long} ms")
+    public void preparePlanetWithTickDuration(long energy, long milliseconds) {
+        preparePlanet(energy, Duration.ofMillis(milliseconds), true);
+    }
+
+    @Given("a prototype planet has {long} energy and a queued iron mine at a tick duration of {long} ms")
+    public void preparePlanetWithQueuedMine(long energy, long milliseconds) {
+        preparePlanet(energy, Duration.ofMillis(milliseconds), false);
+        buildingService.addToConstructionQueue(Building.IRON_MINE);
+    }
+
+    private void preparePlanet(long energy, Duration tickDuration, boolean completedMine) {
         String planetId = "test-planet";
         InMemoryDataAccess data = new InMemoryDataAccess();
         InMemoryValueRepository values = new InMemoryValueRepository(data.getData(), new EventFactory(() -> 0L));
@@ -51,9 +71,9 @@ public class ProductionTickSteps {
                 values.get(TransactionMsg.class, "transactions"));
 
         BuildingDataProvider buildings = new StaticBuildingDataProvider();
-        BuildingService buildingService = new BuildingService(values.get(
+        buildingService = new BuildingService(values.get(
                 BuildingCountersMsg.class, "buildings",
-                new BuildingCountersMsg(Map.of(Building.IRON_MINE, 1L))),
+                new BuildingCountersMsg(completedMine ? Map.of(Building.IRON_MINE, 1L) : Map.of())),
                 values.get(ConstructionQueueMsg.class, "queue", new ConstructionQueueMsg(new ArrayDeque<>())),
                 buildings);
 
@@ -65,10 +85,12 @@ public class ProductionTickSteps {
                 values.get(InputQueueMsg.class, "failed-input", emptyInput));
         ProgressService progress = new ProgressService(values.get(ProgressMsg.class, "progress"), buildings);
 
-        ticker = new TickCoordinator(values.get(Long.class, "tick", 0L));
+        ticker = new TickCoordinator(values.get(Long.class, "tick", 0L), tickDuration);
+        Value<ResourceSetMsg> remainder = values.get(
+                ResourceSetMsg.class, "remainder", ResourceSetMsg.createDefault());
         ticker.add(new Planet(values.get(PlanetMsg.class, "planet",
                 new PlanetMsg(planetId, null, null, null, null)),
-                input, buildingService, accounting, new ProductionService(buildings), progress));
+                input, buildingService, accounting, new ProductionService(buildings), remainder, progress));
     }
 
     @When("the ticker advances through ticks {string}")
@@ -76,6 +98,21 @@ public class ProductionTickSteps {
         for (String checkpoint : checkpoints.split(",")) {
             ticker.advanceTo(Long.parseLong(checkpoint.trim()));
         }
+    }
+
+    @When("the ticker advances to game time {long} ms")
+    public void advanceToGameTime(long milliseconds) {
+        ticker.advanceTo(Duration.ofMillis(milliseconds));
+    }
+
+    @Then("advancing to game time {long} ms is rejected")
+    public void rejectGameTime(long milliseconds) {
+        assertThrows(IllegalArgumentException.class, () -> advanceToGameTime(milliseconds));
+    }
+
+    @And("the planet has {long} completed iron mines")
+    public void verifyBuildingCount(long count) {
+        assertEquals(count, buildingService.getBuildings().counters().getOrDefault(Building.IRON_MINE, 0L));
     }
 
     @Then("the planet has {long} iron and {long} energy")

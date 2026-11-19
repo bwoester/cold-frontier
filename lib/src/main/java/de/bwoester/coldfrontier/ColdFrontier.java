@@ -3,6 +3,7 @@ package de.bwoester.coldfrontier;
 import de.bwoester.coldfrontier.accounting.AccountingService;
 import de.bwoester.coldfrontier.accounting.Ledger;
 import de.bwoester.coldfrontier.accounting.PlayerLedgerRepo;
+import de.bwoester.coldfrontier.accounting.ResourceSetMsg;
 import de.bwoester.coldfrontier.accounting.TransactionMsg;
 import de.bwoester.coldfrontier.buildings.*;
 import de.bwoester.coldfrontier.data.Keys;
@@ -21,16 +22,14 @@ import de.bwoester.coldfrontier.user.UserMsg;
 import de.bwoester.coldfrontier.user.UserService;
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.concurrent.atomic.AtomicLong;
+import java.time.Duration;
+import java.util.ArrayDeque;
+import java.util.Map;
 
 @Slf4j
 public class ColdFrontier {
 
-    // TODO needs to be initialized from data access
-    //  But so far, data access takes a tick supplier to be created
-    //  --> refactor
-    private final AtomicLong tick = new AtomicLong(0);
-    private final Value<Long> tickValue;
+    private static final String TICK_DURATION_PROPERTY = "cold-frontier.tick-duration";
     private final ValuesUtil valuesUtil;
     private final PlayerLedgerRepo playerLedgerRepo;
     private final TickCoordinator tickCoordinator;
@@ -39,7 +38,8 @@ public class ColdFrontier {
 
     public static void main(String[] args) {
         log.info("Starting Cold Frontier...");
-        ColdFrontier coldFrontier = ColdFrontier.create();
+        String tickDuration = System.getProperty(TICK_DURATION_PROPERTY, TickCoordinator.DEFAULT_TICK_DURATION.toString());
+        ColdFrontier.create(Duration.parse(tickDuration));
         try {
             while (true) {
                 Thread.sleep(50);
@@ -49,20 +49,30 @@ public class ColdFrontier {
         }
     }
 
-    private ColdFrontier() {
+    private ColdFrontier(Duration tickDuration) {
         valuesUtil = ValuesUtil.create();
-        tickValue = valuesUtil.get(Long.class, "TODO");
+        Value<Long> tick = valuesUtil.get(Long.class, "tick", 0L);
+        tickCoordinator = new TickCoordinator(tick, tickDuration);
+        // A saved tick is meaningful only with the resolution at which it was recorded.
+        Duration initialDuration = tick.get() == 0 ? tickDuration : TickCoordinator.DEFAULT_TICK_DURATION;
+        Value<String> savedTickDuration = valuesUtil.get(String.class, "tick-duration", initialDuration.toString());
+        if (!tickDuration.equals(Duration.parse(savedTickDuration.get()))) {
+            throw new IllegalArgumentException("Tick duration cannot change for an existing simulation");
+        }
         playerLedgerRepo = new PlayerLedgerRepo(valuesUtil);
-        tickCoordinator = new TickCoordinator(tickValue);
         planetService = new PlanetService(valuesUtil);
         userService = new UserService(valuesUtil, planetService, playerLedgerRepo);
     }
 
-    private static ColdFrontier create() {
+    public static ColdFrontier create(Duration tickDuration) {
         log.info("Creating Cold Frontier instance...");
-        ColdFrontier coldFrontier = new ColdFrontier();
+        ColdFrontier coldFrontier = new ColdFrontier(tickDuration);
         coldFrontier.init();
         return coldFrontier;
+    }
+
+    public void advanceTo(Duration gameTime) {
+        tickCoordinator.advanceTo(gameTime);
     }
 
     private void init() {
@@ -82,10 +92,10 @@ public class ColdFrontier {
         Value<UserMsg> user = valuesUtil.get(UserMsg.class, Keys.User.user(userId));
         UserMsg userMsg = user.get();
 
-        Value<InputQueueMsg> newInput = valuesUtil.get(InputQueueMsg.class, Keys.Input.newInput(userId));
-        Value<InputQueueMsg> startedInput = valuesUtil.get(InputQueueMsg.class, Keys.Input.startedInput(userId));
-        Value<InputQueueMsg> finishedInput = valuesUtil.get(InputQueueMsg.class, Keys.Input.finishedInput(userId));
-        Value<InputQueueMsg> failedInput = valuesUtil.get(InputQueueMsg.class, Keys.Input.failedInput(userId));
+        Value<InputQueueMsg> newInput = valuesUtil.get(InputQueueMsg.class, Keys.Input.newInput(userId), new InputQueueMsg(new ArrayDeque<>()));
+        Value<InputQueueMsg> startedInput = valuesUtil.get(InputQueueMsg.class, Keys.Input.startedInput(userId), new InputQueueMsg(new ArrayDeque<>()));
+        Value<InputQueueMsg> finishedInput = valuesUtil.get(InputQueueMsg.class, Keys.Input.finishedInput(userId), new InputQueueMsg(new ArrayDeque<>()));
+        Value<InputQueueMsg> failedInput = valuesUtil.get(InputQueueMsg.class, Keys.Input.failedInput(userId), new InputQueueMsg(new ArrayDeque<>()));
         InputService inputService = new InputService(newInput, startedInput, finishedInput, failedInput);
 
         Ledger ledger = playerLedgerRepo.get(userMsg);
@@ -99,8 +109,8 @@ public class ColdFrontier {
     private void initPlanet(String planetId, InputService inputService, AccountingService accountingService) {
         Value<PlanetMsg> planetData = valuesUtil.get(PlanetMsg.class, Keys.Planet.planet(planetId));
 
-        Value<BuildingCountersMsg> buildings = valuesUtil.get(BuildingCountersMsg.class, Keys.Building.counters(planetId));
-        Value<ConstructionQueueMsg> constructionQueue = valuesUtil.get(ConstructionQueueMsg.class, Keys.Building.queue(planetId));
+        Value<BuildingCountersMsg> buildings = valuesUtil.get(BuildingCountersMsg.class, Keys.Building.counters(planetId), new BuildingCountersMsg(Map.of()));
+        Value<ConstructionQueueMsg> constructionQueue = valuesUtil.get(ConstructionQueueMsg.class, Keys.Building.queue(planetId), new ConstructionQueueMsg(new ArrayDeque<>()));
         BuildingDataProvider buildingDataProvider = new StaticBuildingDataProvider();
         BuildingService buildingService = new BuildingService(buildings, constructionQueue, buildingDataProvider);
 
@@ -109,7 +119,10 @@ public class ColdFrontier {
         Value<ProgressMsg> progress = valuesUtil.get(ProgressMsg.class, Keys.Progress.building(planetId));
         ProgressService progressService = new ProgressService(progress, buildingDataProvider);
 
-        Planet planet = new Planet(planetData, inputService, buildingService, accountingService, productionService, progressService);
+        Value<ResourceSetMsg> productionRemainder = valuesUtil.get(ResourceSetMsg.class,
+                Keys.Planet.productionRemainder(planetId), ResourceSetMsg.createDefault());
+        Planet planet = new Planet(planetData, inputService, buildingService, accountingService,
+                productionService, productionRemainder, progressService);
         tickCoordinator.add(planet);
     }
 
