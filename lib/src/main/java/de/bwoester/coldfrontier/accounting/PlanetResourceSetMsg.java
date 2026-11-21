@@ -12,7 +12,19 @@ import static de.bwoester.coldfrontier.resources.ResourceType.ENERGY;
 import static de.bwoester.coldfrontier.resources.ResourceType.IRON;
 import static de.bwoester.coldfrontier.resources.ResourceType.POPULATION;
 
-/** Planetary amounts or signed changes. The original fields remain readable in stored messages. */
+/**
+ * Accounting payload for a planet's balance, signed transactions, net production rates,
+ * and fractional remainders. The owning message determines what the numbers represent.
+ * The explicit fields preserve the original stored format, and additional resources
+ * extend it. Older messages without the additional map are read with an empty map.
+ *
+ * <p>{@link ResourceAmounts} expresses nonnegative whole quantities for domain operations
+ * such as checking recipe inputs. Convert a balance to that type after accounting has
+ * validated it. Signed deltas and production remainders stay in this payload.
+ *
+ * <p>Credits generated on a planet are carried by {@link ResourceSetMsg#credits()}
+ * and booked to the player account. Planetary balances contain local stocks.
+ */
 public record PlanetResourceSetMsg(long iron, long energy, long population,
                                    Map<ResourceType, Long> additionalResources) {
 
