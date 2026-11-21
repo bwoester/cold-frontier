@@ -38,7 +38,7 @@ public class TickCoordinator {
             component.handleInput();
         }
         for (TickComponent component : components) {
-            component.handleResourceUpdates();
+            component.handleResourceUpdates(tickDuration);
         }
         for (TickComponent component : components) {
             component.handleFinishedUnits(tickDuration);

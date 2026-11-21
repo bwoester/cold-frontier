@@ -248,6 +248,11 @@ The [pooled extraction Gherkin scenarios](scenarios/pooled-extraction.feature) e
 
 ### Pooled Processing per Colony and Recipe
 
+**Confirmed order (2026-11-21).** Apply mining results to the colony's stockpile
+before evaluating recipes at the same game time. A recipe can use newly available
+whole mined units immediately. Record the production and recipe changes as separate
+transactions so each can be traced in the accounting history.
+
 **Confirmed rule (2026-11-17).** Buildings with the same recipe in a colony contribute capacity to a shared processing operation according to their effective operating conditions. The operation draws a single set of ingredients for each unit. Keep colonies and recipes separate.
 
 Processing a whole output unit starts as soon as all its inputs and effective processing capacity are available. Withdraw all inputs together from the pool exactly once and assign them to the shared unit in progress. One complete set of inputs suffices regardless of how many buildings contribute. If a component is missing, nothing is withdrawn and the unit does not start.

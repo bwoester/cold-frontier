@@ -1,49 +1,120 @@
 package de.bwoester.coldfrontier.accounting;
 
-public record PlanetResourceSetMsg(long iron, long energy, long population) {
+import de.bwoester.coldfrontier.resources.ResourceAmounts;
+import de.bwoester.coldfrontier.resources.ResourceType;
+
+import java.util.EnumMap;
+import java.util.Map;
+import java.util.function.LongUnaryOperator;
+
+import static de.bwoester.coldfrontier.resources.ResourceType.CREDITS;
+import static de.bwoester.coldfrontier.resources.ResourceType.ENERGY;
+import static de.bwoester.coldfrontier.resources.ResourceType.IRON;
+import static de.bwoester.coldfrontier.resources.ResourceType.POPULATION;
+
+/**
+ * Accounting payload for a planet's balance, signed transactions, net production rates,
+ * and fractional remainders. The owning message determines what the numbers represent.
+ * The explicit fields preserve the original stored format, and additional resources
+ * extend it. Older messages without the additional map are read with an empty map.
+ *
+ * <p>{@link ResourceAmounts} expresses nonnegative whole quantities for domain operations
+ * such as checking recipe inputs. Convert a balance to that type after accounting has
+ * validated it. Signed deltas and production remainders stay in this payload.
+ *
+ * <p>Credits generated on a planet are carried by {@link ResourceSetMsg#credits()}
+ * and booked to the player account. Planetary balances contain local stocks.
+ */
+public record PlanetResourceSetMsg(long iron, long energy, long population,
+                                   Map<ResourceType, Long> additionalResources) {
+
+    public PlanetResourceSetMsg {
+        var extras = new EnumMap<ResourceType, Long>(ResourceType.class);
+        if (additionalResources != null) {
+            additionalResources.forEach((type, amount) -> {
+                if (type == IRON || type == ENERGY || type == POPULATION || type == CREDITS) {
+                    throw new IllegalArgumentException("Invalid additional planetary resource: " + type);
+                }
+                if (amount != 0) {
+                    extras.put(type, amount);
+                }
+            });
+        }
+        additionalResources = Map.copyOf(extras);
+    }
+
+    public PlanetResourceSetMsg(long iron, long energy, long population) {
+        this(iron, energy, population, Map.of());
+    }
 
     static PlanetResourceSetMsg createDefault() {
         return new PlanetResourceSetMsg(0, 0, 0);
     }
+
     static PlanetResourceSetMsg createOne() {
         return new PlanetResourceSetMsg(1, 1, 1);
     }
 
+    public ResourceAmounts toResourceAmounts() {
+        var amounts = new EnumMap<ResourceType, Long>(ResourceType.class);
+        amounts.putAll(additionalResources);
+        amounts.put(IRON, iron);
+        amounts.put(ENERGY, energy);
+        amounts.put(POPULATION, population);
+        return new ResourceAmounts(amounts);
+    }
+
+    public static PlanetResourceSetMsg fromResourceAmounts(ResourceAmounts stock) {
+        var extras = new EnumMap<ResourceType, Long>(ResourceType.class);
+        extras.putAll(stock.amounts());
+        extras.remove(IRON);
+        extras.remove(ENERGY);
+        extras.remove(POPULATION);
+        return new PlanetResourceSetMsg(stock.amountOf(IRON), stock.amountOf(ENERGY), stock.amountOf(POPULATION), extras);
+    }
+
     public boolean allGreaterOrEqual(int value) {
-        return iron >= value
-                && energy >= value
-                && population >= value;
+        if (iron < value || energy < value || population < value) {
+            return false;
+        }
+        for (ResourceType type : ResourceType.values()) {
+            if (type != IRON && type != ENERGY && type != POPULATION && type != CREDITS
+                    && additionalResources.getOrDefault(type, 0L) < value) {
+                return false;
+            }
+        }
+        return true;
     }
 
     public PlanetResourceSetMsg add(PlanetResourceSetMsg other) {
-        return new PlanetResourceSetMsg(
-                iron + other.iron,
-                energy + other.energy,
-                population + other.population
-        );
+        return new PlanetResourceSetMsg(iron + other.iron, energy + other.energy, population + other.population,
+                combineAdditionalResources(other, 1));
     }
 
     public PlanetResourceSetMsg subtract(PlanetResourceSetMsg other) {
-        return new PlanetResourceSetMsg(
-                iron - other.iron,
-                energy - other.energy,
-                population - other.population
-        );
+        return new PlanetResourceSetMsg(iron - other.iron, energy - other.energy, population - other.population,
+                combineAdditionalResources(other, -1));
     }
 
     public PlanetResourceSetMsg multiply(long factor) {
-        return new PlanetResourceSetMsg(
-                iron * factor,
-                energy * factor,
-                population * factor
-        );
+        return scale(amount -> amount * factor);
     }
 
     public PlanetResourceSetMsg multiply(double factor) {
-        return new PlanetResourceSetMsg(
-                (long) (iron * factor),
-                (long) (energy * factor),
-                (long) (population * factor)
-        );
+        return scale(amount -> (long) (amount * factor));
+    }
+
+    private PlanetResourceSetMsg scale(LongUnaryOperator factor) {
+        var extras = new EnumMap<ResourceType, Long>(ResourceType.class);
+        additionalResources.forEach((type, amount) -> extras.put(type, factor.applyAsLong(amount)));
+        return new PlanetResourceSetMsg(factor.applyAsLong(iron), factor.applyAsLong(energy),
+                factor.applyAsLong(population), extras);
+    }
+
+    private Map<ResourceType, Long> combineAdditionalResources(PlanetResourceSetMsg other, long sign) {
+        var extras = new EnumMap<ResourceType, Long>(ResourceType.class);
+        extras.putAll(additionalResources);
+        other.additionalResources.forEach((type, amount) -> extras.merge(type, sign * amount, Long::sum));
+        return extras;
     }
 }
