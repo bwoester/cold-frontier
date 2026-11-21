@@ -25,6 +25,9 @@ jobs:
         uses: gradle/actions/setup-gradle@017a9effdb900e5b5b2fddfb590a105619dca3c3 # v4.4.2
       - name: Build with Gradle Wrapper
         run: bash gradlew :lib:build :lib:integrationTest --console=plain --warning-mode=all
+      - name: Summarize test results
+        if: ${{ !cancelled() }}
+        run: python3 .github/scripts/test-summary.py lib/build/test-results >> "$GITHUB_STEP_SUMMARY"
       - name: Upload test reports
         if: ${{ !cancelled() }}
         uses: actions/upload-artifact@v4
