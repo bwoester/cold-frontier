@@ -4,16 +4,21 @@ import java.math.BigDecimal;
 import java.time.Duration;
 
 public interface ExtractionTestEngine {
-    void startWithCompletedMine(MineFixture fixture);
+    void startWithCompletedMines(MineFixture fixture, long completedMines);
 
-    /** Starts with construction in progress, its costs already paid, and no further construction consumption. */
-    void startWithMineUnderConstruction(MineFixture fixture, Duration completionTime);
+    /**
+     * Starts with completed mines and one additional mine under construction.
+     * All mines use the fixture's rate. Construction costs have already been paid,
+     * and completing construction consumes no additional resources.
+     */
+    void startWithMineUnderConstruction(MineFixture fixture, long completedMines, Duration completionTime);
 
     void advanceTo(Duration gameTime);
 
     IronState readIron();
 
-    MineStatus readMineStatus();
+    /** Reads a one-based mine number, with the mine under construction ordered after the initially completed mines. */
+    MineStatus readMineStatus(long mineNumber);
 
     enum MineStatus {
         UNDER_CONSTRUCTION,

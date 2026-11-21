@@ -20,21 +20,21 @@ public final class TickPrototypeExtractionAdapter implements ExtractionTestEngin
     private long storageCapacity;
 
     @Override
-    public void startWithCompletedMine(MineFixture fixture) {
-        start(fixture, Map.of(Building.IRON_MINE, 1L), 0);
+    public void startWithCompletedMines(MineFixture fixture, long completedMines) {
+        start(fixture, completedMines, 0);
     }
 
     @Override
-    public void startWithMineUnderConstruction(MineFixture fixture, Duration completionTime) {
+    public void startWithMineUnderConstruction(MineFixture fixture, long completedMines, Duration completionTime) {
         Duration buildTime = completionTime.minus(fixture.startTime());
         if (buildTime.isNegative() || buildTime.isZero() || buildTime.getNano() != 0) {
             throw new IllegalArgumentException("The prototype fixture requires a positive whole-second build time");
         }
-        start(fixture, Map.of(), buildTime.toSeconds());
+        start(fixture, completedMines, buildTime.toSeconds());
         simulation.progressService().startBuilding(Building.IRON_MINE, 1.0);
     }
 
-    private void start(MineFixture fixture, Map<Building, Long> completedBuildings, long buildTimeSeconds) {
+    private void start(MineFixture fixture, long completedMines, long buildTimeSeconds) {
         if (!fixture.startTime().isZero()) {
             throw new IllegalArgumentException("The prototype fixture starts at game time zero");
         }
@@ -42,6 +42,8 @@ public final class TickPrototypeExtractionAdapter implements ExtractionTestEngin
         BuildingMsg mine = new BuildingMsg(Building.IRON_MINE.toString(), buildTimeSeconds, ResourceSetMsg.createDefault(),
                 ironOnly(fixture.ironPerHour()));
         long initialNumerator = fixture.retainedIron().multiply(REMAINDER_DENOMINATOR).longValueExact();
+        Map<Building, Long> completedBuildings = completedMines == 0
+                ? Map.of() : Map.of(Building.IRON_MINE, completedMines);
         simulation = InMemoryPlanetSimulation.create(TickCoordinator.DEFAULT_TICK_DURATION, building -> mine,
                 completedBuildings, ironOnly(fixture.availableIron()).planetResources(),
                 ironOnly(initialNumerator));
@@ -65,14 +67,15 @@ public final class TickPrototypeExtractionAdapter implements ExtractionTestEngin
     }
 
     @Override
-    public MineStatus readMineStatus() {
-        if (simulation.progressService().hasBuildingInProgress()) {
-            return MineStatus.UNDER_CONSTRUCTION;
-        }
-        if (simulation.buildingService().getBuildings().counters().getOrDefault(Building.IRON_MINE, 0L) == 1L) {
+    public MineStatus readMineStatus(long mineNumber) {
+        long completed = simulation.buildingService().getBuildings().counters().getOrDefault(Building.IRON_MINE, 0L);
+        if (mineNumber <= completed) {
             return MineStatus.OPERATIONAL;
         }
-        throw new IllegalStateException("The test mine is neither under construction nor operational");
+        if (mineNumber == completed + 1 && simulation.progressService().hasBuildingInProgress()) {
+            return MineStatus.UNDER_CONSTRUCTION;
+        }
+        throw new IllegalStateException("No test mine with number " + mineNumber);
     }
 
     private static ResourceSetMsg ironOnly(long iron) {
