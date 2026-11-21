@@ -1,5 +1,7 @@
 package de.bwoester.coldfrontier;
 
+import java.time.Duration;
+
 /**
  * Represents a component that participates in the game's tick-based processing cycle.
  * <p>
@@ -27,11 +29,11 @@ public interface TickComponent {
     void handleResourceUpdates();
 
     /**
-     * Processes units that have completed their construction.
+     * Advances construction progress and processes newly completed units.
      * <p>
      * This is called after resource updates.
      */
-    void handleFinishedUnits();
+    void handleFinishedUnits(Duration elapsedGameTime);
 
     /**
      * Processes units that are queued for production.

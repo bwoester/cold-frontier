@@ -14,10 +14,16 @@ This page summarizes **observed prototype code**. The target architecture and te
 - `backend/`: Quarkus prototype with REST and OIDC dependencies.
 - `frontend/`: Vue SPA with public and protected pages and game navigation.
 
+## Prototype Game Time
+
+`ColdFrontier.create(Duration)` configures the duration of one tick in game time. The standalone launcher defaults to one second and accepts `-Dcold-frontier.tick-duration=PT0.25S` for a 250 ms tick. A saved simulation keeps its original tick duration.
+
+`advanceTo(Duration)` accepts elapsed game time since tick zero and rejects targets between tick boundaries. Construction uses game seconds and preserves the prototype's existing whole-second rounding of the queue multiplier. A building becomes operational at the first tick boundary at or after its construction duration. Its production starts with the next tick. Production and consumption rates use game hours. Each resource update calculates exactly one configured tick. Accounting posts whole units, and the planet stores the signed fractional remainder for later ticks.
+
 ## Known Gaps and Discussion Points
 
 - The rules for bottlenecks and resource depletion are incomplete.
-- Verify the interaction between construction progress and ticks, as well as concurrent commands, end to end.
+- Verify concurrent commands and the remaining game-design scenarios for construction and production end to end.
 - Event sourcing, the time model, database, messaging, RPC, backend framework, and CSS approach have no accepted decisions.
 - A framework-independent domain engine is an **architecture goal**. The current `lib` also has NATS-specific dependencies.
 

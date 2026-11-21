@@ -5,7 +5,12 @@ import de.bwoester.coldfrontier.buildings.BuildingDataProvider;
 import de.bwoester.coldfrontier.buildings.BuildingMsg;
 import de.bwoester.coldfrontier.data.Value;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.time.Duration;
 import java.util.Optional;
+
+import static de.bwoester.coldfrontier.TickCoordinator.DEFAULT_TICK_DURATION;
 
 /**
  * Tracks the progress of buildings on a planet.
@@ -88,6 +93,10 @@ public class ProgressService {
      * </p>
      */
     public void increaseProgress() {
+        increaseProgress(DEFAULT_TICK_DURATION);
+    }
+
+    public void increaseProgress(Duration tickDuration) {
         ProgressMsg latest = progressLog.get();
 
         // If there's no progress or it's already completed and consumed, do nothing
@@ -107,8 +116,18 @@ public class ProgressService {
             // Get the building data to determine how long it takes to build
             BuildingMsg buildingData = buildingDataProvider.getData(building);
 
-            // Calculate the total number of ticks required
-            long totalTicksRequired = Math.round(buildingData.ticksToBuild() * timeToBuildMultiplier);
+            // Apply the construction duration rule in game seconds before mapping to ticks.
+            long roundedSeconds = BigDecimal.valueOf(buildingData.buildTimeSeconds())
+                    .multiply(BigDecimal.valueOf(timeToBuildMultiplier))
+                    .setScale(0, RoundingMode.HALF_UP)
+                    .longValueExact();
+            long buildTimeSeconds = Math.max(1, roundedSeconds);
+            Duration buildTime = Duration.ofSeconds(buildTimeSeconds);
+            long totalTicksRequired = buildTime.dividedBy(tickDuration);
+            // A completion that is off-grid becomes visible at the first following tick boundary.
+            if (!tickDuration.multipliedBy(totalTicksRequired).equals(buildTime)) {
+                totalTicksRequired = Math.incrementExact(totalTicksRequired);
+            }
 
             // Extract the completed ticks from the current progress
             // Current progress is a fraction: completedTicks / totalTicksRequired
@@ -118,8 +137,9 @@ public class ProgressService {
             // Increment the completed ticks by 1
             completedTicks++;
 
-            // Calculate new progress value as a fraction, capping at 1.0 (100%)
-            double newProgress = Math.min(1.0, (double) completedTicks / totalTicksRequired);
+            double newProgress = completedTicks >= totalTicksRequired
+                    ? 1.0
+                    : (double) completedTicks / totalTicksRequired;
 
             // Create and add new progress message (still not consumed)
             CreateBuildingProgressMsg newProgressMsg = new CreateBuildingProgressMsg(
