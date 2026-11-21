@@ -81,7 +81,7 @@ tasks.register<Test>("integrationTest") {
     shouldRunAfter(tasks.named("test"))
 }
 
-val acceptanceTest by tasks.registering(Test::class) {
+val acceptanceTest = tasks.register<Test>("acceptanceTest") {
     group = "verification"
     description = "Runs bound game behavior scenarios against the prototype."
     testClassesDirs = files(testSourceSet.map { it.output.classesDirs })
