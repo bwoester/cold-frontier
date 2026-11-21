@@ -16,9 +16,8 @@ public final class RecipeProcessing {
     private final Recipe recipe;
     private final long operationsPerHour;
     private final Map<ResourceType, Long> storageLimits;
-    private State state;
 
-    public RecipeProcessing(Recipe recipe, long operationsPerHour, ResourceAmounts openingStock,
+    public RecipeProcessing(Recipe recipe, long operationsPerHour,
                             Map<ResourceType, Long> storageLimits) {
         if (operationsPerHour < 0) {
             throw new IllegalArgumentException("Processing capacity must be nonnegative");
@@ -27,18 +26,22 @@ public final class RecipeProcessing {
         this.operationsPerHour = operationsPerHour;
         this.storageLimits = Map.copyOf(storageLimits);
         this.storageLimits.forEach((type, limit) -> {
-            if (limit < 0 || openingStock.amountOf(type) > limit) {
-                throw new IllegalArgumentException("Invalid initial storage limit for " + type);
+            if (limit < 0) {
+                throw new IllegalArgumentException("Invalid storage limit for " + type);
             }
         });
-        state = startIfSupplied(openingStock);
     }
 
-    public State state() {
-        return state;
+    public State initialize(ResourceAmounts openingStock) {
+        storageLimits.forEach((type, limit) -> {
+            if (openingStock.amountOf(type) > limit) {
+                throw new IllegalArgumentException("Initial stock exceeds storage limit for " + type);
+            }
+        });
+        return startIfSupplied(openingStock);
     }
 
-    public void advanceTick(Duration tickDuration) {
+    public State advanceTick(State state, Duration tickDuration) {
         if (tickDuration.isNegative() || tickDuration.isZero()) {
             throw new IllegalArgumentException("Tick duration must be positive");
         }
@@ -48,7 +51,7 @@ public final class RecipeProcessing {
         BigInteger availableWork = nanos.multiply(BigInteger.valueOf(operationsPerHour));
 
         // Capacity × tick nanoseconds represents an exact fraction of the work for one operation.
-        State next = state;
+        State next = state.completedWork().isPresent() ? state : startIfSupplied(state.stock());
         while (next.completedWork().isPresent() && availableWork.signum() > 0) {
             long completedWork = next.completedWork().orElseThrow();
             BigInteger remainingWork = BigInteger.valueOf(WORK_PER_OPERATION - completedWork);
@@ -59,7 +62,7 @@ public final class RecipeProcessing {
             availableWork = availableWork.subtract(remainingWork);
             next = startIfSupplied(next.stock().credit(recipe.outputs(), storageLimits));
         }
-        state = next;
+        return next;
     }
 
     private State startIfSupplied(ResourceAmounts stock) {

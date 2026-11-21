@@ -5,14 +5,12 @@ import de.bwoester.coldfrontier.data.Value;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Consumer;
 
 public class TickCoordinator {
 
     public static final Duration DEFAULT_TICK_DURATION = Duration.ofSeconds(1);
 
     private final List<TickComponent> components = new ArrayList<>();
-    private final List<Consumer<Duration>> recipeProcessingSteps = new ArrayList<>();
     private final Value<Long> tick;
     private final Duration tickDuration;
 
@@ -40,10 +38,7 @@ public class TickCoordinator {
             component.handleInput();
         }
         for (TickComponent component : components) {
-            component.handleResourceUpdates();
-        }
-        for (Consumer<Duration> advanceRecipe : recipeProcessingSteps) {
-            advanceRecipe.accept(tickDuration);
+            component.handleResourceUpdates(tickDuration);
         }
         for (TickComponent component : components) {
             component.handleFinishedUnits(tickDuration);
@@ -88,14 +83,5 @@ public class TickCoordinator {
 
     public synchronized void add(TickComponent tickComponent) {
         components.add(tickComponent);
-    }
-
-    /**
-     * Registers recipe processing for a prepared colony with its own stock.
-     * Each step receives the tick duration after the regular components update their
-     * resource accounts and before they handle construction completion.
-     */
-    public synchronized void addRecipeProcessing(Consumer<Duration> advanceRecipe) {
-        recipeProcessingSteps.add(advanceRecipe);
     }
 }

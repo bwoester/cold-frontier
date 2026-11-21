@@ -2,6 +2,7 @@ package de.bwoester.coldfrontier.planet;
 
 import de.bwoester.coldfrontier.TickComponent;
 import de.bwoester.coldfrontier.accounting.AccountingService;
+import de.bwoester.coldfrontier.accounting.PlanetResourceSetMsg;
 import de.bwoester.coldfrontier.accounting.ResourceSetMsg;
 import de.bwoester.coldfrontier.accounting.TransactionMsg;
 import de.bwoester.coldfrontier.buildings.Building;
@@ -11,6 +12,7 @@ import de.bwoester.coldfrontier.data.Value;
 import de.bwoester.coldfrontier.input.CreateBuildingInputMsg;
 import de.bwoester.coldfrontier.input.InputService;
 import de.bwoester.coldfrontier.production.ProductionService;
+import de.bwoester.coldfrontier.production.recipe.RecipeProcessing;
 import de.bwoester.coldfrontier.progress.ProgressService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,6 +20,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.time.Duration;
 import java.util.Collection;
 import java.util.Map;
+import java.util.OptionalLong;
 
 /**
  * Handles a single planet.
@@ -33,6 +36,22 @@ public class Planet implements TickComponent {
     private final ProductionService productionService;
     private final Value<ResourceSetMsg> productionRemainder;
     private final ProgressService progressService;
+    private RecipeProcessing recipeProcessing;
+    private OptionalLong completedRecipeWork = OptionalLong.empty();
+
+    /** Configures the prepared planet's recipe and starts the first operation at game time zero if supplied. */
+    public void initializeRecipeProcessing(RecipeProcessing processing) {
+        if (recipeProcessing != null) {
+            throw new IllegalStateException("Recipe processing is already initialized");
+        }
+        PlanetResourceSetMsg balance = accountingService.getPlanetBalance(planetData.get().id());
+        bookRecipeChanges(balance, processing.initialize(balance.toResourceAmounts()));
+        recipeProcessing = processing;
+    }
+
+    public boolean hasRecipeInProgress() {
+        return completedRecipeWork.isPresent();
+    }
 
     @Override
     public void handleInput() {
@@ -67,7 +86,7 @@ public class Planet implements TickComponent {
     }
 
     @Override
-    public void handleResourceUpdates() {
+    public void handleResourceUpdates(Duration tickDuration) {
         ResourceSetMsg previousRemainder = productionRemainder.get();
         ProductionService.ProductionStep production = productionService.calculateTickProduction(
                 buildingService.getBuildings(), previousRemainder);
@@ -78,6 +97,23 @@ public class Planet implements TickComponent {
             productionRemainder.set(production.remainder());
         }
         // TODO deplete mined resources from planet
+        if (recipeProcessing != null) {
+            PlanetResourceSetMsg balance = accountingService.getPlanetBalance(planetData.get().id());
+            var state = new RecipeProcessing.State(balance.toResourceAmounts(), completedRecipeWork);
+            bookRecipeChanges(balance, recipeProcessing.advanceTick(state, tickDuration));
+        }
+    }
+
+    private void bookRecipeChanges(PlanetResourceSetMsg before, RecipeProcessing.State after) {
+        PlanetResourceSetMsg nextBalance = PlanetResourceSetMsg.fromResourceAmounts(after.stock());
+        if (!before.equals(nextBalance)) {
+            var change = new ResourceSetMsg(nextBalance.subtract(before), 0);
+            var transaction = new TransactionMsg("Recipe processing", TransactionMsg.TransactionType.INCOME, change);
+            if (!accountingService.executeTransaction(planetData.get().id(), transaction)) {
+                throw new IllegalStateException("Could not book recipe stock changes");
+            }
+        }
+        completedRecipeWork = after.completedWork();
     }
 
     @Override

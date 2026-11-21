@@ -6,9 +6,12 @@ import de.bwoester.coldfrontier.buildings.Building;
 import de.bwoester.coldfrontier.buildings.BuildingCountersMsg;
 import de.bwoester.coldfrontier.buildings.BuildingDataProvider;
 import de.bwoester.coldfrontier.buildings.BuildingMsg;
+import de.bwoester.coldfrontier.resources.ResourceType;
 
 import java.math.BigInteger;
 import java.time.Duration;
+import java.util.EnumMap;
+import java.util.EnumSet;
 import java.util.Map;
 
 /**
@@ -51,11 +54,23 @@ public class ProductionService {
         ResourceDelta population = ResourceDelta.calculate(planetaryRate.population(), nanosPerTick, planetaryRemainder.population());
         ResourceDelta credits = ResourceDelta.calculate(rate.credits(), nanosPerTick, previousRemainder.credits());
 
+        var extraWhole = new EnumMap<ResourceType, Long>(ResourceType.class);
+        var extraRemainder = new EnumMap<ResourceType, Long>(ResourceType.class);
+        var extraTypes = EnumSet.noneOf(ResourceType.class);
+        extraTypes.addAll(planetaryRate.additionalResources().keySet());
+        extraTypes.addAll(planetaryRemainder.additionalResources().keySet());
+        for (ResourceType type : extraTypes) {
+            ResourceDelta delta = ResourceDelta.calculate(planetaryRate.additionalResources().getOrDefault(type, 0L),
+                    nanosPerTick, planetaryRemainder.additionalResources().getOrDefault(type, 0L));
+            extraWhole.put(type, delta.wholeUnits());
+            extraRemainder.put(type, delta.remainderNumerator());
+        }
+
         ResourceSetMsg wholeUnits = new ResourceSetMsg(
-                new PlanetResourceSetMsg(iron.wholeUnits(), energy.wholeUnits(), population.wholeUnits()),
+                new PlanetResourceSetMsg(iron.wholeUnits(), energy.wholeUnits(), population.wholeUnits(), extraWhole),
                 credits.wholeUnits());
         ResourceSetMsg remainder = new ResourceSetMsg(
-                new PlanetResourceSetMsg(iron.remainderNumerator(), energy.remainderNumerator(), population.remainderNumerator()),
+                new PlanetResourceSetMsg(iron.remainderNumerator(), energy.remainderNumerator(), population.remainderNumerator(), extraRemainder),
                 credits.remainderNumerator());
         return new ProductionStep(wholeUnits, remainder);
     }

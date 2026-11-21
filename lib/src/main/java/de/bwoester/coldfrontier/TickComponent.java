@@ -26,7 +26,7 @@ public interface TickComponent {
      * <p>
      * This is called after input handling.
      */
-    void handleResourceUpdates();
+    void handleResourceUpdates(Duration tickDuration);
 
     /**
      * Advances construction progress and processes newly completed units.

@@ -15,6 +15,10 @@ public class AccountingService {
         this.transactions = transactions;
     }
 
+    public PlanetResourceSetMsg getPlanetBalance(String planetId) {
+        return ledger.getPlanetAccount(planetId).getBalance();
+    }
+
     public boolean executeTransaction(String planetId, TransactionMsg transactionMsg) {
         UserAccount userAccount = ledger.getUserAccount();
         PlanetAccount planetAccount = ledger.getPlanetAccount(planetId);

@@ -19,43 +19,46 @@ class RecipeProcessingTest {
     @Test
     void missingEnergyLeavesIronInStock() {
         var initialStock = new ResourceAmounts(Map.of(IRON, 2L));
-        var processing = new RecipeProcessing(steel, 2400, initialStock, Map.of());
+        var processing = new RecipeProcessing(steel, 2400, Map.of());
+        var state = processing.initialize(initialStock);
 
-        processing.advanceTick(Duration.ofSeconds(1));
+        state = processing.advanceTick(state, Duration.ofSeconds(1));
 
-        assertEquals(initialStock, processing.state().stock());
-        assertFalse(processing.state().completedWork().isPresent());
+        assertEquals(initialStock, state.stock());
+        assertFalse(state.completedWork().isPresent());
     }
 
     @Test
     void twoQuarterSecondTicksCompleteOneHalfSecondOperation() {
         var initialStock = new ResourceAmounts(Map.of(IRON, 2L, ENERGY, 1L));
-        var processing = new RecipeProcessing(steel, 7200, initialStock, Map.of());
+        var processing = new RecipeProcessing(steel, 7200, Map.of());
+        var state = processing.initialize(initialStock);
         var tickDuration = Duration.ofMillis(250);
 
-        processing.advanceTick(tickDuration);
-        assertEquals(0L, processing.state().stock().amountOf(STEEL));
+        state = processing.advanceTick(state, tickDuration);
+        assertEquals(0L, state.stock().amountOf(STEEL));
 
-        processing.advanceTick(tickDuration);
-        assertEquals(1L, processing.state().stock().amountOf(STEEL));
-        assertFalse(processing.state().completedWork().isPresent());
+        state = processing.advanceTick(state, tickDuration);
+        assertEquals(1L, state.stock().amountOf(STEEL));
+        assertFalse(state.completedWork().isPresent());
     }
 
     @Test
     void steelRecipeRetainsWorkAcrossTicksAndUsesLeftoverCapacity() {
         var initialStock = new ResourceAmounts(Map.of(IRON, 4L, ENERGY, 2L));
-        var processing = new RecipeProcessing(steel, 2400, initialStock, Map.of());
+        var processing = new RecipeProcessing(steel, 2400, Map.of());
+        var state = processing.initialize(initialStock);
 
-        processing.advanceTick(Duration.ofSeconds(1));
-        assertEquals(0L, processing.state().stock().amountOf(STEEL));
+        state = processing.advanceTick(state, Duration.ofSeconds(1));
+        assertEquals(0L, state.stock().amountOf(STEEL));
 
-        processing.advanceTick(Duration.ofSeconds(1));
-        assertEquals(1L, processing.state().stock().amountOf(STEEL));
-        assertEquals(0L, processing.state().stock().amountOf(IRON));
-        assertEquals(0L, processing.state().stock().amountOf(ENERGY));
+        state = processing.advanceTick(state, Duration.ofSeconds(1));
+        assertEquals(1L, state.stock().amountOf(STEEL));
+        assertEquals(0L, state.stock().amountOf(IRON));
+        assertEquals(0L, state.stock().amountOf(ENERGY));
 
-        processing.advanceTick(Duration.ofSeconds(1));
-        assertEquals(2L, processing.state().stock().amountOf(STEEL));
-        assertFalse(processing.state().completedWork().isPresent());
+        state = processing.advanceTick(state, Duration.ofSeconds(1));
+        assertEquals(2L, state.stock().amountOf(STEEL));
+        assertFalse(state.completedWork().isPresent());
     }
 }
