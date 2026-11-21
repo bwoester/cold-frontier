@@ -1,6 +1,7 @@
 package de.bwoester.coldfrontier.buildings;
 
 import de.bwoester.coldfrontier.TestValues;
+import de.bwoester.coldfrontier.accounting.PlanetResourceSetMsg;
 import de.bwoester.coldfrontier.accounting.ResourceSetMsg;
 import de.bwoester.coldfrontier.data.Value;
 import de.bwoester.coldfrontier.data.Keys;
@@ -14,6 +15,9 @@ import java.util.LinkedList;
 import java.util.Map;
 import java.util.Queue;
 
+import static de.bwoester.coldfrontier.resources.ResourceType.ENERGY;
+import static de.bwoester.coldfrontier.resources.ResourceType.IRON;
+import static de.bwoester.coldfrontier.resources.ResourceType.STEEL;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -27,7 +31,8 @@ class BuildingServiceTest {
 
     BuildingDataProvider buildingDataProvider;
     BuildingService buildingService;
-    private static final ResourceSetMsg IRON_MINE_COSTS = ResourceSetMsg.createOne().multiply(10);
+    private static final ResourceSetMsg IRON_MINE_COSTS =
+            new ResourceSetMsg(new PlanetResourceSetMsg(Map.of(IRON, 10L, ENERGY, 10L, STEEL, 10L)), 10);
 
     @BeforeEach
     void setUp() {
@@ -49,7 +54,7 @@ class BuildingServiceTest {
                 Building.IRON_MINE.toString(),
                 1,
                 IRON_MINE_COSTS,
-                ResourceSetMsg.createOne().multiply(10)
+                ResourceSetMsg.createDefault()
         ));
     }
 
@@ -118,9 +123,7 @@ class BuildingServiceTest {
         buildingService.addToConstructionQueue(Building.IRON_MINE);
         Assertions.assertEquals(1, buildingService.getConstructionQueueSize());
         ResourceSetMsg increasedCosts = buildingService.calculateCosts(Building.IRON_MINE);
-        Assertions.assertTrue(increasedCosts.credits() > IRON_MINE_COSTS.credits());
-        Assertions.assertTrue(increasedCosts.planetResources().energy() > IRON_MINE_COSTS.planetResources().energy());
-        Assertions.assertTrue(increasedCosts.planetResources().iron() > IRON_MINE_COSTS.planetResources().iron());
-        Assertions.assertTrue(increasedCosts.planetResources().population() > IRON_MINE_COSTS.planetResources().population());
+        Assertions.assertEquals(new ResourceSetMsg(
+                new PlanetResourceSetMsg(Map.of(IRON, 12L, ENERGY, 12L, STEEL, 12L)), 12), increasedCosts);
     }
 }

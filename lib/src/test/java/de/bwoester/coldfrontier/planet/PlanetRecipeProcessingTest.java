@@ -28,33 +28,33 @@ class PlanetRecipeProcessingTest {
     @Test
     void recipeUsesIceCreditedToPlanetAccountAfterInitialization() {
         var simulation = InMemoryPlanetSimulation.create(TickCoordinator.DEFAULT_TICK_DURATION,
-                new StaticBuildingDataProvider(), Map.of(), new PlanetResourceSetMsg(0, 2, 0),
+                new StaticBuildingDataProvider(), Map.of(), new PlanetResourceSetMsg(Map.of(ENERGY, 2L)),
                 ResourceSetMsg.createDefault());
         simulation.planet().initializeRecipeProcessing(new RecipeProcessing(waterRecipe, 3600, Map.of()));
         assertFalse(simulation.planet().hasRecipeInProgress());
-        assertEquals(2, simulation.account().getBalance().energy());
+        assertEquals(2, simulation.account().getBalance().amountOf(ENERGY));
 
-        var credit = new ResourceSetMsg(new PlanetResourceSetMsg(0, 0, 0, Map.of(ICE, 1L)), 0);
+        var credit = new ResourceSetMsg(new PlanetResourceSetMsg(Map.of(ICE, 1L)), 0);
         simulation.account().executeTransaction(
                 new TransactionMsg("Test ice credit", TransactionMsg.TransactionType.INCOME, credit));
         simulation.ticker().tick();
 
-        assertEquals(new PlanetResourceSetMsg(0, 0, 0, Map.of(WATER, 1L)),
+        assertEquals(new PlanetResourceSetMsg(Map.of(WATER, 1L)),
                 simulation.account().getBalance());
     }
 
     @Test
     void recipeUsesWholeIceMinedInTheSameTick() {
-        var production = new ResourceSetMsg(new PlanetResourceSetMsg(0, 0, 0, Map.of(ICE, 3600L)), 0);
+        var production = new ResourceSetMsg(new PlanetResourceSetMsg(Map.of(ICE, 3600L)), 0);
         var simulation = InMemoryPlanetSimulation.create(TickCoordinator.DEFAULT_TICK_DURATION,
                 building -> new BuildingMsg(building.name(), 1, ResourceSetMsg.createDefault(), production),
-                Map.of(Building.IRON_MINE, 1L), new PlanetResourceSetMsg(0, 2, 0), ResourceSetMsg.createDefault());
+                Map.of(Building.IRON_MINE, 1L), new PlanetResourceSetMsg(Map.of(ENERGY, 2L)), ResourceSetMsg.createDefault());
         simulation.planet().initializeRecipeProcessing(new RecipeProcessing(waterRecipe, 3600, Map.of()));
         assertFalse(simulation.planet().hasRecipeInProgress());
 
         simulation.ticker().tick();
 
-        assertEquals(new PlanetResourceSetMsg(0, 0, 0, Map.of(WATER, 1L)),
+        assertEquals(new PlanetResourceSetMsg(Map.of(WATER, 1L)),
                 simulation.account().getBalance());
     }
 }

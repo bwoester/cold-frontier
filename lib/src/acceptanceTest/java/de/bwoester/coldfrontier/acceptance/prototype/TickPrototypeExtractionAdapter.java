@@ -12,6 +12,8 @@ import java.math.BigDecimal;
 import java.time.Duration;
 import java.util.Map;
 
+import static de.bwoester.coldfrontier.resources.ResourceType.IRON;
+
 public final class TickPrototypeExtractionAdapter implements ExtractionTestEngine {
     // The prototype expresses its stored numerator over the number of nanoseconds per game hour.
     private static final BigDecimal REMAINDER_DENOMINATOR = BigDecimal.valueOf(Duration.ofHours(1).toNanos());
@@ -56,12 +58,12 @@ public final class TickPrototypeExtractionAdapter implements ExtractionTestEngin
 
     @Override
     public IronState readIron() {
-        long available = simulation.account().getBalance().iron();
+        long available = simulation.account().getBalance().amountOf(IRON);
         // The prototype lacks an iron storage limit. These examples require spare capacity.
         if (available >= storageCapacity) {
             throw new IllegalStateException("The prototype adapter only supports non-binding iron storage limits");
         }
-        long numerator = simulation.remainder().get().planetResources().iron();
+        long numerator = simulation.remainder().get().planetResources().amountOf(IRON);
         BigDecimal retained = BigDecimal.valueOf(numerator).divide(REMAINDER_DENOMINATOR);
         return new IronState(simulation.gameTime(), available, retained);
     }
@@ -79,6 +81,6 @@ public final class TickPrototypeExtractionAdapter implements ExtractionTestEngin
     }
 
     private static ResourceSetMsg ironOnly(long iron) {
-        return new ResourceSetMsg(new PlanetResourceSetMsg(iron, 0, 0), 0);
+        return new ResourceSetMsg(new PlanetResourceSetMsg(Map.of(IRON, iron)), 0);
     }
 }

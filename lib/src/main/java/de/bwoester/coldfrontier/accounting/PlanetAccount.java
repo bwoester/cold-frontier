@@ -15,7 +15,7 @@ public class PlanetAccount {
     }
 
     public boolean validateTransaction(TransactionMsg transactionMsg) {
-        return calculateNewBalance(transactionMsg).allGreaterOrEqual(0);
+        return calculateNewBalance(transactionMsg).isNonnegative();
     }
 
     public void executeTransaction(TransactionMsg transactionMsg) {

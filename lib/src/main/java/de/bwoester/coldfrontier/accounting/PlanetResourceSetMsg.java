@@ -8,92 +8,57 @@ import java.util.Map;
 import java.util.function.LongUnaryOperator;
 
 import static de.bwoester.coldfrontier.resources.ResourceType.CREDITS;
-import static de.bwoester.coldfrontier.resources.ResourceType.ENERGY;
-import static de.bwoester.coldfrontier.resources.ResourceType.IRON;
-import static de.bwoester.coldfrontier.resources.ResourceType.POPULATION;
 
 /**
- * Accounting payload for a planet's balance, signed transactions, net production rates,
- * and fractional remainders. The owning message determines what the numbers represent.
- * The explicit fields preserve the original stored format, and additional resources
- * extend it. Older messages without the additional map are read with an empty map.
+ * Keyed planetary accounting amounts. An absent resource has a value of zero.
+ * The owning message determines whether the values are stock, signed changes,
+ * net production rates, or fractional production remainders.
  *
- * <p>{@link ResourceAmounts} expresses nonnegative whole quantities for domain operations
- * such as checking recipe inputs. Convert a balance to that type after accounting has
- * validated it. Signed deltas and production remainders stay in this payload.
- *
- * <p>Credits generated on a planet are carried by {@link ResourceSetMsg#credits()}
- * and booked to the player account. Planetary balances contain local stocks.
+ * <p>Domain operations such as checking recipe inputs use {@link ResourceAmounts}
+ * for nonnegative whole quantities. Convert a validated stock balance explicitly.
+ * Credits are carried separately by {@link ResourceSetMsg#credits()}.
  */
-public record PlanetResourceSetMsg(long iron, long energy, long population,
-                                   Map<ResourceType, Long> additionalResources) {
+public record PlanetResourceSetMsg(Map<ResourceType, Long> amounts) {
 
     public PlanetResourceSetMsg {
-        var extras = new EnumMap<ResourceType, Long>(ResourceType.class);
-        if (additionalResources != null) {
-            additionalResources.forEach((type, amount) -> {
-                if (type == IRON || type == ENERGY || type == POPULATION || type == CREDITS) {
-                    throw new IllegalArgumentException("Invalid additional planetary resource: " + type);
-                }
-                if (amount != 0) {
-                    extras.put(type, amount);
-                }
-            });
-        }
-        additionalResources = Map.copyOf(extras);
-    }
-
-    public PlanetResourceSetMsg(long iron, long energy, long population) {
-        this(iron, energy, population, Map.of());
+        var entries = new EnumMap<ResourceType, Long>(ResourceType.class);
+        amounts.forEach((type, amount) -> {
+            if (type == CREDITS) {
+                throw new IllegalArgumentException("Credits belong to the player account");
+            }
+            if (amount != 0) {
+                entries.put(type, amount);
+            }
+        });
+        amounts = Map.copyOf(entries);
     }
 
     static PlanetResourceSetMsg createDefault() {
-        return new PlanetResourceSetMsg(0, 0, 0);
+        return new PlanetResourceSetMsg(Map.of());
     }
 
-    static PlanetResourceSetMsg createOne() {
-        return new PlanetResourceSetMsg(1, 1, 1);
+    public long amountOf(ResourceType type) {
+        return amounts.getOrDefault(type, 0L);
     }
 
     public ResourceAmounts toResourceAmounts() {
-        var amounts = new EnumMap<ResourceType, Long>(ResourceType.class);
-        amounts.putAll(additionalResources);
-        amounts.put(IRON, iron);
-        amounts.put(ENERGY, energy);
-        amounts.put(POPULATION, population);
         return new ResourceAmounts(amounts);
     }
 
     public static PlanetResourceSetMsg fromResourceAmounts(ResourceAmounts stock) {
-        var extras = new EnumMap<ResourceType, Long>(ResourceType.class);
-        extras.putAll(stock.amounts());
-        extras.remove(IRON);
-        extras.remove(ENERGY);
-        extras.remove(POPULATION);
-        return new PlanetResourceSetMsg(stock.amountOf(IRON), stock.amountOf(ENERGY), stock.amountOf(POPULATION), extras);
+        return new PlanetResourceSetMsg(stock.amounts());
     }
 
-    public boolean allGreaterOrEqual(int value) {
-        if (iron < value || energy < value || population < value) {
-            return false;
-        }
-        for (ResourceType type : ResourceType.values()) {
-            if (type != IRON && type != ENERGY && type != POPULATION && type != CREDITS
-                    && additionalResources.getOrDefault(type, 0L) < value) {
-                return false;
-            }
-        }
-        return true;
+    boolean isNonnegative() {
+        return amounts.values().stream().allMatch(amount -> amount >= 0);
     }
 
     public PlanetResourceSetMsg add(PlanetResourceSetMsg other) {
-        return new PlanetResourceSetMsg(iron + other.iron, energy + other.energy, population + other.population,
-                combineAdditionalResources(other, 1));
+        return combine(other, 1);
     }
 
     public PlanetResourceSetMsg subtract(PlanetResourceSetMsg other) {
-        return new PlanetResourceSetMsg(iron - other.iron, energy - other.energy, population - other.population,
-                combineAdditionalResources(other, -1));
+        return combine(other, -1);
     }
 
     public PlanetResourceSetMsg multiply(long factor) {
@@ -105,16 +70,15 @@ public record PlanetResourceSetMsg(long iron, long energy, long population,
     }
 
     private PlanetResourceSetMsg scale(LongUnaryOperator factor) {
-        var extras = new EnumMap<ResourceType, Long>(ResourceType.class);
-        additionalResources.forEach((type, amount) -> extras.put(type, factor.applyAsLong(amount)));
-        return new PlanetResourceSetMsg(factor.applyAsLong(iron), factor.applyAsLong(energy),
-                factor.applyAsLong(population), extras);
+        var scaled = new EnumMap<ResourceType, Long>(ResourceType.class);
+        amounts.forEach((type, amount) -> scaled.put(type, factor.applyAsLong(amount)));
+        return new PlanetResourceSetMsg(scaled);
     }
 
-    private Map<ResourceType, Long> combineAdditionalResources(PlanetResourceSetMsg other, long sign) {
-        var extras = new EnumMap<ResourceType, Long>(ResourceType.class);
-        extras.putAll(additionalResources);
-        other.additionalResources.forEach((type, amount) -> extras.merge(type, sign * amount, Long::sum));
-        return extras;
+    private PlanetResourceSetMsg combine(PlanetResourceSetMsg other, long sign) {
+        var combined = new EnumMap<ResourceType, Long>(ResourceType.class);
+        combined.putAll(amounts);
+        other.amounts.forEach((type, amount) -> combined.merge(type, sign * amount, Long::sum));
+        return new PlanetResourceSetMsg(combined);
     }
 }

@@ -49,28 +49,21 @@ public class ProductionService {
         PlanetResourceSetMsg planetaryRate = rate.planetResources();
         PlanetResourceSetMsg planetaryRemainder = previousRemainder.planetResources();
 
-        ResourceDelta iron = ResourceDelta.calculate(planetaryRate.iron(), nanosPerTick, planetaryRemainder.iron());
-        ResourceDelta energy = ResourceDelta.calculate(planetaryRate.energy(), nanosPerTick, planetaryRemainder.energy());
-        ResourceDelta population = ResourceDelta.calculate(planetaryRate.population(), nanosPerTick, planetaryRemainder.population());
-        ResourceDelta credits = ResourceDelta.calculate(rate.credits(), nanosPerTick, previousRemainder.credits());
-
-        var extraWhole = new EnumMap<ResourceType, Long>(ResourceType.class);
-        var extraRemainder = new EnumMap<ResourceType, Long>(ResourceType.class);
-        var extraTypes = EnumSet.noneOf(ResourceType.class);
-        extraTypes.addAll(planetaryRate.additionalResources().keySet());
-        extraTypes.addAll(planetaryRemainder.additionalResources().keySet());
-        for (ResourceType type : extraTypes) {
-            ResourceDelta delta = ResourceDelta.calculate(planetaryRate.additionalResources().getOrDefault(type, 0L),
-                    nanosPerTick, planetaryRemainder.additionalResources().getOrDefault(type, 0L));
-            extraWhole.put(type, delta.wholeUnits());
-            extraRemainder.put(type, delta.remainderNumerator());
+        var planetaryWhole = new EnumMap<ResourceType, Long>(ResourceType.class);
+        var nextPlanetaryRemainder = new EnumMap<ResourceType, Long>(ResourceType.class);
+        var types = EnumSet.noneOf(ResourceType.class);
+        types.addAll(planetaryRate.amounts().keySet());
+        types.addAll(planetaryRemainder.amounts().keySet());
+        for (ResourceType type : types) {
+            ResourceDelta delta = ResourceDelta.calculate(planetaryRate.amountOf(type), nanosPerTick,
+                    planetaryRemainder.amountOf(type));
+            planetaryWhole.put(type, delta.wholeUnits());
+            nextPlanetaryRemainder.put(type, delta.remainderNumerator());
         }
 
-        ResourceSetMsg wholeUnits = new ResourceSetMsg(
-                new PlanetResourceSetMsg(iron.wholeUnits(), energy.wholeUnits(), population.wholeUnits(), extraWhole),
-                credits.wholeUnits());
-        ResourceSetMsg remainder = new ResourceSetMsg(
-                new PlanetResourceSetMsg(iron.remainderNumerator(), energy.remainderNumerator(), population.remainderNumerator(), extraRemainder),
+        ResourceDelta credits = ResourceDelta.calculate(rate.credits(), nanosPerTick, previousRemainder.credits());
+        ResourceSetMsg wholeUnits = new ResourceSetMsg(new PlanetResourceSetMsg(planetaryWhole), credits.wholeUnits());
+        ResourceSetMsg remainder = new ResourceSetMsg(new PlanetResourceSetMsg(nextPlanetaryRemainder),
                 credits.remainderNumerator());
         return new ProductionStep(wholeUnits, remainder);
     }
@@ -94,7 +87,9 @@ public class ProductionService {
 
     /**
      * Whole units to book this tick and the signed fractional units to carry forward,
-     * calculated independently for each resource and for credits.
+     * calculated independently for each planetary resource and for the credits generated
+     * on this planet. Whole credits go to the player account when the tick is booked.
+     * Fractional credits carry forward with this planet's production remainder.
      *
      * <p>The rate is in units per game hour. Multiplying it by the tick length in
      * nanoseconds gives a numerator over 3,600,000,000,000, the number of nanoseconds

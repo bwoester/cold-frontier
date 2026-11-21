@@ -13,6 +13,8 @@ import io.cucumber.java.en.When;
 import java.time.Duration;
 import java.util.Map;
 
+import static de.bwoester.coldfrontier.resources.ResourceType.ENERGY;
+import static de.bwoester.coldfrontier.resources.ResourceType.IRON;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -39,7 +41,7 @@ public class ProductionTickSteps {
     private void preparePlanet(long energy, Duration tickDuration, boolean completedMine) {
         simulation = InMemoryPlanetSimulation.create(tickDuration, new StaticBuildingDataProvider(),
                 completedMine ? Map.of(Building.IRON_MINE, 1L) : Map.of(),
-                new PlanetResourceSetMsg(0, energy, 0), ResourceSetMsg.createDefault());
+                new PlanetResourceSetMsg(Map.of(ENERGY, energy)), ResourceSetMsg.createDefault());
     }
 
     @When("the ticker advances through ticks {string}")
@@ -67,7 +69,7 @@ public class ProductionTickSteps {
     @Then("the planet has {long} iron and {long} energy")
     public void verifyBalance(long iron, long energy) {
         PlanetResourceSetMsg balance = simulation.account().getBalance();
-        assertEquals(iron, balance.iron());
-        assertEquals(energy, balance.energy());
+        assertEquals(iron, balance.amountOf(IRON));
+        assertEquals(energy, balance.amountOf(ENERGY));
     }
 }
