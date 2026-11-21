@@ -9,28 +9,12 @@ repositories {
     mavenCentral()
 }
 
-val productionOutput = sourceSets.main.get().output
 val prototypeTestSupport = layout.projectDirectory.dir("src/prototypeTestSupport/java")
 val testSourceSet = sourceSets.named("test") {
     java.srcDir(prototypeTestSupport)
 }
-val acceptanceSources = sourceSets.create("acceptanceTest") {
-    java.srcDir(prototypeTestSupport)
-    compileClasspath += productionOutput
-    runtimeClasspath += productionOutput
-}
-
-configurations[acceptanceSources.implementationConfigurationName].extendsFrom(configurations.implementation.get())
-configurations[acceptanceSources.runtimeOnlyConfigurationName].extendsFrom(configurations.runtimeOnly.get())
 
 dependencies {
-    add(acceptanceSources.implementationConfigurationName, platform(libs.junit.bom))
-    add(acceptanceSources.implementationConfigurationName, libs.junit.jupiter)
-    add(acceptanceSources.implementationConfigurationName, libs.cucumber.java)
-    add(acceptanceSources.implementationConfigurationName, libs.cucumber.junit.platform.engine)
-    add(acceptanceSources.implementationConfigurationName, libs.junit.platform.suite)
-    add(acceptanceSources.runtimeOnlyConfigurationName, libs.junit.platform.launcher)
-
     // Align all JUnit engines and the launcher, including the Cucumber suite.
     testImplementation(platform(libs.junit.bom))
     testImplementation(libs.junit.jupiter)
@@ -99,15 +83,26 @@ tasks.register<Test>("integrationTest") {
     shouldRunAfter(tasks.named("test"))
 }
 
-val acceptanceTest = tasks.register<Test>("acceptanceTest") {
-    group = "verification"
-    description = "Runs bound game behavior scenarios against the prototype."
-    testClassesDirs = acceptanceSources.output.classesDirs
-    classpath = acceptanceSources.runtimeClasspath + files(rootProject.layout.projectDirectory.dir("doc/game-design"))
-    useJUnitPlatform {
-        includeEngines("junit-platform-suite")
+val acceptanceTest = testing.suites.register<JvmTestSuite>("acceptanceTest") {
+    useJUnitJupiter(libs.versions.junit.jupiter.get())
+    sources.java.srcDir(prototypeTestSupport)
+    dependencies {
+        implementation(project())
+        implementation(platform(libs.junit.bom))
+        implementation(libs.cucumber.java)
+        implementation(libs.cucumber.junit.platform.engine)
+        implementation(libs.junit.platform.suite)
     }
-    shouldRunAfter(tasks.named("test"))
+    targets.all {
+        testTask.configure {
+            description = "Runs bound game behavior scenarios against the prototype."
+            classpath += files(rootProject.layout.projectDirectory.dir("doc/game-design"))
+            useJUnitPlatform {
+                includeEngines("junit-platform-suite")
+            }
+            shouldRunAfter(tasks.named("test"))
+        }
+    }
 }
 
 tasks.named("check") {
