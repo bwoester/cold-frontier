@@ -32,9 +32,9 @@ Feature: Water production with a limited ice stockpile
     And exactly one ice depletion event records minute 36 as its effective game time
 
     Examples:
-      | checkpoints |
-      | 60          |
-      | 30, 33, 36, 60  |
+      | checkpoints    |
+      | 60             |
+      | 30, 33, 36, 60 |
 
   @issue-18
   Scenario: A unit in progress survives a checkpoint and depletion belongs to the advance that reaches it

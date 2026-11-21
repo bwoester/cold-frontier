@@ -26,14 +26,14 @@ Feature: Shared processing capacity for the same recipe
     And water processing is "<status>"
 
     Examples:
-      | coverage | plants | rate | checkpoints | water | progress | status |
-      | Two plants start with ingredients for only one output unit | 2 | 10 | 0 | 0 | 0 | running |
-      | A single equivalent plant reaches half completion | 1 | 20 | 1.5 | 0 | 0.5 | running |
-      | Two plants share progress without funding two separate units | 2 | 10 | 1.5 | 0 | 0.5 | running |
-      | One equivalent plant completes the funded unit | 1 | 20 | 3 | 1 | 0 | waiting for ingredients |
-      | Combined capacity completes the unit sooner than either plant alone | 2 | 10 | 3 | 1 | 0 | waiting for ingredients |
-      | Intermediate updates preserve progress and do not debit twice | 2 | 10 | 0.75, 1.5, 2.25, 3 | 1 | 0 | waiting for ingredients |
-      | Repeated completion and later times do not duplicate output | 2 | 10 | 1.5, 3, 3, 6 | 1 | 0 | waiting for ingredients |
+      | coverage                                                            | plants | rate | checkpoints        | water | progress | status                  |
+      | Two plants start with ingredients for only one output unit          | 2      | 10   | 0                  | 0     | 0        | running                 |
+      | A single equivalent plant reaches half completion                   | 1      | 20   | 1.5                | 0     | 0.5      | running                 |
+      | Two plants share progress without funding two separate units        | 2      | 10   | 1.5                | 0     | 0.5      | running                 |
+      | One equivalent plant completes the funded unit                      | 1      | 20   | 3                  | 1     | 0        | waiting for ingredients |
+      | Combined capacity completes the unit sooner than either plant alone | 2      | 10   | 3                  | 1     | 0        | waiting for ingredients |
+      | Intermediate updates preserve progress and do not debit twice       | 2      | 10   | 0.75, 1.5, 2.25, 3 | 1     | 0        | waiting for ingredients |
+      | Repeated completion and later times do not duplicate output         | 2      | 10   | 1.5, 3, 3, 6       | 1     | 0        | waiting for ingredients |
 
   Scenario Outline: Incomplete recipes - <coverage>
     Given the colony has 2 water plants each capable of 10 water units per hour
@@ -48,9 +48,9 @@ Feature: Shared processing capacity for the same recipe
     And water processing is "waiting for ingredients"
 
     Examples:
-      | coverage | ice | energy |
-      | Missing ice leaves energy untouched | 0 | 2 |
-      | Insufficient energy leaves all ingredients untouched | 1 | 1 |
+      | coverage                                             | ice | energy |
+      | Missing ice leaves energy untouched                  | 0   | 2      |
+      | Insufficient energy leaves all ingredients untouched | 1   | 1      |
 
   Scenario: Consecutive units start without delay and withdraw each recipe exactly once
     Given the colony has 2 water plants completed at minute 0 each capable of 10 water units per hour
@@ -91,7 +91,7 @@ Feature: Shared processing capacity for the same recipe
     And water processing is "<status>"
 
     Examples:
-      | coverage | checkpoints | water | progress | status |
-      | Completion preserves the existing half-unit without retroactive production | 3 | 0 | 0.5 | running |
-      | Remaining work finishes with the increased capacity without restarting | 3, 4.5 | 1 | 0 | waiting for ingredients |
-      | Crossing construction completion uses its effective time without an explicit checkpoint | 4.5 | 1 | 0 | waiting for ingredients |
+      | coverage                                                                                | checkpoints | water | progress | status                  |
+      | Completion preserves the existing half-unit without retroactive production              | 3           | 0     | 0.5      | running                 |
+      | Remaining work finishes with the increased capacity without restarting                  | 3, 4.5      | 1     | 0        | waiting for ingredients |
+      | Crossing construction completion uses its effective time without an explicit checkpoint | 4.5         | 1     | 0        | waiting for ingredients |
