@@ -5,8 +5,8 @@ Feature: Production progress across updates and building completion
   on the engine or the frequency of updates. See economy.md, section
   "Construction Completion and Production Progress".
   Rates and times below are test parameters, not general building balance values.
-  The prototype acceptance suite runs the two examples tagged @retained-half-unit.
-  All other examples and scenarios in this feature remain unbound in CI.
+  The prototype acceptance suite runs all examples for an already operational mine.
+  Construction and the repeated-time event scenario remain unbound in CI.
   Each coverage label names the behavior checked by that row and is included in
   the expanded scenario name. The sequential scenario also checks emitted events;
   the outline rows assert only the explicitly listed quantities and building status.
@@ -21,6 +21,7 @@ Feature: Production progress across updates and building completion
     And the simulation starts at minute 0
     And production progress starts at 0 units
 
+  @operational-mine
   Scenario Outline: Production progress - <coverage>
     Given the test mine is already completed and operational at minute 0
     When the simulation advances through minutes "<checkpoints>"
@@ -30,6 +31,8 @@ Feature: Production progress across updates and building completion
     Examples:
       | coverage | checkpoints                   | target | available | progress |
       | No elapsed time produces nothing | 0                             | 0      | 0         | 0        |
+      | Half a unit remains unavailable but is retained | 10                            | 10     | 0         | 0.5      |
+      | Splitting a half-unit interval preserves partial progress | 5, 10                         | 10     | 0         | 0.5      |
       | An incomplete first unit is not made available early | 19                            | 19     | 0         | 0.95     |
       | The first whole unit is available at its completion time | 20                            | 20     | 1         | 0        |
       | Two half-unit intervals yield one available unit | 10, 20                        | 20     | 1         | 0        |
@@ -38,12 +41,6 @@ Feature: Production progress across updates and building completion
       | Progress beyond a whole unit is retained | 21                            | 21     | 1         | 0.05     |
       | Direct advancement retains a remainder after a whole unit | 30                            | 30     | 1         | 0.5      |
       | Partitioned advancement retains the same whole unit and remainder | 10, 20, 30                    | 30     | 1         | 0.5      |
-
-    @retained-half-unit
-    Examples: Retaining half a unit
-      | coverage | checkpoints                   | target | available | progress |
-      | Half a unit remains unavailable but is retained | 10                            | 10     | 0         | 0.5      |
-      | Splitting a half-unit interval preserves partial progress | 5, 10                         | 10     | 0         | 0.5      |
 
   Scenario: Repeated times preserve partial and whole production without emitting new events
     Given the test mine is already completed and operational at minute 0
