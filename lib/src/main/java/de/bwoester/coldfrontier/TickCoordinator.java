@@ -5,12 +5,14 @@ import de.bwoester.coldfrontier.data.Value;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
 public class TickCoordinator {
 
     public static final Duration DEFAULT_TICK_DURATION = Duration.ofSeconds(1);
 
     private final List<TickComponent> components = new ArrayList<>();
+    private final List<Consumer<Duration>> resourceUpdates = new ArrayList<>();
     private final Value<Long> tick;
     private final Duration tickDuration;
 
@@ -39,6 +41,9 @@ public class TickCoordinator {
         }
         for (TickComponent component : components) {
             component.handleResourceUpdates();
+        }
+        for (Consumer<Duration> update : resourceUpdates) {
+            update.accept(tickDuration);
         }
         for (TickComponent component : components) {
             component.handleFinishedUnits(tickDuration);
@@ -83,5 +88,10 @@ public class TickCoordinator {
 
     public synchronized void add(TickComponent tickComponent) {
         components.add(tickComponent);
+    }
+
+    /** Registers a resource update that runs once per tick before construction completion. */
+    public synchronized void addResourceUpdate(Consumer<Duration> update) {
+        resourceUpdates.add(update);
     }
 }
