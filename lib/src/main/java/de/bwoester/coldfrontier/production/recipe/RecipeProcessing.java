@@ -42,6 +42,7 @@ public final class RecipeProcessing {
         if (tickDuration.isNegative() || tickDuration.isZero()) {
             throw new IllegalArgumentException("Tick duration must be positive");
         }
+        // getNano() is the fraction of a second, including the full duration for subsecond ticks.
         BigInteger nanos = BigInteger.valueOf(tickDuration.getSeconds()).multiply(NANOS_PER_SECOND)
                 .add(BigInteger.valueOf(tickDuration.getNano()));
         BigInteger availableWork = nanos.multiply(BigInteger.valueOf(operationsPerHour));

@@ -28,6 +28,20 @@ class RecipeProcessingTest {
     }
 
     @Test
+    void twoQuarterSecondTicksCompleteOneHalfSecondOperation() {
+        var initialStock = new ResourceAmounts(Map.of(IRON, 2L, ENERGY, 1L));
+        var processing = new RecipeProcessing(steel, 7200, initialStock, Map.of());
+        var tickDuration = Duration.ofMillis(250);
+
+        processing.advanceTick(tickDuration);
+        assertEquals(0L, processing.state().stock().amountOf(STEEL));
+
+        processing.advanceTick(tickDuration);
+        assertEquals(1L, processing.state().stock().amountOf(STEEL));
+        assertFalse(processing.state().completedWork().isPresent());
+    }
+
+    @Test
     void steelRecipeRetainsWorkAcrossTicksAndUsesLeftoverCapacity() {
         var initialStock = new ResourceAmounts(Map.of(IRON, 4L, ENERGY, 2L));
         var processing = new RecipeProcessing(steel, 2400, initialStock, Map.of());
