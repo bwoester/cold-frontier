@@ -132,7 +132,7 @@ public class ProductionProgressSteps {
         engine.advanceTo(targetTime);
     }
 
-    @Then("the colony has exactly {long} whole units of iron available")
+    @Then("the colony has exactly {long} whole unit(s) of iron available")
     public void availableIron(long expected) {
         assertIron(targetTime, expected);
     }
