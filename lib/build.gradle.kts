@@ -60,6 +60,7 @@ tasks.withType<JavaCompile>().configureEach {
 }
 
 tasks.named<Test>("test") {
+    exclude("**/*AcceptanceTest.class")
     useJUnitPlatform {
         excludeTags("integration")
     }
@@ -78,4 +79,20 @@ tasks.register<Test>("integrationTest") {
         includeTags("integration")
     }
     shouldRunAfter(tasks.named("test"))
+}
+
+val acceptanceTest by tasks.registering(Test::class) {
+    group = "verification"
+    description = "Runs bound game behavior scenarios against the prototype."
+    testClassesDirs = files(testSourceSet.map { it.output.classesDirs })
+    classpath = files(testSourceSet.map { it.runtimeClasspath }, rootProject.layout.projectDirectory.dir("doc/game-design"))
+    include("**/*AcceptanceTest.class")
+    useJUnitPlatform {
+        includeEngines("junit-platform-suite")
+    }
+    shouldRunAfter(tasks.named("test"))
+}
+
+tasks.named("check") {
+    dependsOn(acceptanceTest)
 }

@@ -33,5 +33,7 @@ jobs:
           path: |
             lib/build/reports/tests/test
             lib/build/test-results/test
+            lib/build/reports/tests/acceptanceTest
+            lib/build/test-results/acceptanceTest
             lib/build/reports/tests/integrationTest
             lib/build/test-results/integrationTest
