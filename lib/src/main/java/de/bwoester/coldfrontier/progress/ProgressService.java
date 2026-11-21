@@ -5,6 +5,8 @@ import de.bwoester.coldfrontier.buildings.BuildingDataProvider;
 import de.bwoester.coldfrontier.buildings.BuildingMsg;
 import de.bwoester.coldfrontier.data.Value;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.Duration;
 import java.util.Optional;
 
@@ -114,8 +116,12 @@ public class ProgressService {
             // Get the building data to determine how long it takes to build
             BuildingMsg buildingData = buildingDataProvider.getData(building);
 
-            // Preserve the legacy multiplier rounding in game seconds at every tick resolution.
-            long buildTimeSeconds = Math.max(1, Math.round(buildingData.buildTimeSeconds() * timeToBuildMultiplier));
+            // Apply the construction duration rule in game seconds before mapping to ticks.
+            long roundedSeconds = BigDecimal.valueOf(buildingData.buildTimeSeconds())
+                    .multiply(BigDecimal.valueOf(timeToBuildMultiplier))
+                    .setScale(0, RoundingMode.HALF_UP)
+                    .longValueExact();
+            long buildTimeSeconds = Math.max(1, roundedSeconds);
             Duration buildTime = Duration.ofSeconds(buildTimeSeconds);
             long totalTicksRequired = buildTime.dividedBy(tickDuration);
             // A completion that is off-grid becomes visible at the first following tick boundary.

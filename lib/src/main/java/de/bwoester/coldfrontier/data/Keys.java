@@ -97,8 +97,16 @@ public class Keys {
             return String.format("planet.planets.%s", planetId);
         }
 
+        /**
+         * Stores the fractional net production carried into the next tick for this planet.
+         * Each resource (including credits) is a signed numerator over 3,600,000,000,000.
+         * Positive values are unbooked production, negative values are unbooked consumption.
+         *
+         * @param planetId the planet id
+         * @return "planet.planets.${planetId}.hourly-production-remainder"
+         */
         public static String productionRemainder(String planetId) {
-            return String.format("planet.planets.%s.production-remainder", planetId);
+            return String.format("planet.planets.%s.hourly-production-remainder", planetId);
         }
     }
 

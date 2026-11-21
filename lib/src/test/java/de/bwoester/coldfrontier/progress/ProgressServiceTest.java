@@ -11,9 +11,12 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.time.Duration;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -129,6 +132,33 @@ class ProgressServiceTest {
         assertEquals(0.05, latest.progress()); // Exact 1/20 progress increment
     }
     
+    @ParameterizedTest
+    @CsvSource({
+            "10, 1.00, 10",
+            "10, 0.75, 8",
+            "10, 1.24, 12",
+            "10, 1.25, 13",
+            "10, 1.26, 13",
+            "100, 1.005, 101",
+            "10, 0.04, 1"
+    })
+    void roundsModifiedDurationInGameSecondsBeforeMappingToTicks(long baseSeconds, double multiplier,
+                                                                 long expectedSeconds) {
+        when(buildingDataProvider.getData(building)).thenReturn(buildingMsg);
+        when(buildingMsg.buildTimeSeconds()).thenReturn(baseSeconds);
+        progressService.startBuilding(building, multiplier);
+
+        Duration tickDuration = Duration.ofMillis(250);
+        long ticksToComplete = Duration.ofSeconds(expectedSeconds).dividedBy(tickDuration);
+        for (long tick = 1; tick < ticksToComplete; tick++) {
+            progressService.increaseProgress(tickDuration);
+        }
+        assertTrue(progressService.pollCompletedBuilding().isEmpty());
+
+        progressService.increaseProgress(tickDuration);
+        assertEquals(Optional.of(building), progressService.pollCompletedBuilding());
+    }
+
     @Test
     void increaseProgress_WithCompletedButNotConsumedBuilding_ShouldNotIncreaseProgress() {
         // Given

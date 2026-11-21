@@ -26,7 +26,7 @@ public interface TickComponent {
      * <p>
      * This is called after input handling.
      */
-    void handleResourceUpdates(Duration elapsedGameTime);
+    void handleResourceUpdates();
 
     /**
      * Advances construction progress and processes newly completed units.

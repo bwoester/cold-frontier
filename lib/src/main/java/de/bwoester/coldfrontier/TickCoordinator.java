@@ -26,6 +26,10 @@ public class TickCoordinator {
         this.tickDuration = tickDuration;
     }
 
+    public Duration tickDuration() {
+        return tickDuration;
+    }
+
     public synchronized void tick() {
         long oldTick = tick.get();
         tick.set(Math.incrementExact(oldTick));
@@ -34,7 +38,7 @@ public class TickCoordinator {
             component.handleInput();
         }
         for (TickComponent component : components) {
-            component.handleResourceUpdates(tickDuration);
+            component.handleResourceUpdates();
         }
         for (TickComponent component : components) {
             component.handleFinishedUnits(tickDuration);

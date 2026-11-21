@@ -297,7 +297,9 @@ The [pooled processing Gherkin scenarios](scenarios/pooled-processing.feature) c
 
 **Confirmed rule.** Each planet has its own building construction queue. Initially, exactly one building order can wait in addition to the active order. A queued order costs more and takes longer to build. The preliminary balancing value is a multiplicative 10% surcharge per waiting slot on cost and time. Slot 1 has factor 1.1, and slot 2 has 1.1 × 1.1 = 1.21. Deduct the increased cost on entry. The time surcharge determined by the slot on entry remains in effect when the order moves up and starts. A second waiting slot can be unlocked later, for example through optional genetics.
 
-**Open.** Affected resources, rounding, interaction with free construction minutes (BFM), and the unlock mechanism.
+**Provisional construction duration rule.** Apply the time multipliers in effect at construction start to the base duration before rounding. Round the result to the nearest whole game second, with half seconds rounded up and a minimum duration of one game second. For a 10-second base duration, factors of 1.24, 1.25, and 1.26 give 12, 13, and 13 game seconds. This rule applies to construction duration at start. The rule for remaining work after a mid-construction speed change and the rounding of costs, refunds, and other modified quantities are open.
+
+**Open.** Affected resources, interaction with free construction minutes (BFM), and the unlock mechanism.
 
 **Possible relief.** Delegating account care could reduce individual time pressure and reward collaboration and coordination. Historical inspiration comes from the [[icewars-references#Player Recollection – Sitter Login|restricted sitter login]]. Cold Frontier has yet to decide on specific permissions or sitter rules.
 

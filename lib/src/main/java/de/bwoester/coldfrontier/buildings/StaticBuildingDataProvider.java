@@ -13,7 +13,7 @@ public class StaticBuildingDataProvider implements BuildingDataProvider {
     {
         data.put(Building.IRON_MINE, new BuildingMsg(Building.IRON_MINE.toString(), 2L,
                 new ResourceSetMsg(new PlanetResourceSetMsg(1, 1, 1), 1),
-                new ResourceSetMsg(new PlanetResourceSetMsg(1, -1, 0), 0)
+                new ResourceSetMsg(new PlanetResourceSetMsg(3600, -3600, 0), 0)
         ));
     }
 

@@ -67,10 +67,10 @@ public class Planet implements TickComponent {
     }
 
     @Override
-    public void handleResourceUpdates(Duration elapsedGameTime) {
+    public void handleResourceUpdates() {
         ResourceSetMsg previousRemainder = productionRemainder.get();
-        ProductionService.ProductionStep production = productionService.calculateProduction(
-                buildingService.getBuildings(), elapsedGameTime, previousRemainder);
+        ProductionService.ProductionStep production = productionService.calculateTickProduction(
+                buildingService.getBuildings(), previousRemainder);
         TransactionMsg transaction = new TransactionMsg(
                 "Planet production", TransactionMsg.TransactionType.INCOME, production.wholeUnits());
         if (accountingService.executeTransaction(planetData.get().id(), transaction)

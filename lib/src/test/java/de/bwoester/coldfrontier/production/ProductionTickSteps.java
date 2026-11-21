@@ -90,7 +90,7 @@ public class ProductionTickSteps {
                 ResourceSetMsg.class, "remainder", ResourceSetMsg.createDefault());
         ticker.add(new Planet(values.get(PlanetMsg.class, "planet",
                 new PlanetMsg(planetId, null, null, null, null)),
-                input, buildingService, accounting, new ProductionService(buildings), remainder, progress));
+                input, buildingService, accounting, new ProductionService(buildings, tickDuration), remainder, progress));
     }
 
     @When("the ticker advances through ticks {string}")

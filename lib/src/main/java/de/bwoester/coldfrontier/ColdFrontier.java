@@ -114,7 +114,7 @@ public class ColdFrontier {
         BuildingDataProvider buildingDataProvider = new StaticBuildingDataProvider();
         BuildingService buildingService = new BuildingService(buildings, constructionQueue, buildingDataProvider);
 
-        ProductionService productionService = new ProductionService(buildingDataProvider);
+        ProductionService productionService = new ProductionService(buildingDataProvider, tickCoordinator.tickDuration());
 
         Value<ProgressMsg> progress = valuesUtil.get(ProgressMsg.class, Keys.Progress.building(planetId));
         ProgressService progressService = new ProgressService(progress, buildingDataProvider);
