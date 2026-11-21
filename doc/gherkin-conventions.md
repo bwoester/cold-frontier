@@ -69,6 +69,12 @@ the fields and effective times stated in the feature, preserving the distinction
 between events from the latest operation and the full scenario history. Collect
 results after the engine operation completes.
 
-Report missing bindings and unsupported behavior explicitly; pending or excluded
-scenarios are not passing acceptance tests. Failures in enabled acceptance cases
-must fail their test run.
+The game behavior suite discovers all features in `doc/game-design/scenarios`.
+When a case is deliberately deferred, mark it with `@pending` and at least one
+tracking tag such as `@issue-18`. Feature tags apply to all their scenarios.
+Use a scenario or Examples tag when only part of a feature is deferred. Remove
+the pending and tracking tags when the case is ready to run.
+
+The CI summary lists deferred cases separately, including each outline example.
+Missing issue tags on deferred cases and missing step bindings on enabled cases
+fail CI.

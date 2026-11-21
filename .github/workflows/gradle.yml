@@ -49,6 +49,11 @@ jobs:
           collapsed: auto
           fail-on-empty: 'false'
           fail-on-error: 'false'
+      - name: Report pending game behavior scenarios
+        if: ${{ !cancelled() }}
+        run: |
+          bash gradlew :lib:pendingScenarioReport --console=plain
+          cat lib/build/reports/pending-scenarios.md >> "$GITHUB_STEP_SUMMARY"
       - name: Report integration tests
         if: ${{ !cancelled() }}
         uses: dorny/test-reporter@a43b3a5f7366b97d083190328d2c652e1a8b6aa2 # v3.0.0

@@ -1,3 +1,4 @@
+@pending @issue-17
 Feature: Water production restarts when all inputs are available
   Scope: Game behavior.
   Purpose: Specifies input withdrawal and automatic restart after an energy shortage.

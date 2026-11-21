@@ -91,6 +91,8 @@ val acceptanceTest = testing.suites.register<JvmTestSuite>("acceptanceTest") {
         implementation(platform(libs.junit.bom))
         implementation(libs.cucumber.java)
         implementation(libs.cucumber.junit.platform.engine)
+        // Use the Gherkin parser version selected by Cucumber.
+        implementation("io.cucumber:gherkin")
         implementation(libs.junit.platform.suite)
     }
     targets.all {
@@ -107,4 +109,15 @@ val acceptanceTest = testing.suites.register<JvmTestSuite>("acceptanceTest") {
 
 tasks.named("check") {
     dependsOn(acceptanceTest)
+}
+
+tasks.register<JavaExec>("pendingScenarioReport") {
+    group = "verification"
+    description = "Reports the game behavior examples explicitly deferred from acceptance tests."
+    classpath = files(acceptanceTest.map { it.sources.runtimeClasspath })
+    mainClass.set("de.bwoester.coldfrontier.acceptance.reporting.PendingScenarioReport")
+    args(
+        rootProject.layout.projectDirectory.dir("doc/game-design/scenarios").asFile,
+        layout.buildDirectory.file("reports/pending-scenarios.md").get().asFile
+    )
 }
