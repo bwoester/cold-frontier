@@ -1,10 +1,11 @@
+@pooled-extraction
 Feature: Pooled extraction within a colony
   Scope: Game behavior.
   Purpose: Specifies agreed pooling of fractional extraction across mines.
   Rationale: Whole resource availability follows the colony's combined extraction,
   not completion of a whole unit by each mine. See economy.md, section
   "Pooled Extraction per Colony and Resource".
-  All quantities and times are test parameters. Step bindings are not yet provided.
+  All quantities and times are test parameters. The prototype acceptance suite runs this feature.
 
   Background:
     Given a colony starts at minute 0 with 0 available iron and 0 shared iron extraction progress

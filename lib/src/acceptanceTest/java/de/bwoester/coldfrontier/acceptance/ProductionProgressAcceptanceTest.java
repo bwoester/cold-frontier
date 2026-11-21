@@ -12,8 +12,9 @@ import static io.cucumber.junit.platform.engine.Constants.JUNIT_PLATFORM_SHORT_N
 @Suite
 @IncludeEngines("cucumber")
 @SelectClasspathResource("scenarios/production-progress.feature")
+@SelectClasspathResource("scenarios/pooled-extraction.feature")
 @ConfigurationParameter(key = JUNIT_PLATFORM_SHORT_NAMING_STRATEGY_EXAMPLE_NAME_PROPERTY_NAME, value = "pickle")
-@IncludeTags({"operational-mine", "mine-construction"})
+@IncludeTags({"operational-mine", "mine-construction", "pooled-extraction"})
 @ConfigurationParameter(key = GLUE_PROPERTY_NAME, value = "de.bwoester.coldfrontier.acceptance")
 public class ProductionProgressAcceptanceTest {
 }
