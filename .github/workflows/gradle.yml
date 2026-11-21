@@ -25,22 +25,42 @@ jobs:
         uses: gradle/actions/setup-gradle@017a9effdb900e5b5b2fddfb590a105619dca3c3 # v4.4.2
       - name: Build with Gradle Wrapper
         run: bash gradlew :lib:build :lib:integrationTest --console=plain --warning-mode=all
-      - name: Summarize test results
+      - name: Report unit and characterization tests
         if: ${{ !cancelled() }}
-        uses: mikepenz/action-junit-report@6ef3fdcfcd5f0b5d14df3e659ef19b8c6820f93d # v6.6.1
+        uses: dorny/test-reporter@a43b3a5f7366b97d083190328d2c652e1a8b6aa2 # v3.0.0
         with:
-          report_paths: |
-            lib/build/test-results/test/TEST-*.xml
-            lib/build/test-results/acceptanceTest/TEST-*.xml
-            lib/build/test-results/integrationTest/TEST-*.xml
-          check_name: |
-            Unit and characterization tests
-            Acceptance tests
-            Integration tests
-          detailed_summary: 'true'
-          include_passed: 'true'
-          include_skipped: 'true'
-          skip_annotations: 'true'
+          name: Unit and characterization tests
+          path: lib/build/test-results/test/TEST-*.xml
+          reporter: java-junit
+          use-actions-summary: 'true'
+          report-title: Unit and characterization tests
+          collapsed: auto
+          fail-on-empty: 'false'
+          fail-on-error: 'false'
+      - name: Report acceptance tests
+        if: ${{ !cancelled() }}
+        uses: dorny/test-reporter@a43b3a5f7366b97d083190328d2c652e1a8b6aa2 # v3.0.0
+        with:
+          name: Acceptance tests
+          path: lib/build/test-results/acceptanceTest/TEST-*.xml
+          reporter: java-junit
+          use-actions-summary: 'true'
+          report-title: Acceptance tests
+          collapsed: auto
+          fail-on-empty: 'false'
+          fail-on-error: 'false'
+      - name: Report integration tests
+        if: ${{ !cancelled() }}
+        uses: dorny/test-reporter@a43b3a5f7366b97d083190328d2c652e1a8b6aa2 # v3.0.0
+        with:
+          name: Integration tests
+          path: lib/build/test-results/integrationTest/TEST-*.xml
+          reporter: java-junit
+          use-actions-summary: 'true'
+          report-title: Integration tests
+          collapsed: auto
+          fail-on-empty: 'false'
+          fail-on-error: 'false'
       - name: Upload test reports
         if: ${{ !cancelled() }}
         uses: actions/upload-artifact@v4
