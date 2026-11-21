@@ -30,7 +30,7 @@ public final class TickPrototypeWaterProcessingAdapter implements WaterProcessin
                 new ResourceAmounts(Map.of(WATER, 1L)));
         var stock = new ResourceAmounts(Map.of(ICE, fixture.ice(), ENERGY, fixture.energy(), WATER, fixture.water()));
         processing = new RecipeProcessing(recipe, fixture.waterPerHour(), stock, Map.of(WATER, fixture.waterStorage()));
-        ticker.addResourceUpdate(processing::advanceTick);
+        ticker.addRecipeProcessing(processing::advanceTick);
     }
 
     @Override

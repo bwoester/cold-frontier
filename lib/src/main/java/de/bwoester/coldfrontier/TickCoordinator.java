@@ -12,7 +12,7 @@ public class TickCoordinator {
     public static final Duration DEFAULT_TICK_DURATION = Duration.ofSeconds(1);
 
     private final List<TickComponent> components = new ArrayList<>();
-    private final List<Consumer<Duration>> resourceUpdates = new ArrayList<>();
+    private final List<Consumer<Duration>> recipeProcessingSteps = new ArrayList<>();
     private final Value<Long> tick;
     private final Duration tickDuration;
 
@@ -42,8 +42,8 @@ public class TickCoordinator {
         for (TickComponent component : components) {
             component.handleResourceUpdates();
         }
-        for (Consumer<Duration> update : resourceUpdates) {
-            update.accept(tickDuration);
+        for (Consumer<Duration> advanceRecipe : recipeProcessingSteps) {
+            advanceRecipe.accept(tickDuration);
         }
         for (TickComponent component : components) {
             component.handleFinishedUnits(tickDuration);
@@ -90,8 +90,12 @@ public class TickCoordinator {
         components.add(tickComponent);
     }
 
-    /** Registers a resource update that runs once per tick before construction completion. */
-    public synchronized void addResourceUpdate(Consumer<Duration> update) {
-        resourceUpdates.add(update);
+    /**
+     * Registers recipe processing for a prepared colony with its own stock.
+     * Each step receives the tick duration after the regular components update their
+     * resource accounts and before they handle construction completion.
+     */
+    public synchronized void addRecipeProcessing(Consumer<Duration> advanceRecipe) {
+        recipeProcessingSteps.add(advanceRecipe);
     }
 }
