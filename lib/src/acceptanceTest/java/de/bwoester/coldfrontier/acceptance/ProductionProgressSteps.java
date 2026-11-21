@@ -18,6 +18,7 @@ public class ProductionProgressSteps {
     private long ironPerHour;
     private long storageCapacity;
     private Duration startTime;
+    private Duration completionTime;
     private BigDecimal initialProgress;
 
     @Given("a colony has {long} units of iron and no other producing buildings")
@@ -49,14 +50,33 @@ public class ProductionProgressSteps {
             + "no actions consume or transfer iron during the scenario|"
             + "all operating conditions remain satisfied throughout the scenario)$")
     public void isolatedExtraction() {
-        // The completed-mine fixture has no inputs, competing actions, or operating constraints.
+        // The mine fixture has no inputs, competing actions, or operating constraints.
     }
 
     @Given("the test mine is already completed and operational at minute {long}")
     public void completedMine(long minute) {
         assertEquals(startTime, Duration.ofMinutes(minute), "completed mine must be operational at the start");
-        engine.startWithCompletedMine(new ExtractionTestEngine.CompletedMine(
-                startTime, initialIron, initialProgress, ironPerHour, storageCapacity));
+        engine.startWithCompletedMine(mineFixture());
+    }
+
+    @Given("the test mine is under construction with effective completion at minute {long}")
+    public void mineUnderConstruction(long minute) {
+        completionTime = Duration.ofMinutes(minute);
+    }
+
+    @Given("construction costs have already been paid")
+    public void constructionCostsPaid() {
+        // The in-progress fixture starts after payment.
+    }
+
+    @Given("construction completes at minute {long} without further resource consumption")
+    public void constructionCompletion(long minute) {
+        assertEquals(completionTime, Duration.ofMinutes(minute), "scheduled completion time");
+        engine.startWithMineUnderConstruction(mineFixture(), completionTime);
+    }
+
+    private ExtractionTestEngine.MineFixture mineFixture() {
+        return new ExtractionTestEngine.MineFixture(startTime, initialIron, initialProgress, ironPerHour, storageCapacity);
     }
 
     @When("the simulation advances through minutes {string}")
@@ -77,5 +97,15 @@ public class ProductionProgressSteps {
     public void retainedIron(BigDecimal expected) {
         assertEquals(expected.stripTrailingZeros(), engine.readIron().retained().stripTrailingZeros(),
                 "retained iron");
+    }
+
+    @Then("the test mine is {string}")
+    public void mineStatus(String status) {
+        ExtractionTestEngine.MineStatus expected = switch (status) {
+            case "under construction" -> ExtractionTestEngine.MineStatus.UNDER_CONSTRUCTION;
+            case "operational" -> ExtractionTestEngine.MineStatus.OPERATIONAL;
+            default -> throw new IllegalArgumentException("Unknown mine status: " + status);
+        };
+        assertEquals(expected, engine.readMineStatus(), "mine status");
     }
 }

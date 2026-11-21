@@ -5,8 +5,8 @@ Feature: Production progress across updates and building completion
   on the engine or the frequency of updates. See economy.md, section
   "Construction Completion and Production Progress".
   Rates and times below are test parameters, not general building balance values.
-  The prototype acceptance suite runs all examples for an already operational mine.
-  Construction and the repeated-time event scenario remain unbound in CI.
+  The prototype acceptance suite runs the operational-mine and construction outlines.
+  The repeated-time event scenario remains unbound in CI.
   Each coverage label names the behavior checked by that row and is included in
   the expanded scenario name. The sequential scenario also checks emitted events;
   the outline rows assert only the explicitly listed quantities and building status.
@@ -55,6 +55,7 @@ Feature: Production progress across updates and building completion
     When the simulation advances to minute 20
     Then the state is unchanged and the advance emits no events
 
+  @mine-construction
   Scenario Outline: Production after construction - <coverage>
     Given the test mine is under construction with effective completion at minute 10
     And construction costs have already been paid

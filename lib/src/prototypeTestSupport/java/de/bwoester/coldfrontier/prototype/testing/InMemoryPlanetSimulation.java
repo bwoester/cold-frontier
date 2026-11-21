@@ -30,7 +30,8 @@ import java.util.ArrayDeque;
 import java.util.Map;
 
 public record InMemoryPlanetSimulation(TickCoordinator ticker, PlanetAccount account,
-                                       BuildingService buildingService, Value<ResourceSetMsg> remainder,
+                                       BuildingService buildingService, ProgressService progressService,
+                                       Value<ResourceSetMsg> remainder,
                                        Value<Long> tick) {
     public static InMemoryPlanetSimulation create(Duration tickDuration, BuildingDataProvider buildings,
                                                   Map<Building, Long> completedBuildings,
@@ -67,7 +68,7 @@ public record InMemoryPlanetSimulation(TickCoordinator ticker, PlanetAccount acc
         ticker.add(new Planet(values.get(PlanetMsg.class, "planet",
                 new PlanetMsg(planetId, null, null, null, null)),
                 input, buildingService, accounting, new ProductionService(buildings, tickDuration), remainder, progress));
-        return new InMemoryPlanetSimulation(ticker, account, buildingService, remainder, tick);
+        return new InMemoryPlanetSimulation(ticker, account, buildingService, progress, remainder, tick);
     }
 
     public Duration gameTime() {
