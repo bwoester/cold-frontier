@@ -99,8 +99,10 @@ public class Keys {
 
         /**
          * Stores the fractional net production carried into the next tick for this planet.
-         * Each resource (including credits) is a signed numerator over 3,600,000,000,000.
-         * Positive values are unbooked production, negative values are unbooked consumption.
+         * Each resource and credits are stored as a signed numerator. Positive values
+         * are unbooked production and negative values are unbooked consumption.
+         * See {@link de.bwoester.coldfrontier.production.ProductionService.ProductionStep}
+         * for the common denominator and a worked example.
          *
          * @param planetId the planet id
          * @return "planet.planets.${planetId}.hourly-production-remainder"

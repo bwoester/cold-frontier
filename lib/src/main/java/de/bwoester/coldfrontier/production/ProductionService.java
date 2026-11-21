@@ -22,6 +22,14 @@ public class ProductionService {
     private final BigInteger nanosPerTick;
     private final BuildingDataProvider buildingDataProvider;
 
+    /**
+     * Creates a production calculator for a fixed tick duration in game time.
+     *
+     * <p>A {@link Duration} exposes whole seconds and a nanosecond adjustment. Combining
+     * them as {@code seconds * 1_000_000_000 + nanos} gives the exact tick length in
+     * nanoseconds. Using {@link BigInteger} keeps the conversion exact even if the
+     * total exceeds the range of a {@code long}.
+     */
     public ProductionService(BuildingDataProvider buildingDataProvider, Duration tickDuration) {
         if (tickDuration.isZero() || tickDuration.isNegative()) {
             throw new IllegalArgumentException("Tick duration must be positive");
@@ -69,7 +77,21 @@ public class ProductionService {
         return production;
     }
 
-    /** Each signed remainder is a numerator with the number of nanoseconds per hour as denominator. */
+    /**
+     * Whole units to book this tick and the signed fractional units to carry forward,
+     * calculated independently for each resource and for credits.
+     *
+     * <p>The rate is in units per game hour. Multiplying it by the tick length in
+     * nanoseconds gives a numerator over 3,600,000,000,000, the number of nanoseconds
+     * in one hour. Add the previous numerator, then divide by this common denominator.
+     * The quotient is the whole-unit change and the remainder is the next numerator.
+     *
+     * <p>For example, at 3,600 iron per hour and a 250 ms tick, one tick adds
+     * {@code 3_600 * 250_000_000 = 900_000_000_000} to the iron numerator.
+     * That is a quarter unit. Starting from zero, the fourth tick books one iron
+     * and leaves a zero remainder. A consumption rate is negative and uses the
+     * same calculation.
+     */
     public record ProductionStep(ResourceSetMsg wholeUnits, ResourceSetMsg remainder) {
     }
 
