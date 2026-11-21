@@ -1,10 +1,10 @@
-package de.bwoester.coldfrontier.production;
+package de.bwoester.coldfrontier.prototype.characterization;
 
 import de.bwoester.coldfrontier.accounting.PlanetResourceSetMsg;
 import de.bwoester.coldfrontier.accounting.ResourceSetMsg;
 import de.bwoester.coldfrontier.buildings.Building;
 import de.bwoester.coldfrontier.buildings.StaticBuildingDataProvider;
-import de.bwoester.coldfrontier.testing.InMemoryPlanetSimulation;
+import de.bwoester.coldfrontier.prototype.testing.InMemoryPlanetSimulation;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;

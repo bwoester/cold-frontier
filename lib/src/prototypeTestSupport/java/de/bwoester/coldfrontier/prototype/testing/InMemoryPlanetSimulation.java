@@ -1,4 +1,4 @@
-package de.bwoester.coldfrontier.testing;
+package de.bwoester.coldfrontier.prototype.testing;
 
 import de.bwoester.coldfrontier.TickCoordinator;
 import de.bwoester.coldfrontier.accounting.AccountingService;

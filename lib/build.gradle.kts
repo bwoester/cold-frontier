@@ -9,7 +9,28 @@ repositories {
     mavenCentral()
 }
 
+val productionOutput = sourceSets.main.get().output
+val prototypeTestSupport = layout.projectDirectory.dir("src/prototypeTestSupport/java")
+val testSourceSet = sourceSets.named("test") {
+    java.srcDir(prototypeTestSupport)
+}
+val acceptanceSources = sourceSets.create("acceptanceTest") {
+    java.srcDir(prototypeTestSupport)
+    compileClasspath += productionOutput
+    runtimeClasspath += productionOutput
+}
+
+configurations[acceptanceSources.implementationConfigurationName].extendsFrom(configurations.implementation.get())
+configurations[acceptanceSources.runtimeOnlyConfigurationName].extendsFrom(configurations.runtimeOnly.get())
+
 dependencies {
+    add(acceptanceSources.implementationConfigurationName, platform(libs.junit.bom))
+    add(acceptanceSources.implementationConfigurationName, libs.junit.jupiter)
+    add(acceptanceSources.implementationConfigurationName, libs.cucumber.java)
+    add(acceptanceSources.implementationConfigurationName, libs.cucumber.junit.platform.engine)
+    add(acceptanceSources.implementationConfigurationName, libs.junit.platform.suite)
+    add(acceptanceSources.runtimeOnlyConfigurationName, libs.junit.platform.launcher)
+
     // Align all JUnit engines and the launcher, including the Cucumber suite.
     testImplementation(platform(libs.junit.bom))
     testImplementation(libs.junit.jupiter)
@@ -60,13 +81,10 @@ tasks.withType<JavaCompile>().configureEach {
 }
 
 tasks.named<Test>("test") {
-    exclude("**/*AcceptanceTest.class")
     useJUnitPlatform {
         excludeTags("integration")
     }
 }
-
-val testSourceSet = sourceSets.named("test")
 
 // Tagged tests deliberately share one source set. Gradle 9 requires explicit inputs.
 tasks.register<Test>("integrationTest") {
@@ -84,9 +102,8 @@ tasks.register<Test>("integrationTest") {
 val acceptanceTest = tasks.register<Test>("acceptanceTest") {
     group = "verification"
     description = "Runs bound game behavior scenarios against the prototype."
-    testClassesDirs = files(testSourceSet.map { it.output.classesDirs })
-    classpath = files(testSourceSet.map { it.runtimeClasspath }, rootProject.layout.projectDirectory.dir("doc/game-design"))
-    include("**/*AcceptanceTest.class")
+    testClassesDirs = acceptanceSources.output.classesDirs
+    classpath = acceptanceSources.runtimeClasspath + files(rootProject.layout.projectDirectory.dir("doc/game-design"))
     useJUnitPlatform {
         includeEngines("junit-platform-suite")
     }

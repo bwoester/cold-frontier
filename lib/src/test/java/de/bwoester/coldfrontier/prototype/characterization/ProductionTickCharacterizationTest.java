@@ -1,4 +1,4 @@
-package de.bwoester.coldfrontier.production;
+package de.bwoester.coldfrontier.prototype.characterization;
 
 import org.junit.platform.suite.api.ConfigurationParameter;
 import org.junit.platform.suite.api.IncludeEngines;
@@ -9,7 +9,7 @@ import static io.cucumber.junit.platform.engine.Constants.GLUE_PROPERTY_NAME;
 
 @Suite
 @IncludeEngines("cucumber")
-@SelectClasspathResource("characterization/production-tick.feature")
-@ConfigurationParameter(key = GLUE_PROPERTY_NAME, value = "de.bwoester.coldfrontier.production")
-public class ProductionCucumberTest {
+@SelectClasspathResource("prototype/characterization/production-tick.feature")
+@ConfigurationParameter(key = GLUE_PROPERTY_NAME, value = "de.bwoester.coldfrontier.prototype.characterization")
+public class ProductionTickCharacterizationTest {
 }

@@ -6,11 +6,14 @@ import io.cucumber.java.en.When;
 
 import java.math.BigDecimal;
 import java.time.Duration;
+import java.util.ServiceLoader;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ProductionProgressSteps {
-    private final ExtractionTestEngine engine = new PrototypeExtractionTestEngine();
+    private final ExtractionTestEngine engine = ServiceLoader.load(ExtractionTestEngine.class)
+            .findFirst()
+            .orElseThrow(() -> new IllegalStateException("No extraction acceptance adapter configured"));
     private long initialIron;
     private long ironPerHour;
     private long storageCapacity;

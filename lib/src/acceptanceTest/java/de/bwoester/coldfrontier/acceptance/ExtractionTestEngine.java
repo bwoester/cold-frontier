@@ -3,7 +3,7 @@ package de.bwoester.coldfrontier.acceptance;
 import java.math.BigDecimal;
 import java.time.Duration;
 
-interface ExtractionTestEngine {
+public interface ExtractionTestEngine {
     void startWithCompletedMine(CompletedMine fixture);
 
     void advanceTo(Duration gameTime);

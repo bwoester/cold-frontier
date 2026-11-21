@@ -1,17 +1,18 @@
-package de.bwoester.coldfrontier.acceptance;
+package de.bwoester.coldfrontier.acceptance.prototype;
 
 import de.bwoester.coldfrontier.TickCoordinator;
+import de.bwoester.coldfrontier.acceptance.ExtractionTestEngine;
 import de.bwoester.coldfrontier.accounting.PlanetResourceSetMsg;
 import de.bwoester.coldfrontier.accounting.ResourceSetMsg;
 import de.bwoester.coldfrontier.buildings.Building;
 import de.bwoester.coldfrontier.buildings.BuildingMsg;
-import de.bwoester.coldfrontier.testing.InMemoryPlanetSimulation;
+import de.bwoester.coldfrontier.prototype.testing.InMemoryPlanetSimulation;
 
 import java.math.BigDecimal;
 import java.time.Duration;
 import java.util.Map;
 
-final class PrototypeExtractionTestEngine implements ExtractionTestEngine {
+public final class TickPrototypeExtractionAdapter implements ExtractionTestEngine {
     // The prototype expresses its stored numerator over the number of nanoseconds per game hour.
     private static final BigDecimal REMAINDER_DENOMINATOR = BigDecimal.valueOf(Duration.ofHours(1).toNanos());
 
