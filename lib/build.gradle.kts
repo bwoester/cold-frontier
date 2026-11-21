@@ -9,6 +9,11 @@ repositories {
     mavenCentral()
 }
 
+val prototypeTestSupport = layout.projectDirectory.dir("src/prototypeTestSupport/java")
+val testSourceSet = sourceSets.named("test") {
+    java.srcDir(prototypeTestSupport)
+}
+
 dependencies {
     // Align all JUnit engines and the launcher, including the Cucumber suite.
     testImplementation(platform(libs.junit.bom))
@@ -65,8 +70,6 @@ tasks.named<Test>("test") {
     }
 }
 
-val testSourceSet = sourceSets.named("test")
-
 // Tagged tests deliberately share one source set. Gradle 9 requires explicit inputs.
 tasks.register<Test>("integrationTest") {
     group = "verification"
@@ -78,4 +81,30 @@ tasks.register<Test>("integrationTest") {
         includeTags("integration")
     }
     shouldRunAfter(tasks.named("test"))
+}
+
+val acceptanceTest = testing.suites.register<JvmTestSuite>("acceptanceTest") {
+    useJUnitJupiter(libs.versions.junit.jupiter.get())
+    sources.java.srcDir(prototypeTestSupport)
+    dependencies {
+        implementation(project())
+        implementation(platform(libs.junit.bom))
+        implementation(libs.cucumber.java)
+        implementation(libs.cucumber.junit.platform.engine)
+        implementation(libs.junit.platform.suite)
+    }
+    targets.all {
+        testTask.configure {
+            description = "Runs bound game behavior scenarios against the prototype."
+            classpath += files(rootProject.layout.projectDirectory.dir("doc/game-design"))
+            useJUnitPlatform {
+                includeEngines("junit-platform-suite")
+            }
+            shouldRunAfter(tasks.named("test"))
+        }
+    }
+}
+
+tasks.named("check") {
+    dependsOn(acceptanceTest)
 }

@@ -48,6 +48,15 @@ interface and an adapter for each implementation. Define only the operations nee
 by the scenarios being bound. This is ordinary test code, not a custom framework
 or a cross-language protocol.
 
+In `lib`, the repository layout follows these responsibilities.
+
+| Path | Responsibility |
+| --- | --- |
+| [`doc/game-design/scenarios`](game-design/scenarios/) | Game rules and expected outcomes shared across engines |
+| [`lib/src/acceptanceTest`](../lib/src/acceptanceTest/) | Cucumber steps and the test interface. The `acceptance/prototype` package translates the contract for the tick engine. A service provider file binds the adapter to the suite. |
+| [`lib/src/test`](../lib/src/test/) | Tests of individual components and prototype behavior, including the `prototype/characterization` suite |
+| [`lib/src/prototypeTestSupport`](../lib/src/prototypeTestSupport/) | In-memory tick-engine fixtures shared by the adapter and characterization tests |
+
 Adapters translate fixture data, actions and observations. They must not implement
 missing production rules, fabricate audit events, suppress duplicates or silently
 round times. Time conversions must follow the engine's explicit game-time semantics.
