@@ -2,7 +2,7 @@ package de.bwoester.coldfrontier.acceptance;
 
 import org.junit.platform.suite.api.ConfigurationParameter;
 import org.junit.platform.suite.api.IncludeEngines;
-import org.junit.platform.suite.api.IncludeTags;
+import org.junit.platform.suite.api.ExcludeTags;
 import org.junit.platform.suite.api.SelectClasspathResource;
 import org.junit.platform.suite.api.Suite;
 
@@ -11,10 +11,9 @@ import static io.cucumber.junit.platform.engine.Constants.JUNIT_PLATFORM_SHORT_N
 
 @Suite
 @IncludeEngines("cucumber")
-@SelectClasspathResource("scenarios/production-progress.feature")
-@SelectClasspathResource("scenarios/pooled-extraction.feature")
+@SelectClasspathResource("scenarios")
 @ConfigurationParameter(key = JUNIT_PLATFORM_SHORT_NAMING_STRATEGY_EXAMPLE_NAME_PROPERTY_NAME, value = "pickle")
-@IncludeTags({"operational-mine", "mine-construction", "pooled-extraction"})
+@ExcludeTags("pending")
 @ConfigurationParameter(key = GLUE_PROPERTY_NAME, value = "de.bwoester.coldfrontier.acceptance")
-public class ProductionProgressAcceptanceTest {
+public class GameBehaviorAcceptanceTest {
 }

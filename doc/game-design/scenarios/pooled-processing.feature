@@ -1,9 +1,10 @@
+@pending @issue-17
 Feature: Shared processing capacity for the same recipe
   Scope: Game behavior.
   Purpose: Specifies agreed common processing with explicit input, continuous-operation and construction cases.
   Rationale: Plants of the same recipe share capacity and fund one output unit together.
   See economy.md, section "Pooled Processing per Colony and Recipe".
-  Values are test parameters. Engine step bindings are not yet provided.
+  Values are test parameters.
 
   Background:
     Given a colony starts at minute 0 with 0 water and no processing in progress

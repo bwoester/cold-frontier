@@ -5,8 +5,6 @@ Feature: Production progress across updates and building completion
   on the engine or the frequency of updates. See economy.md, section
   "Construction Completion and Production Progress".
   Rates and times below are test parameters, not general building balance values.
-  The prototype acceptance suite runs the operational-mine and construction outlines.
-  The repeated-time event scenario remains unbound in CI.
   Each coverage label names the behavior checked by that row and is included in
   the expanded scenario name. The sequential scenario also checks emitted events;
   the outline rows assert only the explicitly listed quantities and building status.
@@ -21,7 +19,6 @@ Feature: Production progress across updates and building completion
     And the simulation starts at minute 0
     And production progress starts at 0 units
 
-  @operational-mine
   Scenario Outline: Production progress - <coverage>
     Given the test mine is already completed and operational at minute 0
     When the simulation advances through minutes "<checkpoints>"
@@ -42,6 +39,7 @@ Feature: Production progress across updates and building completion
       | Direct advancement retains a remainder after a whole unit | 30                            | 30     | 1         | 0.5      |
       | Partitioned advancement retains the same whole unit and remainder | 10, 20, 30                    | 30     | 1         | 0.5      |
 
+  @pending @issue-18
   Scenario: Repeated times preserve partial and whole production without emitting new events
     Given the test mine is already completed and operational at minute 0
     When the simulation advances to minute 10
@@ -55,7 +53,6 @@ Feature: Production progress across updates and building completion
     When the simulation advances to minute 20
     Then the state is unchanged and the advance emits no events
 
-  @mine-construction
   Scenario Outline: Production after construction - <coverage>
     Given the test mine is under construction with effective completion at minute 10
     And construction costs have already been paid

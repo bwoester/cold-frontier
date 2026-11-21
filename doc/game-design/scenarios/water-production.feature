@@ -1,3 +1,4 @@
+@pending @issue-17
 Feature: Water production with a limited ice stockpile
   Scope: Game behavior.
   Purpose: Specifies agreed behavior for the first resource simulation stage.
@@ -22,7 +23,8 @@ Feature: Water production with a limited ice stockpile
     When the simulation advances to minute 6
     Then the pool contains 1 unit of water
 
-  Scenario Outline: Water production stops when the next unit cannot start for lack of ice
+  @issue-18
+  Scenario Outline: Water production stops when the next unit cannot start for lack of ice - checkpoints <checkpoints>
     When the simulation advances through minutes "<checkpoints>"
     Then at minute 60 the planet has exactly 6 units of water and no ice
     And the water plant has consumed exactly 12 units of energy
@@ -34,6 +36,7 @@ Feature: Water production with a limited ice stockpile
       | 60          |
       | 30, 33, 36, 60  |
 
+  @issue-18
   Scenario: A unit in progress survives a checkpoint and depletion belongs to the advance that reaches it
     When the simulation advances to minute 30
     Then the pool contains 5 units of water and no ice

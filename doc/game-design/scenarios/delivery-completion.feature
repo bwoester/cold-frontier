@@ -1,3 +1,4 @@
+@pending @issue-27
 Feature: Delivery completion makes cargo available immediately
   Scope: Game behavior.
   Purpose: Specifies when successfully unloaded cargo becomes available.
