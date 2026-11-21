@@ -13,7 +13,7 @@ def results(directory):
         for test in suite.iter("testcase"):
             name = test.attrib["name"]
             group = test.get("classname") or suite.get("name")
-            if group and group != "Examples":
+            if group and group != "Examples" and not name.startswith(group):
                 name = f"{group} · {name}"
 
             failure = test.find("failure")
