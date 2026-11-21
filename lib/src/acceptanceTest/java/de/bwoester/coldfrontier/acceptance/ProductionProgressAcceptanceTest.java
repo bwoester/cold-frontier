@@ -11,7 +11,7 @@ import static io.cucumber.junit.platform.engine.Constants.GLUE_PROPERTY_NAME;
 @Suite
 @IncludeEngines("cucumber")
 @SelectClasspathResource("scenarios/production-progress.feature")
-@IncludeTags("retained-half-unit")
+@IncludeTags("operational-mine")
 @ConfigurationParameter(key = GLUE_PROPERTY_NAME, value = "de.bwoester.coldfrontier.acceptance")
 public class ProductionProgressAcceptanceTest {
 }
