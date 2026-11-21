@@ -11,13 +11,18 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import java.util.Map;
 import java.util.stream.Stream;
+
+import static de.bwoester.coldfrontier.resources.ResourceType.ICE;
+import static de.bwoester.coldfrontier.resources.ResourceType.IRON;
+import static de.bwoester.coldfrontier.resources.ResourceType.WATER;
 
 @Slf4j
 class PlanetAccountTest {
 
     private static final String PLANET_ID = "planet-1";
-    private static final PlanetResourceSetMsg ONE = new PlanetResourceSetMsg(1, 1, 1);
+    private static final PlanetResourceSetMsg ONE = new PlanetResourceSetMsg(Map.of(IRON, 1L, ICE, 1L));
     private static final PlanetResourceSetMsg TWO = ONE.multiply(2);
 
     TestValues testValues;
@@ -51,7 +56,8 @@ class PlanetAccountTest {
         return Stream.of(
                 Arguments.of(TWO, ONE, true),
                 Arguments.of(TWO, TWO, true),
-                Arguments.of(ONE, TWO, false)
+                Arguments.of(ONE, TWO, false),
+                Arguments.of(ONE, new PlanetResourceSetMsg(Map.of(WATER, 1L)), false)
         );
     }
 
@@ -68,7 +74,8 @@ class PlanetAccountTest {
 
     private static Stream<Arguments> executeTransaction() {
         return Stream.of(
-                Arguments.of(TWO, ONE, ONE)
+                Arguments.of(TWO, ONE, ONE),
+                Arguments.of(ONE, ONE, PlanetResourceSetMsg.createDefault())
         );
     }
 

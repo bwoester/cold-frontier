@@ -14,13 +14,16 @@ import org.junit.jupiter.params.provider.MethodSource;
 import java.util.Map;
 import java.util.stream.Stream;
 
+import static de.bwoester.coldfrontier.resources.ResourceType.IRON;
+import static de.bwoester.coldfrontier.resources.ResourceType.WATER;
+
 @Slf4j
 class AccountingServiceTest {
 
     private static final String PLAYER_ID = "player-1";
     private static final String PLANET_ID = "planet-1";
 
-    private static final PlanetResourceSetMsg PLANET_RESOURCES_ONE = PlanetResourceSetMsg.createOne();
+    private static final PlanetResourceSetMsg PLANET_RESOURCES_ONE = new PlanetResourceSetMsg(Map.of(IRON, 1L, WATER, 1L));
     private static final PlanetResourceSetMsg PLANET_RESOURCES_TWO = PLANET_RESOURCES_ONE.multiply(2);
     private static final PlanetResourceSetMsg PLANET_RESOURCES_THREE = PLANET_RESOURCES_ONE.multiply(3);
 

@@ -16,6 +16,9 @@ import java.time.Duration;
 import java.util.HashMap;
 import java.util.Map;
 
+import static de.bwoester.coldfrontier.resources.ResourceType.ENERGY;
+import static de.bwoester.coldfrontier.resources.ResourceType.ICE;
+import static de.bwoester.coldfrontier.resources.ResourceType.IRON;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
@@ -38,8 +41,8 @@ class ProductionServiceTest {
         Building buildingA = Building.SOLAR_CELL;
         Building buildingB = Building.IRON_MINE;
 
-        ResourceSetMsg productionA = ResourceSetMsg.createOne(); // Assuming this creates a resource set with value 1
-        ResourceSetMsg productionB = ResourceSetMsg.createOne().multiply(2); // Production with value 2
+        ResourceSetMsg productionA = new ResourceSetMsg(new PlanetResourceSetMsg(Map.of(ENERGY, 1L)), 1);
+        ResourceSetMsg productionB = new ResourceSetMsg(new PlanetResourceSetMsg(Map.of(ENERGY, -2L, IRON, 2L)), 2);
 
         BuildingMsg buildingMsgA = new BuildingMsg(Building.SOLAR_CELL.toString(), 1, ResourceSetMsg.createDefault(), productionA);
         BuildingMsg buildingMsgB = new BuildingMsg(Building.IRON_MINE.toString(), 1, ResourceSetMsg.createDefault(), productionB);
@@ -58,8 +61,7 @@ class ProductionServiceTest {
         ResourceSetMsg result = productionService.calculateProductionPerHour(buildingCounters);
 
         // Then
-        // Expected: 3 * productionA + 2 * productionB = 3*1 + 2*2 = 7
-        ResourceSetMsg expected = productionA.multiply(3).add(productionB.multiply(2));
+        ResourceSetMsg expected = new ResourceSetMsg(new PlanetResourceSetMsg(Map.of(ENERGY, -1L, IRON, 4L)), 7);
         assertEquals(expected, result);
     }
 
@@ -78,7 +80,7 @@ class ProductionServiceTest {
     @Test
     void retainsNonTerminatingFractionsUntilAWholeUnitCanBeBooked() {
         Building building = Building.IRON_MINE;
-        ResourceSetMsg hourlyRate = new ResourceSetMsg(new PlanetResourceSetMsg(3, -3, 0), 0);
+        ResourceSetMsg hourlyRate = new ResourceSetMsg(new PlanetResourceSetMsg(Map.of(IRON, 3L, ENERGY, -3L, ICE, 3L)), 0);
         when(buildingDataProvider.getData(building)).thenReturn(
                 new BuildingMsg(building.toString(), 2, ResourceSetMsg.createDefault(), hourlyRate));
         BuildingCountersMsg buildings = new BuildingCountersMsg(Map.of(building, 1L));
@@ -90,8 +92,16 @@ class ProductionServiceTest {
         }
 
         ProductionService.ProductionStep step = productionService.calculateTickProduction(buildings, remainder);
-        assertEquals(new ResourceSetMsg(new PlanetResourceSetMsg(1, -1, 0), 0), step.wholeUnits());
+        assertEquals(new ResourceSetMsg(new PlanetResourceSetMsg(Map.of(IRON, 1L, ENERGY, -1L, ICE, 1L)), 0), step.wholeUnits());
         assertEquals(ResourceSetMsg.createDefault(), step.remainder());
     }
 
+    @Test
+    void carriesFractionForwardWhenResourceHasNoCurrentRate() {
+        var remainder = new ResourceSetMsg(new PlanetResourceSetMsg(Map.of(ICE, 1_800_000_000_000L)), 0);
+        var step = productionService.calculateTickProduction(new BuildingCountersMsg(Map.of()), remainder);
+
+        assertEquals(ResourceSetMsg.createDefault(), step.wholeUnits());
+        assertEquals(remainder, step.remainder());
+    }
 }

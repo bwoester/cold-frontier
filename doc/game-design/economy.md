@@ -18,9 +18,8 @@ The economy should go beyond constant income rates. Buildings produce and consum
 | Level | In the prototype | Interpretation |
 | --- | --- | --- |
 | Player-wide | **Credits** in `UserAccount`; `ResourceSetMsg` contains `credits` | Available player-wide per project context. Other currency operations remain open. |
-| Planetary stock | `PlanetResourceSetMsg`: **iron, energy, population** | Basic stock representation. The resource list is provisional. |
+| Planetary stock | `PlanetResourceSetMsg`: amounts keyed by `ResourceType` | Local stock covers resources such as iron, energy, population, ice, and water. The resource list is provisional. |
 | Planetary deposits | `MiningResourcesMsg`: **iron, deepIron, chemicals, ice, deepIce** | Deposit structure. Depletion logic is a TODO. |
-| Other candidate resources | **Steel, VV4A, chemical elements, water, ice**, among others | Project ideas currently absent from the stock record above. |
 
 **Stock** and **deposit** describe different concepts. Whether energy and population should behave like storable consumables also remains open.
 
@@ -30,7 +29,7 @@ Source code: [ResourceSetMsg](../../lib/src/main/java/de/bwoester/coldfrontier/a
 
 **Confirmed water recipe.** Producing 1 unit of water consumes 1 unit of ice and 2 units of energy. Throughput and partial operation remain open.
 
-**Current code.** `ProductionService` sums fixed production vectors per building. It does not yet account for shortages, input availability, or modifiers. `IRON_MINE` is an example configured with positive iron production and negative energy production. These values are provisional.
+**Current code.** `ProductionService` sums signed hourly rates per resource from all buildings on a planet. Fractional amounts carry forward across ticks. The result includes any credits generated on the planet, which are booked to the owning player account. It does not yet account for shortages, input availability, or modifiers. `IRON_MINE` is an example configured with positive iron production and negative energy production. These values are provisional.
 
 **To investigate.** Input and output recipes, simultaneous competing consumers, priorities, partial operation, storage eligibility, time resolution, rounding, saturation, and cascading shortages.
 

@@ -12,6 +12,8 @@ import java.nio.charset.StandardCharsets;
 import java.time.Instant;
 import java.util.Map;
 
+import static de.bwoester.coldfrontier.resources.ResourceType.ENERGY;
+import static de.bwoester.coldfrontier.resources.ResourceType.IRON;
 import static de.bwoester.coldfrontier.resources.ResourceType.ICE;
 import static de.bwoester.coldfrontier.resources.ResourceType.WATER;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -38,15 +40,14 @@ class JsonEventSerializerTest {
     }
 
     @Test
-    void readsLegacyPlanetBalanceAndRoundTripsAdditionalResources() throws Exception {
+    void readsAndWritesKeyedPlanetaryAmounts() throws Exception {
         var serializer = new JsonEventSerializer<>(mapper, PlanetResourceSetMsg.class);
         byte[] storedJson = """
-                {"tick":42,"payload":{"iron":3,"energy":4,"population":5}}
+                {"tick":42,"payload":{"amounts":{"IRON":3,"ENERGY":-4,"ICE":2,"WATER":1}}}
                 """.getBytes(StandardCharsets.UTF_8);
-        assertEquals(new Event<>(42, new PlanetResourceSetMsg(3, 4, 5)), serializer.deserialize(storedJson));
-
-        var event = new Event<>(43, new PlanetResourceSetMsg(3, 4, 5, Map.of(ICE, 2L, WATER, 1L)));
-        assertEquals(event, serializer.deserialize(serializer.serialize(event)));
+        var event = new Event<>(42, new PlanetResourceSetMsg(Map.of(IRON, 3L, ENERGY, -4L, ICE, 2L, WATER, 1L)));
+        assertEquals(event, serializer.deserialize(storedJson));
+        assertEquals(mapper.readTree(storedJson), mapper.readTree(serializer.serialize(event)));
     }
 
     @Test
