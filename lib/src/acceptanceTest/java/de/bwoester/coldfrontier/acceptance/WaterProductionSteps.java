@@ -84,7 +84,7 @@ public class WaterProductionSteps {
         engine.advanceTo(Duration.ofMinutes(minute));
     }
 
-    @Given("a supply of {long} unit(s) of energy becomes available in the pool at minute {long} before resource updates")
+    @Given("a supply of {long} unit(s) of energy becomes available in the pool at minute {long}")
     public void scheduleEnergySupply(long units, long minute) {
         engine.scheduleEnergySupply(units, Duration.ofMinutes(minute));
     }

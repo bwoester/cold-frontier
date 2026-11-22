@@ -248,9 +248,9 @@ The [pooled extraction Gherkin scenarios](scenarios/pooled-extraction.feature) e
 ### Pooled Processing per Colony and Recipe
 
 **Confirmed order (2026-11-21).** Apply mining results to the colony's stockpile
-before evaluating recipes at the same game time. A recipe can use newly available
-whole mined units immediately. The audit history must distinguish mining changes from
-recipe changes and show their order at the same effective game time.
+before evaluating new recipe starts at the same game time. A recipe can start using
+newly available whole mined units immediately, with progress accruing from that time.
+The audit history must distinguish mining and recipe changes and show their order when both take effect at the same game time.
 
 **Confirmed rule (2026-11-17).** Buildings with the same recipe in a colony contribute capacity to a shared processing operation according to their effective operating conditions. The operation draws a single set of ingredients for each unit. Keep colonies and recipes separate.
 

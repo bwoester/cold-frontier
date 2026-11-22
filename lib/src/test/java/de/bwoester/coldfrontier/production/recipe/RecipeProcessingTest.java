@@ -44,16 +44,19 @@ class RecipeProcessingTest {
     }
 
     @Test
-    void boundarySupplyCanFundTheNextOperationButCannotAdvanceIt() {
-        var processing = new RecipeProcessing(steel, 7200, Map.of());
-        var initial = processing.initialize(new ResourceAmounts(Map.of(IRON, 4L, ENERGY, 1L)));
-        var supply = new ResourceAmounts(Map.of(ENERGY, 1L));
-        var credited = new RecipeProcessing.State(initial.stock().credit(supply, Map.of()), initial.completedWork());
+    void anExactBoundaryCompletionLeavesTheNextStartForTheBoundaryPhase() {
+        var processing = new RecipeProcessing(steel, 3600, Map.of());
+        var initial = processing.initialize(new ResourceAmounts(Map.of(IRON, 4L, ENERGY, 2L)));
 
-        var state = processing.advanceTickWithSupplyAtEnd(credited, Duration.ofSeconds(1), supply);
+        var elapsed = processing.advanceTick(initial, Duration.ofSeconds(1));
 
-        assertEquals(new ResourceAmounts(Map.of(STEEL, 1L)), state.stock());
-        assertEquals(0L, state.completedWork().orElseThrow());
+        assertEquals(new ResourceAmounts(Map.of(STEEL, 1L, IRON, 2L, ENERGY, 1L)), elapsed.stock());
+        assertFalse(elapsed.completedWork().isPresent());
+
+        var started = processing.startIfIdle(elapsed);
+
+        assertEquals(new ResourceAmounts(Map.of(STEEL, 1L)), started.stock());
+        assertEquals(0L, started.completedWork().orElseThrow());
     }
 
     @Test

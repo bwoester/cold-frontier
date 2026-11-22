@@ -53,15 +53,18 @@ The [`TickCoordinator`](../../lib/src/main/java/de/bwoester/coldfrontier/TickCoo
 
 | No. | Prototype phase | Domain rationale and open questions |
 | ---: | --- | --- |
-| 1 | Inputs (`handleInput`) | A defined time for player commands determines the stocks they see and the consequences the economy takes into account afterward. Running inputs before the resource phase is a proposal. |
-| 2 | Resources (`handleResourceUpdates`) | Each planet [applies mining results before evaluating its recipes](../game-design/economy.md#pooled-processing-per-colony-and-recipe), so recipes see newly available whole units in the same resource phase. The prototype ledger books production and recipe changes separately. The domain audit history must show the two steps in order at the same effective game time. |
-| 3 | Completions (`handleFinishedUnits`) | The prototype takes completed buildings into account after the resource phase, so they contribute to production in the following tick at the earliest. The rule is defined by the [timing boundary at construction completion](../game-design/economy.md#construction-completion-and-production-progress). Whether the implementation satisfies it also depends on the interval assigned to the resource phase and the time assigned to completion. |
-| 4 | Queues (`handleQueuedUnits`) | After completion, the freed construction slot can go directly to the next order. That local order suffices within the same construction queue as long as no other mechanic needs to intervene between completion and the start of the next order. |
-| 5 | Movement (`handleMovement`) | A separate phase makes sense if conflicts should use positions reached after movement. The prototype's phase order alone leaves arrival and interception rules open. |
-| 6 | Conflicts (`handleConflicts`) | Resolution can build on movement results and change stocks or facilities. Priority relative to other changes at the same game time needs concrete test cases. |
-| 7 | Visibility (`handleVisibilityUpdates`) | A domain phase makes sense if visibility determines which actions are allowed at the same game time. A display-only view can be derived from game state. |
-| 8 | Persistence (`handlePersistence`) | Technical step. Saving at a given point does not establish a gameplay priority rule by itself. |
-| 9 | Cleanup (`handleCleanup`) | Technical cleanup needs no domain phase. An expiry with a gameplay effect, such as the end of a bonus, needs a rule defining when it takes effect. |
+| 1 | Elapsed resource work (`handleResourceUpdates`) | Advance recipes through the elapsed interval and post the net mining and production results due at its end. The prototype checks that net production is affordable from the opening stock and still valid when posted. |
+| 2 | Inputs (`handleInput`) | Apply inputs effective at this boundary. Planetary system supplies enter stock before player construction commands. |
+| 3 | Completions (`handleFinishedUnits`) | Completed buildings contribute capacity from this boundary onward. See the [construction completion rule](../game-design/economy.md#construction-completion-and-production-progress). |
+| 4 | Queues (`handleQueuedUnits`) | After completion, the freed construction slot can go directly to the next order. |
+| 5 | Resource starts (`handleResourceStarts`) | Evaluate new starts against stock available at this boundary, including [whole mined units](../game-design/economy.md#pooled-processing-per-colony-and-recipe). Recipes started here have zero work completed. |
+| 6 | Movement (`handleMovement`) | A separate phase makes sense if conflicts should use positions reached after movement. The prototype's phase order alone leaves arrival and interception rules open. |
+| 7 | Conflicts (`handleConflicts`) | Resolution can build on movement results and change stocks or facilities. Priority relative to other changes at the same game time needs concrete test cases. |
+| 8 | Visibility (`handleVisibilityUpdates`) | A domain phase makes sense if visibility determines which actions are allowed at the same game time. A display-only view can be derived from game state. |
+| 9 | Persistence (`handlePersistence`) | Technical step. Saving at a given point does not establish a gameplay priority rule by itself. |
+| 10 | Cleanup (`handleCleanup`) | Technical cleanup needs no domain phase. An expiry with a gameplay effect, such as the end of a bonus, needs a rule defining when it takes effect. |
+
+A tick ending at 9:00 accounts for work through 9:00. A supply effective at 9:00 can fund a new start at 9:00, with progress accruing from that time. A recipe that completes inside the elapsed interval can use its remaining processing time for another unit funded within that interval. The prototype posts mining and recipe changes separately. Competition for shared inputs remains an open game-design question.
 
 ### When a Separate Phase Makes Sense
 
@@ -73,7 +76,7 @@ Service responsibilities alone do not establish this order. A resource pool can 
 
 Unloading starts on arrival. Approach, docking, and unloading share one time window. The [initial rule](../game-design/economy.md#s13--unloading-with-limited-storage-capacity) uses 15 minutes. Five minutes was a value discussed earlier. The sequence applies regardless of duration.
 
-Game flow coordination processes the **due command to complete unloading** at the start of its effective game time as system input before player commands and resource updates. If unloading is still in progress, it checks the recipient, authorization to unload, and free storage capacity. On successful completion, cargo leaves the ship. The accepted quantity is available immediately in the destination pool, and any overflow is lost. The **Unloading Completed** event records the outcome. Crediting requires no additional input.
+Game flow coordination processes the **due command to complete unloading** at its effective game time as system input, before player commands and new recipe starts at that boundary. If unloading is still in progress, it checks the recipient, authorization to unload, and free storage capacity. On successful completion, cargo leaves the ship. The accepted quantity is available immediately in the destination pool, and any overflow is lost. The **Unloading Completed** event records the outcome. Crediting requires no additional input.
 
 A cancellation effective before completion stops unloading. All cargo stays with the fleet. The originally scheduled completion does not credit any cargo. The effects of combat, ship destruction, and possible cargo losses during unloading remain open. Once completion has been processed successfully, a subsequent action against the transport cannot prevent the transfer. This includes an attack in a later phase at the same game time.
 

@@ -10,7 +10,7 @@ Feature: Water production restarts when all inputs are available
     And the planet has 3 units of energy before production starts
     And water storage has capacity for 100 units
     And the simulation is initialized at minute 0
-    And a supply of 1 unit of energy becomes available in the pool at minute 9 before resource updates
+    And a supply of 1 unit of energy becomes available in the pool at minute 9
     And no other processes change these stocks
     When water production advances to minute 6
     Then the pool contains 1 unit of water, 1 unit of ice and 1 unit of energy

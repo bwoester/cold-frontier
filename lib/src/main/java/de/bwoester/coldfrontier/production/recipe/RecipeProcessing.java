@@ -5,7 +5,6 @@ import de.bwoester.coldfrontier.resources.ResourceType;
 
 import java.math.BigInteger;
 import java.time.Duration;
-import java.util.EnumMap;
 import java.util.Map;
 import java.util.OptionalDouble;
 import java.util.OptionalLong;
@@ -43,6 +42,7 @@ public final class RecipeProcessing {
         return startIfSupplied(openingStock);
     }
 
+    /** Advances elapsed work. Starting at the closing boundary is handled separately. */
     public State advanceTick(State state, Duration tickDuration) {
         if (tickDuration.isNegative() || tickDuration.isZero()) {
             throw new IllegalArgumentException("Tick duration must be positive");
@@ -53,7 +53,7 @@ public final class RecipeProcessing {
         BigInteger availableWork = nanos.multiply(BigInteger.valueOf(operationsPerHour));
 
         // Capacity × tick nanoseconds represents an exact fraction of the work for one operation.
-        State next = state.completedWork().isPresent() ? state : startIfSupplied(state.stock());
+        State next = startIfIdle(state);
         while (next.completedWork().isPresent() && availableWork.signum() > 0) {
             long completedWork = next.completedWork().orElseThrow();
             BigInteger remainingWork = BigInteger.valueOf(WORK_PER_OPERATION - completedWork);
@@ -62,27 +62,17 @@ public final class RecipeProcessing {
                 break;
             }
             availableWork = availableWork.subtract(remainingWork);
-            next = startIfSupplied(next.stock().credit(recipe.outputs(), storageLimits));
+            next = new State(next.stock().credit(recipe.outputs(), storageLimits), OptionalLong.empty());
+            if (availableWork.signum() > 0) {
+                next = startIfIdle(next);
+            }
         }
         return next;
     }
 
-    /**
-     * Counts work for the elapsed tick before using newly supplied stock.
-     * The supplied amounts are already in the planet balance. Hold back only
-     * what remains after other stock changes, then let it fund a start at the boundary.
-     */
-    public State advanceTickWithSupplyAtEnd(State state, Duration tickDuration, ResourceAmounts supply) {
-        var atBoundary = new EnumMap<ResourceType, Long>(ResourceType.class);
-        supply.amounts().forEach((type, amount) ->
-                atBoundary.put(type, Math.min(amount, state.stock().amountOf(type))));
-        var arrivingStock = new ResourceAmounts(atBoundary);
-        var elapsedStock = state.stock().withdraw(arrivingStock).orElseThrow();
-        State elapsed = advanceTick(new State(elapsedStock, state.completedWork()), tickDuration);
-        var stock = elapsed.stock().credit(arrivingStock, Map.of());
-        return elapsed.completedWork().isPresent()
-                ? new State(stock, elapsed.completedWork())
-                : startIfSupplied(stock);
+    /** Starts a funded operation at the current game time with zero work completed. */
+    public State startIfIdle(State state) {
+        return state.completedWork().isPresent() ? state : startIfSupplied(state.stock());
     }
 
     private State startIfSupplied(ResourceAmounts stock) {

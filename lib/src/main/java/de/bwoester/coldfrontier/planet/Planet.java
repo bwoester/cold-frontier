@@ -15,7 +15,6 @@ import de.bwoester.coldfrontier.input.SupplyPlanetResourcesInputMsg;
 import de.bwoester.coldfrontier.production.ProductionService;
 import de.bwoester.coldfrontier.production.recipe.RecipeProcessing;
 import de.bwoester.coldfrontier.progress.ProgressService;
-import de.bwoester.coldfrontier.resources.ResourceAmounts;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -40,7 +39,6 @@ public class Planet implements TickComponent {
     private final ProgressService progressService;
     private RecipeProcessing recipeProcessing;
     private OptionalLong completedRecipeWork = OptionalLong.empty();
-    private PlanetResourceSetMsg supplyAtTickBoundary = new PlanetResourceSetMsg(Map.of());
 
     /** Configures the prepared planet's recipe and starts the first operation at game time zero if supplied. */
     public void initializeRecipeProcessing(RecipeProcessing processing) {
@@ -67,7 +65,6 @@ public class Planet implements TickComponent {
 
     @Override
     public void handleInput() {
-        supplyAtTickBoundary = new PlanetResourceSetMsg(Map.of());
         String planetId = planetData.get().id();
         var supplies = inputService.startInputHandling(SupplyPlanetResourcesInputMsg.class,
                 input -> input.planetId().equals(planetId));
@@ -88,7 +85,6 @@ public class Planet implements TickComponent {
             if (!accountingService.executeTransaction(input.planetId(), transaction)) {
                 throw new IllegalStateException("Could not credit resource supply");
             }
-            supplyAtTickBoundary = supplyAtTickBoundary.add(supply);
             inputService.finishInputHandling(input);
         } catch (Exception e) {
             inputService.failedInputHandling(input, e);
@@ -105,8 +101,6 @@ public class Planet implements TickComponent {
                     TransactionMsg.TransactionType.EXPENSE,
                     costs
             );
-            // input processing *could* be done later, after resource updates
-            // but input is from previous ticks, so it makes sense to process it first
             if (accountingService.executeTransaction(input.planetId(), t)) {
                 buildingService.addToConstructionQueue(building);
             } else {
@@ -125,18 +119,25 @@ public class Planet implements TickComponent {
                 buildingService.getBuildings(), previousRemainder);
         TransactionMsg transaction = new TransactionMsg(
                 "Planet production", TransactionMsg.TransactionType.INCOME, production.wholeUnits());
-        if (accountingService.executeTransaction(planetData.get().id(), transaction)
+        String planetId = planetData.get().id();
+        // The production booked for the elapsed interval must be affordable from its opening stock.
+        boolean canBookProduction = accountingService.canExecuteTransaction(planetId, transaction);
+        if (recipeProcessing != null) {
+            PlanetResourceSetMsg balance = accountingService.getPlanetBalance(planetId);
+            bookRecipeChanges(balance, recipeProcessing.advanceTick(recipeState(balance), tickDuration));
+        }
+        if (canBookProduction && accountingService.executeTransaction(planetId, transaction)
                 && !production.remainder().equals(previousRemainder)) {
             productionRemainder.set(production.remainder());
         }
         // TODO deplete mined resources from planet
-        if (recipeProcessing != null) {
+    }
+
+    @Override
+    public void handleResourceStarts() {
+        if (recipeProcessing != null && !hasRecipeInProgress()) {
             PlanetResourceSetMsg balance = accountingService.getPlanetBalance(planetData.get().id());
-            var state = recipeState(balance);
-            bookRecipeChanges(balance, supplyAtTickBoundary.amounts().isEmpty()
-                    ? recipeProcessing.advanceTick(state, tickDuration)
-                    : recipeProcessing.advanceTickWithSupplyAtEnd(state, tickDuration,
-                            new ResourceAmounts(supplyAtTickBoundary.amounts())));
+            bookRecipeChanges(balance, recipeProcessing.startIfIdle(recipeState(balance)));
         }
     }
 

@@ -17,6 +17,7 @@ import java.util.Map;
 
 import static de.bwoester.coldfrontier.resources.ResourceType.ENERGY;
 import static de.bwoester.coldfrontier.resources.ResourceType.ICE;
+import static de.bwoester.coldfrontier.resources.ResourceType.IRON;
 import static de.bwoester.coldfrontier.resources.ResourceType.WATER;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -44,7 +45,7 @@ class PlanetRecipeProcessingTest {
     }
 
     @Test
-    void recipeUsesWholeIceMinedInTheSameTick() {
+    void minedIceStartsTheRecipeAtTheBoundaryWithoutBackdatingWork() {
         var production = new ResourceSetMsg(new PlanetResourceSetMsg(Map.of(ICE, 3600L)), 0);
         var simulation = InMemoryPlanetSimulation.create(TickCoordinator.DEFAULT_TICK_DURATION,
                 building -> new BuildingMsg(building.name(), 1, ResourceSetMsg.createDefault(), production),
@@ -54,7 +55,31 @@ class PlanetRecipeProcessingTest {
 
         simulation.ticker().tick();
 
-        assertEquals(new PlanetResourceSetMsg(Map.of(WATER, 1L)),
+        assertEquals(Map.of(), simulation.account().getBalance().amounts());
+        assertEquals(0.0, simulation.planet().recipeState().progressFraction().orElseThrow());
+
+        simulation.ticker().tick();
+
+        assertEquals(new PlanetResourceSetMsg(Map.of(ICE, 1L, WATER, 1L)),
                 simulation.account().getBalance());
+    }
+
+    @Test
+    void newlyProcessedEnergyCannotPayForElapsedMining() {
+        var production = new ResourceSetMsg(new PlanetResourceSetMsg(Map.of(IRON, 3600L, ENERGY, -3600L)), 0);
+        var simulation = InMemoryPlanetSimulation.create(TickCoordinator.DEFAULT_TICK_DURATION,
+                building -> new BuildingMsg(building.name(), 1, ResourceSetMsg.createDefault(), production),
+                Map.of(Building.IRON_MINE, 1L), new PlanetResourceSetMsg(Map.of(ICE, 1L)), ResourceSetMsg.createDefault());
+        var energyRecipe = new Recipe(new ResourceAmounts(Map.of(ICE, 1L)),
+                new ResourceAmounts(Map.of(ENERGY, 1L)));
+        simulation.planet().initializeRecipeProcessing(new RecipeProcessing(energyRecipe, 3600, Map.of()));
+
+        simulation.ticker().tick();
+
+        assertEquals(new PlanetResourceSetMsg(Map.of(ENERGY, 1L)), simulation.account().getBalance());
+
+        simulation.ticker().tick();
+
+        assertEquals(new PlanetResourceSetMsg(Map.of(IRON, 1L)), simulation.account().getBalance());
     }
 }
