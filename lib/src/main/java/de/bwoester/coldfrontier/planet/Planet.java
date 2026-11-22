@@ -11,7 +11,6 @@ import de.bwoester.coldfrontier.buildings.BuildingService;
 import de.bwoester.coldfrontier.data.Value;
 import de.bwoester.coldfrontier.input.CreateBuildingInputMsg;
 import de.bwoester.coldfrontier.input.InputService;
-import de.bwoester.coldfrontier.input.SupplyPlanetResourcesInputMsg;
 import de.bwoester.coldfrontier.production.ProductionService;
 import de.bwoester.coldfrontier.production.recipe.RecipeProcessing;
 import de.bwoester.coldfrontier.progress.ProgressService;
@@ -65,30 +64,11 @@ public class Planet implements TickComponent {
 
     @Override
     public void handleInput() {
-        String planetId = planetData.get().id();
-        var supplies = inputService.startInputHandling(SupplyPlanetResourcesInputMsg.class,
-                input -> input.planetId().equals(planetId));
-        supplies.forEach(this::handleResourceSupply);
-
         Collection<CreateBuildingInputMsg> input = inputService.startInputHandling(
                 CreateBuildingInputMsg.class,
-                i -> i.planetId().equals(planetId)
+                i -> i.planetId().equals(planetData.get().id())
         );
         input.forEach(this::handleCreateBuilding);
-    }
-
-    private void handleResourceSupply(SupplyPlanetResourcesInputMsg input) {
-        try {
-            var supply = PlanetResourceSetMsg.fromResourceAmounts(input.amounts());
-            var transaction = new TransactionMsg("Resource supply", TransactionMsg.TransactionType.INCOME,
-                    new ResourceSetMsg(supply, 0));
-            if (!accountingService.executeTransaction(input.planetId(), transaction)) {
-                throw new IllegalStateException("Could not credit resource supply");
-            }
-            inputService.finishInputHandling(input);
-        } catch (Exception e) {
-            inputService.failedInputHandling(input, e);
-        }
     }
 
     private void handleCreateBuilding(CreateBuildingInputMsg input) {
@@ -120,7 +100,7 @@ public class Planet implements TickComponent {
         TransactionMsg transaction = new TransactionMsg(
                 "Planet production", TransactionMsg.TransactionType.INCOME, production.wholeUnits());
         String planetId = planetData.get().id();
-        // The production booked for the elapsed interval must be affordable from its opening stock.
+        // Check affordability before recipes can add to the stock for this interval.
         boolean canBookProduction = accountingService.canExecuteTransaction(planetId, transaction);
         if (recipeProcessing != null) {
             PlanetResourceSetMsg balance = accountingService.getPlanetBalance(planetId);
@@ -131,12 +111,10 @@ public class Planet implements TickComponent {
             productionRemainder.set(production.remainder());
         }
         // TODO deplete mined resources from planet
-    }
 
-    @Override
-    public void handleResourceStarts() {
+        // Newly available output can fund a start now, with work beginning in the next interval.
         if (recipeProcessing != null && !hasRecipeInProgress()) {
-            PlanetResourceSetMsg balance = accountingService.getPlanetBalance(planetData.get().id());
+            PlanetResourceSetMsg balance = accountingService.getPlanetBalance(planetId);
             bookRecipeChanges(balance, recipeProcessing.startIfIdle(recipeState(balance)));
         }
     }

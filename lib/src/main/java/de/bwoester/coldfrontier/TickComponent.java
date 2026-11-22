@@ -14,11 +14,19 @@ import java.time.Duration;
  */
 public interface TickComponent {
 
-    /** Advances resource work for the tick interval that has just elapsed. */
-    void handleResourceUpdates(Duration tickDuration);
-
-    /** Applies player or system input effective at the tick boundary. */
+    /**
+     * Handles player or system input processing at the beginning of a tick.
+     * <p>
+     * This is the first phase in the tick cycle.
+     */
     void handleInput();
+
+    /**
+     * Processes updates to game resources such as iron, energy, and population.
+     * <p>
+     * This is called after input handling.
+     */
+    void handleResourceUpdates(Duration tickDuration);
 
     /**
      * Advances construction progress and processes newly completed units.
@@ -34,13 +42,10 @@ public interface TickComponent {
      */
     void handleQueuedUnits();
 
-    /** Starts work that is ready now, after boundary inputs and completions. */
-    void handleResourceStarts();
-
     /**
      * Processes movement of units and other game entities.
      * <p>
-     * This is called after starting resource work.
+     * This is called after processing queued units.
      */
     void handleMovement();
 

@@ -35,19 +35,16 @@ public class TickCoordinator {
         tick.set(Math.incrementExact(oldTick));
 
         for (TickComponent component : components) {
-            component.handleResourceUpdates(tickDuration);
+            component.handleInput();
         }
         for (TickComponent component : components) {
-            component.handleInput();
+            component.handleResourceUpdates(tickDuration);
         }
         for (TickComponent component : components) {
             component.handleFinishedUnits(tickDuration);
         }
         for (TickComponent component : components) {
             component.handleQueuedUnits();
-        }
-        for (TickComponent component : components) {
-            component.handleResourceStarts();
         }
         for (TickComponent component : components) {
             component.handleMovement();

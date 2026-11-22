@@ -9,9 +9,8 @@ Feature: Water production restarts when all inputs are available
     And each unit of water requires 1 unit of ice and 2 units of energy
     And the planet has 3 units of energy before production starts
     And water storage has capacity for 100 units
+    And an operational power plant produces 6 units of energy per hour with 0.1 units of retained energy production at minute 0
     And the simulation is initialized at minute 0
-    And a supply of 1 unit of energy becomes available in the pool at minute 9
-    And no other processes change these stocks
     When water production advances to minute 6
     Then the pool contains 1 unit of water, 1 unit of ice and 1 unit of energy
     And the water plant is no longer producing
