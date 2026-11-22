@@ -40,8 +40,9 @@ public final class TickPrototypeWaterProcessingAdapter implements WaterProcessin
 
     @Override
     public WaterState readState() {
-        var stock = simulation.account().getBalance().toResourceAmounts();
+        var state = simulation.planet().recipeState();
+        var stock = state.stock();
         return new WaterState(stock.amountOf(ICE), stock.amountOf(ENERGY), stock.amountOf(WATER),
-                simulation.planet().hasRecipeInProgress());
+                state.progressFraction());
     }
 }

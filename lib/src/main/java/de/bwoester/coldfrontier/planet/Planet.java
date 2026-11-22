@@ -53,6 +53,15 @@ public class Planet implements TickComponent {
         return completedRecipeWork.isPresent();
     }
 
+    /** Reads the current recipe progress against the planet's shared stock. */
+    public RecipeProcessing.State recipeState() {
+        return recipeState(accountingService.getPlanetBalance(planetData.get().id()));
+    }
+
+    private RecipeProcessing.State recipeState(PlanetResourceSetMsg balance) {
+        return new RecipeProcessing.State(balance.toResourceAmounts(), completedRecipeWork);
+    }
+
     @Override
     public void handleInput() {
         Collection<CreateBuildingInputMsg> input = inputService.startInputHandling(
@@ -99,8 +108,7 @@ public class Planet implements TickComponent {
         // TODO deplete mined resources from planet
         if (recipeProcessing != null) {
             PlanetResourceSetMsg balance = accountingService.getPlanetBalance(planetData.get().id());
-            var state = new RecipeProcessing.State(balance.toResourceAmounts(), completedRecipeWork);
-            bookRecipeChanges(balance, recipeProcessing.advanceTick(state, tickDuration));
+            bookRecipeChanges(balance, recipeProcessing.advanceTick(recipeState(balance), tickDuration));
         }
     }
 

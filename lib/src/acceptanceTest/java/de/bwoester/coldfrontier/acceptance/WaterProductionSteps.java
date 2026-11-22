@@ -8,6 +8,7 @@ import java.time.Duration;
 import java.util.ServiceLoader;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class WaterProductionSteps {
@@ -86,5 +87,31 @@ public class WaterProductionSteps {
     @Then("the pool contains {long} unit(s) of water")
     public void checkWater(long available) {
         assertEquals(available, engine.readState().water(), "available water");
+    }
+
+    @When("water production advances through minutes {string}")
+    public void advanceThrough(String checkpoints) {
+        for (String checkpoint : checkpoints.split(",")) {
+            advanceTo(Long.parseLong(checkpoint.trim()));
+        }
+    }
+
+    @Then("the pool contains {long} units of water and no ice")
+    public void checkWaterAndEmptyIceStock(long available) {
+        var state = engine.readState();
+        assertEquals(available, state.water(), "available water");
+        assertEquals(0, state.ice(), "remaining ice");
+    }
+
+    @Then("a unit of water is in production with {double} progress")
+    public void checkProgress(double expected) {
+        var progress = engine.readState().progressFraction();
+        assertTrue(progress.isPresent(), "a unit of water is in progress");
+        assertEquals(expected, progress.getAsDouble(), 1e-12, "fraction completed");
+    }
+
+    @Then("the water plant is no longer producing")
+    public void checkStopped() {
+        assertFalse(engine.readState().unitInProgress(), "no unit of water is in progress");
     }
 }

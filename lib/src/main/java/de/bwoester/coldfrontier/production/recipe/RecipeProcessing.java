@@ -6,6 +6,7 @@ import de.bwoester.coldfrontier.resources.ResourceType;
 import java.math.BigInteger;
 import java.time.Duration;
 import java.util.Map;
+import java.util.OptionalDouble;
 import java.util.OptionalLong;
 
 /** One recipe operation over a prepared colony stock, advanced one tick at a time. */
@@ -77,5 +78,12 @@ public final class RecipeProcessing {
 
     /** Completed work is empty when no operation is in progress, including when inputs are missing. */
     public record State(ResourceAmounts stock, OptionalLong completedWork) {
+        /** Fraction of the current operation completed, or empty when no operation is active. */
+        public OptionalDouble progressFraction() {
+            if (completedWork.isEmpty()) {
+                return OptionalDouble.empty();
+            }
+            return OptionalDouble.of((double) completedWork.getAsLong() / WORK_PER_OPERATION);
+        }
     }
 }
