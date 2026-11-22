@@ -31,7 +31,7 @@ import java.util.Map;
 
 public record InMemoryPlanetSimulation(TickCoordinator ticker, Planet planet, PlanetAccount account,
                                        UserAccount userAccount, BuildingService buildingService,
-                                       ProgressService progressService,
+                                       ProgressService progressService, InputService input, String planetId,
                                        Value<ResourceSetMsg> remainder,
                                        Value<Long> tick) {
     public static InMemoryPlanetSimulation create(Duration tickDuration, BuildingDataProvider buildings,
@@ -71,7 +71,7 @@ public record InMemoryPlanetSimulation(TickCoordinator ticker, Planet planet, Pl
                 input, buildingService, accounting, new ProductionService(buildings, tickDuration), remainder, progress);
         ticker.add(planet);
         return new InMemoryPlanetSimulation(ticker, planet, account, userAccount, buildingService, progress,
-                remainder, tick);
+                input, planetId, remainder, tick);
     }
 
     public Duration gameTime() {

@@ -6,6 +6,8 @@ import java.util.OptionalDouble;
 public interface WaterProcessingTestEngine {
     void initialize(WaterFixture fixture);
 
+    void scheduleEnergySupply(long units, Duration gameTime);
+
     void advanceTo(Duration gameTime);
 
     WaterState readState();

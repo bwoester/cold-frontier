@@ -74,7 +74,7 @@ public class WaterProductionSteps {
         assertEquals(energy - consumed, engine.readState().energy(), "remaining energy");
     }
 
-    @Then("the first unit of water is in production")
+    @Then("^(?:the first|a) unit of water is in production$")
     public void checkInProgress() {
         assertTrue(engine.readState().unitInProgress(), "a unit of water is in progress");
     }
@@ -82,6 +82,24 @@ public class WaterProductionSteps {
     @When("water production advances to minute {long}")
     public void advanceTo(long minute) {
         engine.advanceTo(Duration.ofMinutes(minute));
+    }
+
+    @Given("a supply of {long} unit(s) of energy becomes available in the pool at minute {long} before resource updates")
+    public void scheduleEnergySupply(long units, long minute) {
+        engine.scheduleEnergySupply(units, Duration.ofMinutes(minute));
+    }
+
+    @When("water production advances to minute {long} and second {long}")
+    public void advanceTo(long minute, long second) {
+        engine.advanceTo(Duration.ofMinutes(minute).plusSeconds(second));
+    }
+
+    @Then("the pool contains {long} unit(s) of water, {long} unit(s) of ice and {long} unit(s) of energy")
+    public void checkStocks(long water, long ice, long energy) {
+        var state = engine.readState();
+        assertEquals(water, state.water(), "available water");
+        assertEquals(ice, state.ice(), "remaining ice");
+        assertEquals(energy, state.energy(), "remaining energy");
     }
 
     @Then("the pool contains {long} unit(s) of water")

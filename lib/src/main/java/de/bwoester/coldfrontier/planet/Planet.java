@@ -11,9 +11,11 @@ import de.bwoester.coldfrontier.buildings.BuildingService;
 import de.bwoester.coldfrontier.data.Value;
 import de.bwoester.coldfrontier.input.CreateBuildingInputMsg;
 import de.bwoester.coldfrontier.input.InputService;
+import de.bwoester.coldfrontier.input.SupplyPlanetResourcesInputMsg;
 import de.bwoester.coldfrontier.production.ProductionService;
 import de.bwoester.coldfrontier.production.recipe.RecipeProcessing;
 import de.bwoester.coldfrontier.progress.ProgressService;
+import de.bwoester.coldfrontier.resources.ResourceAmounts;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -38,6 +40,7 @@ public class Planet implements TickComponent {
     private final ProgressService progressService;
     private RecipeProcessing recipeProcessing;
     private OptionalLong completedRecipeWork = OptionalLong.empty();
+    private PlanetResourceSetMsg supplyAtTickBoundary = new PlanetResourceSetMsg(Map.of());
 
     /** Configures the prepared planet's recipe and starts the first operation at game time zero if supplied. */
     public void initializeRecipeProcessing(RecipeProcessing processing) {
@@ -64,11 +67,32 @@ public class Planet implements TickComponent {
 
     @Override
     public void handleInput() {
+        supplyAtTickBoundary = new PlanetResourceSetMsg(Map.of());
+        String planetId = planetData.get().id();
+        var supplies = inputService.startInputHandling(SupplyPlanetResourcesInputMsg.class,
+                input -> input.planetId().equals(planetId));
+        supplies.forEach(this::handleResourceSupply);
+
         Collection<CreateBuildingInputMsg> input = inputService.startInputHandling(
                 CreateBuildingInputMsg.class,
-                i -> i.planetId().equals(planetData.get().id())
+                i -> i.planetId().equals(planetId)
         );
         input.forEach(this::handleCreateBuilding);
+    }
+
+    private void handleResourceSupply(SupplyPlanetResourcesInputMsg input) {
+        try {
+            var supply = PlanetResourceSetMsg.fromResourceAmounts(input.amounts());
+            var transaction = new TransactionMsg("Resource supply", TransactionMsg.TransactionType.INCOME,
+                    new ResourceSetMsg(supply, 0));
+            if (!accountingService.executeTransaction(input.planetId(), transaction)) {
+                throw new IllegalStateException("Could not credit resource supply");
+            }
+            supplyAtTickBoundary = supplyAtTickBoundary.add(supply);
+            inputService.finishInputHandling(input);
+        } catch (Exception e) {
+            inputService.failedInputHandling(input, e);
+        }
     }
 
     private void handleCreateBuilding(CreateBuildingInputMsg input) {
@@ -108,7 +132,11 @@ public class Planet implements TickComponent {
         // TODO deplete mined resources from planet
         if (recipeProcessing != null) {
             PlanetResourceSetMsg balance = accountingService.getPlanetBalance(planetData.get().id());
-            bookRecipeChanges(balance, recipeProcessing.advanceTick(recipeState(balance), tickDuration));
+            var state = recipeState(balance);
+            bookRecipeChanges(balance, supplyAtTickBoundary.amounts().isEmpty()
+                    ? recipeProcessing.advanceTick(state, tickDuration)
+                    : recipeProcessing.advanceTickWithSupplyAtEnd(state, tickDuration,
+                            new ResourceAmounts(supplyAtTickBoundary.amounts())));
         }
     }
 
