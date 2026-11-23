@@ -44,6 +44,22 @@ class RecipeProcessingTest {
     }
 
     @Test
+    void anExactBoundaryCompletionLeavesTheNextStartForTheBoundaryPhase() {
+        var processing = new RecipeProcessing(steel, 3600, Map.of());
+        var initial = processing.initialize(new ResourceAmounts(Map.of(IRON, 4L, ENERGY, 2L)));
+
+        var elapsed = processing.advanceTick(initial, Duration.ofSeconds(1));
+
+        assertEquals(new ResourceAmounts(Map.of(STEEL, 1L, IRON, 2L, ENERGY, 1L)), elapsed.stock());
+        assertFalse(elapsed.completedWork().isPresent());
+
+        var started = processing.startIfIdle(elapsed);
+
+        assertEquals(new ResourceAmounts(Map.of(STEEL, 1L)), started.stock());
+        assertEquals(0L, started.completedWork().orElseThrow());
+    }
+
+    @Test
     void steelRecipeRetainsWorkAcrossTicksAndUsesLeftoverCapacity() {
         var initialStock = new ResourceAmounts(Map.of(IRON, 4L, ENERGY, 2L));
         var processing = new RecipeProcessing(steel, 2400, Map.of());

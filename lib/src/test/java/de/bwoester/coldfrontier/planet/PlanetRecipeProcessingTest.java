@@ -44,7 +44,7 @@ class PlanetRecipeProcessingTest {
     }
 
     @Test
-    void recipeUsesWholeIceMinedInTheSameTick() {
+    void minedIceStartsTheRecipeAtTheBoundaryWithoutBackdatingWork() {
         var production = new ResourceSetMsg(new PlanetResourceSetMsg(Map.of(ICE, 3600L)), 0);
         var simulation = InMemoryPlanetSimulation.create(TickCoordinator.DEFAULT_TICK_DURATION,
                 building -> new BuildingMsg(building.name(), 1, ResourceSetMsg.createDefault(), production),
@@ -54,7 +54,12 @@ class PlanetRecipeProcessingTest {
 
         simulation.ticker().tick();
 
-        assertEquals(new PlanetResourceSetMsg(Map.of(WATER, 1L)),
+        assertEquals(Map.of(), simulation.account().getBalance().amounts());
+        assertEquals(0.0, simulation.planet().recipeState().progressFraction().orElseThrow());
+
+        simulation.ticker().tick();
+
+        assertEquals(new PlanetResourceSetMsg(Map.of(ICE, 1L, WATER, 1L)),
                 simulation.account().getBalance());
     }
 }

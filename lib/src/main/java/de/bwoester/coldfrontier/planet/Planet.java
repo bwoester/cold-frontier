@@ -81,8 +81,6 @@ public class Planet implements TickComponent {
                     TransactionMsg.TransactionType.EXPENSE,
                     costs
             );
-            // input processing *could* be done later, after resource updates
-            // but input is from previous ticks, so it makes sense to process it first
             if (accountingService.executeTransaction(input.planetId(), t)) {
                 buildingService.addToConstructionQueue(building);
             } else {
@@ -101,14 +99,21 @@ public class Planet implements TickComponent {
                 buildingService.getBuildings(), previousRemainder);
         TransactionMsg transaction = new TransactionMsg(
                 "Planet production", TransactionMsg.TransactionType.INCOME, production.wholeUnits());
-        if (accountingService.executeTransaction(planetData.get().id(), transaction)
+        String planetId = planetData.get().id();
+        if (recipeProcessing != null) {
+            PlanetResourceSetMsg balance = accountingService.getPlanetBalance(planetId);
+            bookRecipeChanges(balance, recipeProcessing.advanceTick(recipeState(balance), tickDuration));
+        }
+        if (accountingService.executeTransaction(planetId, transaction)
                 && !production.remainder().equals(previousRemainder)) {
             productionRemainder.set(production.remainder());
         }
         // TODO deplete mined resources from planet
-        if (recipeProcessing != null) {
-            PlanetResourceSetMsg balance = accountingService.getPlanetBalance(planetData.get().id());
-            bookRecipeChanges(balance, recipeProcessing.advanceTick(recipeState(balance), tickDuration));
+
+        // Newly available output can fund a start now, with work beginning in the next interval.
+        if (recipeProcessing != null && !hasRecipeInProgress()) {
+            PlanetResourceSetMsg balance = accountingService.getPlanetBalance(planetId);
+            bookRecipeChanges(balance, recipeProcessing.startIfIdle(recipeState(balance)));
         }
     }
 

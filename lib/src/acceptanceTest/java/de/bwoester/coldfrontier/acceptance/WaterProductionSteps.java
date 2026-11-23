@@ -4,7 +4,9 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
+import java.math.BigDecimal;
 import java.time.Duration;
+import java.util.Optional;
 import java.util.ServiceLoader;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -23,6 +25,7 @@ public class WaterProductionSteps {
     private long waterPerHour;
     private long icePerUnit;
     private long energyPerUnit;
+    private Optional<WaterProcessingTestEngine.PowerPlantFixture> powerPlant = Optional.empty();
 
     @Given("a planet is prepared with {long} units of ice and {long} units of water before production starts")
     public void prepareStock(long initialIce, long initialWater) {
@@ -53,13 +56,18 @@ public class WaterProductionSteps {
 
     @Given("no other processes change these stocks")
     public void useIsolatedColony() {
-        // The fixture supplies only the water plant.
+        // The fixture supplies only the buildings described by the scenario.
+    }
+
+    @Given("an operational power plant produces {long} units of energy per hour with {bigdecimal} units of retained energy production at minute 0")
+    public void preparePowerPlant(long energyPerHour, BigDecimal retainedEnergy) {
+        powerPlant = Optional.of(new WaterProcessingTestEngine.PowerPlantFixture(energyPerHour, retainedEnergy));
     }
 
     @Given("the simulation is initialized at minute 0")
     public void initialize() {
         engine.initialize(new WaterProcessingTestEngine.WaterFixture(
-                ice, energy, water, waterStorage, waterPerHour, icePerUnit, energyPerUnit));
+                ice, energy, water, waterStorage, waterPerHour, icePerUnit, energyPerUnit, powerPlant));
     }
 
     @Then("at minute 0 the pool contains {long} units of ice and no water")
@@ -74,7 +82,7 @@ public class WaterProductionSteps {
         assertEquals(energy - consumed, engine.readState().energy(), "remaining energy");
     }
 
-    @Then("the first unit of water is in production")
+    @Then("^(?:the first|a) unit of water is in production$")
     public void checkInProgress() {
         assertTrue(engine.readState().unitInProgress(), "a unit of water is in progress");
     }
@@ -82,6 +90,19 @@ public class WaterProductionSteps {
     @When("water production advances to minute {long}")
     public void advanceTo(long minute) {
         engine.advanceTo(Duration.ofMinutes(minute));
+    }
+
+    @When("water production advances to minute {long} and second {long}")
+    public void advanceTo(long minute, long second) {
+        engine.advanceTo(Duration.ofMinutes(minute).plusSeconds(second));
+    }
+
+    @Then("the pool contains {long} unit(s) of water, {long} unit(s) of ice and {long} unit(s) of energy")
+    public void checkStocks(long water, long ice, long energy) {
+        var state = engine.readState();
+        assertEquals(water, state.water(), "available water");
+        assertEquals(ice, state.ice(), "remaining ice");
+        assertEquals(energy, state.energy(), "remaining energy");
     }
 
     @Then("the pool contains {long} unit(s) of water")
