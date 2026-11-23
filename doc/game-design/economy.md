@@ -107,6 +107,26 @@ A facility whose demand cannot be met experiences a shortage. Define its consequ
 
 **Test case for S11.** With 300 residents, an empty stock, and enough habitat production for 200, the population receives all available water. Another consumer receives none. Its specific response remains open.
 
+### Colony Survival and Critical Supply
+
+**Game rule.** Each colony automatically prioritizes sustaining its own population when resources or labor are scarce. Drinking water is the currently defined ongoing survival need. The colony uses its available supplies and gives priority to feasible production that helps meet that need, including upstream inputs and workers where they are needed. An ongoing deficit can still exhaust stocks and cause population decline under the rules above. [S11](#s11--survival-despite-water-and-labor-feedback) defines the separate goal of sustaining a viable remaining population.
+
+**Demand.** Drinking water is an ongoing consumption process with water as its input and no material output. Staffing does not exempt a resident from this demand. The amount per resident per game hour is open ([#41](https://github.com/bwoester/cold-frontier/issues/41)). The [reviewed IceWars sources](icewars-references.md#drinking-water-and-population) give no verified historical rate.
+
+```mermaid
+flowchart LR
+    Mine["Ice extraction"] -->|Ice| Waterworks["Waterworks"]
+    Power["Power generation"] -->|Energy| Waterworks
+    Waterworks -->|Water| Residents["Residents"]
+    Waterworks -->|Water| Cooling["Industrial cooling"]
+```
+
+**Proposal for shortage allocation ([#30](https://github.com/bwoester/cold-frontier/issues/30)).** Use the colony's actual production dependencies to identify which capacity helps supply residents. Reduce or temporarily pause competing operations where doing so improves survival supply. When feasible, aim for sustained effective water production at least equal to resident demand, after accounting for any water consumed within the supply chain. Use available stock to cover temporary gaps. If capacity cannot meet full demand, aim to reduce the shortfall and apply the existing population rules. The graph describes dependencies. How to select among feasible allocations, when to curtail and restore industry, and whether to reserve inputs for a blocked process remain open.
+
+**Example for #30.** Residents need 2 water per hour. The waterworks can make 2 per hour using 2 ice and 4 energy. The colony can supply the ice and generates 4 energy per hour after other essential loads. With no spare energy in stock, the steelworks competes for 2 of those 4 energy per hour. Reducing or pausing steel production can restore the full water supply. If the colony can extract only 1 ice per hour and has no ice in stock, the waterworks can sustain at most 1 water per hour even with all 4 energy. These rates are illustrative and assume the required inputs are available when due.
+
+**Open example.** If an energy source needs water to restart, using the last unit as drinking water could leave the colony unable to restart its supply. The confirmed drinking-water priority applies to that unit. Whether such recipes are allowed in the essential chain, or require a separate way to restart, belongs in #30. Check labor and whole-unit input requirements as well as average material rates.
+
 ### Planned Verification
 
 S9–S11 below are domain test specifications. Once production, consumption, labor, and population rules are defined, implement S11 in particular as an automated simulation regression test. **Documented, awaiting simulation.** The necessary formulas and protection mechanism remain open. An example implementation now would have to invent undecided game rules.
@@ -153,7 +173,7 @@ Decide the following three questions separately.
 
 | Topic | Question | Status |
 | --- | --- | --- |
-| Labor allocation | How many citizens does each facility receive when labor is scarce? | Automatic allocation prioritizes critical infrastructure. The algorithm is open. Allocation proportional to demand is a simple starting candidate. |
+| Labor allocation | How many citizens does each facility receive when labor is scarce? | Automatic allocation prioritizes [critical infrastructure](#colony-survival-and-critical-supply). The algorithm is open. Allocation proportional to demand is a simple starting candidate. |
 | Productivity | How much does a facility produce given its staffing? | Linear scaling is a pragmatic starting candidate. A curve with modest effects for mild shortages and severe effects for larger shortages is a later option. |
 | Timing | When does understaffing take effect, how long does it last, and how does recovery work? | A grace period or delayed effect is an idea. Duration, fatigue, and backlog rules remain open. |
 
@@ -250,7 +270,7 @@ The [pooled extraction Gherkin scenarios](scenarios/pooled-extraction.feature) e
 **Confirmed order (2026-11-21).** Apply mining results to the colony's stockpile
 before evaluating new recipe starts at the same game time. A recipe can start using
 newly available whole mined units immediately, with progress accruing from that time.
-The audit history must distinguish mining and recipe changes and show their order when both take effect at the same game time.
+The audit history must distinguish mining and recipe changes and show their order when both take effect at the same game time. See the [proposed alternative](#common-stock-snapshot-for-resource-updates-proposal).
 
 **Confirmed rule (2026-11-17).** Buildings with the same recipe in a colony contribute capacity to a shared processing operation according to their effective operating conditions. The operation draws a single set of ingredients for each unit. Keep colonies and recipes separate.
 
@@ -267,6 +287,20 @@ With scarce inputs, buildings using the same recipe can all contribute to the po
 **Test example.** Two water plants at 10 water/h each pool 20 water/h. With exactly 1 ice and 2 energy, they start a pooled water unit available after 3 minutes. Total withdrawals are 1 ice and 2 energy. Without resupply, a second unit does not begin. One facility at 20 water/h yields the same progression under identical conditions. These are test parameters.
 
 The [pooled processing Gherkin scenarios](scenarios/pooled-processing.feature) cover scarce inputs, fractional progress, segmented advancement, incomplete ingredients, consecutive units, and construction completion during processing. The existing single-plant scenarios remain valid special cases. Technical events for individual units and a processing loop remain implementation choices.
+
+#### Common Stock Snapshot for Resource Updates (Proposal)
+
+Under the proposed rule, mining and processing use the same opening stock to determine new withdrawals. Accepted withdrawals share that stock, so each unit can be allocated only once. Newly extracted or completed units become usable from the next resource update. Apply drinking-water priority to the eligible stock whenever demand is due. The ordering of player commands and deliveries is outside this proposal.
+
+| Boundary case | Current rule or behavior | Proposed result |
+| --- | --- | --- |
+| A missing whole energy unit becomes available at 9:00 in the [#35 scenario](scenarios/water-production-restart.feature) | The waterworks restarts at 9:00 with zero progress and finishes at 15:00. | If the opening stock excludes that energy unit, the restart waits for the next update. The new completion time depends on that update boundary. |
+| The stock is empty when the waterworks completes one unit and residents and cooling each demand one | Drinking-water priority is confirmed. Whether the completion is eligible at that instant is open. | Neither can use the new unit in this update. It enters the opening stock for the next update, where it is allocated to any drinking-water demand due before cooling. Handling the earlier unmet demand remains open. |
+| A mine, waterworks, and residents start from empty stocks with power already available | The mine's first whole ice unit can start the waterworks at the same time. Drinking-water timing is open. | In an illustrative fixed-step case, ice arrives at the end of update 1, the waterworks uses it in update 2 and completes water at the end of that update, and the first withdrawal of drinking water can happen in update 3. |
+
+Each dependency can add a delay at startup or recovery. If replenishment then covers withdrawals at each boundary, the chain can run at its normal throughput. Average rates alone can hide recurring shortages. For example, a producer that supplies 2 units every other update can feed a consumer that needs 1 per update if storage can hold the 2-unit batch. With a capacity of 1 and excess discarded on credit, the consumer can still miss every other update.
+
+[#36](https://github.com/bwoester/cold-frontier/issues/36) tracks the availability boundary, including whether elapsed work completed at the boundary can count as opening stock. If the strict snapshot is adopted, revise the confirmed mining order and the immediate restart scenarios together. Check the effect of update cadence and cases with simultaneous completions before specifying Gherkin expectations.
 
 ### Delayed Cancellation and Loss of Prerequisites
 
