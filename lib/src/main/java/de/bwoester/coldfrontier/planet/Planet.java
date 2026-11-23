@@ -100,13 +100,11 @@ public class Planet implements TickComponent {
         TransactionMsg transaction = new TransactionMsg(
                 "Planet production", TransactionMsg.TransactionType.INCOME, production.wholeUnits());
         String planetId = planetData.get().id();
-        // Check affordability before recipes can add to the stock for this interval.
-        boolean canBookProduction = accountingService.canExecuteTransaction(planetId, transaction);
         if (recipeProcessing != null) {
             PlanetResourceSetMsg balance = accountingService.getPlanetBalance(planetId);
             bookRecipeChanges(balance, recipeProcessing.advanceTick(recipeState(balance), tickDuration));
         }
-        if (canBookProduction && accountingService.executeTransaction(planetId, transaction)
+        if (accountingService.executeTransaction(planetId, transaction)
                 && !production.remainder().equals(previousRemainder)) {
             productionRemainder.set(production.remainder());
         }

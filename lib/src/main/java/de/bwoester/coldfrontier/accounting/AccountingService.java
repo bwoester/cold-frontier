@@ -19,11 +19,6 @@ public class AccountingService {
         return ledger.getPlanetAccount(planetId).getBalance();
     }
 
-    public boolean canExecuteTransaction(String planetId, TransactionMsg transactionMsg) {
-        return ledger.getUserAccount().validateTransaction(transactionMsg)
-                && ledger.getPlanetAccount(planetId).validateTransaction(transactionMsg);
-    }
-
     public boolean executeTransaction(String planetId, TransactionMsg transactionMsg) {
         UserAccount userAccount = ledger.getUserAccount();
         PlanetAccount planetAccount = ledger.getPlanetAccount(planetId);
