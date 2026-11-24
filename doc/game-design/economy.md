@@ -133,6 +133,8 @@ flowchart LR
 
 **Industrial example.** Test values: A steelworks needs 10 iron per hour at full capacity. Its mines supply 6 per hour and no stock or delivery makes up the gap. The colony can operate only within that input budget over time. The player can add extraction capacity, arrange imports, or accept idle time. The exact timing and output depend on whole-unit starts and the effective recipes.
 
+**Fixed upkeep during a shortage (proposal).** Fixed upkeep remains due even when an optional production recipe is stopped. Drinking-water demand of the current population takes priority over water upkeep. Only the available remainder can be allocated to upkeep. If the remainder is insufficient, record a shortage and keep the stock nonnegative. Unpaid upkeep may limit the building's service. How partial payment, effects, and recovery work remains open in [#49](https://github.com/bwoester/cold-frontier/issues/49). The headquarters proposal supplies its protected minimum independently of ordinary upkeep.
+
 ### Planned Verification
 
 S9–S11 below are domain test specifications. Once production, consumption, labor, and population rules are defined, implement S11 in particular as an automated simulation regression test. **Documented, awaiting simulation.** The necessary formulas and protection mechanism remain open. An example implementation now would have to invent undecided game rules.
@@ -207,6 +209,10 @@ Assess productivity curves and delayed effects independently of these control le
 These cases describe future checks for rules still to be decided.
 
 ## Buildings and Construction
+
+**Confirmed initial scope.** Players cannot demolish buildings or designate individual buildings for destruction in an attack. Most buildings may be destroyed by attacks, with building losses determined by combat resolution. The exact selection method remains open.
+
+**Deferred idea.** Let players manually mothball individual buildings. The effects on operating benefits and upkeep would need a separate decision if this is revisited.
 
 **Current code.** The enum includes an iron mine, a solar cell, solar, coal, and nuclear power plants, a steelworks, an observatory, energy storage, housing, a bunker, a town center, a defense platform, and a shipyard. A construction queue and construction progress exist. The building list remains provisional.
 
