@@ -99,7 +99,7 @@ Other options or combinations remain possible. Include labor demand for energy s
 
 **Balancing candidates.** Housing for 200 and slow growth starting from a surviving population of at least two, given spare housing and sufficient water. These figures are provisional. Housing capacity and the population that the water output can sustain are separate. If two residents can survive on the basic output, growth beyond two also requires water for the additional population.
 
-**Recovery scope.** Basic water production can restore drinking-water service directly even if the regular waterworks is offline. To restart the regular waterworks, the surviving infrastructure must also supply ice and energy. For instance, a water-cooled power plant can restart with spare water from the headquarters if the applicable allocation, stock, and timing rules allow it. Whether the headquarters also produces energy or protects a startup reserve remains open. The first construction materials arrive as a one-time shipment on the colony ship. Rebuilding may require a transport with missing materials.
+**Recovery scope.** Basic water production can restore drinking-water service directly while the regular waterworks is offline. The player is responsible for providing any additional infrastructure and inputs that the regular waterworks needs. The headquarters does not need to provide startup energy to meet its basic service requirement. The first construction materials arrive as a one-time shipment on the colony ship. Rebuilding may require a transport with missing materials.
 
 ### Priority During Water Shortages
 
@@ -113,7 +113,7 @@ A facility whose demand cannot be met experiences a shortage. Define its consequ
 
 **Game rule.** Each colony automatically prioritizes sustaining its own population when resources or labor are scarce. Drinking water is the currently defined ongoing survival need. The colony uses its available supplies and gives priority to feasible production that helps meet that need, including upstream inputs and workers where they are needed. An ongoing deficit can still exhaust stocks and cause population decline under the rules above. [S11](#s11--survival-despite-water-and-labor-feedback) defines the separate goal of sustaining a viable remaining population.
 
-**Confirmed requirement (2026-11-24).** The player must retain the colony's last independent recovery path for essential supply. An independent path can use the colony's own stocks and operable infrastructure without a new shipment, construction order, or manual restart. The [headquarters proposal](#autonomous-starting-habitat-proposal) would meet the minimum drinking-water requirement directly. Recovery of ordinary industry remains a separate question.
+**Confirmed requirement (2026-11-24).** The player must retain the colony's last independent recovery path for essential supply. An independent path can use the colony's own stocks and operable infrastructure without a new shipment, construction order, or manual restart. The [headquarters proposal](#autonomous-starting-habitat-proposal) would meet the minimum drinking-water requirement directly. The guarantee covers the survival needs of a viable remaining population. Beyond that minimum, the player is responsible for designing and sizing the colony's production chains. Restart and full utilization of ordinary facilities depend on their actual supply, staffing, and operating conditions.
 
 **Demand.** Drinking water is an ongoing consumption process with water as its input and no material output. Staffing does not exempt a resident from this demand. The amount per resident per game hour is open ([#41](https://github.com/bwoester/cold-frontier/issues/41)). The [reviewed IceWars sources](icewars-references.md#drinking-water-and-population) give no verified historical rate.
 
@@ -129,7 +129,9 @@ flowchart LR
 
 **Example for #30.** Residents need 2 water per hour. The waterworks can make 2 per hour using 2 ice and 4 energy. The colony can supply the ice and generates 4 energy per hour after other essential loads. With no spare energy in stock, the steelworks competes for 2 of those 4 energy per hour. Reducing or pausing steel production can restore the full water supply. If the colony can extract only 1 ice per hour and has no ice in stock, the waterworks can sustain at most 1 water per hour even with all 4 energy. These rates are illustrative and assume the required inputs are available when due.
 
-**Open example.** If an energy source needs water to restart, using the last unit as drinking water could leave the colony unable to restart its supply. The confirmed drinking-water priority applies to that unit. Water-cooled power generation remains a possible operating dependency. A protected supply path can keep drinking water available independently. Whether surplus water or another source can restart the regular chain belongs in #30. Check labor and whole-unit input requirements as well as average material rates.
+**Power example.** Self-sufficient power generation is a design direction. Solar panels or solar power plants are candidates that can produce energy once built without ongoing supplies such as cooling water. The player can choose water-cooled generation instead. If the colony runs out of power and its only water is needed for drinking, its water-cooled plant and regular waterworks can remain idle while the protected supply keeps residents alive. An installed, operable independent power source can help restart the regular chain if it supplies enough energy and the waterworks also has ice and staffing. See #30 for the recovery scenarios.
+
+**Industrial example.** Test values: A steelworks needs 10 iron per hour at full capacity. Its mines supply 6 per hour and no stock or delivery makes up the gap. The colony can operate only within that input budget over time. The player can add extraction capacity, arrange imports, or accept idle time. The exact timing and output depend on whole-unit starts and the effective recipes.
 
 ### Planned Verification
 
@@ -520,7 +522,8 @@ An orbital shipyard is destroyed while one or more ships are being built. Unfini
 | Energy supply also requires workers | Autonomous water facilities must not merely move the feedback loop to power generation. |
 | No available energy and empty water stock | Test whether the proposed headquarters can keep a viable population supplied while the regular waterworks is stopped. |
 | Attempt to disable the last independent recovery path | The colony retains that path. The headquarters proposal makes basic supply permanent. |
-| Drinking-water service restored while regular supply is down | Check that residents can survive and measure separately whether the power plant and waterworks can restart. |
+| Only water-cooled generation and the regular waterworks has stalled | Residents receive the protected drinking-water supply. The regular chain may stay idle until it has the means to restart. |
+| An independent power source is available | The ordinary waterworks can resume once sufficient energy, ice, and effective operating capacity are available. |
 | Repeated short steps and a long advance | Step size or skipped shortage thresholds do not bypass protection or affect the balance. Compare within defined numerical tolerances. |
 | Small quantities and rounding near zero | Rounding or the order of production, consumption, and decline does not wipe out the population. |
 | Supply improves again | With spare housing and sufficient water, growth can resume. The surviving population does not stay permanently stuck. |
