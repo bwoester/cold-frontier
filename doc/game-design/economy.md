@@ -128,7 +128,7 @@ flowchart LR
 **Proposed allocation order ([#30](https://github.com/bwoester/cold-frontier/issues/30)).**
 
 1. **Drinking water.** While existing stock can cover residents' drinking-water needs, leave the normal production allocation in place for this purpose. When stocks run too low to cover those needs, prioritize feasible water production, including the upstream inputs and workers it needs. Where feasible, target sustained production that covers resident demand before allocating any water to other consumers, including consumers within the supply chain. Check that the chain can actually operate with those allocations. For example, a generator can count toward sustained supply only if its own cooling needs can also be met. When full coverage is infeasible, reduce the shortfall as far as feasible and apply the population rules above.
-2. **Fixed upkeep.** Use the remaining eligible supply to cover ongoing upkeep of existing infrastructure as far as feasible. Apply any modeled building-specific consequences to the affected facilities.
+2. **Fixed upkeep.** Use the remaining eligible supply to cover whole upkeep demands of existing infrastructure. Apply any modeled building-specific consequences to the affected facilities.
 3. **Other production.** Apply the mining and recipe rules to the remaining eligible stock and operational infrastructure. Further optimization and possible player control are open.
 
 The stock coverage horizon, the conditions for restoring curtailed production, the choice among feasible allocations, and input reservations for blocked processes remain open.
@@ -139,14 +139,18 @@ The stock coverage horizon, the conditions for restoring curtailed production, t
 
 **Industrial example.** Test values: A steelworks needs 10 iron per hour at full capacity. Its mines supply 6 per hour and no stock or delivery makes up the gap. The colony can operate only within that input budget over time. The player can add extraction capacity, arrange imports, or accept idle time. The exact timing and output depend on whole-unit starts and the effective recipes.
 
-**Initial handling of fixed upkeep.** Fixed upkeep remains due even when an optional production recipe is stopped. Where building-specific consequences are still unmodeled, sum fixed upkeep by resource, deduct the lesser of that demand and the remaining eligible amount, and report any shortfall at colony level. For example, two buildings each demand two water and three water remain after drinking-water allocation. Deduct three and report one unmet. [#49](https://github.com/bwoester/cold-frontier/issues/49) covers building-specific consequences, including the agreed controlled descent of an orbital shipyard that cannot pay its upkeep. Actual operating requirements and recipe ingredients still determine whether production is feasible. The headquarters proposal supplies its protected minimum independently of ordinary upkeep.
+**Confirmed initial rule for fixed upkeep.** When fixed upkeep is due, a building either pays the full amount in every required resource or pays nothing. Deduct all required resources together only if the building can be fully supplied. An unpaid demand leaves all of its resources available for other eligible uses. Fixed upkeep remains due even when an optional production recipe is stopped. [#47](https://github.com/bwoester/cold-frontier/issues/47) tracks how to choose among competing demands. [#49](https://github.com/bwoester/cold-frontier/issues/49) covers building-specific consequences, including the agreed controlled descent of an orbital shipyard that cannot pay its upkeep. Actual operating requirements and recipe ingredients still determine whether production is feasible. The headquarters proposal supplies its protected minimum independently of ordinary upkeep.
+
+**Example.** Two buildings each need 2 water and 3 water remain after drinking-water allocation. Pay one demand in full and leave 1 water available. Total demand is 4, payment is 2, and unmet upkeep is 2. If a building needs 1 water and 2 energy and only 1 of each remains, deduct neither resource for that demand.
+
+**Confirmed research upkeep effect.** A research facility whose fixed upkeep is unpaid contributes zero research points per hour to its owner's research capacity. Ongoing research uses the remaining capacity from the effective game time of the change. If total capacity falls to zero, ongoing research pauses and retains accumulated progress. A facility can contribute again when its upkeep is fully paid and its other operating requirements are met. See [account-wide research](#account-wide-research) for start and slot rules and [S7](#s7--impaired-construction-or-research-progress) for a capacity example.
 
 ### Resource Allocation Audit
 
 The audit history explains the colony's allocation decisions and their consequences at the effective game time:
 
 - **Drinking-water optimization.** When it is triggered, record what the normal allocation would have produced or supplied, the projected shortfall that triggered the change, the strategy chosen, and its effect on supply and affected operations. In the steelworks example, show the competing energy demand, the energy redirected to the waterworks, and the change in drinking-water output.
-- **Fixed upkeep.** Record the demand, the amount paid, and any shortfall. Where building-level effects are modeled, identify the infrastructure that cannot be supplied and the shutdown or other transition it enters. For an orbital shipyard, this includes the controlled descent and pause in ship construction. Aggregate deductions record the colony-level shortfall.
+- **Fixed upkeep.** Record the demand, the amount paid, and any shortfall. Where building-level effects are modeled, identify the infrastructure that cannot be supplied and the shutdown or other transition it enters. For an orbital shipyard, this includes the controlled descent and pause in ship construction. Colony-level totals can summarize demand, payment, and unmet upkeep by resource.
 - **Mining and recipes.** Show what mining and recipes do with the remaining eligible stock and operational infrastructure, including relevant output, recipe starts or blocks, and their effective order when they share a game time.
 
 ### Planned Verification
@@ -239,7 +243,7 @@ These cases describe future checks for rules still to be decided.
 | Construction costs | Deduct costs when the order enters the queue, even if it must wait. | Confirmed rule. The point at which research costs are deducted has not been separately confirmed. |
 | Voluntary construction cancellation | The player receives only part of the resources spent, even for an order that is still waiting. | Confirmed rule. A fixed share applies regardless of progress. The share, rounding, and affected resources remain open. |
 | Purpose of cancellation losses | Construction slots should not provide lossless protection against raids. | Confirmed design intent. Partial refunds alone might still leave profitable protection strategies. |
-| Buildings and research under impaired conditions | Progress should slow, for example when power is scarce. | Confirmed design direction. Define triggers, severity, combined effects, and recovery. The preliminary preference is to avoid a complete stop. No general loss of existing progress has been established. |
+| Buildings and research under impaired conditions | Progress should slow, for example when power is scarce. | Confirmed design direction. Define triggers, severity, combined effects, and recovery. The preliminary preference is to avoid a complete stop. Research with zero research capacity pauses under the confirmed upkeep rule. No general loss of existing progress has been established. |
 | Orbital shipyards | Destruction also destroys ships being built there. | Confirmed rule. Treat waiting orders as voluntarily canceled. Destruction triggers remain open. |
 | Different order types | Conditions and consequences can differ for construction, research, and shipbuilding. Other rules can follow. | Game design flexibility. There is no requirement for a universal job framework or plugin system. |
 
@@ -373,7 +377,13 @@ If the strict snapshot is adopted, document the allocation boundary in [#36](htt
 
 Historical inspiration: [[icewars-references#Player Recollection – Planetary Construction Queues|the account of planetary construction queues]].
 
-**Further open questions.** Which queue and concurrency rules apply to research and shipbuilding? Which prerequisites must hold only at the start, and which until completion?
+**Further open questions.** Which queue and concurrency rules apply to shipbuilding? Which other prerequisites must hold only at the start of research or shipbuilding, and which until completion?
+
+## Account-Wide Research
+
+**Confirmed rules.** A player can have one research topic in progress across the entire account. Research has no waiting queue. An otherwise eligible topic can start with zero research points per hour if the account has no topic in progress. It occupies the account's research slot immediately and begins to accumulate progress automatically when capacity becomes positive. A paused topic still occupies the slot. The next topic needs its own start order once the slot is free. Other start prerequisites and research costs remain open.
+
+**Example.** A player's research facilities contribute zero points per hour because their upkeep is unpaid. The player starts a topic while a resupply transport is en route. A second start order from another colony is refused because the first topic already occupies the account's slot. When the supplies arrive and upkeep is covered, the first topic starts gaining progress automatically. The player does not need to return to issue another order.
 
 ## Storage and Bunkers
 
@@ -508,6 +518,8 @@ For ice, the minimum yield direction and S5 apply.
 **When** a condition that affects the rate, such as power supply, is impaired.\
 **Then the design direction is** for progress to slow. Slowdown alone has no agreed automatic failure rule.\
 **Still to determine** exact triggers, minimum rate, combined shortages, and recovery. Power and free population are initial candidates. The preliminary preference is to avoid a full stop that blocks account development. A minimum speed is not guaranteed yet.
+
+**Research upkeep example.** Two supplied facilities contribute 10 and 5 research points per hour to a player with no other research capacity. When upkeep for the first facility goes unpaid, capacity falls from 15 to 5 and ongoing research progresses more slowly. If both facilities go unpaid, capacity falls to zero and progress pauses. When the first facility becomes fully supplied again and can operate, research advances from its retained progress at 10 points per hour as long as the second facility remains unpaid. The rates are test values.
 
 ### S8 – Shipyard Destruction During Construction
 
