@@ -111,7 +111,7 @@ A facility whose demand cannot be met experiences a shortage. Define its consequ
 
 ### Colony Survival and Critical Supply
 
-**Game rule.** Each colony automatically prioritizes sustaining its own population when resources or labor are scarce. Drinking water is the currently defined ongoing survival need. The colony uses its available supplies and gives priority to feasible production that helps meet that need, including upstream inputs and workers where they are needed. An ongoing deficit can still exhaust stocks and cause population decline under the rules above. [S11](#s11--survival-despite-water-and-labor-feedback) defines the separate goal of sustaining a viable remaining population.
+**Game rule.** Each colony automatically prioritizes sustaining its own population during a shortage. Drinking water is the currently defined ongoing survival need. Available drinking water goes to the entire current population first. Production reallocation is conditional on the stock coverage described below. An ongoing deficit can still exhaust stocks and cause population decline. [S11](#s11--survival-despite-water-and-labor-feedback) defines the goal of sustaining a viable remaining population.
 
 **Confirmed requirement (2026-11-24).** The player must retain the colony's last independent recovery path for essential supply. An independent path can use the colony's own stocks and operable infrastructure without a new shipment, construction order, or manual restart. The [headquarters proposal](#autonomous-starting-habitat-proposal) would meet the minimum drinking-water requirement directly. The guarantee covers the survival needs of a viable remaining population. Beyond that minimum, the player is responsible for designing and sizing the colony's production chains. Restart and full utilization of ordinary facilities depend on their actual supply, staffing, and operating conditions.
 
@@ -125,15 +125,29 @@ flowchart LR
     Waterworks -->|Water| Cooling["Industrial cooling"]
 ```
 
-**Proposal for shortage allocation ([#30](https://github.com/bwoester/cold-frontier/issues/30)).** Use the colony's actual production dependencies to identify which capacity helps supply residents. Reduce or temporarily pause competing operations where doing so improves survival supply. When feasible, aim for sustained effective water production at least equal to resident demand, after accounting for any water consumed within the supply chain. Use available stock to cover temporary gaps. If capacity cannot meet full demand, aim to reduce the shortfall and apply the existing population rules. The graph describes dependencies. How to select among feasible allocations, when to curtail and restore industry, and whether to reserve inputs for a blocked process remain open.
+**Proposed allocation order ([#30](https://github.com/bwoester/cold-frontier/issues/30)).**
 
-**Example for #30.** Residents need 2 water per hour. The waterworks can make 2 per hour using 2 ice and 4 energy. The colony can supply the ice and generates 4 energy per hour after other essential loads. With no spare energy in stock, the steelworks competes for 2 of those 4 energy per hour. Reducing or pausing steel production can restore the full water supply. If the colony can extract only 1 ice per hour and has no ice in stock, the waterworks can sustain at most 1 water per hour even with all 4 energy. These rates are illustrative and assume the required inputs are available when due.
+1. **Drinking water.** While existing stock can cover residents' drinking-water needs, leave the normal production allocation in place for this purpose. When stocks run too low to cover those needs, prioritize feasible water production, including the upstream inputs and workers it needs. Where feasible, target sustained production that covers resident demand before allocating any water to other consumers, including consumers within the supply chain. Check that the chain can actually operate with those allocations. For example, a generator can count toward sustained supply only if its own cooling needs can also be met. When full coverage is infeasible, reduce the shortfall as far as feasible and apply the population rules above.
+2. **Fixed upkeep.** Use the remaining eligible supply to cover ongoing upkeep of existing infrastructure as far as feasible. Apply any modeled building-specific consequences to the affected facilities.
+3. **Other production.** Apply the mining and recipe rules to the remaining eligible stock and operational infrastructure. Further optimization and possible player control are open.
+
+The stock coverage horizon, the conditions for restoring curtailed production, the choice among feasible allocations, and input reservations for blocked processes remain open.
+
+**Example for #30.** Residents need 2 water per hour. The waterworks can make 2 per hour using 2 ice and 4 energy. The colony can supply the ice and generates 4 energy per hour after other essential loads. The steelworks competes for 2 of those 4 energy per hour and the colony has no spare energy in stock. While the water stock covers resident demand, the colony uses it and does not curtail the steelworks for drinking water. When the stock can no longer cover demand, curtailing the steelworks can free enough energy for full water production. If the colony can extract only 1 ice per hour and has no ice in stock, the waterworks can sustain at most 1 water per hour even with all 4 energy. These rates are illustrative and assume the required inputs are available when due.
 
 **Power example.** Self-sufficient power generation is a design direction. Solar panels or solar power plants are candidates that can produce energy once built without ongoing supplies such as cooling water. The player can choose water-cooled generation instead. If the colony runs out of power and its only water is needed for drinking, its water-cooled plant and regular waterworks can remain idle while the protected supply keeps residents alive. An installed, operable independent power source can help restart the regular chain if it supplies enough energy and the waterworks also has ice and staffing. See #30 for the recovery scenarios.
 
 **Industrial example.** Test values: A steelworks needs 10 iron per hour at full capacity. Its mines supply 6 per hour and no stock or delivery makes up the gap. The colony can operate only within that input budget over time. The player can add extraction capacity, arrange imports, or accept idle time. The exact timing and output depend on whole-unit starts and the effective recipes.
 
-**Initial handling of fixed upkeep.** Fixed upkeep remains due even when an optional production recipe is stopped. After applying drinking-water priority and the allocation needed for feasible essential supply, sum fixed upkeep without modeled building-specific outcomes by resource. Deduct the lesser of the summed demand and the remaining available amount. Report any unmet amount at colony level. For example, two buildings each demand two water and three water remain after drinking-water allocation. Deduct three and report one unmet. Allocation of the shortfall to specific buildings and the consequences for their benefits are deferred to [#49](https://github.com/bwoester/cold-frontier/issues/49). Actual operating requirements and recipe ingredients still determine whether production is feasible. The headquarters proposal supplies its protected minimum independently of ordinary upkeep.
+**Initial handling of fixed upkeep.** Fixed upkeep remains due even when an optional production recipe is stopped. Where building-specific consequences are still unmodeled, sum fixed upkeep by resource, deduct the lesser of that demand and the remaining eligible amount, and report any shortfall at colony level. For example, two buildings each demand two water and three water remain after drinking-water allocation. Deduct three and report one unmet. [#49](https://github.com/bwoester/cold-frontier/issues/49) covers building-specific consequences, including the agreed controlled descent of an orbital shipyard that cannot pay its upkeep. Actual operating requirements and recipe ingredients still determine whether production is feasible. The headquarters proposal supplies its protected minimum independently of ordinary upkeep.
+
+### Resource Allocation Audit
+
+The audit history explains the colony's allocation decisions and their consequences at the effective game time:
+
+- **Drinking-water optimization.** When it is triggered, record what the normal allocation would have produced or supplied, the projected shortfall that triggered the change, the strategy chosen, and its effect on supply and affected operations. In the steelworks example, show the competing energy demand, the energy redirected to the waterworks, and the change in drinking-water output.
+- **Fixed upkeep.** Record the demand, the amount paid, and any shortfall. Where building-level effects are modeled, identify the infrastructure that cannot be supplied and the shutdown or other transition it enters. For an orbital shipyard, this includes the controlled descent and pause in ship construction. Aggregate deductions record the colony-level shortfall.
+- **Mining and recipes.** Show what mining and recipes do with the remaining eligible stock and operational infrastructure, including relevant output, recipe starts or blocks, and their effective order when they share a game time.
 
 ### Planned Verification
 
@@ -210,7 +224,7 @@ These cases describe future checks for rules still to be decided.
 
 ## Buildings and Construction
 
-**Confirmed initial scope.** Players cannot demolish buildings or designate individual buildings for destruction in an attack. Most buildings may be destroyed by attacks, with building losses determined by combat resolution. The exact selection method remains open.
+**Confirmed initial scope.** Players cannot demolish buildings or select individual buildings for destruction in an attack. Ordinary raids fight defending ships and defensive structures and leave ordinary buildings outside the set of targets. Ordinary buildings can be destroyed only if the attacker explicitly chooses to attack infrastructure instead of raiding for resources and the fleet includes bombers or other ship classes capable of attacking infrastructure. Combat resolution determines which eligible buildings are lost. The exact selection method remains open.
 
 **Deferred idea.** Let players manually mothball individual buildings. The effects on operating benefits and upkeep would need a separate decision if this is revisited.
 
@@ -282,7 +296,7 @@ The [pooled extraction Gherkin scenarios](scenarios/pooled-extraction.feature) e
 **Confirmed order (2026-11-21).** Apply mining results to the colony's stockpile
 before evaluating new recipe starts at the same game time. A recipe can start using
 newly available whole mined units immediately, with progress accruing from that time.
-The audit history must distinguish mining and recipe changes and show their order when both take effect at the same game time. See the [proposed alternative](#common-stock-snapshot-for-resource-updates-proposal).
+The [resource allocation audit](#resource-allocation-audit) must distinguish mining and recipe changes and show their order when both take effect at the same game time. See the [proposed alternative](#common-stock-snapshot-for-resource-updates-proposal).
 
 **Confirmed rule (2026-11-17).** Buildings with the same recipe in a colony contribute capacity to a shared processing operation according to their effective operating conditions. The operation draws a single set of ingredients for each unit. Keep colonies and recipes separate.
 
@@ -302,17 +316,19 @@ The [pooled processing Gherkin scenarios](scenarios/pooled-processing.feature) c
 
 #### Common Stock Snapshot for Resource Updates (Proposal)
 
-Under the proposed rule, mining and processing use the same opening stock to determine new withdrawals. Accepted withdrawals share that stock, so each unit can be allocated only once. Newly extracted or completed units become usable from the next resource update. Apply drinking-water priority to the eligible stock whenever demand is due. The ordering of player commands and deliveries is outside this proposal.
+**Domain time.** Production, consumption, and stock coverage evolve continuously in game time under their effective conditions. A pooled whole unit becomes available according to the applicable game rule for its effective completion time. Evaluating the colony later must preserve the effective times and outcomes of intervening changes. Fixed-resolution evaluation and calculation over elapsed spans are implementation options.
+
+**Strict snapshot variant.** Mining and processing share the same opening stock for new withdrawals, so each unit can be allocated only once. A strict version excludes outputs produced within a resource update from that update's withdrawals. They become eligible at the next allocation boundary defined by the gameplay rule. The boundary and whether it includes work already completed by that game time are open in [#36](https://github.com/bwoester/cold-frontier/issues/36). Any deferral would be a gameplay rule and must have the same effect regardless of technical tick size, lazy evaluation, or subdivision of an elapsed span. Apply drinking-water priority to eligible stock whenever demand is due. The ordering of player commands and deliveries is outside this proposal.
 
 | Boundary case | Current rule or behavior | Proposed result |
 | --- | --- | --- |
-| A missing whole energy unit becomes available at 9:00 in the [#35 scenario](scenarios/water-production-restart.feature) | The waterworks restarts at 9:00 with zero progress and finishes at 15:00. | If the opening stock excludes that energy unit, the restart waits for the next update. The new completion time depends on that update boundary. |
+| A missing whole energy unit becomes available at 9:00 in the [#35 scenario](scenarios/water-production-restart.feature) | The waterworks restarts at 9:00 with zero progress and finishes at 15:00. | If the opening stock excludes that energy unit, the restart waits for the next update. The new completion time depends on the gameplay allocation boundary. |
 | The stock is empty when the waterworks completes one unit and residents and cooling each demand one | Drinking-water priority is confirmed. Whether the completion is eligible at that instant is open. | Neither can use the new unit in this update. It enters the opening stock for the next update, where it is allocated to any drinking-water demand due before cooling. Handling the earlier unmet demand remains open. |
-| A mine, waterworks, and residents start from empty stocks with power already available | The mine's first whole ice unit can start the waterworks at the same time. Drinking-water timing is open. | In an illustrative fixed-step case, ice arrives at the end of update 1, the waterworks uses it in update 2 and completes water at the end of that update, and the first withdrawal of drinking water can happen in update 3. |
+| A mine, waterworks, and residents start from empty stocks with power already available | The mine's first whole ice unit can start the waterworks at the same time. Drinking-water timing is open. | With three illustrative gameplay allocation windows, ice completes in the first, the waterworks uses it and completes water in the second, and residents can first draw that water in the third. |
 
-Each dependency can add a delay at startup or recovery. If replenishment then covers withdrawals at each boundary, the chain can run at its normal throughput. Average rates alone can hide recurring shortages. For example, a producer that supplies 2 units every other update can feed a consumer that needs 1 per update if storage can hold the 2-unit batch. With a capacity of 1 and excess discarded on credit, the consumer can still miss every other update.
+Each dependency can add a delay at startup or recovery under the strict snapshot variant. If replenishment then covers withdrawals at the defined boundaries, the chain can run at its normal throughput. Average rates alone can hide recurring shortages. For example, a producer that supplies 2 units every other update can feed a consumer that needs 1 per update if storage can hold the 2-unit batch. With a capacity of 1 and excess discarded on credit, the consumer can still miss every other update.
 
-[#36](https://github.com/bwoester/cold-frontier/issues/36) tracks the availability boundary, including whether elapsed work completed at the boundary can count as opening stock. If the strict snapshot is adopted, revise the confirmed mining order and the immediate restart scenarios together. Check the effect of update cadence and cases with simultaneous completions before specifying Gherkin expectations.
+If the strict snapshot is adopted, document the allocation boundary in [#36](https://github.com/bwoester/cold-frontier/issues/36) and revise the confirmed mining order and immediate restart scenarios together. Check simultaneous completions and verify that short advances and a single advance across the same elapsed span give the same results and effective game times.
 
 ### Delayed Cancellation and Loss of Prerequisites
 
@@ -510,7 +526,7 @@ An orbital shipyard is destroyed while one or more ships are being built. Unfini
 
 **Given** water consumption exceeds production and stock still covers actual demand fully.\
 **When** this lasts for an interval.\
-**Then** stocks fall by the deficit. The deficit alone does not reduce the population yet.\
+**Then** stocks fall by the deficit and the population remains supplied. Under the allocation proposal, there is no drinking-water production override while the stock covers demand.\
 **When** available stock can no longer meet demand.\
 **Then** a water shortage can cause population decline. Timing, partial supply, and rate follow rules still to be defined.
 
@@ -535,7 +551,7 @@ An orbital shipyard is destroyed while one or more ships are being built. Unfini
 | Supply improves again | With spare housing and sufficient water, growth can resume. The surviving population does not stay permanently stuck. |
 | Long absence / repeated advancement | The surviving population remains supplied indefinitely. Merely delaying extinction is insufficient. |
 
-**Traceability for development and support.** When something goes wrong, the initial state, active rules, time steps or event sequence, labor allocation, and water balance must be reproducible. Event sourcing and storage of every intermediate state remain open.
+**Traceability for development and support.** Reproduce the initial state, active rules, effective game times, labor allocation, and water balance. The [resource allocation audit](#resource-allocation-audit) explains which allocation decisions affected the outcome. Event sourcing and storage of every intermediate state remain open.
 
 ### S12 – Ice Stock Runs Out During Water Production
 
@@ -557,7 +573,7 @@ A colony has 90 ice, capacity for 100, and bunker protection for 20 ice. If ordi
 
 ### S15 – Rebuilding with Resupply
 
-After an attack, the habitat supplies the remaining population. The mine is destroyed and construction stock cannot pay for rebuilding it. Rebuilding requires a transport with the missing materials. After unloading, the usual construction prerequisites apply.
+After an explicitly ordered infrastructure attack by a fleet with eligible ships, combat resolution destroys the mine. The proposed habitat supplies the remaining population. Construction stock cannot pay for rebuilding the mine, so the colony needs a transport with the missing materials. After unloading, the usual construction prerequisites apply. In the resource-raid variant, the mine survives even if the fleet includes bombers. The mine also survives an attempted infrastructure attack by a fleet with no ships capable of attacking infrastructure. How the game handles such an order remains open.
 
 ### S16 – Two Colonization Flights with One Free Colony Slot
 
