@@ -143,7 +143,7 @@ The stock coverage horizon, the conditions for restoring curtailed production, t
 
 **Example.** Two buildings each need 2 water and 3 water remain after drinking-water allocation. Pay one demand in full and leave 1 water available. Total demand is 4, payment is 2, and unmet upkeep is 2. If a building needs 1 water and 2 energy and only 1 of each remains, deduct neither resource for that demand.
 
-**Confirmed research upkeep effect.** A research facility whose fixed upkeep is unpaid contributes zero research points per hour to its owner's research capacity. Ongoing research uses the remaining capacity from the effective game time of the change. If total capacity falls to zero, ongoing research pauses and retains accumulated progress. A facility can contribute again when its upkeep is fully paid and its other operating requirements are met. Eligibility to start research remains a separate question. See [S7](#s7--impaired-construction-or-research-progress) for an example.
+**Confirmed research upkeep effect.** A research facility whose fixed upkeep is unpaid contributes zero research points per hour to its owner's research capacity. Ongoing research uses the remaining capacity from the effective game time of the change. If total capacity falls to zero, ongoing research pauses and retains accumulated progress. A facility can contribute again when its upkeep is fully paid and its other operating requirements are met. See [account-wide research](#account-wide-research) for start and slot rules and [S7](#s7--impaired-construction-or-research-progress) for a capacity example.
 
 ### Resource Allocation Audit
 
@@ -377,7 +377,13 @@ If the strict snapshot is adopted, document the allocation boundary in [#36](htt
 
 Historical inspiration: [[icewars-references#Player Recollection – Planetary Construction Queues|the account of planetary construction queues]].
 
-**Further open questions.** Which queue and concurrency rules apply to research and shipbuilding? Which prerequisites must hold only at the start, and which until completion?
+**Further open questions.** Which queue and concurrency rules apply to shipbuilding? Which other prerequisites must hold only at the start of research or shipbuilding, and which until completion?
+
+## Account-Wide Research
+
+**Confirmed rules.** A player can have one research topic in progress across the entire account. Research has no waiting queue. An otherwise eligible topic can start with zero research points per hour if the account has no topic in progress. It occupies the account's research slot immediately and begins to accumulate progress automatically when capacity becomes positive. A paused topic still occupies the slot. The next topic needs its own start order once the slot is free. Other start prerequisites and research costs remain open.
+
+**Example.** A player's research facilities contribute zero points per hour because their upkeep is unpaid. The player starts a topic while a resupply transport is en route. A second start order from another colony is refused because the first topic already occupies the account's slot. When the supplies arrive and upkeep is covered, the first topic starts gaining progress automatically. The player does not need to return to issue another order.
 
 ## Storage and Bunkers
 
