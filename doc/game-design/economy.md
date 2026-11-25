@@ -143,6 +143,8 @@ The stock coverage horizon, the conditions for restoring curtailed production, t
 
 **Example.** Two buildings each need 2 water and 3 water remain after drinking-water allocation. Pay one demand in full and leave 1 water available. Total demand is 4, payment is 2, and unmet upkeep is 2. If a building needs 1 water and 2 energy and only 1 of each remains, deduct neither resource for that demand.
 
+**Confirmed research upkeep effect.** A research facility whose fixed upkeep is unpaid contributes zero research points per hour to its owner's research capacity. Ongoing research uses the remaining capacity from the effective game time of the change. If total capacity falls to zero, ongoing research pauses and retains accumulated progress. A facility can contribute again when its upkeep is fully paid and its other operating requirements are met. Eligibility to start research remains a separate question. See [S7](#s7--impaired-construction-or-research-progress) for an example.
+
 ### Resource Allocation Audit
 
 The audit history explains the colony's allocation decisions and their consequences at the effective game time:
@@ -241,7 +243,7 @@ These cases describe future checks for rules still to be decided.
 | Construction costs | Deduct costs when the order enters the queue, even if it must wait. | Confirmed rule. The point at which research costs are deducted has not been separately confirmed. |
 | Voluntary construction cancellation | The player receives only part of the resources spent, even for an order that is still waiting. | Confirmed rule. A fixed share applies regardless of progress. The share, rounding, and affected resources remain open. |
 | Purpose of cancellation losses | Construction slots should not provide lossless protection against raids. | Confirmed design intent. Partial refunds alone might still leave profitable protection strategies. |
-| Buildings and research under impaired conditions | Progress should slow, for example when power is scarce. | Confirmed design direction. Define triggers, severity, combined effects, and recovery. The preliminary preference is to avoid a complete stop. No general loss of existing progress has been established. |
+| Buildings and research under impaired conditions | Progress should slow, for example when power is scarce. | Confirmed design direction. Define triggers, severity, combined effects, and recovery. The preliminary preference is to avoid a complete stop. Research with zero research capacity pauses under the confirmed upkeep rule. No general loss of existing progress has been established. |
 | Orbital shipyards | Destruction also destroys ships being built there. | Confirmed rule. Treat waiting orders as voluntarily canceled. Destruction triggers remain open. |
 | Different order types | Conditions and consequences can differ for construction, research, and shipbuilding. Other rules can follow. | Game design flexibility. There is no requirement for a universal job framework or plugin system. |
 
@@ -510,6 +512,8 @@ For ice, the minimum yield direction and S5 apply.
 **When** a condition that affects the rate, such as power supply, is impaired.\
 **Then the design direction is** for progress to slow. Slowdown alone has no agreed automatic failure rule.\
 **Still to determine** exact triggers, minimum rate, combined shortages, and recovery. Power and free population are initial candidates. The preliminary preference is to avoid a full stop that blocks account development. A minimum speed is not guaranteed yet.
+
+**Research upkeep example.** Two supplied facilities contribute 10 and 5 research points per hour to a player with no other research capacity. When upkeep for the first facility goes unpaid, capacity falls from 15 to 5 and ongoing research progresses more slowly. If both facilities go unpaid, capacity falls to zero and progress pauses. When the first facility becomes fully supplied again and can operate, research advances from its retained progress at 10 points per hour as long as the second facility remains unpaid. The rates are test values.
 
 ### S8 – Shipyard Destruction During Construction
 
