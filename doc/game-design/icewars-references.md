@@ -35,6 +35,10 @@ The [source catalog](../sources/icewars-catalog.md) lists the supplied materials
 
 The resulting Cold Frontier design direction and absence protection goal are in [[economy#Declining Yield and Time as a Resource|Declining Yield and Time as a Resource]]. The historical numbers remain reference material.
 
+## Drinking Water and Population
+
+The [resource XML](../sources/icewars-catalog.md#official-xmls-according-to-the-project-owner-iw-01-to-iw-03) lists water and population as separate resources. A [2005 forum discussion](https://www.mastersforum.de/index.php?page=Thread&postID=352483) mentions waterworks and population costs in a comparison of power plants. The reviewed sources give no verified drinking-water consumption rate per resident per hour. The earlier Concepts and Resource Extraction redesigns describe production snapshots and ice extraction, respectively. Cold Frontier's rate is an open [balancing decision](https://github.com/bwoester/cold-frontier/issues/41).
+
 ## Reconstructed Historical Units
 
 The [XML unit catalog](../sources/icewars-ships.md) preserves all 64 export entries with material costs, duration, and `baubar`. The [research mapping](../sources/icewars-ship-research.md) records 37 name-based matches in series B1–B5, one in A2, and 26 units without reliable research evidence. It distinguishes direct research prerequisites, explicit extra fields, selected indirect building requirements, and unknown construction prerequisites. Version and naming conflicts remain visible.
