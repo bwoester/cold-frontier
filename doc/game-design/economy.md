@@ -427,6 +427,18 @@ Colonization flights occupy no colony slot en route. On arrival, check the colon
 
 ## Trade and Transport
 
+### Intergalactic Exchange (Idea)
+
+**Status.** Later feature idea. Market access, the unlocking research, and the role of an exchange building still need design. The [IceWars research and trading records](icewars-references.md#historical-reference--resource-trading-and-its-unlocks) provide historical context.
+
+**Access variants.** Research and construction could grant a permanent trading license. Alternatively, an operational exchange facility could be required to submit orders. For continuing access, decide whether one operational facility grants access across the account or only to the colony it serves.
+
+**Candidate for a loss of access.** Refuse new orders while access is unavailable. Already accepted orders remain eligible for settlement and can be canceled under the usual rules. Compare this with requiring continuing access for outstanding orders as well.
+
+**Timing example.** An exchange accepts a sale at 11:59. The supplying facility loses access for unpaid upkeep at 12:00. Under the candidate rule, the sale can still settle at 12:02, while a new order at 12:01 is refused. Decide what happens to an order effective at exactly 12:00 or at restoration, and whether an operational facility on a second colony keeps access available. Once those rules are decided, [#38](https://github.com/bwoester/cold-frontier/issues/38) can use them to specify how the colony, account, and market coordinate.
+
+### Fleet Logistics
+
 **Destination and expected recipient.** A shipment order records its destination and the expected recipient, such as a colony's owner when the order is placed. On arrival, the destination must still belong to the expected recipient and allow unloading. If ownership has changed, unloading does not start. The ship waits in orbit with its cargo for a new order. The same requirement is recorded for future destinations such as mobile orbital bases.
 
 **Check at unloading completion.** Recheck the expected recipient and permission to unload immediately before transfer. If the check fails, all cargo remains aboard. The ship waits in orbit for a new order. The audit records the failed transfer and its reason.
