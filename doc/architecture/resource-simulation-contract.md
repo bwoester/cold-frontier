@@ -47,6 +47,14 @@ In the acceptance case, the depletion event marks the transition from active pro
 
 A time can be known in advance or follow from the progress of a mechanic. For example, the expected completion time of a construction order can shift because of an economic bottleneck. A spontaneous player command receives an effective game time under the rules for game flow coordination. Handling late and simultaneous actions remains part of the [open question on command ordering](command-ordering.md).
 
+### Building-Specific Upkeep Effects
+
+**Architecture goal.** Follow the open–closed principle for reactions to unpaid upkeep. The upkeep evaluator determines payment and reports a shortage for each affected building at its effective game time. Separate domain components own the building-specific consequences. A new consequence should extend that logic without requiring a building-specific branch in the evaluator.
+
+The game flow applies the relevant effect before advancing work that depends on the affected building or service. The same state and allocation outcome must produce the same transition on replay. Repeated evaluation of a building already in the same shortage state must avoid starting the transition again. For example, the orbital shipyard logic starts a controlled descent and pauses construction, while the research logic removes the facility's contribution to the player's research rate.
+
+**Implementation options.** A listener, registered handler, or plugin can receive the per-building outcome and apply its domain rule. The dispatch mechanism, execution boundary, and plugin loading model remain open. See [fixed upkeep rules](../game-design/economy.md#colony-survival-and-critical-supply) and [#49](https://github.com/bwoester/cold-frontier/issues/49).
+
 ## Phase Order of the Tick Prototype
 
 The [`TickCoordinator`](../../lib/src/main/java/de/bwoester/coldfrontier/TickCoordinator.java) first increments the tick counter and then runs each phase for all registered components. The table shows the existing sequence and the proposed interpretation of each phase in terms of game rules.
