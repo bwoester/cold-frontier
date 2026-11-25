@@ -116,6 +116,17 @@ The earlier blanket statement that costs prevented conflicts applies more specif
 
 **Open design question for Cold Frontier.** How can far-reaching wars coexist with the value of long-term development? The project owner has yet to find a satisfactory way to compensate for those losses. See [Late Evolution and Conflicts](evolution-and-balancing.md#late-evolution-and-appealing-conflicts).
 
+## Historical Reference – Resource Trading and Its Unlocks
+
+| Evidence | What it establishes |
+| --- | --- |
+| [IW-02](https://drive.google.com/file/d/0B_fvsE93Ci4deVZ5VS13S2sySFE/view?usp=drivesdk&resourcekey=0-swFV1uninjMyWosCxJ9Waw) · `handelskurse.xml` | The historical IceWars trading-rate export lists buy and sell prices for resources, enables trading for seven resource entries, and includes fee and minimum-quantity fields. The export contains no research or building prerequisites and does not identify the order workflow. |
+| [IW-05](https://drive.google.com/file/d/0B_fvsE93Ci4dUmNOTkxwc29xSlE/view?usp=drivesdk&resourcekey=0-ITGyOHLZgh_DzJeyJltNew) · Evo 1, series A | The community diagram shows the research `Handel` at 5,000 research points after `Race into Space`, with `Handelsgesellschaft 1+2` and `SpacePort` in its unlock field. |
+| [IW-11](https://drive.google.com/file/d/1yt-JLQm8b-CSgF6wfcE693S_PHFz6i_q/view?usp=drivesdk) · Evo 1, series B | Another community diagram shows `Handel` at 5,000 research points, with `HG 1,2,3` and `Spaceport` in its unlock field. The listed building levels differ from the series A diagram. |
+| [IW-12](https://drive.google.com/file/d/10j0oA_e1vozl-W2JMRedfr8BU6yID_Bh/view?usp=drivesdk) and [IW-14](https://drive.google.com/file/d/1Tzu_CmrF-Bi_YUVVNtj2ZATInYKacSHr/view?usp=drivesdk) · Evo 2 and 4, series B | The matching building icon appears under `interstellare Kommunikation` as `HG 3,4` and under `Das hab ich bestellt ??` as `Handelsg. 5,6`. These are additional entries for the trade building. |
+
+**Open historical question.** The sources establish resource trading and a documented research-to-building path. An official feature or building description that connects a specific `Handelsgesellschaft` level or a `Spaceport` to the intergalactic exchange remains unverified. The [source catalog](../sources/icewars-catalog.md) records the provenance of the XML and the community diagrams.
+
 ## Potential Areas of Inspiration
 
 - A deep technology tree and unusual buildings
