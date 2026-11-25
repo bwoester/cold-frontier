@@ -1,4 +1,4 @@
-@pending @issue-49
+@pending @issue-53
 Feature: Fixed upkeep is paid in whole units before operating
   Scope: Game behavior.
   Purpose: Specifies payments, shortages, and recovery for upkeep-dependent operation.
