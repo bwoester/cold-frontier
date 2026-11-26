@@ -12,7 +12,9 @@ The result contains the updated state and the game time reached, along with the 
 
 **Independence from intermediate timestamps.** Given the same initial state and no external interventions, additional queries or advancement intervals must not create or destroy resources. At the same target game time, stocks, production, consumption, and domain events with their effective game times match. Dividing advancement into segments must preserve fractional quantities. Produced resources become available in whole units. Fractions remain in the updated state as production progress. Numeric representation, including a possible integer scale, remains open.
 
-For the [water plant acceptance case](../game-design/scenarios/water-production.feature), the depletion event belongs to the interval that reaches minute 36. A subsequent interval starting at minute 36 does not report it again. Facilities advance together in the context of the colony. The caller does not specify rates or the order of individual facilities.
+Facilities advance together in the context of the colony. The caller does not specify rates or the order of individual facilities.
+
+**Waterworks example.** In the [water production acceptance case](../game-design/scenarios/water-production.feature), the depletion event belongs to the interval that reaches minute 36. A subsequent interval starting at minute 36 does not report it again.
 
 ### Construction Completion, Fractions, and Availability
 
@@ -26,9 +28,11 @@ Extraction follows the [pooling rules per colony and resource](../game-design/ec
 
 ### Inputs for a Unit in Progress
 
-Water processing follows the [pooling rules per colony and recipe](../game-design/economy.md#pooled-processing-per-colony-and-recipe). It starts a unit only when effective processing capacity and at least 1 ice and 2 energy in the resource pool are available. On start, both inputs move from the pool into the shared processing operation exactly once. The effective capacities of contributing water plants are pooled. A single set of ingredients serves the pooled operation. The unit remains in state as production in progress until completion. On completion, 1 whole unit of water moves into the pool.
+Every building that runs a recipe follows the [pooling rules per colony and recipe](../game-design/economy.md#pooled-processing-per-colony-and-recipe). Start a unit when the shared operation has effective processing capacity and all required input quantities are available. Withdraw the full set of inputs together exactly once. If any input is missing, leave all ingredients in stock and wait.
 
-If any input is missing, the next unit does not start and all inputs remain in the pool. As soon as pooled processing has all required quantities and effective capacity, it withdraws the ingredients together, assigns them to the unit in progress, and starts automatically. The unit becomes available once the effective pooled capacity has done all the work required to produce it. The [restart test case](../game-design/scenarios/water-production-restart.feature) demonstrates this with an energy shortage.
+The shared operation accumulates progress in game time at its effective pooled rate. Retain fractional progress in the unit in progress. On completion, credit the whole unit exactly once to its designated stock. Evaluate the next unit at that same game time. The [restart acceptance case](../game-design/scenarios/water-production-restart.feature) illustrates automatic restart once the ingredients and capacity are available.
+
+**Waterworks example.** The following timeline uses a recipe of 1 ice and 2 energy per unit of water, with enough energy for six units. Each finished unit enters the colony stock.
 
 - **Minute 0:** Before production first starts, the prepared pool contains 6 ice and 0 water. On initialization, the plant withdraws 1 ice and 2 energy and starts the first unit. The initialized state at minute 0 contains 5 ice and 0 water in the pool and the first unit in progress. Advancing to the game time already reached returns that state without new events. The first unit becomes available at minute 6.
 - **Minute 30:** The fifth unit of water becomes available. The plant withdraws the last unit of ice and 2 energy for the sixth unit. The pool has no ice left.
@@ -48,6 +52,8 @@ In the acceptance case, the depletion event marks the transition from active pro
 A time can be known in advance or follow from the progress of a mechanic. For example, the expected completion time of a construction order can shift because of an economic bottleneck. A spontaneous player command receives an effective game time under the rules for game flow coordination. Handling late and simultaneous actions remains part of the [open question on command ordering](command-ordering.md).
 
 ### Building-Specific Upkeep Effects
+
+The [fixed upkeep rules](../game-design/economy.md#colony-survival-and-critical-supply) apply to every building whose current state requires upkeep. Use the same payment timing and all-or-nothing withdrawal rules for each building. A missed payment creates no arrears. When a building-specific effect shuts down an upkeep-dependent operation, stop charging that operation at its effective shutdown time. Its building-specific recovery rules determine when it can operate again.
 
 **Architecture goal.** Follow the open–closed principle for reactions to unpaid upkeep. The upkeep evaluator determines payment and reports a shortage for each affected building at its effective game time. Separate domain components own the building-specific consequences. A new consequence should extend that logic without requiring a building-specific branch in the evaluator.
 
@@ -89,7 +95,7 @@ If ice is credited at minute 36 and at least 1 ice and 2 energy remain after pla
 
 ## Events from the Economy
 
-The result can report a transition handled within the economy. In the water plant scenario, the economy stops the plant when ice runs out. The audit event records the effective game time.
+The result can report a transition handled within the economy. For example, in the waterworks scenario the recipe stops starting new units when there is no ice left for the next unit. The audit event records the effective game time.
 
 If a transition can affect another mechanic at an earlier time, game flow coordination must account for it at that point before finalizing dependent states at later times. This also applies to feedback into the economy. A log evaluated only at the end is insufficient for this purpose.
 
