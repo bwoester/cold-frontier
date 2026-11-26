@@ -27,7 +27,9 @@ Source code: [ResourceSetMsg](../../lib/src/main/java/de/bwoester/coldfrontier/a
 
 ## Production and Dependencies
 
-**Confirmed water recipe.** Producing 1 unit of water consumes 1 unit of ice and 2 units of energy. Throughput and partial operation remain open.
+**Building production and consumption.** Players see hourly production and consumption rates. The [recipe processing rules](#pooled-processing-per-colony-and-recipe) apply to every building that runs a production recipe. The [fixed upkeep rules](#colony-survival-and-critical-supply) apply whenever a building's current state requires ongoing upkeep.
+
+**Waterworks example.** The confirmed recipe converts 1 ice and 2 energy into 1 water. Small and large waterworks use this same unit recipe and can contribute different processing rates. Their rates are balancing values.
 
 **Current code.** `ProductionService` sums signed hourly rates per resource from all buildings on a planet. Fractional amounts carry forward across ticks. The result includes any credits generated on the planet, which are booked to the owning player account. It does not yet account for shortages, input availability, or modifiers. `IRON_MINE` is an example configured with positive iron production and negative energy production. These values are provisional.
 
@@ -139,7 +141,7 @@ The stock coverage horizon, the conditions for restoring curtailed production, t
 
 **Industrial example.** Test values: A steelworks needs 10 iron per hour at full capacity. Its mines supply 6 per hour and no stock or delivery makes up the gap. The colony can operate only within that input budget over time. The player can add extraction capacity, arrange imports, or accept idle time. The exact timing and output depend on whole-unit starts and the effective recipes.
 
-**Confirmed initial rule for fixed upkeep.** When fixed upkeep is due, a building either pays the full amount in every required resource or pays nothing. Deduct all required resources together only if the building can be fully supplied. An unpaid demand leaves all of its resources available for other eligible uses. Fixed upkeep remains due even when an optional production recipe is stopped. [#47](https://github.com/bwoester/cold-frontier/issues/47) tracks how to choose among competing demands. [#49](https://github.com/bwoester/cold-frontier/issues/49) covers building-specific consequences, including the agreed controlled descent of an orbital shipyard that cannot pay its upkeep. Actual operating requirements and recipe ingredients still determine whether production is feasible. The headquarters proposal supplies its protected minimum independently of ordinary upkeep.
+**Confirmed rule for all buildings with fixed upkeep.** When upkeep is due, deduct all amounts due for that building together if every required resource is available. If any of those amounts cannot be paid, the entire demand remains unpaid and all of its resources stay available for other eligible uses. Fixed upkeep remains due in any building state that requires it, including while an optional production recipe is paused. [#47](https://github.com/bwoester/cold-frontier/issues/47) tracks how to choose among competing demands. Actual operating requirements and recipe ingredients still determine whether production is feasible. The headquarters proposal supplies its protected minimum independently of ordinary upkeep.
 
 **Example.** Two buildings each need 2 water and 3 water remain after drinking-water allocation. Pay one demand in full and leave 1 water available. Total demand is 4, payment is 2, and unmet upkeep is 2. If 1 water and 2 energy are due at the same game time and only 1 water and 1 energy remain, deduct neither resource for that demand.
 
@@ -151,7 +153,9 @@ The stock coverage horizon, the conditions for restoring curtailed production, t
 
 The [fixed upkeep Gherkin scenarios](scenarios/fixed-upkeep.feature) specify payment timing, shutdown, and recovery.
 
-**Confirmed research upkeep effect.** A research facility whose fixed upkeep is unpaid contributes zero research points per hour to its owner's research capacity. Ongoing research uses the remaining capacity from the effective game time of the change. If total capacity falls to zero, ongoing research pauses and retains accumulated progress. A facility can contribute again when its upkeep is fully paid and its other operating requirements are met. See [account-wide research](#account-wide-research) for start and slot rules and [S7](#s7--impaired-construction-or-research-progress) for a capacity example.
+**Building-specific consequences of unpaid upkeep.** The same payment and shortage rules apply across buildings. Each building's rules determine what an unpaid demand does to its services, capacity, or operating state, and what it takes to recover. For example, an orbital shipyard makes a controlled descent and pauses ship construction when it cannot pay its orbital upkeep. See [#49](https://github.com/bwoester/cold-frontier/issues/49) for confirmed building-specific effects.
+
+**Research facility example (confirmed).** A research facility whose fixed upkeep is unpaid contributes zero research points per hour to its owner's research capacity. Ongoing research uses the remaining capacity from the effective game time of the change. If total capacity falls to zero, ongoing research pauses and retains accumulated progress. A facility can contribute again when its upkeep is fully paid and its other operating requirements are met. See [account-wide research](#account-wide-research) for start and slot rules and [S7](#s7--impaired-construction-or-research-progress) for a capacity example.
 
 ### Resource Allocation Audit
 
@@ -310,11 +314,11 @@ before evaluating new recipe starts at the same game time. A recipe can start us
 newly available whole mined units immediately, with progress accruing from that time.
 The [resource allocation audit](#resource-allocation-audit) must distinguish mining and recipe changes and show their order when both take effect at the same game time. See the [proposed alternative](#common-stock-snapshot-for-resource-updates-proposal).
 
-**Confirmed rule (2026-11-17).** Buildings with the same recipe in a colony contribute capacity to a shared processing operation according to their effective operating conditions. The operation draws a single set of ingredients for each unit. Keep colonies and recipes separate.
+**Confirmed rule (2026-11-17).** These rules apply to all recipe-producing buildings. Buildings in the same colony that run the same recipe contribute their effective rates to one shared processing operation. Unfinished work belongs to that operation. Separate colonies and distinct recipes each have their own progress, even when they produce the same resource.
 
 Processing a whole output unit starts as soon as all its inputs and effective processing capacity are available. Withdraw all inputs together from the pool exactly once and assign them to the shared unit in progress. One complete set of inputs suffices regardless of how many buildings contribute. If a component is missing, nothing is withdrawn and the unit does not start.
 
-Retain fractional progress already made. A whole output unit becomes available when pooled processing completes it. If inputs and effective capacity are available, the next unit starts at that same game time without additional delay. Additional advances must not withdraw inputs again, lose progress, or credit output twice. A unit already started needs no further set of inputs, so a shortage for the next unit cannot prevent it from finishing.
+Work progresses continuously in game time at the effective pooled rate. Keep fractional progress with the unit in progress and credit the whole output exactly once to its designated stock on completion. If inputs and effective capacity are available, the next unit starts at that same game time. A shortage of ingredients for that next unit leaves any already funded unit able to finish while it has operating capacity. Additional advances preserve the funded inputs, progress, and completion time.
 
 **Effect of new construction on processing in progress.** Until effective completion, only existing capacity counts. From completion onward, a new building with the same recipe contributes to the remaining work of a unit already started. Retain existing progress. There is no retroactive acceleration, restart, or second withdrawal of inputs for that unit. Under constant operating conditions, the remaining time follows from unfinished work and the effective pooled capacity after completion.
 
@@ -587,13 +591,13 @@ An orbital shipyard is destroyed while one or more ships are being built. Unfini
 
 ### S12 – Ice Stock Runs Out During Water Production
 
-**Confirmed rule direction (2026-11-03).** Players see hourly production and consumption rates. With available inputs, production runs at the rate allowed by operating conditions. When a required input is missing, output falls accordingly. With no ice stock, the water plant cannot start another unit and withdraws no energy for it. A unit started with inputs already withdrawn still completes.
+**Waterworks example.** Under the [general recipe processing rules](#pooled-processing-per-colony-and-recipe), a waterworks with no ice in stock cannot start another unit and withdraws no energy for it. An already funded unit can still finish while the waterworks has operating capacity.
 
 **Test example.** The [water production Gherkin scenario](scenarios/water-production.feature) defines initial values, advancement, and expected stocks.
 
 The example rates are test values. Building parameters remain open. The time resolution should capture the transition when stock runs out. Time unit, rounding, and technical advancement remain open.
 
-**Audit requirement.** If the water plant cannot start another unit after completion because ice is missing, a domain event records the effective game time, affected colony, and resource. The scenario's time applies even if the simulation processes the event later. The audit should trace the plant's shutdown, its removed energy demand, and actual changes in other consumers to this event. Possible reallocation alone is not an observed change. Event structure, retention, and persistence remain architecture questions.
+**Audit requirement.** If the water plant cannot start another unit after completion because ice is missing, a domain event records the effective game time, affected colony, and resource. The scenario's time applies even if the simulation processes the event later. The audit should trace the recipe stopping, its resulting lack of demand for recipe energy, and actual changes in other consumers to this event. Possible reallocation alone is not an observed change. Event structure, retention, and persistence remain architecture questions.
 
 ### S13 – Unloading with Limited Storage Capacity
 
