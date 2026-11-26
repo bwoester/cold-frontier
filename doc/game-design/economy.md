@@ -149,11 +149,14 @@ The stock coverage horizon, the conditions for restoring curtailed production, t
 
 **Example of different rates.** A building completes at 12:00 and needs 2 fuel and 1 energy per game hour. Pay 1 of each at 12:00 and a second fuel at 12:30. This covers the first hour. At 13:00, both renewals are due together. If either is unavailable, neither is withdrawn.
 
-**Confirmed shutdown and restart.** A failed payment creates no arrears. When an upkeep-dependent operation shuts down, its upkeep stops accruing at the effective shutdown time. No further payment for that operation is due while it is shut down. When it resumes under its building-specific rules, new payments cover operation from that point forward.
+**Confirmed shutdown and restart.** A building whose due upkeep cannot be paid in full shuts down at the effective time of the failed payment. A failed payment creates no arrears. Upkeep for the stopped operation ceases at that time. When it resumes under its building-specific rules, new payments cover operation from that point forward.
+
+- **Extraction.** A stopped building ceases to withdraw from planetary deposits, produce resources, and contribute to shared extraction progress.
+- **Recipe processing.** A stopped building accepts no new recipe inputs, produces no further output, and contributes no capacity to shared processing. Already funded work keeps its ingredients and earned progress. Other operating buildings running the same recipe continue at their combined effective rate. If no capacity remains, work pauses.
 
 The [fixed upkeep Gherkin scenarios](scenarios/fixed-upkeep.feature) specify payment timing, shutdown, and recovery.
 
-**Building-specific consequences of unpaid upkeep.** The same payment and shortage rules apply across buildings. Each building's rules determine what an unpaid demand does to its services, capacity, or operating state, and what it takes to recover. For example, an orbital shipyard makes a controlled descent and pauses ship construction when it cannot pay its orbital upkeep. See [#49](https://github.com/bwoester/cold-frontier/issues/49) for confirmed building-specific effects.
+**Building-specific consequences of unpaid upkeep.** The shutdown applies to every building with an unpaid upkeep demand. Each building's rules determine the additional consequences for its services or operating state and what it takes to recover. For example, an orbital shipyard makes a controlled descent and pauses ship construction when it cannot pay its orbital upkeep. See [#49](https://github.com/bwoester/cold-frontier/issues/49) for confirmed building-specific effects.
 
 **Research facility example (confirmed).** A research facility whose fixed upkeep is unpaid contributes zero research points per hour to its owner's research capacity. Ongoing research uses the remaining capacity from the effective game time of the change. If total capacity falls to zero, ongoing research pauses and retains accumulated progress. A facility can contribute again when its upkeep is fully paid and its other operating requirements are met. See [account-wide research](#account-wide-research) for start and slot rules and [S7](#s7--impaired-construction-or-research-progress) for a capacity example.
 
@@ -162,7 +165,7 @@ The [fixed upkeep Gherkin scenarios](scenarios/fixed-upkeep.feature) specify pay
 The audit history explains the colony's allocation decisions and their consequences at the effective game time:
 
 - **Drinking-water optimization.** When it is triggered, record what the normal allocation would have produced or supplied, the projected shortfall that triggered the change, the strategy chosen, and its effect on supply and affected operations. In the steelworks example, show the competing energy demand, the energy redirected to the waterworks, and the change in drinking-water output.
-- **Fixed upkeep.** Record the demand, the amount paid, and any shortfall. Where building-level effects are modeled, identify the infrastructure that cannot be supplied and the shutdown or other transition it enters. For an orbital shipyard, this includes the controlled descent and pause in ship construction. Colony-level totals can summarize demand, payment, and unmet upkeep by resource.
+- **Fixed upkeep.** Record the demand, the amount paid, and any shortfall. Identify the building that cannot be supplied, its effective shutdown time, and any building-specific transition that follows. For an orbital shipyard, this includes the controlled descent and pause in ship construction. Colony-level totals can summarize demand, payment, and unmet upkeep by resource.
 - **Mining and recipes.** Show what mining and recipes do with the remaining eligible stock and operational infrastructure, including relevant output, recipe starts or blocks, and their effective order when they share a game time.
 
 ### Planned Verification
