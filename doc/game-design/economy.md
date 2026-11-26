@@ -346,6 +346,29 @@ Each dependency can add a delay at startup or recovery under the strict snapshot
 
 If the strict snapshot is adopted, document the allocation boundary in [#36](https://github.com/bwoester/cold-frontier/issues/36) and revise the confirmed mining order and immediate restart scenarios together. Check simultaneous completions and verify that short advances and a single advance across the same elapsed span give the same results and effective game times.
 
+#### Continuous Recipe Input Withdrawal (Proposal)
+
+**Status.** Evaluate proportional withdrawal as the preferred candidate. The unit-start prepayment rule above remains the baseline until the comparison supports a decision. [#57](https://github.com/bwoester/cold-frontier/issues/57) tracks the work.
+
+**Motivation.** Players should be able to see where resources went, why production slowed or stopped, and what it needs to resume. Sharing mechanics with extraction may reduce duplicated progress and accounting logic. Keeping unconsumed inputs available may let the colony respond to priority shortages earlier.
+
+**Candidate behavior.** Withdraw inputs in proportion to progress. For the example recipe of 1 ice and 2 energy per water, earning half a unit of progress consumes 0.5 ice and 1 energy. Advance only as far as all inputs and effective capacity allow. Pause at the effective shortage time, retain progress and consumption already accounted for, and resume when eligible supply and capacity return. Credit whole output once it is complete. Other recipes with the same output add their finished output to stock and keep their own progress. Planetary deposits remain sources for extraction. Whole-unit actions such as loading draw from eligible stock. The rules for fixed upkeep and its building-specific consequences still apply.
+
+**Worked comparison.** A waterworks runs at 10 water per game hour with 1 ice and 2 energy in stock at minute 0. A different building needs 1 energy for upkeep at minute 3 and has priority for available energy in this fixture. A delivery supplies 1 energy at minute 6. Assume no other activity or capacity changes.
+
+| Game time | Prepayment | Proportional withdrawal |
+| --- | --- | --- |
+| Minute 0 | Withdraw 1 ice and 2 energy to start the unit. | Begin work and draw ingredients as progress accrues. |
+| Minute 3 | The water unit is 50% complete. No energy remains in stock to pay the other building's upkeep. | The water unit is 50% complete. Upkeep uses the one remaining energy. The water unit pauses with 0.5 ice still in stock and consumes no ice while paused. |
+| Minute 6 | Credit 1 water. The delivered energy enters stock. With no ice, another water unit cannot start. | The delivery lets the waterworks resume the same unit at 50%. |
+| Minute 9 | The stock still contains 1 water. | Credit 1 water after consuming the remaining 0.5 ice and the delivered energy. |
+
+In this fixture, the candidate pays the priority demand at minute 3 and makes the first water available three minutes later. With uninterrupted full supply, both variants should finish an equivalent unit at the same time. The example assumes the upkeep allocation shown and leaves the general same-time rules to [#36](https://github.com/bwoester/cold-frontier/issues/36) and [#47](https://github.com/bwoester/cold-frontier/issues/47).
+
+**Decision criteria.** Show how the player distinguishes a fractional stock balance, whole units available for an action, and unfinished output. In the test above, 0.5 ice remains usable by the waterworks, while a transport can load zero whole ice. Check that splitting the same time interval or reordering equivalent operations preserves stocks, progress and effective event times. Check competing consumers, missing ingredients, capacity loss and resumed work. Compare reusable logic with the extra state and rules required for fractional stock, allocation and time boundaries. Adopt the candidate if it improves player comprehension and reduces implementation complexity while responding earlier to a priority shortage. Retaining prepayment with shared progress and crediting mechanics remains a possible outcome.
+
+[Specification and player-facing examples](https://github.com/bwoester/cold-frontier/issues/59) · [Offline comparison](https://github.com/bwoester/cold-frontier/issues/58) · [Engine integration and acceptance coverage](https://github.com/bwoester/cold-frontier/issues/60)
+
 ### Delayed Cancellation and Loss of Prerequisites
 
 **Clarified by the project owner on 2026-11-02:**
