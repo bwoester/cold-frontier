@@ -9,7 +9,14 @@ import java.util.EnumMap;
 import java.util.Map;
 import java.util.Optional;
 
-/** Fixed upkeep for one building. All effective times are exact fractions of a game second. */
+/**
+ * Calculates fixed upkeep for one building's payment terms. Effective times are exact
+ * fractions of a game second.
+ *
+ * <p>The renewal timestamps in {@link State} are a working representation. With a fixed rate,
+ * each is the last successful payment time for that resource plus the time one unit covers.
+ * The colony can derive these timestamps from its saved state when advancing game time.
+ */
 public final class FixedUpkeep {
     private final Map<ResourceType, BigFraction> coverageByResource;
 
