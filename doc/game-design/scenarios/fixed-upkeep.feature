@@ -1,4 +1,4 @@
-@pending @issue-53
+@issue-53
 Feature: Fixed upkeep is paid in whole units before operating
   Scope: Game behavior.
   Purpose: Specifies payments, shortages, and recovery for upkeep-dependent operation.
@@ -37,6 +37,7 @@ Feature: Fixed upkeep is paid in whole units before operating
 
   Rule: Shutdown stops upkeep and does not create arrears
 
+    @pending
     Scenario: Research resumes from retained progress with upkeep paid only for new operation
       Given a research facility completes at game minute 0
       And it needs 1 unit of energy per game hour while operational
@@ -64,6 +65,7 @@ Feature: Fixed upkeep is paid in whole units before operating
       When the simulation advances to game minute 210
       Then the active topic has accumulated 15 research points
 
+    @pending
     Scenario: An orbital shipyard stops accruing orbital upkeep when it grounds
       Given a shipyard is operational in orbit and its paid coverage expires at game minute 60
       And its next payment of 1 unit of fuel is due at game minute 60
