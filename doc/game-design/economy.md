@@ -107,6 +107,8 @@ Other options or combinations remain possible. Include labor demand for energy s
 
 **Confirmed rule (2026-11-03).** Available water first meets the drinking water needs of the entire current population. Other consumers can use the remainder. If the water is insufficient for the population, apply the stock and population decline rules.
 
+**Confirmed timing ([#48](https://github.com/bwoester/cold-frontier/issues/48)).** Water completed by the waterworks at the effective game time of residents' drinking-water demand is eligible to satisfy that demand immediately. If eligible supply covers current demand, no drinking-water shortage begins. If supply falls short, the shortage and population decline begin at that time. The shortage ends when available supply covers current demand, whether supply rises or demand falls. See the [drinking-water timing scenarios](scenarios/drinking-water-timing.feature). [#36](https://github.com/bwoester/cold-frontier/issues/36) tracks the remaining same-time availability cases.
+
 A facility whose demand cannot be met experiences a shortage. Define its consequences per consumer and input. Reduced output and possible damage to buildings that rely on cooling are proposals. Thresholds, duration, recovery, and sharing the remainder among facilities of equal priority remain open.
 
 **Test case for S11.** With 300 residents, an empty stock, and enough habitat production for 200, the population receives all available water. Another consumer receives none. Its specific response remains open.
@@ -342,7 +344,7 @@ The [pooled processing Gherkin scenarios](scenarios/pooled-processing.feature) c
 | Boundary case | Current rule or behavior | Proposed result |
 | --- | --- | --- |
 | A missing whole energy unit becomes available at 9:00 in the [#35 scenario](scenarios/water-production-restart.feature) | The waterworks restarts at 9:00 with zero progress and finishes at 15:00. | If the opening stock excludes that energy unit, the restart waits for the next update. The new completion time depends on the gameplay allocation boundary. |
-| The stock is empty when the waterworks completes one unit and residents and cooling each demand one | Drinking-water priority is confirmed. Whether the completion is eligible at that instant is open. | Neither can use the new unit in this update. It enters the opening stock for the next update, where it is allocated to any drinking-water demand due before cooling. Handling the earlier unmet demand remains open. |
+| The stock is empty when the waterworks completes one unit and residents and cooling each demand one | Residents receive the completed unit at that game time. Cooling receives none. | Keep completed water eligible for current drinking-water demand as required by the [confirmed rule](#priority-during-water-shortages). |
 | A mine, waterworks, and residents start from empty stocks with power already available | The mine's first whole ice unit can start the waterworks at the same time. Drinking-water timing is open. | With three illustrative gameplay allocation windows, ice completes in the first, the waterworks uses it and completes water in the second, and residents can first draw that water in the third. |
 
 Each dependency can add a delay at startup or recovery under the strict snapshot variant. If replenishment then covers withdrawals at the defined boundaries, the chain can run at its normal throughput. Average rates alone can hide recurring shortages. For example, a producer that supplies 2 units every other update can feed a consumer that needs 1 per update if storage can hold the 2-unit batch. With a capacity of 1 and excess discarded on credit, the consumer can still miss every other update.
@@ -590,7 +592,7 @@ An orbital shipyard is destroyed while one or more ships are being built. Unfini
 **When** this lasts for an interval.\
 **Then** stocks fall by the deficit and the population remains supplied. Under the allocation proposal, there is no drinking-water production override while the stock covers demand.\
 **When** available stock can no longer meet demand.\
-**Then** a water shortage can cause population decline. Timing, partial supply, and rate follow rules still to be defined.
+**Then** a water shortage and population decline begin at the effective time when eligible supply falls short of current demand. The decline rate remains open.
 
 ### S11 – Survival Despite Water and Labor Feedback
 

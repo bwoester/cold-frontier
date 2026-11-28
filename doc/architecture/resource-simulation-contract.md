@@ -53,6 +53,8 @@ A time can be known in advance or follow from the progress of a mechanic. For ex
 
 See [Strategy Pattern for Simulation Decisions](simulation-decision-strategies.md) for choosing among valid allocations, including staffing and competing upkeep demands.
 
+For drinking-water demand, apply the [confirmed availability rule](../game-design/economy.md#priority-during-water-shortages) at the effective game time. The [drinking-water timing scenarios](../game-design/scenarios/drinking-water-timing.feature) specify the outcomes for water completed at that time and water completed later.
+
 ### Building-Specific Upkeep Effects
 
 The [fixed upkeep rules](../game-design/economy.md#colony-survival-and-critical-supply) apply to every building whose current state requires upkeep. Use the same payment timing and all-or-nothing withdrawal rules for each building. A failed payment shuts the affected building down at the effective shortage time. Stop its contributions to extraction and recipe processing at that boundary. End upkeep for the stopped operation and retain progress already earned. A missed payment creates no arrears. Building-specific rules govern any additional effects of the shutdown and the conditions for resuming operation.
